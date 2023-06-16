@@ -4,4 +4,8 @@ Juan
 Leandro
 Héctor
 Hernan
+<<<<<<< HEAD
 Agustin
+=======
+.Puerba modif la rama dev y corregir merg en local
+>>>>>>> b6a422b4e9c5ad0476b689c4f69c8383dc0cda91
