@@ -1,5 +1,5 @@
 
-package eggporIzquierda.solucionesactivas.excepciones;
+package eggporIzquierda.solucionesactivas.exception;
 
 /**
  *
