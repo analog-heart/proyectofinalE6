@@ -1,4 +1,3 @@
-
 package eggporIzquierda.solucionesactivas.entity;
 
 import eggporIzquierda.solucionesactivas.enumation.Rol;
@@ -14,50 +13,44 @@ import jakarta.persistence.TemporalType;
 import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
 
-
-
- @Entity
+@Entity
 @Table(name = "usuarios")
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name= "uuid" , strategy = "uuid2")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
-  
-    private String nombreUsuario;
-    private String email;
-    private String password;
-    
-    private String nombre;
-    private String apellido;
-    private Date fechaNacimiento;
-    private String dni;
-    private String telefono;
-    
+
+    protected String nombreUsuario;
+    protected String email;
+    protected String password;
+
+    protected String nombre;
+    protected String apellido;
+    protected Date fechaNacimiento;
+    protected String dni;
+    protected String telefono;
+
     @OneToOne
-    private Domicilio domicilio;
-    
-    
-    private Boolean estado;
-    
-    
+    protected Domicilio domicilio;
+
+    private boolean estado;
+
     @Temporal(TemporalType.DATE)
-    private Date fecha;
-       
+    protected Date fecha;
+
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    
-    @OneToOne
-    private Imagen fotoPerfil;
 
-    
+    @OneToOne
+    protected Imagen fotoPerfil;
+
     //-----------Constructores 
     public Usuario() {
     }
 
-    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, Boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -81,8 +74,6 @@ public class Usuario {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
-    
 
     public String getId() {
         return id;
@@ -156,11 +147,11 @@ public class Usuario {
         this.domicilio = domicilio;
     }
 
-    public Boolean getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
@@ -210,9 +201,4 @@ public class Usuario {
         return sb.toString();
     }
 
-    
-    
-    
-    
-    
 }

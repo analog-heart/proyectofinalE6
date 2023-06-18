@@ -3,6 +3,7 @@ package eggporIzquierda.solucionesactivas.enumation;
 
 
 public enum Rol {
-    
-     ADMIN , PROVEEDOR , USUARIO ;
+    ADMIN,
+    PROVEEDOR,
+    USUARIO;
 }
