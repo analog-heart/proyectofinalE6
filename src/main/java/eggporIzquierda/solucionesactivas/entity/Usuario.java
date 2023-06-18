@@ -20,7 +20,7 @@ public class Usuario {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    protected String id;
 
     protected String nombreUsuario;
     protected String email;
@@ -35,13 +35,13 @@ public class Usuario {
     @OneToOne
     protected Domicilio domicilio;
 
-    private boolean estado;
+    protected boolean estado;
 
     @Temporal(TemporalType.DATE)
     protected Date fecha;
 
     @Enumerated(EnumType.STRING)
-    private Rol rol;
+    protected Rol rol;
 
     @OneToOne
     protected Imagen fotoPerfil;

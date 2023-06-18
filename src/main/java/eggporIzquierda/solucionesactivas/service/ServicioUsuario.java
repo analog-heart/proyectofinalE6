@@ -52,11 +52,11 @@ public class ServicioUsuario implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String idUsuario, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
 
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
             Usuario usuario = respuesta.get();
