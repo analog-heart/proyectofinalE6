@@ -1,34 +1,47 @@
 package eggporIzquierda.solucionesactivas.entity;
 
+import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 
 @Entity
 public class Proveedor extends Usuario {
 
-    private List<EnumServiciosOfrecidos> servicios;
-    private boolean estadoProveedorActivo = false;
+    private ArrayList<EnumServiciosOfrecidos> servicios;
+    private Boolean estadoProveedorActivo;
+    private Double reputacion;
+    @Enumerated(EnumType.STRING)
+    private EnumNivel nivel;
 
-    // CONSTRUCTORES
+    
+    
+    
+    // CONSTRUCTORES (sin atributo reputación)
     public Proveedor() {
     }
 
-    public Proveedor(List<EnumServiciosOfrecidos> servicios) {
+    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel) {
         this.servicios = servicios;
+        this.estadoProveedorActivo = estadoProveedorActivo;
+        this.nivel = nivel;
     }
 
-    public Proveedor(List<EnumServiciosOfrecidos> servicios, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
         super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol, fotoPerfil);
         this.servicios = servicios;
+        this.estadoProveedorActivo = estadoProveedorActivo;
+        this.nivel = nivel;
     }
 
-   
 
-    //MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
+//    MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
     public void activarProveedor() {
         this.estadoProveedorActivo = true;
     }
@@ -39,20 +52,36 @@ public class Proveedor extends Usuario {
 
     // GUETTERS AND SETTERS
 
-    public List<EnumServiciosOfrecidos> getServicios() {
+    public ArrayList<EnumServiciosOfrecidos> getServicios() {
         return servicios;
     }
 
-    public void setServicios(List<EnumServiciosOfrecidos> servicios) {
+    public void setServicios(ArrayList<EnumServiciosOfrecidos> servicios) {
         this.servicios = servicios;
     }
 
-    public boolean isEstadoProveedorActivo() {
+    public Boolean getEstadoProveedorActivo() {
         return estadoProveedorActivo;
     }
 
-    public void setEstadoProveedorActivo(boolean estadoProveedorActivo) {
+    public void setEstadoProveedorActivo(Boolean estadoProveedorActivo) {
         this.estadoProveedorActivo = estadoProveedorActivo;
+    }
+
+    public Double getReputacion() {
+        return reputacion;
+    }
+
+    public void setReputacion(Double reputacion) {
+        this.reputacion = reputacion;
+    }
+
+    public EnumNivel getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(EnumNivel nivel) {
+        this.nivel = nivel;
     }
     
 

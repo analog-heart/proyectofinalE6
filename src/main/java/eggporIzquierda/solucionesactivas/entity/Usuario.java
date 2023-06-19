@@ -28,6 +28,7 @@ public class Usuario {
 
     protected String nombre;
     protected String apellido;
+    @Temporal(TemporalType.DATE)
     protected Date fechaNacimiento;
     protected String dni;
     protected String telefono;
