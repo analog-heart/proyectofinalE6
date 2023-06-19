@@ -10,6 +10,11 @@
     font-weight: 700;
 }
 
+.nav-link{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .elementos{
     margin-right: 50px;
 }

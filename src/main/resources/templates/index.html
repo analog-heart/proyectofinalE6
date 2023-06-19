@@ -6,13 +6,28 @@
 </head>
 
 <body>
-    <nav th:replace="/fragments/navbar :: nav">
+    <nav class="navbar navbar-expand-lg navBar">
         <div class="containerImg">
-            <a href="/" class="navbar-brand d-flex align-items-center">
-                <img class="logo" src="" alt="Img logo ">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <img class="logo" src="" alt="Logo Soluciones Activas">
             </a>
         </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto elementos">
+                <li class="nav-item">
+                    <i class="fa-thin fa-user"></i>
+                    <a class="nav-link " href="/registrar" id="navbarDropdown" role="button" aria-expanded="false">
+                        Registrate
+                    </a>
+                </li>
+
+            </ul>
+        </div>
     </nav>
+   
 
     <header class="header">
         <section class="contenedorMain">
