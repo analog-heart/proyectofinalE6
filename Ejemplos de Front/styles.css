@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa;
+   background-image: "C:\Users\diego\Desktop\Curso EGG\Proyecto Final\ProyectoFinalGrupo6\proyectofinalE6\Ejemplos de Front\SA.png";
+  }
+  
+  .navbar {
+    background-color: hsl(49, 91%, 47%);
+  }
+  
+  .card {
+    background-color: #ffffff;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
