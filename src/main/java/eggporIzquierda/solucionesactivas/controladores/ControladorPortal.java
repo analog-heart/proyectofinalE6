@@ -1,4 +1,4 @@
-package controladores;
+package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -31,7 +31,7 @@ public class ControladorPortal {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "registro.html";
+        return "registrar.html";
     }
 
     @PostMapping("/registro")

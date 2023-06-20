@@ -38,7 +38,7 @@
 }
 
 .header{
-    background-image: url("../imageninicio.jpg");
+    background-image: url("../IMG/imageninicio.jpg");
     background-size: cover;
     height: 550px;
     display: flex;

@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/fragments/head :: head">
-    <link rel="stylesheet" href="../static.css/index.css">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Soluciones Activas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/index.css">
+    
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navBar">
-        <div class="containerImg">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <img class="logo" src="" alt="Logo Soluciones Activas">
-            </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
-            <ul class="navbar-nav ms-auto elementos">
-                <li class="nav-item">
-                    <i class="fa-thin fa-user"></i>
-                    <a class="nav-link " href="/registrar" id="navbarDropdown" role="button" aria-expanded="false">
-                        Registrate
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </nav>
+ <nav th:replace="fragments/navbar :: nav1">    </nav>
    
 
     <header class="header">
