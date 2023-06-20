@@ -1,14 +1,15 @@
 package eggporIzquierda.solucionesactivas.repository;
 
-import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RepositorioUsuario extends JpaRepository<Usuario, String> {
+public interface RepositorioProveedor extends JpaRepository<Proveedor, String> {
 
-    @Query("SELECT u FROM Usuario u WHERE u.email = :email")
-    public Usuario buscarPorEmail(@Param("email") String email);
+    @Query("SELECT u FROM Proveedor u WHERE u.email = :email")
+    public Proveedor buscarPorEmail(@Param("email") String email);
+
 }
