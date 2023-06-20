@@ -1,4 +1,3 @@
-
 package eggporIzquierda.solucionesactivas.entity;
 
 import jakarta.persistence.Entity;

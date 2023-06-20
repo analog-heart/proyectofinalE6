@@ -1,10 +1,12 @@
 package eggporIzquierda.solucionesactivas.service;
 
 import eggporIzquierda.solucionesactivas.entity.Imagen;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
-import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
+import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,95 +27,96 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class ServicioUsuario implements UserDetailsService {
+public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
-    private RepositorioUsuario usuarioRepositorio;
+    private RepositorioProveedor proveedorRepositorio;
 
     @Autowired
     private ServicioImagen imagenServicio;
+
     
-    
+   
     @Transactional
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(List<EnumServiciosOfrecidos> servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
         validar(nombreUsuario, email, password, password2);
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario(nombreUsuario);
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setFechaNacimiento(fechaNacimiento);
-        usuario.setDni(dni);
-        usuario.setEmail(email);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.USUARIO);
+        Proveedor proveedor = new Proveedor();
+        proveedor.setNombreUsuario(nombreUsuario);
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setFechaNacimiento(fechaNacimiento);
+        proveedor.setDni(dni);
+        proveedor.setEmail(email);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+        proveedor.setRol(Rol.PROVEEDOR);
         Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setFotoPerfil(imagen);
-        usuarioRepositorio.save(usuario);
+        proveedor.setFotoPerfil(imagen);
+        proveedorRepositorio.save(proveedor);
     }
 
+    
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
 
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
-            Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setEmail(email);
-            usuario.setNombreUsuario(nombreUsuario);
-            usuario.setApellido(apellido);
-            usuario.setFechaNacimiento(fechaNacimiento);
-            usuario.setDni(dni);
+            Proveedor proveedor = respuesta.get();
+            proveedor.setNombre(nombre);
+            proveedor.setEmail(email);
+            proveedor.setNombreUsuario(nombreUsuario);
+            proveedor.setApellido(apellido);
+            proveedor.setFechaNacimiento(fechaNacimiento);
+            proveedor.setDni(dni);
             
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
 
-            usuario.setRol(Rol.USUARIO);
+            proveedor.setRol(Rol.PROVEEDOR);
 
             String idImagen = null;
 
-            if (usuario.getFotoPerfil() != null) {
-                idImagen = usuario.getFotoPerfil().getId();
+            if (proveedor.getFotoPerfil() != null) {
+                idImagen = proveedor.getFotoPerfil().getId();
             }
 
             Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
 
-            usuario.setFotoPerfil(imagen);
+            proveedor.setFotoPerfil(imagen);
 
-            usuarioRepositorio.save(usuario);
+            proveedorRepositorio.save(proveedor);
         }
-
     }
 
     public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
+        return proveedorRepositorio.getOne(id);
     }
 
     @Transactional(readOnly = true)
-    public List<Usuario> listarUsuarios() {
+    public List<Proveedor> listarProveedores() {
 
-        List<Usuario> usuarios = new ArrayList();
+        List<Proveedor> proveedores = new ArrayList();
 
-        usuarios = usuarioRepositorio.findAll();
+        proveedores = proveedorRepositorio.findAll();
 
-        return usuarios;
+        return proveedores;
     }
 
     @Transactional
     public void cambiarRol(String id) {
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
 
-            Usuario usuario = respuesta.get();
+            Proveedor proveedor = respuesta.get();
 
-            if (usuario.getRol().equals(Rol.USUARIO)) {
+            if (proveedor.getRol().equals(Rol.USUARIO)) {
 
-                usuario.setRol(Rol.ADMIN);
+                proveedor.setRol(Rol.PROVEEDOR);
 
-            } else if (usuario.getRol().equals(Rol.ADMIN)) {
-                usuario.setRol(Rol.USUARIO);
+            } else if (proveedor.getRol().equals(Rol.PROVEEDOR)) {
+                proveedor.setRol(Rol.USUARIO);
             }
         }
     }
@@ -135,17 +138,22 @@ public class ServicioUsuario implements UserDetailsService {
         }
 
     }
-
+ 
+    
+    
+    
+    
+    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(email);
 
-        if (usuario != null) {
+        if (proveedor != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + proveedor.getRol().toString());
 
             permisos.add(p);
 
@@ -153,12 +161,13 @@ public class ServicioUsuario implements UserDetailsService {
 
             HttpSession session = (HttpSession) attr.getRequest().getSession(true);
 
-            session.setAttribute("usuariosession", usuario);
+            session.setAttribute("usuariosession", proveedor);
 
-            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+            return new User(proveedor.getEmail(), proveedor.getPassword(), permisos);
         } else {
             return null;
         }
     }
-
+    
+    
 }
