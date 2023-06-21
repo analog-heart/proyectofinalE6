@@ -31,7 +31,7 @@ public class ControladorPortal {
 
     @GetMapping("/registrar")
     public String registrar() {
-        return "registro.html";
+        return "registrar.html";
     }
 
     @PostMapping("/registro")
@@ -42,14 +42,14 @@ public class ControladorPortal {
             usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
-            return "inicio.html";
+            return "index.html";
         } catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
 
-            return "registro.html";
+            return "registrar.html";
         }
 
     }
@@ -64,7 +64,7 @@ public class ControladorPortal {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
