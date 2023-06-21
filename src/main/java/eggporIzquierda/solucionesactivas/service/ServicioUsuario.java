@@ -36,7 +36,7 @@ public class ServicioUsuario implements UserDetailsService {
     
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
-        validar(nombreUsuario, email, password, password2);
+        validar( email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
@@ -54,7 +54,7 @@ public class ServicioUsuario implements UserDetailsService {
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
-        validar(nombre, email, password, password2);
+        validar(email, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -118,11 +118,11 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar(String nombre, String email, String password, String password2) throws MiException {
+    private void validar( String email, String password, String password2) throws MiException {
 
-        if (nombre.isEmpty() || nombre == null) {
-            throw new MiException("el nombre no puede ser nulo o estar vacío");
-        }
+//        if (nombre.isEmpty() || nombre == null) {
+//            throw new MiException("el nombre no puede ser nulo o estar vacío");
+//        }
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
