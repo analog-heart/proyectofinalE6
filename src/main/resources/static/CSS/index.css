@@ -59,8 +59,9 @@
 }
 
 .tituloSoluciones{
-    font-size: 22px;
+    font-size: 100px;
     font-weight: 500;
+    font-style:italic;
 }
 
 .contenedorMain{
