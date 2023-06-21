@@ -11,25 +11,25 @@
 
 <body>
 
-<!--    <nav th:replace=" /fragments/navbar :: nav">    </nav>-->
+  <nav th:replace=" /fragments/navbar :: nav1">    </nav>
     <div class="container-fluid m-5 contenedor">
 
-        <form class="formulario" id="inicio" th:action="@{/registrar}" method="POST">
+        <form class="formulario" id="inicio" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
             <div class="form-group my-3">
                 
-                <h4 class="card-title">Informacion Personal</h4>
-                <!-- <label class="mb-2"> ¿AUN NO TENES CUENTA? REGISTRATE !!!</label>
-                <label class="mb-2"> INFORMACION PERSONAL</label> -->
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre">
-                <input type="text" class="form-control" name="apellido" placeholder="Apellido">
-                <input type="text" class="form-control" name="dni" placeholder="DNI">
+<!--                <h4 class="card-title">Informacion Personal</h4>
+                <label class="mb-2"> ¿AUN NO TENES CUENTA? REGISTRATE !!!</label>
+                <label class="mb-2"> INFORMACION PERSONAL</label>-->
+                <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
+                <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
+                <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
                 
-                <input type="text" class="form-control" name="telefono" placeholder="Telefono">
-                <!-- <input type="text" class="form-control" name="email" placeholder="Email"> -->
-                <input type="text" class="form-control" name="fechadenacimiento" placeholder="Fecha de Nacimiento">
+                <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
+               
+<!--                <input type="Date" class="form-control"  name="fechaNacimiento" placeholder="Fecha de Nacimiento" th:value="${fechaNacimiento}">-->
                 <br>
 
-<!--                <h4 class="card-title">Domicilio</h4>
+<!--               <h4 class="card-title">Domicilio</h4>
                 <div class="direccion">
                     <input type="text" class="form-control" name="calle" placeholder="Calle">
                     <input type="text" class="form-control" name="numero" placeholder="N&uacute;mero">
@@ -39,9 +39,9 @@
                     <input type="text" class="form-control" name="lote" placeholder="Lote">
                     <input type="text" class="form-control" name="cp" placeholder="CP">
                 </div>
-                <input type="text" class="form-control" name="localidad" placeholder="Localidad">
+                <input type="text" class="form-control" name="localidad" placeholder="Localidad">-->
 
-            </div>-->
+            </div>
 
             <div class="form-group my-3">
                 <input type="file" class="form-control" name="archivo">
@@ -59,11 +59,11 @@
 
 
             <div class="form-group my-3">
-                <input type="password" class="form-control" name="password" placeholder="CONTRASE&Ntilde;A"
+                <input type="password" class="form-control"  name="password" placeholder="CONTRASE&Ntilde;A"
                     th:value="${password}">
             </div>
             <div class="form-group my-3">
-                <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASE&Ntilde;A"
+                <input type="password" class="form-control"  name="password2" placeholder="REPETIR CONTRASE&Ntilde;A"
                     th:value="${password2}">
             </div>
             
