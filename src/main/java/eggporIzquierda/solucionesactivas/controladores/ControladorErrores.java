@@ -1,4 +1,4 @@
-package controladores;
+package eggporIzquierda.solucionesactivas.controladores;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
