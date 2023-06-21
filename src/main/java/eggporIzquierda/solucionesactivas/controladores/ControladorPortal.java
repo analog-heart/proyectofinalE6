@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Controller
 @RequestMapping("/")
 public class ControladorPortal {
+
     @Autowired
     private ServicioUsuario usuarioServicio;
 
@@ -31,11 +31,8 @@ public class ControladorPortal {
 
     @GetMapping("/registrar")
     public String registrar() {
-<<<<<<< HEAD
-        return "registro.html";
-=======
         return "registrar.html";
->>>>>>> Developers
+
     }
 
     @PostMapping("/registro")
@@ -46,22 +43,15 @@ public class ControladorPortal {
             usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
-<<<<<<< HEAD
-            return "inicio.html";
-=======
             return "index.html";
->>>>>>> Developers
         } catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
 
-<<<<<<< HEAD
-            return "registro.html";
-=======
             return "registrar.html";
->>>>>>> Developers
+
         }
 
     }
@@ -76,11 +66,8 @@ public class ControladorPortal {
         return "login.html";
     }
 
-<<<<<<< HEAD
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-=======
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
->>>>>>> Developers
+
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
