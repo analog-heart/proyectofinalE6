@@ -36,6 +36,7 @@ public class ServicioUsuario implements UserDetailsService {
     
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+        
         validar( email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
@@ -49,6 +50,7 @@ public class ServicioUsuario implements UserDetailsService {
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
+        
     }
 
     @Transactional
@@ -99,6 +101,18 @@ public class ServicioUsuario implements UserDetailsService {
 
         return usuarios;
     }
+    
+
+   public List<Usuario> buscarUsuariosXnombre(String nombre){
+       
+       List<Usuario> usuariosXnombre = new ArrayList();
+       
+       usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
+       
+       return usuariosXnombre;
+   }
+    
+
 
     @Transactional
     public void cambiarRol(String id) {
