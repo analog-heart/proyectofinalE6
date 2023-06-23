@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluciones Activas</title>
+</head>
+
+<body>
+
+    <div type="container"><a th:href="@{/inicio}">Soluciones Activas home</a></div>
+    <br>
+    <form type="form" th:action="@{/contratar}" method="POST">
+        <br>
+        <label for="idUsuario">Ingrese el ID de usuario</label>
+        <input type="text" name="idUsuario" th:value="${idUsuario}">
+        <br>
+        <br>
+        <label for="idProveedor">Ingrese el ID del proveedor</label>
+        <input type="text" name="idProveedor" th:value="${idProveedor}">
+        <br>
+        <br>
+        <button type="submit">Generar contrato</button>
+    </form>
+
+<!-- ERRORES -->
+    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+        <div class="card-body">
+            <h5 class="card-title">Error!</h5>
+            <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+        <div class="card-body">
+            <h5 class="card-title">Exito!</h5>
+            <p class="card-text" th:text="${exito}"></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

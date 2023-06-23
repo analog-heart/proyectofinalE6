@@ -2,6 +2,7 @@ package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
@@ -22,6 +23,10 @@ public class ControladorPortal {
 
     @Autowired
     private ServicioUsuario usuarioServicio;
+    
+    //Agrego para probar alta de contrato
+    @Autowired
+    private ServicioContrato contratoServicio;
 
     @GetMapping("/")
     public String index() {
@@ -129,5 +134,34 @@ public class ControladorPortal {
         }
 
     }
+    
+    //Agrego el controlador para probar la generación de los contratos
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/contrato")
+    public String contrato() {
+        return "contrato.html";
+
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/contratar")
+    public String contratar(ModelMap modelo){
+        
+        try {
+            
+            contratoServicio.crearContrato();
+            
+            modelo.put("exito", "El contrato fue generado con exito");
+            
+        } catch (MiException ex) {
+            
+            modelo.put("error", ex.getMessage());
+            
+            return "contrato.html";
+        }
+        
+        return "contrato.html";
+}
+
 
 }
