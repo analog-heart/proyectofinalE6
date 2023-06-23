@@ -1,7 +1,7 @@
 <nav th:fragment="nav1" class="navbar navbar-expand-lg navBar">
     <div class="containerImg">
         <a href="/" class="navbar-brand d-flex align-items-center">
-            <img class="logo" src="/IMG/android-chrome-192x192.png" alt="Img Soluciones Activas">
+           <!--<img class="logo" src="/IMG/android-chrome-192x192.png" alt="Img Soluciones Activas">-->
         </a>
     </div>
     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,9 @@
                     <li><a class="dropdown-item" href="/logout" >Cerrar Sesión</a></li>
                 </ul>
             </li>-->
-
+    
+    <div>
+        <ul>
             <li class="nav-item">
                 <a class="nav-link " th:if="${session.usuariosession == null}" href="/registrar" id="navbarDropdown" role="button" aria-expanded="false">
                     Registrate!
@@ -72,4 +74,68 @@
             </li>
         </ul>
     </div>
+</nav>
+
+ <!---------------------------------PRueba Hernan --------------------->
+
+<nav th:fragment="nav_bar2" class="search navbar inicial navbar-expand-md">
+    <div class="logo container-fluid">
+        <a class ="navbar-brand" th:href="@{/}">Soluciones Activas</a>
+    </div>
+
+    <div th:if="${session.usuariosession != null}" class="navpanel">
+        <div class="navpanel navDashboard z-1 position-absolute">
+            <li sec:authorize="hasRole('ADMIN')" class="d-flex nav-item dropdown navpanel">                
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    &nbsp USUARIOS
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" >
+                    <li><a href="/admin/altaperiodista"  class="dropdown-item">LISTAR USUARIOS    </a></li>
+                    <li><a href="/admin/listaPeriodistas" class="dropdown-item">ELIMINAR USUARIOS</a></li>
+     
+                </ul>
+            </li>
+
+            <li sec:authorize="hasAnyRole('ADMIN','USUARIO')" class="d-flex nav-item dropdown navpanel">                
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    &nbsp SERVICIOS CONTRATADOS  
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" >
+                    <li><a href="/admin/crear"        class="dropdown-item">LISTAR CONTRATOS</a></li>
+                    <li><a href="/admin/listaNoticias" class="dropdown-item">CALIFICAR PROVEEDOR</a></li>
+                     <!--TH:REF =@{ADMIN/ELIMINAR }-->
+                    <li><a sec:authorize="hasRole('ADMIN')"  href="#" class="dropdown-item">ELIMINAR COMENTARIOS</a></li> 
+                </ul>
+            </li>
+
+
+            <li sec:authorize="hasAnyRole('ADMIN','PROVEEDOR','USUARIO')" class="d-flex nav-item dropdown navpanel">                
+                <a th:text="${session.usuariosession.nombre}" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    &nbsp<i class="bi bi-house"></i> 
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" >
+                    <li><a href="/dashboard" class="dropdown-item">Mi Perfil    </a></li>
+                    <li><a href="/cargarImagen" class="dropdown-item"               >Cargar Imagen</a></li>
+                    <li><a href="/logout"          class="dropdown-item">Cerrar_Sesión</a></li>
+                </ul>
+            </li>
+
+            <div>
+                <a > <img th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" class="fotoperfiluser" alt="alt"/></a>
+            </div>
+
+
+
+
+        </div>
+        
+    </div>
+     <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
+            <a href="/registrar"  type="button" class="btn btn botondelogin ">Registrate</a>
+    </div>
+
+    <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
+            <a href="/login"  type="button" class="btn btn-danger botondelogin ">Login</a>
+    </div>
+
 </nav>
