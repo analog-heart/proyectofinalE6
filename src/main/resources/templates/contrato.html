@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soluciones Activas</title>
-</head>
+<head th:replace="fragments/head :: head1"> </head>
 
 <body>
 
-    <div type="container"><a th:href="@{/inicio}">Soluciones Activas home</a></div>
+    <nav th:replace="fragments/navbar :: nav_bar2"> </nav>
     <br>
-    <form type="form" th:action="@{/contratar}" method="POST">
+    <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contratar}" method="POST">
         <br>
-        <label for="idUsuario">Ingrese el ID de usuario</label>
+        <label for="idUsuario">ID de usuario</label>
         <input type="text" name="idUsuario" th:value="${idUsuario}">
         <br>
         <br>
-        <label for="idProveedor">Ingrese el ID del proveedor</label>
+        <label for="idProveedor">ID de proveedor</label>
         <input type="text" name="idProveedor" th:value="${idProveedor}">
         <br>
         <br>
