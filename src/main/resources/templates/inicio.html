@@ -3,6 +3,7 @@
     <head th:replace="fragments/head :: head1">    </head>
 
     <body>
+<<<<<<< HEAD
         <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
         <main class="header">
             <section class="contenedorMain">
@@ -33,5 +34,19 @@
                 integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
 
+=======
+        
+         <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
+        <h1>INGRESASTE CORRECTAMENTE</h1>
+
+        <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
+        <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-primary"> Lista de Proveedores </button> </a>
+        <form th:action="@{/usuario/buscar}" method="get">
+            <input type="text" name="nombre" placeholder="Buscar por nombre">
+            <button type="submit">Buscar</button>
+        </form>
+
+
+>>>>>>> Developers
     </body>
 </html>
