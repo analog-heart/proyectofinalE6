@@ -16,29 +16,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ServicioContrato {
-    
+
     @Autowired
     private RepositorioContrato repositoriocontrato;
     @Autowired
     private RepositorioProveedor repositorioproveedor;
     @Autowired
     private RepositorioUsuario repositoriousuario;
-    
-@Transactional
-public void crearContrato()throws MiException {
-    
+
+    @Transactional
+    public void crearContrato() throws MiException {
+
 //    Proveedor p = repositorioproveedor.findById(idProveedor).get();
 //    Usuario u = repositoriousuario.findById(idUsuario).get();
-    
-    ContratoProveedor CP = new ContratoProveedor();
-    
-    CP.setEstado(EnumEstadoContrato.SOLICITADO);
+        ContratoProveedor CP = new ContratoProveedor();
+
+        CP.setEstado(EnumEstadoContrato.SOLICITADO);
 //    CP.setProveedor(p);
 //    CP.setUsuario(u);
-    CP.setFechaContrato(new Date());
-    
-    
-    repositoriocontrato.save(CP);
-}
-    
+        CP.setFechaContrato(new Date());
+
+        repositoriocontrato.save(CP);
+    }
+
 }
