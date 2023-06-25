@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head1">    </head>
-    <body>
-        
-         <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
-        <h1>INGRESASTE CORRECTAMENTE</h1>
+
+<head th:replace="fragments/head :: head1"> </head>
+
+<body>
+
+    
+    <nav th:replace="fragments/navbar :: nav_bar2"> </nav>
+
+    <div style="align-content: center;">
+    <h1>INGRESASTE CORRECTAMENTE</h1>
         
     <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
-    </body>
+    <br>
+    <br>
+    <a th:href="@{/contrato}"><button type="button" class="btn btn-primary"> Generar contrato </button> </a>
+    </div>
+
+</body>
+
 </html>

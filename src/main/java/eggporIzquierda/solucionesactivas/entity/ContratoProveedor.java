@@ -36,12 +36,8 @@ public class ContratoProveedor {
     private String comentario;
     private BigDecimal precio;
 
-
-
-
 // CONSTRUCTORES:
-    
-        public ContratoProveedor() {
+    public ContratoProveedor() {
     }
 
     public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, EnumCalificacion calificacion, String comentario, BigDecimal precio) {
@@ -56,9 +52,7 @@ public class ContratoProveedor {
         this.precio = precio;
     }
 
-    
     //GETTERS AND SETTERS
-
     public String getId() {
         return id;
     }
@@ -130,5 +124,5 @@ public class ContratoProveedor {
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
-     
+
 }
