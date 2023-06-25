@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
- <nav th:replace="fragments/head :: head1">    </nav>
-
+     <head th:replace=" /fragments/head :: head1"></head>
+    
 <body>
  <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
    
@@ -9,7 +9,7 @@
     <header class="header">
         <section class="contenedorMain">
             <div class="titulo">
-                <a class="navbar-brand" href="#">SOLUCIONES ACTIVAS</a>
+                <h1 class="navbar-brand" href="#">SOLUCIONES ACTIVAS</h1>
             </div>
             <div class="container contenedorSoluciones">
                 <p class="tituloSoluciones" th:if="${session.usuariosession != null}"

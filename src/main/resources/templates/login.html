@@ -3,43 +3,43 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace=" /fragments/head :: head2"></head>
     <body>
-
+        <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
         <div class="contenedor">
-           
+
             <div class="left-panel">
                 <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
             </div>
 
             <div class="right-panel">
-                  <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
-                      <div class ="texto">
-                      
-                     <div class="logo ">
-                    <img src="/Img/icon.png" width="30%" alt="Logo">
-                    <h2 class="card-title mb-3">Soluciones Activas </h2>
-                </div>
-                    <div class="form-input ">
-                        <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
-                    </div>
-                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
-                    <div class="form-input ">
-                        <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                    </div>
+                <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
+                    <div class ="texto">
 
-                    <div th:replace="fragments/error :: errores1"></div>
-                    <div class="form-button">
-                        <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
-                    </div>
-                   
-                    <a href="/registrar"  class="btn btn-success">Registrate</a>
-                    
+                        <div class="logo ">
+                            <img src="/Img/icon.png" width="30%" alt="Logo">
+                            <h2 class="card-title mb-3">Soluciones Activas </h2>
+                        </div>
+                        <div class="form-input ">
+                            <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
+                        </div>
+                        <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                        <div class="form-input ">
+                            <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                        </div>
+
+                        <div th:replace="fragments/error :: errores1"></div>
+                        <div class="form-button">
+                            <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
+                        </div>
+
+                        <a href="/registrar"  class="btn btn-success">Registrate</a>
+
                     </div>
                 </form>
             </div>
 
 
         </div>
-        
+
         <footer th:replace="fragments/footer :: footer1">    </footer>
 
     </body>
