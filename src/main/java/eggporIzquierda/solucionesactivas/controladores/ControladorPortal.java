@@ -1,11 +1,17 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,7 +28,10 @@ public class ControladorPortal {
 
     @Autowired
     private ServicioUsuario usuarioServicio;
-
+    
+    @Autowired
+    private ServicioProveedor proveedorServicio;
+        
     @GetMapping("/")
     public String index() {
 
@@ -55,7 +64,33 @@ public class ControladorPortal {
         }
 
     }
+    
+    @GetMapping("/registrarproveedor")
+    public String registrarProveedor(ModelMap modelo) {
+        modelo.addAttribute("serviciosOfrecidos", EnumServiciosOfrecidos.values());
+        return "registrar_proveedor.html";
+    }
 
+    @PostMapping("/registroproveedor")
+    public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {
+
+        try {
+            
+            proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            modelo.put("exito", "Usuario registrado correctamente!");
+
+            return "inicio.html";
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+
+            return "registrar_proveedor.html";
+        }
+
+    }    
+    
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
@@ -79,7 +114,8 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -94,7 +130,7 @@ public class ControladorPortal {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
