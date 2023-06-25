@@ -65,19 +65,20 @@ public class ControladorPortal {
     }
     
     @GetMapping("/registrarproveedor")
-    public String registrarProveedor() {
+    public String registrarProveedor(ModelMap modelo) {
+        modelo.addAttribute("serviciosOfrecidos", EnumServiciosOfrecidos.values());
         return "registrar_proveedor.html";
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(ArrayList<EnumServiciosOfrecidos> servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2,ModelMap modelo) {
+    public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {
 
         try {
-            modelo.addAttribute("servicios", servicios );
+            
             proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
-            return "login.html";
+            return "inicio.html";
         } catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());

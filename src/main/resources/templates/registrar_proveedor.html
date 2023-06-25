@@ -25,8 +25,17 @@
                             <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
                             <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
                             <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
-                            <input type="text" class="form-control"  name="servicios" placeholder="Servicio 1" th:value="${servicios}">
-                            <input type="text" class="form-control"  name="servicios" placeholder="Servicio 2" th:value="${servicios}">                            
+                            
+                            
+                            <select class="form-select" aria-label="Default select example" name="servicios">
+                                
+                                <option selected>Elegir servicio ofrecido</option>
+                                <option th:each="servicios : ${serviciosOfrecidos}"
+                                        th:value="${servicios}"
+                                        th:text="${servicios.nombre}"/>                                            
+                            
+                                        
+                            </select>
                            
                             <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
 

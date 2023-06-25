@@ -37,7 +37,7 @@ public class ServicioProveedor implements UserDetailsService {
     private ServicioImagen imagenServicio;
 
     @Transactional
-    public void registrar(ArrayList<EnumServiciosOfrecidos> servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
 
         validar(nombre, email, password, password2);
         Proveedor proveedor = new Proveedor();
@@ -51,7 +51,7 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setRol(Rol.PROVEEDOR);
         Imagen imagen = imagenServicio.guardar(archivo);
         proveedor.setFotoPerfil(imagen);
-        proveedor.setServicios(new ArrayList<>(servicios));
+        proveedor.setServicios(servicios);
         proveedor.setEstadoProveedorActivo(Boolean.TRUE);
         proveedor.setReputacion(0.0);
         proveedor.setNivel(EnumNivel.INICIAL);
@@ -59,7 +59,7 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(ArrayList<EnumServiciosOfrecidos> servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
 
@@ -76,7 +76,7 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setEmail(email);
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
             proveedor.setRol(Rol.PROVEEDOR);
-            proveedor.setServicios(new ArrayList<>(servicios));
+            proveedor.setServicios(servicios);
             proveedor.setEstadoProveedorActivo(Boolean.TRUE);
             proveedor.setReputacion(0.0);
             proveedor.setNivel(EnumNivel.INICIAL);
