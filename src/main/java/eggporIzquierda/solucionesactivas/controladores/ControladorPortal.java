@@ -1,10 +1,13 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,13 +25,29 @@ import org.springframework.web.multipart.MultipartFile;
 public class ControladorPortal {
     @Autowired
     private ServicioUsuario usuarioServicio;
+    
+    @Autowired
+    private ServicioProveedor proveedorServicio;
 
-    @GetMapping("/")
+    
+     @GetMapping("/")
     public String index() {
 
-        return "index.html";
+        return "index2.html";
     }
+//    @GetMapping("/")
+//    public String index(ModelMap modelo) {
+//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
+//        modelo.addAttribute("proveedores", ListProveedores);
+//        return "index.html";
+//
+//      
+//    }
 
+   
+    
+    
+    
     @GetMapping("/registrar")
     public String registrar() {
         return "registrar.html";

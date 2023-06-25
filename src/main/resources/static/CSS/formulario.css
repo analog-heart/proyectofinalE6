@@ -5,7 +5,7 @@
 .elementosNav{
     display: flex;
     width: 30%;
-    justify-content: space-around;
+    justify-content: space-between;
     color: #37474f;
     font-weight: 700;
 }

@@ -1,0 +1,166 @@
+*{
+    margin: 0%;
+        padding:0%;
+}
+/* -----------------------NAVBAR *------------------------*/
+
+.inicial {
+    margin-right:  2%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    background-color: #2a363b;
+    color: #f4ebeb;
+    width: 100%;
+    height: 70px;
+
+}
+
+.logo a {
+      align-items: baseline;
+    margin-right: 2%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #f4ebeb;
+    padding-left: 20px;
+}
+
+.logo a:hover {
+    color: crimson;
+}
+
+.search {
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2%;
+
+}
+
+
+
+.navbar-links {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style: none;
+    margin-right: 20px;
+    font-size: 1.2rem;
+}
+
+.navbar-links li {
+    margin: 0 15px;
+
+}
+li{
+    list-style: none;
+}
+
+.navbar-links a {
+    color: #f4ebeb;
+    text-decoration: none;
+}
+/*-----------MENU PANEL -----*/
+.navpanel{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 20px;
+
+    background: #2a363b;
+    color: #f4ebeb;
+}
+
+
+
+
+/* -----------------------TARJETAS *------------------------*/
+.contenedor-tarjetas{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5%;
+}
+
+
+.card {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 210px 150px ;
+    grid-template-areas: "image" "text" "stats";
+    border-radius: 2px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    font-family: roboto;
+    text-align: center;
+
+    transition: 0.5s ;
+  
+  margin: 30px;
+}
+
+
+
+.card-stats {
+    grid-area: stats; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background: rgb(195, 21, 62);
+  }
+
+  .card-stats .stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    padding:10px;
+  }
+
+  .card-image {
+    grid-area: image;
+    background: url("/IMG/imageninicio.jpg");
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-size: cover;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .card-text {
+    grid-area: text;
+    margin: 25px;
+  }
+  .card-text .date {
+    color: rgb(255, 7, 110);
+    font-size:13px;
+  }
+  .card-text p {
+    color: grey;
+    font-size:15px;
+    font-weight: 300;
+    padding-bottom: 10px;
+  }
+  .card-text h2 {
+    margin-top:0px;
+    font-size:28px;
+    padding-bottom: 10px;
+  }
+
+  .card:hover {
+    transform: scale ( 1.15 ) ;
+    box-shadow: 5px 5px 15px rgba ( 0 , 0 , 0 , 0.6 ) ;
+  }
+  
+  
+.containerFooter{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
