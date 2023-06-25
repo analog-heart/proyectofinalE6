@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/head :: head1">    </head>
+    <head th:replace="fragments/head :: head1">    </head>
     <body>
-        
-         <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
+
+        <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
         <h1>INGRESASTE CORRECTAMENTE</h1>
+
+        <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
         
-    <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
+        
+        <footer th:replace="fragments/footer :: footer1">    </footer>
+
     </body>
 </html>
