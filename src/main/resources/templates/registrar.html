@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace=" /fragments/head :: head2"></head>
 
-    <body>
+    <head th:replace="/fragments/head :: head"></head>
 
-        <div class="contenedor">
+
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="/fragments/header :: header"></header>
+
+        <main class="flex-grow-1 container-fluid">
+
+          <div class="contenedor">
             <div class="left-panel">
                 <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
             </div>
@@ -14,7 +20,7 @@
                     <div class ="texto">
 
                         <div class="logo ">
-                            <img src="/Img/icon.png" width="30%" alt="Logo">
+                            <img src="/Img/Logo SolucionesActivas 2 con Color V1.jpg" width="30%" alt="Logo">
                             <h2 class="card-title mb-3">Soluciones Activas </h2>
                         </div>
 
@@ -38,9 +44,7 @@
                             <div class="form-button">
                                 <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
                             </div>
-                            <div class="form-button">
-                                <a href="/login"  class=" btn btn-primary mt-3 form-control mb-3 botones btn-success">Login</a>
-                            </div>
+                           
                         </div>
                     </div>   
                 </form>
@@ -51,9 +55,14 @@
             </div>
         </div>
 
-        <footer th:replace="fragments/footer :: footer1">    </footer>
+        </main>
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     </body>
+
 </html>
 
 
