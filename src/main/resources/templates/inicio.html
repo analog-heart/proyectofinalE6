@@ -7,9 +7,14 @@
         <h1>INGRESASTE CORRECTAMENTE</h1>
 
         <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
-        
-        
-        <footer th:replace="fragments/footer :: footer1">    </footer>
 
+        <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-primary"> Lista de Proveedores </button> </a>
+        <form th:action="@{/usuario/buscar}" method="get">
+            <input type="text" name="nombre" placeholder="Buscar por nombre">
+            <button type="submit">Buscar</button>
+        </form>
+
+
+        <footer th:replace="fragments/footer :: footer1">    </footer>
     </body>
 </html>
