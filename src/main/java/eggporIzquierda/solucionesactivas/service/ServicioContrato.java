@@ -53,7 +53,7 @@ public class ServicioContrato {
 
         ContratoProveedor CP = new ContratoProveedor();
 
-//        CP.setEstado(EnumEstadoContrato.SOLICITADO);
+        CP.setEstado(EnumEstadoContrato.SOLICITADO);
         CP.setProveedor(p);
         CP.setUsuario(u);
         CP.setFechaContrato(new Date());

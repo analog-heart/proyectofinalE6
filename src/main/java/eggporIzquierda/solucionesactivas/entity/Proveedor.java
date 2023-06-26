@@ -28,8 +28,8 @@ public class Proveedor extends Usuario {
         this.nivel = nivel;
     }
 
-    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol) {
-        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol);
+    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol, fotoPerfil);
         this.servicios = servicios;
         this.estadoProveedorActivo = estadoProveedorActivo;
         this.nivel = nivel;
