@@ -1,6 +1,6 @@
 package eggporIzquierda.solucionesactivas.service;
 
-import eggporIzquierda.solucionesactivas.entity.Imagen;
+//import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
@@ -32,8 +32,8 @@ public class ServicioProveedor implements UserDetailsService {
     @Autowired
     private RepositorioProveedor proveedorRepositorio;
 
-    @Autowired
-    private ServicioImagen imagenServicio;
+//    @Autowired
+//    private ServicioImagen imagenServicio;
 
     
    
@@ -49,8 +49,8 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setEmail(email);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
-        Imagen imagen = imagenServicio.guardar(archivo);
-        proveedor.setFotoPerfil(imagen);
+//        Imagen imagen = imagenServicio.guardar(archivo);
+//        proveedor.setFotoPerfil(imagen);
         proveedorRepositorio.save(proveedor);
     }
 
@@ -75,15 +75,15 @@ public class ServicioProveedor implements UserDetailsService {
 
             proveedor.setRol(Rol.PROVEEDOR);
 
-            String idImagen = null;
+//            String idImagen = null;
 
-            if (proveedor.getFotoPerfil() != null) {
-                idImagen = proveedor.getFotoPerfil().getId();
-            }
+//            if (proveedor.getFotoPerfil() != null) {
+//                idImagen = proveedor.getFotoPerfil().getId();
+//            }
 
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-
-            proveedor.setFotoPerfil(imagen);
+//            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+//
+//            proveedor.setFotoPerfil(imagen);
 
             proveedorRepositorio.save(proveedor);
         }

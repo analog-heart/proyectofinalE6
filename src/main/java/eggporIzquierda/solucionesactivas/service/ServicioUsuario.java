@@ -47,7 +47,7 @@ public class ServicioUsuario implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
         Imagen imagen = imagenServicio.guardar(archivo);
-        usuario.setFotoPerfil(imagen);
+//        usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
     }
 
@@ -71,15 +71,15 @@ public class ServicioUsuario implements UserDetailsService {
 
             usuario.setRol(Rol.USUARIO);
 
-            String idImagen = null;
-
-            if (usuario.getFotoPerfil() != null) {
-                idImagen = usuario.getFotoPerfil().getId();
-            }
-
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-
-            usuario.setFotoPerfil(imagen);
+//            String idImagen = null;
+//
+//            if (usuario.getFotoPerfil() != null) {
+//                idImagen = usuario.getFotoPerfil().getId();
+//            }
+//
+//            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+//
+//            usuario.setFotoPerfil(imagen);
 
             usuarioRepositorio.save(usuario);
         }

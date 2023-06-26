@@ -9,8 +9,6 @@ import jakarta.persistence.Enumerated;
 import java.util.ArrayList;
 import java.util.Date;
 
-
-
 @Entity
 public class Proveedor extends Usuario {
 
@@ -20,9 +18,6 @@ public class Proveedor extends Usuario {
     @Enumerated(EnumType.STRING)
     private EnumNivel nivel;
 
-    
-    
-    
     // CONSTRUCTORES (sin atributo reputación)
     public Proveedor() {
     }
@@ -33,13 +28,12 @@ public class Proveedor extends Usuario {
         this.nivel = nivel;
     }
 
-    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
-        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol, fotoPerfil);
+    public Proveedor(ArrayList<EnumServiciosOfrecidos> servicios, Boolean estadoProveedorActivo, EnumNivel nivel, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol) {
+        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol);
         this.servicios = servicios;
         this.estadoProveedorActivo = estadoProveedorActivo;
         this.nivel = nivel;
     }
-
 
 //    MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
     public void activarProveedor() {
@@ -51,7 +45,6 @@ public class Proveedor extends Usuario {
     }
 
     // GUETTERS AND SETTERS
-
     public ArrayList<EnumServiciosOfrecidos> getServicios() {
         return servicios;
     }
@@ -83,6 +76,5 @@ public class Proveedor extends Usuario {
     public void setNivel(EnumNivel nivel) {
         this.nivel = nivel;
     }
-    
 
 }

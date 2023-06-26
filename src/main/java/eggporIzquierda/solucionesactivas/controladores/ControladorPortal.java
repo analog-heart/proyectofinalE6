@@ -23,7 +23,7 @@ public class ControladorPortal {
 
     @Autowired
     private ServicioUsuario usuarioServicio;
-    
+
     //Agrego para probar alta de contrato
     @Autowired
     private ServicioContrato contratoServicio;
@@ -134,7 +134,7 @@ public class ControladorPortal {
         }
 
     }
-    
+
     //Agrego el controlador para probar la generación de los contratos
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/contrato")
@@ -142,26 +142,28 @@ public class ControladorPortal {
         return "contrato.html";
 
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @PostMapping("/contratar")
-    public String contratar(ModelMap modelo){
+    public String contratar(@RequestParam String idUsuario, @RequestParam String idProveedor, ModelMap modelo) {
+
+        System.out.println("ID USUARIO: " + idUsuario);
+        System.out.println("ID PROVEEDOR: " + idProveedor);
         
         try {
-            
-            contratoServicio.crearContrato();
-            
+
+            contratoServicio.crearContrato(idUsuario, idProveedor);
+
             modelo.put("exito", "El contrato fue generado con exito");
-            
+
         } catch (MiException ex) {
-            
+
             modelo.put("error", ex.getMessage());
-            
+
             return "contrato.html";
         }
-        
-        return "contrato.html";
-}
 
+        return "contrato.html";
+    }
 
 }

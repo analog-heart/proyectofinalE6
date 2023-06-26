@@ -44,14 +44,14 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     protected Rol rol;
 
-    @OneToOne
-    protected Imagen fotoPerfil;
+//    @OneToOne
+//    protected Imagen fotoPerfil;
 
     //-----------Constructores 
     public Usuario() {
     }
 
-    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -65,7 +65,7 @@ public class Usuario {
         this.estado = estado;
         this.fecha = fecha;
         this.rol = rol;
-        this.fotoPerfil = fotoPerfil;
+//        this.fotoPerfil = fotoPerfil;
     }
 
     public Date getFechaNacimiento() {
@@ -172,13 +172,13 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Imagen getFotoPerfil() {
-        return fotoPerfil;
-    }
-
-    public void setFotoPerfil(Imagen fotoPerfil) {
-        this.fotoPerfil = fotoPerfil;
-    }
+//    public Imagen getFotoPerfil() {
+//        return fotoPerfil;
+//    }
+//
+//    public void setFotoPerfil(Imagen fotoPerfil) {
+//        this.fotoPerfil = fotoPerfil;
+//    }
 
     @Override
     public String toString() {
@@ -197,7 +197,7 @@ public class Usuario {
         sb.append(", estado=").append(estado);
         sb.append(", fecha=").append(fecha);
         sb.append(", rol=").append(rol);
-        sb.append(", fotoPerfil=").append(fotoPerfil);
+//        sb.append(", fotoPerfil=").append(fotoPerfil);
         sb.append('}');
         return sb.toString();
     }
