@@ -1,3 +1,4 @@
+
 <nav th:fragment="nav1" class="navbar navbar-expand-lg navBar">
     <div class="containerImg">
         <a href="/" class="navbar-brand d-flex align-items-center">
@@ -76,10 +77,21 @@
     </div>
 </nav>
 
+
 <!---------------------------------PRueba Hernan --------------------->
 
-<nav th:fragment="nav_bar2" class="search navbar inicial navbar-expand-md">
-    <div class="logo ">
+<nav th:fragment="nav_bar2" class="search navbar inicial navbar-expand-md z-1">
+
+
+    <div class="containerImg logo">
+<!--        <a href="/" class="navbar-brand d-flex align-items-center">
+
+            <img class="logo" src="/IMG/Logo SolucionesActivas 2 con Color V1.jpg"  alt="Img Soluciones Activas">
+
+        </a>-->
+    </div>
+    
+    <div class="logo container-fluid">
         <a class ="navbar-brand" th:href="@{/}">Soluciones Activas</a>
     </div>
 
@@ -135,18 +147,18 @@
 
         </div>
     </div>
-    
 
 
-        <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
-            <a href="/registrar"  type="button" class="btn btn botondelogin ">Registrate</a>
-        </div>
 
-        <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
-            <a href="/login"  type="button" class="btn btn-danger botondelogin ">Login</a>
-        </div>
- 
-    
+    <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
+        <a href="/registrar"  type="button" class="btn btn botondelogin ">Registrate</a>
+    </div>
+
+    <div th:if="${session.usuariosession ==null}" class="form-button botondelogin">
+        <a href="/login"  type="button" class="btn btn-danger botondelogin ">Login</a>
+    </div>
+
+
 </nav>
 
 

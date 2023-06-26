@@ -6,6 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -14,6 +16,7 @@ import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Inheritance(strategy= InheritanceType.JOINED)
 @Table(name = "usuarios")
 public class Usuario {
 
