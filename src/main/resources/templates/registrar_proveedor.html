@@ -1,191 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
     <head th:replace="~{/fragments/head :: head}"></head>
 
-    <body>
 
-        <div class="contenedor">
-            <div class="left-panel">
-                <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
-            </div>
+    <body class="footer-alpiso d-flex flex-column" >
 
-            <div class="right-panel">
-                <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
-                    <div class ="texto">
+        <header th:replace="/fragments/header :: header"></header>
 
-                        <div class="logo ">
-                            <img src="/Img/icon.png" width="30%" alt="Logo">
-                            <h2 class="card-title mb-3">Soluciones Activas </h2>
-                        </div>
+        <main class="flex-grow-1 container-fluid">
 
 
-                        <div class=" form-input" >
+            <div class="contenedor">
+                <div class="left-panel">
+                    <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
+                </div>
 
-                            <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
-                            <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
-                            <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
-                            <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
-                            
-                            
-                            <select class="form-select" aria-label="Default select example" name="servicios">
-                                
-                                <option selected>Elegir servicio ofrecido</option>
-                                <option th:each="servicios : ${serviciosOfrecidos}"
-                                        th:value="${servicios}"
-                                        th:text="${servicios.nombre}"/>                                            
-                            
-                                        
-                            </select>
-                           
-                            <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
+                <div class="right-panel">
+                    <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
+                        <div class ="texto">
 
-                            <!--<input type="file" class="form-control mb-3" name="archivo">-->
-                            <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                            <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
-
-
-                             <div th:replace="fragments/error :: errores1"></div>
-
-                            <div class="form-button">
-                                <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
+                            <div class="logo ">
+                                <img src="/Img/icon.png" width="30%" alt="Logo">
+                                <h2 class="card-title mb-3">Soluciones Activas </h2>
                             </div>
-                            <div class="form-button">
-                                <a href="/login"  class=" btn btn-primary mt-3 form-control mb-3 botones btn-success">Login</a>
+
+
+                            <div class=" form-input" >
+
+                                <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
+                                <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
+                                <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
+                                <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
+
+
+                                <select class="form-select" aria-label="Default select example" name="servicios">
+
+                                    <option selected>Elegir servicio ofrecido</option>
+                                    <option th:each="servicios : ${serviciosOfrecidos}"
+                                            th:value="${servicios}"
+                                            th:text="${servicios.nombre}"/>                                            
+
+
+                                </select>
+
+                                <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
+
+                                <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                                <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                                <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
+                                <div th:replace="fragments/error :: errores1"></div>
+                                <div class="form-button">
+                                    <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
+                                </div>
+                                <div class="form-button">
+                                    <a href="/login"  class=" btn btn-primary mt-3 form-control mb-3 botones btn-success">Login</a>
+                                </div>
                             </div>
-                        </div>
-                    </div>   
-                </form>
-
-
-
-
+                        </div>   
+                    </form>
+                </div>
             </div>
-        </div>
-
+        </main>
         <footer th:replace="~{/fragments/footer :: footer}">    </footer>
-
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-
-<div class="container-fluid m-5 contenedor">
-
-    <form class="formulario" id="inicio" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
-        <div class="form-group my-3">
-
-                            <h4 class="card-title">Informacion Personal</h4>
-                            <label class="mb-2"> ¿AUN NO TENES CUENTA? REGISTRATE !!!</label>
-                            <label class="mb-2"> INFORMACION PERSONAL</label>
-            <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
-            <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
-            <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
-
-            <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
-
-                            <input type="Date" class="form-control"  name="fechaNacimiento" placeholder="Fecha de Nacimiento" th:value="${fechaNacimiento}">
-            <br>
-
-                           <h4 class="card-title">Domicilio</h4>
-                            <div class="direccion">
-                                <input type="text" class="form-control" name="calle" placeholder="Calle">
-                                <input type="text" class="form-control" name="numero" placeholder="N&uacute;mero">
-                            </div>
-                            <div class="direccion">
-                                <input type="text" class="form-control" name="barrio" placeholder="Barrio">
-                                <input type="text" class="form-control" name="lote" placeholder="Lote">
-                                <input type="text" class="form-control" name="cp" placeholder="CP">
-                            </div>
-                            <input type="text" class="form-control" name="localidad" placeholder="Localidad">
-
-        </div>
-
-        <div class="form-group my-3">
-            <input type="file" class="form-control" name="archivo">
-        </div>
-
-
-        <div class="form-group my-3">
-            <h4 class="card-title">Informacion de Inicio de Sesion!</h4>
-        </div>
-
-        <div class="form-group my-3">
-            <input type="email" class="form-control" name="email" placeholder="EMAIL" th:value="${email}">
-        </div>
-
-
-        <div class="form-group my-3">
-            <input type="password" class="form-control"  name="password" placeholder="CONTRASE&Ntilde;A"
-                   th:value="${password}">
-        </div>
-        <div class="form-group my-3">
-            <input type="password" class="form-control"  name="password2" placeholder="REPETIR CONTRASE&Ntilde;A"
-                   th:value="${password2}">
-        </div>
-
-
-        <button type="submit" class="btn btn-primary mt-3 botones">CREAR CUENTA</button>
-    </form>
-
-    <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-        <div class="card-body">
-            <h5 class="card-title">Exito!</h5>
-            <p class="card-text" th:text="${exito}"></p>
-        </div>
-    </div>
-    <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
-        <div class="card-body">
-            <h5 class="card-title">Error 👎</h5>
-            <p class="card-text" th:text="${error}"></p>
-        </div>
-    </div>
-    <section class=" text-center container">
-        <div class="row mt-3">
-            <div class="divVolver">
-                <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-            </div>
-        </div>
-    </section>
-</div>
-
-<footer class="text-muted py-5">
-    <div class="containerFooter">
-        <p class="mb-1">Album example is &copy; Bootstrap,<br>but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/"><br>Visit the homepage</a> or read our <a
-                href="../getting-started/introduction/">getting started guide</a>.</p>
-        <p class="float-end mb-1">
-            <a href="#" style="text-decoration:none"><span>⬆️</span> Back to top</a>
-        </p>
-    </div>
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-crossorigin="anonymous"></script>
-</body>
-
-</html>-->
