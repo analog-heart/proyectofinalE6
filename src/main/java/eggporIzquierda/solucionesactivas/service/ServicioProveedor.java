@@ -110,6 +110,16 @@ public class ServicioProveedor implements UserDetailsService {
 
         return proveedores;
     }
+    
+    @Transactional(readOnly = true)
+    public List<Proveedor> listarProveedoresActivos() {
+
+        List<Proveedor> proveedores = new ArrayList();
+
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        
+        return proveedores;
+    }
 
     @Transactional
     public void cambiarRol(String id) {

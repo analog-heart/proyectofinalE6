@@ -10,23 +10,36 @@
         <main class="flex-grow-1 container-fluid">
 
             <div>
+<<<<<<< HEAD
                 <h1>Lista de Proveedores</h1>
         
+=======
+                <h1 style="color: azure">Lista de Proveedores</h1>
+            </div>   
+>>>>>>> Developers
 
-
-            <div class="card" style="width: 18rem;" th:each="proveedor : ${proveedores}">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${proveedor.nombre + ' ' + proveedor.apellido}"> </h5>   
-                    <h6 class="card-subtitle mb-2 text-body-secondary" th:text="$‌{proveedor.dni}"></h6> 
-                    <p class="card-text" th:text=‌"${proveedor.servicio}"></p>
+            <div class="container container-fluid  d-flex flex-wrap gap-3">
+                <div class="card" style="width: 18rem;" th:each="proveedor : ${proveedores}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h5>
+                        <h6>DNI</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${proveedor.dni}"></h6>
+                        <h6>Telefono</h6>
+                        <p class="card-text" th:text="${proveedor.telefono}"></p>
+                        <p class="card-text" th:text="${proveedor.servicios}"></p>
+                        <a th:href="@{/proveedor/modificar/__${proveedor.id}__}" class="card-link">Modificar</a>
+                    </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+
+
+>>>>>>> Developers
         </main>  
 
         <footer th:replace="/fragments/footer :: footer"></footer>
-        <!--                   <div th:replace=" /fragments/error :: div">    </div>-->
-
 
 
 
