@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace=" /fragments/head :: head2"></head>
+     <head th:replace="/fragments/head :: head"></head>
 
-    <body>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="/fragments/header :: header"></header>
 
+        <main class="flex-grow-1 container-fluid">
         <div class="contenedor">
             <div class="left-panel">
                 <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
@@ -61,7 +63,7 @@
 
             </div>
         </div>
-
+            </main>
         <footer th:replace="fragments/footer :: footer1">    </footer>
 
     </body>
