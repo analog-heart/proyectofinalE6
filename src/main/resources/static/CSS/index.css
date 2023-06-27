@@ -39,5 +39,13 @@
     margin: auto;
 }
 
+#mainindex{
+    
+    background-image: url("/IMG/imageninicio.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 
