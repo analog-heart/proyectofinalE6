@@ -44,7 +44,16 @@ public class ServicioUsuario implements UserDetailsService {
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-        usuario.setFechaNacimiento(fechaNacimiento);
+         
+        //se guarda la fecha de alta (no modificable)
+        Date fechatemp = new Date();
+        usuario.setFecha(fechatemp);
+                
+        //se guarda la fecha de nacimiento que llega por formulario
+        fechatemp = fechaNacimiento;
+        usuario.setFechaNacimiento(fechatemp);
+        
+        
         usuario.setDni(dni);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
@@ -105,6 +114,18 @@ public class ServicioUsuario implements UserDetailsService {
         return usuarios;
     }
     
+     @Transactional(readOnly = true)
+    public List<Usuario> listarUsuariosActivos() {
+        List<Usuario> usuarios = new ArrayList();
+        usuarios = usuarioRepositorio.listarUsuariosActivos();
+        return usuarios;
+    }
+    @Transactional(readOnly = true)
+    public List<Usuario> listarUsuariosInactivos() {
+        List<Usuario> usuarios = new ArrayList();
+        usuarios = usuarioRepositorio.listarUsuariosInactivos();
+        return usuarios;
+    }
 
    public List<Usuario> buscarUsuariosXnombre(String nombre){
        

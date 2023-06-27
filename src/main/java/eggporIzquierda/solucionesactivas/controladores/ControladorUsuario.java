@@ -19,11 +19,13 @@ public class ControladorUsuario {
 
 
     @GetMapping("/usuarios")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+    public String listarUsuariosActivos(ModelMap modelo){
+        List<Usuario> usuarios = usuarioservicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
-        return "usuario_list.html";
+       return "usuario_list.html";
     }
+    
+    
 
     @GetMapping("/buscar")
     public String buscarUsuarios(String nombre,ModelMap modelo) {
