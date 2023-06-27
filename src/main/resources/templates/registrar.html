@@ -16,7 +16,7 @@
             </div>
 
             <div class="right-panel">
-                <form class="formulario form-control" th:action="@{/registro}" method="POST">
+                <form class="formulario form-control" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
                     <div class ="texto">
 
                         <div class="logo ">
@@ -34,7 +34,7 @@
 
 
                             <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
-                            <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                            <input type="file" class="form-control mb-3" name="archivo">
                             <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                             <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
 
