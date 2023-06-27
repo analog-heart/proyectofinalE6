@@ -12,17 +12,17 @@
             <div>
                 <h2>Lista de Usuarios</h2>
 
-                <!--                <table class="table table-dark">
+<!--                                <table class="table table-dark">
                                     <thead>
                                         <tr>
                                             <th scope="col">Id del Usuario</th>
                                             <th scope="co1">Nombre del Usuario</th>
                                             <th scope="col">Apellido del Usuario</th>
                                             <th scope="col">DNI del Usuario</th>
-                                                                            <th scope="co1">Modificar</th>
+                                            <th scope="co1">Modificar</th>
                                         </tr>
-                                    </thead>
-                                    <tbody th:each="usuario : ${usuarios}">
+                                    </thead>-->
+<!--                                    <tbody th:each="usuario : ${usuarios}">
                                         <tr>
                                             <th scope="row" th:text="${usuario.id}"></th>
                                             <td th:text="${usuario.nombre} "></td>
@@ -33,7 +33,7 @@
                                     </tbody>
                                 </table>-->
 
-                <!--                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+                               <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
                                     <div class="card-body">
                                         <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                         <h6>DNI</h6>
@@ -42,20 +42,9 @@
                                         <p class="card-text" th:text="${usuario.telefono}"></p>
                                         <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
                                     </div>
-                                </div>-->
+                                </div>
 
-                <div class="row" th:each="i : ${#numbers.sequence(1,usuarios.size())}">
-                    <div class="col-md-4" th:if="${i%3 == 1}">
-                        <div class="card" style="width: 20rem;">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                <h6>DNI</h6>
-                                <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
-                                <h6>Telefono</h6>
-                                <p class="card-text" th:text="${usuario.telefono}"></p>
-                                <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
-                            </div>
-                        </div>
+                
                     </div>
                 </div>
 
