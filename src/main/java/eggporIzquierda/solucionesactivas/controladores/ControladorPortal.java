@@ -72,11 +72,11 @@ public class ControladorPortal {
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {
+    public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,String telefono,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {
 
         try {
             
-            proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni,telefono, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "inicio.html";

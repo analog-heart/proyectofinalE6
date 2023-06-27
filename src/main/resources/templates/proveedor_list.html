@@ -11,7 +11,7 @@
 
             <div>
                 <h1>Lista de Proveedores</h1>
-            </div>   
+        
 
 
             <div class="card" style="width: 18rem;" th:each="proveedor : ${proveedores}">
@@ -21,6 +21,7 @@
                     <p class="card-text" th:text=‌"${proveedor.servicio}"></p>
                 </div>
             </div>
+        </div>
         </main>  
 
         <footer th:replace="/fragments/footer :: footer"></footer>

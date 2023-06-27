@@ -37,7 +37,7 @@ public class ServicioProveedor implements UserDetailsService {
     private ServicioImagen imagenServicio;
 
     @Transactional
-    public void registrar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni,String telefono, String email, String password, String password2) throws MiException {
 
         validar(nombre, email, password, password2);
         Proveedor proveedor = new Proveedor();
@@ -46,6 +46,7 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setApellido(apellido);
         proveedor.setFechaNacimiento(fechaNacimiento);
         proveedor.setDni(dni);
+        proveedor.setTelefono(telefono);
         proveedor.setEmail(email);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
