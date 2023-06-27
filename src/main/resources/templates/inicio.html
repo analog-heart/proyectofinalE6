@@ -8,17 +8,15 @@
         <header th:replace="~{/fragments/header :: header}"></header>
 
         <main class="flex-grow-1 container-fluid">
+<!--            <div class="container container-fluid d-flex"> -->
+          <h1 style="color: azure">INGRESASTE CORRECTAMENTE</h1>
+          <br>
+          <div>
+          <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-info"> Lista de Usuarios </button> </a>
+          <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-info"> Lista de Proveedores </button> </a>
+          </div>
 
-          <h1>INGRESASTE CORRECTAMENTE</h1>
-
-          <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
-          <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-primary"> Lista de Proveedores </button> </a>
-         
-<!--          <form th:action="@{/usuario/buscar}" method="get">
-            <input type="text" name="nombre" placeholder="Buscar por nombre">
-            <button type="submit">Buscar</button>
-             </form>-->
-
+<!--          </div>-->
         </main>
 
        <footer th:replace="~{/fragments/footer :: footer}"></footer>

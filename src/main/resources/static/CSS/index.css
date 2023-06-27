@@ -39,13 +39,31 @@
     margin: auto;
 }
 
-#mainindex{
+
+
+#mainindex {
     
-    background-image: url("/IMG/imageninicio.jpg");
+    background-image: url("https://img.freepik.com/free-photo/variety-handy-tools-dark-background-labor-day-background-concept_1150-41808.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+.ParrafoIndex{
+    
+    font-family: sans-serif;
+    font-style: italic;
+    color: azure
+    
+    
+}
+
+.TitutloIndex{
+    
+    color: azure
+}
+
 
 
 
