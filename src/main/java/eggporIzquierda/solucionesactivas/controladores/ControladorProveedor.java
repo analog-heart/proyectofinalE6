@@ -27,7 +27,7 @@ public class ControladorProveedor {
         return "proveedor_list.html";
     }
 
-
+    
 
     
 

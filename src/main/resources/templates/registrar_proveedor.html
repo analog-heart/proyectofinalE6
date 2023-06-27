@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
     <head th:replace="~{/fragments/head :: head}"></head>
+
 
     <body class="footer-alpiso d-flex flex-column" >
 
@@ -52,15 +54,16 @@
                                 <div class="form-button">
                                     <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
                                 </div>
-                                <div class="form-button">
-                                    <a href="/login"  class=" btn btn-primary mt-3 form-control mb-3 botones btn-success">Login</a>
-                                </div>
+                               
                             </div>
                         </div>   
                     </form>
                 </div>
+
             </div>
         </main>
+
         <footer th:replace="~{/fragments/footer :: footer}">    </footer>
+
     </body>
 </html>

@@ -31,9 +31,19 @@
                                     </tbody>
                                 </table>-->
 
-                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+            <div class="container container-fluid  d-flex flex-wrap gap-3">
+                             <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
+                                        <h6>DNI</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
+                                        <h6>Telefono</h6>
+                                        <p class="card-text" th:text="${usuario.telefono}"></p>
+                                        <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
+                                    </div>
+                                </div>
+            </div>
 
-                    <div class="card-body">
 
 
                         <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
