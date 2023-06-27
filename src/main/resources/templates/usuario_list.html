@@ -3,15 +3,13 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     >
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
     <body class="footer-alpiso d-flex flex-column">
-        <header th:replace="/fragments/header :: header"></header>
-
+        <header th:replace="~{/fragments/header :: header}"></header>
         <main class="flex-grow-1 container-fluid">
             <div>
                 <h2>Lista de Usuarios</h2>
-
                 <!--                <table class="table table-dark">
                                     <thead>
                                         <tr>
@@ -33,8 +31,10 @@
                                     </tbody>
                                 </table>-->
 
-                <!--                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+                                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
                                     <div class="card-body">
+                                        
+                                        
                                         <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                         <h6>DNI</h6>
                                         <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
@@ -42,28 +42,15 @@
                                         <p class="card-text" th:text="${usuario.telefono}"></p>
                                         <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
                                     </div>
-                                </div>-->
+                                </div>
 
-                <div class="row" th:each="i : ${#numbers.sequence(1,usuarios.size())}">
-                    <div class="col-md-4" th:if="${i%3 == 1}">
-                        <div class="card" style="width: 20rem;">
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                <h6>DNI</h6>
-                                <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
-                                <h6>Telefono</h6>
-                                <p class="card-text" th:text="${usuario.telefono}"></p>
-                                <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
             </div>
 
         </main>
 
-        <footer th:replace="/fragments/footer :: footer"></footer>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
         <script
             src="https://kit.fontawesome.com/183f2a4aef.js"

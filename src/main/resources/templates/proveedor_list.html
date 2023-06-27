@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
     <body class="footer-alpiso d-flex flex-column" >
-
-        <header th:replace="/fragments/header :: header"></header>
-
+        <header th:replace="~{/fragments/header :: header}"></header>
         <main class="flex-grow-1 container-fluid">
-
             <div>
                 <h1>Lista de Proveedores</h1>
             </div>   
 
-
             <div class="card" style="width: 18rem;" th:each="proveedor : ${proveedores}">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${proveedor.nombre + ' ' + proveedor.apellido}"> </h5>   
-                    <h6 class="card-subtitle mb-2 text-body-secondary" th:text="$‌{proveedor.dni}"></h6> 
+
+
+                    <h5 class="card-title" th:text="${proveedor.nombre} + ' ' + ${proveedor.apellido}"> </h5>   
+                    <h6>DNI</h6>
+<!--                    <h6 class="card-subtitle mb-2 text-body-secondary" th:text="$‌{proveedor.dni}"></h6>-->
+                    <h6 class="card-subtitle mb-2 text-muted"          th:text="${usuario.dni}"></h6>
                     <p class="card-text" th:text=‌"${proveedor.servicio}"></p>
+                    <a th:href="@{/proveedor/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
                 </div>
             </div>
         </main>  
 
-        <footer th:replace="/fragments/footer :: footer"></footer>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
         <!--                   <div th:replace=" /fragments/error :: div">    </div>-->
 
 

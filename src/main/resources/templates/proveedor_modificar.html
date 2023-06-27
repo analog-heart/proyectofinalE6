@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
- <nav th:replace="fragments/head :: head1">    </nav>
+    <head th:replace="~{/fragments/head :: head}">    </head>
 
-<body>
- <nav th:replace="fragments/navbar :: nav_bar2">    </nav>
+
     <body>
-        <nav th:replace= "/fragments/navbar :: nav"> </nav>
-            
+        <header th:replace= "~{/fragments/header :: header}"> </header>
+
 
 
 
@@ -28,18 +27,18 @@
                 <div class="form-group my-3" >
                     <input type="file" class="form-control" name="archivo" th:value="${usuario.imagen}">
                 </div> 
-                
+
                 <div class="form-group my-3">
                     <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
                 </div>
                 <div class="form-group my-3">
                     <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
                 </div>
-                              
+
                 <div class="form-group my-3">
                     <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${rol}">
                 </div>
-                
+
 
                 <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
             </form>
@@ -54,8 +53,8 @@
             </section>
         </div>
 
-     <footer th:replace="fragments/footer :: footer1">    </footer>
-     
+        <footer th:replace="~{/fragments/footer :: footer}">    </footer>
+
 
 
 
