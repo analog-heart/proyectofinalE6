@@ -1,0 +1,57 @@
+<header class="p-3 mb-3 border-bottom" style="color: #2a363b">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a class="navbar-brand" href="/">
+                <img src="/IMG/Logo1-sin-fondo.png" alt="Logo" width="40" height="36" class="d-inline-block align-text-top">
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 link-secondary" style="color: azure">Inicio</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis" >Historial</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis" style="color: azure">Servicios</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
+            </ul>
+
+
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+            </form>
+
+            <div class="dropdown text-end" th:if="${session.usuariosession != null}">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
+                    <li><a class="dropdown-item" href="#">Configuracion</a></li>
+                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
+                </ul>
+            </div>
+            <!--            <div class="text-end inline-block">
+                            <a type="button" class="btn btn-secondary" th:if="${session.usuariosession == null}" href="/login">Login</a>
+                            <div th:if="${session.usuariosession == null}">
+                                <a type="button" class="btn btn-warning d-block link-body-emphasis text-decoration-none dropdown-toggle z-index" data-bs-toggle="dropdown" th:if="${session.usuariosession == null}"> Registrarse</a>
+                                <ul class="dropdown-menu text-small">
+                                    <li><a class="dropdown-item" href="/registrar">Soy Cliente</a></li>
+                                    <li><a class="dropdown-item" href="/registrarproveedor">Soy Proveedor</a></li>
+            
+                                </ul>
+                            </div>
+                        </div>-->
+
+            <div class="text-end inline-block">
+                <a type="button" class="btn btn-secondary" th:if="${session.usuariosession == null}" href="/login">Login</a>
+                <div th:if="${session.usuariosession == null}" class="d-inline-block">
+                    <a type="button" class="btn btn-warning d-inline-block link-body-emphasis text-decoration-none dropdown-toggle z-index" data-bs-toggle="dropdown" th:if="${session.usuariosession == null}"> Registrarse</a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item" href="/registrar">Soy Cliente</a></li>
+                        <li><a class="dropdown-item" href="/registrarproveedor">Soy Proveedor</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+            </header>

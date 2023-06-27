@@ -1,46 +1,57 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace=" /fragments/head :: head2"></head>
-    <body>
 
-        <div class="contenedor">
-           
-            <div class="left-panel">
-                <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
-            </div>
+    <head th:replace="/fragments/head :: head"></head>
 
-            <div class="right-panel">
-                  <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
-                      <div class ="texto">
-                      
-                     <div class="logo ">
-                    <img src="/Img/icon.png" width="30%" alt="Logo">
-                    <h2 class="card-title mb-3">Soluciones Activas </h2>
+
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="/fragments/header :: header"></header>
+
+        <main class="flex-grow-1 container-fluid">
+            <div class="container container-fluid d-flex"> 
+                <div class="contenedor">
+
+                    <div class="left-panel">
+                        <img src="https://img.freepik.com/free-photo/portrait-smiling-manual-worker-with-tools-isolated-white_186202-3034.jpg"  style="border-radius: 5px" width="100%" alt="Background Image">
+                    </div>
+
+                    <div class="right-panel">
+                        <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
+                            <div class ="texto">
+
+                                <div class="logo ">
+                                    <img src="/IMG/image1-removebg-preview.png" width="300" height="300"  alt="Logo">
+
+                                </div>
+                                <div class="form-input ">
+                                    <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
+                                </div>
+                                <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                                <div class="form-input ">
+                                    <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                                </div>
+
+                                <div th:replace="fragments/error :: errores1"></div>
+                                <div class="form-button">
+                                    <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                    </div>
+
+
                 </div>
-                    <div class="form-input ">
-                        <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
-                    </div>
-                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
-                    <div class="form-input ">
-                        <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                    </div>
-
-                    <div th:replace="fragments/error :: errores1"></div>
-                    <div class="form-button">
-                        <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
-                    </div>
-                   
-                    <a href="/registrar"  class="btn btn-success">Registrate</a>
-                    
-                    </div>
-                </form>
             </div>
+        </main>
 
+        <footer th:replace="/fragments/footer :: footer"></footer>
 
-        </div>
-        
-        <footer th:replace="fragments/footer :: footer1">    </footer>
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     </body>
+
 </html>

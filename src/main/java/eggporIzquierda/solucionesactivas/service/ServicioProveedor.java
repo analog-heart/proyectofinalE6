@@ -3,6 +3,7 @@ package eggporIzquierda.solucionesactivas.service;
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -35,11 +36,10 @@ public class ServicioProveedor implements UserDetailsService {
     @Autowired
     private ServicioImagen imagenServicio;
 
-    
-   
     @Transactional
-    public void registrar(List<EnumServiciosOfrecidos> servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
-        validar(nombreUsuario, email, password, password2);
+    public void registrar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+
+        validar(nombre, email, password, password2);
         Proveedor proveedor = new Proveedor();
         proveedor.setNombreUsuario(nombreUsuario);
         proveedor.setNombre(nombre);
@@ -51,12 +51,15 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setRol(Rol.PROVEEDOR);
         Imagen imagen = imagenServicio.guardar(archivo);
         proveedor.setFotoPerfil(imagen);
+        proveedor.setServicios(servicios);
+        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+        proveedor.setReputacion(0.0);
+        proveedor.setNivel(EnumNivel.INICIAL);
         proveedorRepositorio.save(proveedor);
     }
 
-    
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
 
@@ -64,16 +67,20 @@ public class ServicioProveedor implements UserDetailsService {
         if (respuesta.isPresent()) {
 
             Proveedor proveedor = respuesta.get();
-            proveedor.setNombre(nombre);
-            proveedor.setEmail(email);
+
             proveedor.setNombreUsuario(nombreUsuario);
+            proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
             proveedor.setFechaNacimiento(fechaNacimiento);
             proveedor.setDni(dni);
-            
+            proveedor.setEmail(email);
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-
             proveedor.setRol(Rol.PROVEEDOR);
+            proveedor.setServicios(servicios);
+            proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+            proveedor.setReputacion(0.0);
+            proveedor.setNivel(EnumNivel.INICIAL);
+            proveedorRepositorio.save(proveedor);
 
             String idImagen = null;
 
@@ -89,7 +96,7 @@ public class ServicioProveedor implements UserDetailsService {
         }
     }
 
-    public Usuario getOne(String id) {
+    public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
     }
 
@@ -100,6 +107,16 @@ public class ServicioProveedor implements UserDetailsService {
 
         proveedores = proveedorRepositorio.findAll();
 
+        return proveedores;
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Proveedor> listarProveedoresActivos() {
+
+        List<Proveedor> proveedores = new ArrayList();
+
+        proveedores = proveedorRepositorio.listarProveedoresActivos();
+        
         return proveedores;
     }
 
@@ -138,12 +155,7 @@ public class ServicioProveedor implements UserDetailsService {
         }
 
     }
- 
-    
-    
-    
-    
-    
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -168,6 +180,5 @@ public class ServicioProveedor implements UserDetailsService {
             return null;
         }
     }
-    
-    
+
 }

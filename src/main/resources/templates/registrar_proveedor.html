@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
     <head th:replace="/fragments/head :: head"></head>
 
 
@@ -9,14 +10,14 @@
         <header th:replace="/fragments/header :: header"></header>
 
         <main class="flex-grow-1 container-fluid">
-            <div class="container container-fluid d-flex">  
+            <div class="container container-fluid d-flex"> 
                 <div class="contenedor">
                     <div class="left-panel">
-                        <img src="https://img.freepik.com/free-photo/mechanic-presenting-something_1368-4081.jpg"  style="border-radius: 5px" width="100%" alt="Background Image">
+                        <img src="https://img.freepik.com/free-photo/mechanic-with-laptop-white-background_1368-4145.jpg" style="border-radius: 5px" width="100%" alt="Background Image">
                     </div>
 
                     <div class="right-panel">
-                        <form class="formulario form-control" th:action="@{/registro}" method="POST" enctype="multipart/form-data">
+                        <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
                             <div class ="texto">
 
                                 <div class="logo ">
@@ -33,8 +34,19 @@
                                     <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
 
 
+                                    <select class="form-select" aria-label="Default select example" name="servicios">
+
+                                        <option selected>Elegir servicio ofrecido</option>
+                                        <option th:each="servicios : ${serviciosOfrecidos}"
+                                                th:value="${servicios}"
+                                                th:text="${servicios.nombre}"/>                                            
+
+
+                                    </select>
+
                                     <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
-                                    <input type="file" class="form-control mb-3" name="archivo">
+
+                                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
                                     <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                     <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
 
@@ -53,16 +65,16 @@
 
 
                     </div>
+
                 </div>
             </div>
         </main>
 
-        <footer th:replace="/fragments/footer :: footer"></footer>
 
-        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+        <footer th:replace="fragments/footer :: footer">    </footer>
+
 
     </body>
-
 </html>
 
 

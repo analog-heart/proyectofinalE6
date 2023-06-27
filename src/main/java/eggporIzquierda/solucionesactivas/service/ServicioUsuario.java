@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,6 +26,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+
 public class ServicioUsuario implements UserDetailsService {
 
     @Autowired
@@ -35,7 +37,8 @@ public class ServicioUsuario implements UserDetailsService {
     
     
     @Transactional
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
+        
         validar( email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
@@ -43,12 +46,14 @@ public class ServicioUsuario implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setFechaNacimiento(fechaNacimiento);
         usuario.setDni(dni);
+        usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
+        
     }
 
     @Transactional
@@ -99,6 +104,18 @@ public class ServicioUsuario implements UserDetailsService {
 
         return usuarios;
     }
+    
+
+   public List<Usuario> buscarUsuariosXnombre(String nombre){
+       
+       List<Usuario> usuariosXnombre = new ArrayList();
+       
+       usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
+       
+       return usuariosXnombre;
+   }
+    
+
 
     @Transactional
     public void cambiarRol(String id) {
@@ -118,11 +135,9 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar( String email, String password, String password2) throws MiException {
+    private void validar(String email, String password, String password2) throws MiException {
 
-//        if (nombre.isEmpty() || nombre == null) {
-//            throw new MiException("el nombre no puede ser nulo o estar vacío");
-//        }
+     
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
