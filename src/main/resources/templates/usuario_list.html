@@ -34,6 +34,9 @@
                                 </table>-->
 
                                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+            <div class="container container-fluid  d-flex flex-wrap gap-3">
+                             <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+
                                     <div class="card-body">
                                         <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                         <h6>DNI</h6>
@@ -44,7 +47,11 @@
                                     </div>
                                 </div>
 
+
           
+                
+            </div>
+
 
             </div>
 
