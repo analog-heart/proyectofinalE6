@@ -1,68 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace=" /fragments/head :: head2"></head>
 
-    <body>
 
-        <div class="contenedor">
-            <div class="left-panel">
-                <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
+    <head th:replace="/fragments/head :: head"></head>
+
+
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="/fragments/header :: header"></header>
+
+        <main class="flex-grow-1 container-fluid">
+            <div class="container container-fluid d-flex"> 
+                <div class="contenedor">
+                    <div class="left-panel">
+                        <img src="https://img.freepik.com/free-photo/mechanic-with-laptop-white-background_1368-4145.jpg" style="border-radius: 5px" width="100%" alt="Background Image">
+                    </div>
+
+                    <div class="right-panel">
+                        <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
+                            <div class ="texto">
+
+                                <div class="logo ">
+                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo">
+                                    
+                                </div>
+
+
+                                <div class=" form-input" >
+
+                                    <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
+                                    <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
+                                    <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
+                                    <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
+
+
+                                    <select class="form-select" aria-label="Default select example" name="servicios">
+
+                                        <option selected>Elegir servicio ofrecido</option>
+                                        <option th:each="servicios : ${serviciosOfrecidos}"
+                                                th:value="${servicios}"
+                                                th:text="${servicios.nombre}"/>                                            
+
+
+                                    </select>
+
+                                    <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
+
+                                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                                    <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                                    <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
+
+
+                                    <div th:replace="fragments/error :: errores1"></div>
+
+                                    <div class="form-button">
+                                        <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
+                                    </div>
+
+                                </div>
+                            </div>   
+                        </form>
+
+
+
+
+                    </div>
+
+                </div>
             </div>
-
-            <div class="right-panel">
-                <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
-                    <div class ="texto">
-
-                        <div class="logo ">
-                            <img src="/Img/icon.png" width="30%" alt="Logo">
-                            <h2 class="card-title mb-3">Soluciones Activas </h2>
-                        </div>
+        </main>
 
 
-                        <div class=" form-input" >
+        <footer th:replace="fragments/footer :: footer">    </footer>
 
-                            <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
-                            <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
-                            <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
-                            <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
-                            
-                            
-                            <select class="form-select" aria-label="Default select example" name="servicios">
-                                
-                                <option selected>Elegir servicio ofrecido</option>
-                                <option th:each="servicios : ${serviciosOfrecidos}"
-                                        th:value="${servicios}"
-                                        th:text="${servicios.nombre}"/>                                            
-                            
-                                        
-                            </select>
-                           
-                            <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
-
-                            <!--<input type="file" class="form-control mb-3" name="archivo">-->
-                            <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                            <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
-
-
-                             <div th:replace="fragments/error :: errores1"></div>
-
-                            <div class="form-button">
-                                <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
-                            </div>
-                            <div class="form-button">
-                                <a href="/login"  class=" btn btn-primary mt-3 form-control mb-3 botones btn-success">Login</a>
-                            </div>
-                        </div>
-                    </div>   
-                </form>
-
-
-
-
-            </div>
-        </div>
-
-        <footer th:replace="fragments/footer :: footer1">    </footer>
 
     </body>
 </html>
