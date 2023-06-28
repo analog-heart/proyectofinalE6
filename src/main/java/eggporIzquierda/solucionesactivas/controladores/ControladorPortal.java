@@ -1,9 +1,8 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-
-
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
@@ -33,7 +32,8 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
+    @Autowired
+    private ServicioContrato contratoServicio;
 
     @GetMapping("/")
 
@@ -50,10 +50,6 @@ public class ControladorPortal {
 //      
 //    }
 
-   
-    
-    
-    
     @GetMapping("/registrar")
     public String registrar() {
         return "registrar.html";
@@ -199,6 +195,37 @@ public class ControladorPortal {
 
         return "servicio_ofrecido_alta.html";
 
+    }
+
+    //Agrego el controlador para probar la generación de los contratos
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/contrato")
+    public String contrato() {
+        return "contrato.html";
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/contratar")
+    public String contratar(@RequestParam String idUsuario, @RequestParam String idProveedor, ModelMap modelo) {
+
+        System.out.println("ID USUARIO: " + idUsuario);
+        System.out.println("ID PROVEEDOR: " + idProveedor);
+
+        try {
+
+            contratoServicio.crearContrato(idUsuario, idProveedor);
+
+            modelo.put("exito", "El contrato fue generado con exito");
+
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+
+            return "contrato.html";
+        }
+
+        return "contrato.html";
     }
 
 }
