@@ -37,18 +37,30 @@ public class ServicioUsuario implements UserDetailsService {
     
     
     @Transactional
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
         
-        validar( nombre,email, password, password2);
+        validar( email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-        usuario.setFechaNacimiento(fechaNacimiento);
+         
+        //se guarda la fecha de alta (no modificable)
+        Date fechatemp = new Date();
+        usuario.setFecha(fechatemp);
+                
+        //se guarda la fecha de nacimiento que llega por formulario
+        fechatemp = fechaNacimiento;
+        usuario.setFechaNacimiento(fechatemp);
+        
+        
         usuario.setDni(dni);
+        usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
+        
+       
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
@@ -58,7 +70,7 @@ public class ServicioUsuario implements UserDetailsService {
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
-        validar(nombre,email, password, password2);
+        validar(email, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -104,6 +116,18 @@ public class ServicioUsuario implements UserDetailsService {
         return usuarios;
     }
     
+     @Transactional(readOnly = true)
+    public List<Usuario> listarUsuariosActivos() {
+        List<Usuario> usuarios = new ArrayList();
+        usuarios = usuarioRepositorio.listarUsuariosActivos();
+        return usuarios;
+    }
+    @Transactional(readOnly = true)
+    public List<Usuario> listarUsuariosInactivos() {
+        List<Usuario> usuarios = new ArrayList();
+        usuarios = usuarioRepositorio.listarUsuariosInactivos();
+        return usuarios;
+    }
 
    public List<Usuario> buscarUsuariosXnombre(String nombre){
        
@@ -134,11 +158,9 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar( String nombre,String email, String password, String password2) throws MiException {
+    private void validar(String email, String password, String password2) throws MiException {
 
-       if (nombre.isEmpty() || nombre == null) {
-            throw new MiException("el nombre no puede ser nulo o estar vacío");
-        }
+     
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }

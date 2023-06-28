@@ -22,9 +22,14 @@
     width: 20%;
 }
 
-.logo{
-    width: 40%;
-    margin: auto;
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100%;
 }
 
 .formulario {

@@ -1,15 +1,13 @@
 
-/* 
-    Created on : 21/06/2023, 02:09:52
-    Author     : A300593
-*/
+
 
 body {
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
-     font-family: 'Bitter';
-    background-color: f4ebeb; 
+    background-color: #2a363b;
+    font-family: 'Bitter';
+    
+    
 }
 
 .contenedor {
@@ -25,14 +23,12 @@ body {
 
 .left-panel {
 
-  /* 
-    flex: 1 1 70%;
-   */
     margin: 0;
     display: grid;
     grid-template-columns: 2fr;
-     background-size: cover;
+    background-size: cover;
     background-position: left;  
+    
 }
 
 .right-panel {
@@ -74,12 +70,15 @@ form {
 }*/
 
 .form-input input {
-    width: 100%;
+     width: 100%;
     padding: 10px;
     border: none;
     border-bottom: 1px solid #ddd;
     background-color: transparent;
     outline: none;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-button button {

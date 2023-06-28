@@ -58,10 +58,10 @@ public class ControladorPortal {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
 
         try {
-            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -91,7 +91,7 @@ public class ControladorPortal {
             proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
-            return "inicio.html";
+            return "index.html";
         } catch (MiException ex) {
 
             modelo.put("error", ex.getMessage());
