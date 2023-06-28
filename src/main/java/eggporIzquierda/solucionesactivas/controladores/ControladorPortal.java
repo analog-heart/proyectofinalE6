@@ -1,7 +1,11 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+
+
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
+import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
@@ -16,30 +20,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Controller
 @RequestMapping("/")
 public class ControladorPortal {
+
+    @Autowired
+    private ServicioServicioOfrecido servOfrecidoServicio;
+
     @Autowired
     private ServicioUsuario usuarioServicio;
 
+    @Autowired
+    private ServicioProveedor proveedorServicio;
+
+
+
     @GetMapping("/")
+
     public String index() {
 
         return "index.html";
     }
+//    @GetMapping("/")
+//    public String index(ModelMap modelo) {
+//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
+//        modelo.addAttribute("proveedores", ListProveedores);
+//        return "index.html";
+//
+//      
+//    }
 
+   
+    
+    
+    
     @GetMapping("/registrar")
     public String registrar() {
         return "registrar.html";
+
     }
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
 
         try {
-            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -50,6 +76,33 @@ public class ControladorPortal {
             modelo.put("email", email);
 
             return "registrar.html";
+
+        }
+
+    }
+
+    @GetMapping("/registrarproveedor")
+    public String registrarProveedor(ModelMap modelo) {
+        modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
+        return "registrar_proveedor.html";
+    }
+
+    @PostMapping("/registroproveedor")
+    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+
+        try {
+
+            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            modelo.put("exito", "Usuario registrado correctamente!");
+
+            return "index.html";
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+
+            return "registrar_proveedor.html";
         }
 
     }
@@ -64,7 +117,7 @@ public class ControladorPortal {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
@@ -77,15 +130,23 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        modelo.put("usuario", usuario);
-        return "/usuario/usuario_modificar.html";
+
+        if (usuario.getRol().toString().equals("PROVEEDOR")) {
+            modelo.put("usuario", usuario);
+            return "/proveedor/proveedor_modificar.html";
+
+        } else {
+            modelo.put("usuario", usuario);
+            return "/usuario/usuario_modificar.html";
+        }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
@@ -102,4 +163,42 @@ public class ControladorPortal {
         }
 
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @PostMapping("/perfilproveedor/{id}")
+    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+
+        try {
+            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            modelo.put("exito", "Proveedor actualizado correctamente!");
+            return "inicio.html";
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+            return "/usuario/usuario_modificar.html";
+        }
+
+    }
+
+    @GetMapping("/altaservicio_ofrecido")
+    public String altaServicio() {
+        return "servicio_ofrecido_alta.html";
+    }
+
+    @PostMapping("/altaservicio_ofrecido_ok")
+    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
+
+        try {
+            servOfrecidoServicio.registrarServicio(serv_descripcion);
+            return "redirect:/registrarproveedor";
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+        }
+
+        return "servicio_ofrecido_alta.html";
+
+    }
+
 }

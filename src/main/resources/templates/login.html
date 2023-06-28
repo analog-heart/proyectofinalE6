@@ -1,25 +1,57 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace=" /fragments/head :: head">    </head>
-    <body>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-        <nav th:replace="fragments/navbar :: nav1">    </nav>
 
-        <form class="formulario" action="/logincheck" method="POST">
-            <div class="form-group my-3">
-                <h3 class="card-title">Login Usuario</h3>
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="~{/fragments/header :: header}"></header>
+
+        <main class="flex-grow-1 container-fluid">
+            <div class="container container-fluid d-flex"> 
+                <div class="contenedor">
+
+                    <div class="left-panel">
+                        <img src="https://img.freepik.com/free-photo/check-lock-wooden-table-background_93675-128371.jpg"  style="border-radius: 5px" width="100%" alt="Background Image">
+                    </div>
+
+                    <div class="right-panel">
+                        <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
+                            <div class ="texto">
+
+                                <div class="logo ">
+                                    <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width="300" height="300"  alt="Logo">
+
+                                </div>
+                                <div class="form-input ">
+                                    <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
+                                </div>
+                                <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                                <div class="form-input ">
+                                    <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                                </div>
+
+                                <div th:replace="fragments/error :: errores1"></div>
+                                <div class="form-button">
+                                    <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
+                                </div>
+
+
+
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="form-group my-3">
-                <input type="email" class="form-control" name="email" placeholder="EMAIL">
-            </div>
-            <div class="form-group my-3">
-                <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA">
-            </div>
-            <button type="submit" class="btn btn-primary mt-3 botones">Ingresar</button>
-        </form>
+        </main>
 
-        <div th:replace=" /fragments/error :: div">    </div>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     </body>
+
 </html>
