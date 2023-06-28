@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<<<<<<< HEAD
     <head th:replace="/fragments/head :: head"></head>
     <body class="footer-alpiso d-flex flex-column" >
         <header th:replace="/fragments/header :: header"></header>
+=======
+
+    <head th:replace="~{/fragments/head :: head}"></head>
+
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="~{/fragments/header :: header}"></header>
+
+>>>>>>> Developers
         <main class="flex-grow-1 container-fluid">
             <div>
                 <h1 style="color: azure">Lista de Proveedores</h1>
@@ -15,13 +25,22 @@
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${proveedor.dni}"></h6>
                         <h6>Telefono</h6>
                         <p class="card-text" th:text="${proveedor.telefono}"></p>
-                        <p class="card-text" th:text="${proveedor.servicios}"></p>
+                        <p class="card-text"  th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
                         <a th:href="@{/proveedor/modificar/__${proveedor.id}__}" class="card-link">Modificar</a>
                     </div>
                 </div>
             </div>
         </main>  
+<<<<<<< HEAD
         <footer th:replace="/fragments/footer :: footer"></footer>
+=======
+
+
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        
+
+
+>>>>>>> Developers
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
         crossorigin="anonymous"></script>
