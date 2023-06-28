@@ -26,7 +26,7 @@ public class Imagen {
     //lob = que puede ser pesado  // basic lazy puede demorar mucho tiempo y solo lo cargara cuando lo solicit explictamente
     @Lob 
     @Basic(fetch = FetchType.LAZY)
-    @Column(columnDefinition="BLOB")
+    @Column(columnDefinition="LONGBLOB")
     private byte[] contenido;
     
     //----------------Constructor---------------
