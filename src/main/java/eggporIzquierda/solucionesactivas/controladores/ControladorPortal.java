@@ -1,16 +1,14 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 
-import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
+
 import eggporIzquierda.solucionesactivas.entity.Usuario;
-import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -41,7 +39,7 @@ public class ControladorPortal {
 
     public String index() {
 
-        return "index2.html";
+        return "index.html";
     }
 //    @GetMapping("/")
 //    public String index(ModelMap modelo) {
