@@ -1,4 +1,4 @@
-<header class="p-3 mb-3 border-bottom" style="color: #2a363b">
+<header class="p-3 mb-3" style="color: #2a363b">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a class="navbar-brand" href="/">
@@ -20,7 +20,7 @@
 
             <div class="dropdown text-end" th:if="${session.usuariosession != null}">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img id="fotoPerfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle" width="50" height="50">
                 </a>
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
