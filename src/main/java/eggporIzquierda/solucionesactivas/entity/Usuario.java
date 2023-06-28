@@ -6,6 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -39,7 +41,7 @@ public class Usuario {
     protected boolean estado;
 
     @Temporal(TemporalType.DATE)
-    protected Date fecha;
+    protected Date fechaAlta;
 
     @Enumerated(EnumType.STRING)
     protected Rol rol;
@@ -63,7 +65,7 @@ public class Usuario {
         this.telefono = telefono;
         this.domicilio = domicilio;
         this.estado = estado;
-        this.fecha = fecha;
+        this.fechaAlta = fecha;
         this.rol = rol;
         this.fotoPerfil = fotoPerfil;
     }
@@ -157,11 +159,11 @@ public class Usuario {
     }
 
     public Date getFecha() {
-        return fecha;
+        return fechaAlta;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fechaAlta = fecha;
     }
 
     public Rol getRol() {
@@ -195,7 +197,7 @@ public class Usuario {
         sb.append(", telefono=").append(telefono);
         sb.append(", domicilio=").append(domicilio);
         sb.append(", estado=").append(estado);
-        sb.append(", fecha=").append(fecha);
+        sb.append(", fechaAlta=").append(fechaAlta);
         sb.append(", rol=").append(rol);
         sb.append(", fotoPerfil=").append(fotoPerfil);
         sb.append('}');

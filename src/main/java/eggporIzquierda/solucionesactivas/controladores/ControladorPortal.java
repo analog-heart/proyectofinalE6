@@ -1,9 +1,11 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
+import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -27,11 +29,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class ControladorPortal {
 
     @Autowired
+    private ServicioServicioOfrecido servOfrecidoServicio;
+
+    @Autowired
     private ServicioUsuario usuarioServicio;
-    
+
     @Autowired
     private ServicioProveedor proveedorServicio;
-        
+
     @GetMapping("/")
     public String index() {
 
@@ -64,19 +69,19 @@ public class ControladorPortal {
         }
 
     }
-    
+
     @GetMapping("/registrarproveedor")
     public String registrarProveedor(ModelMap modelo) {
-        modelo.addAttribute("serviciosOfrecidos", EnumServiciosOfrecidos.values());
+        modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
         return "registrar_proveedor.html";
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {
+    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
-            
-            proveedorServicio.registrar(servicios, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+
+            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -89,8 +94,8 @@ public class ControladorPortal {
             return "registrar_proveedor.html";
         }
 
-    }    
-    
+    }
+
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
@@ -163,6 +168,25 @@ public class ControladorPortal {
             modelo.put("email", email);
             return "/usuario/usuario_modificar.html";
         }
+
+    }
+
+    @GetMapping("/altaservicio_ofrecido")
+    public String altaServicio() {
+        return "servicio_ofrecido_alta.html";
+    }
+
+    @PostMapping("/altaservicio_ofrecido_ok")
+    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
+
+        try {
+            servOfrecidoServicio.registrarServicio(serv_descripcion);
+            return "redirect:/registrarproveedor";
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+        }
+
+        return "servicio_ofrecido_alta.html";
 
     }
 
