@@ -23,21 +23,21 @@ public class ServicioContrato {
     @Autowired
     private RepositorioUsuario repositoriousuario;
     
-@Transactional
-public ContratoProveedor crearContrato(String idProveedor, String idUsuario){
-    
-    Proveedor p = repositorioproveedor.findById(idProveedor).get();
-    Usuario u = repositoriousuario.findById(idUsuario).get();
-    
-    ContratoProveedor CP = new ContratoProveedor();
-    
-    CP.setEstado(EnumEstadoContrato.SOLICITADO);
-    CP.setProveedor(p);
-    CP.setUsuario(u);
-    CP.setFechaContrato(new Date());
-    
-    
-    return repositoriocontrato.save(CP);
-}
-    
+//@Transactional
+//public ContratoProveedor crearContrato(String idProveedor, String idUsuario){
+//    
+//    Proveedor p = repositorioproveedor.findById(idProveedor).get();
+//    Usuario u = repositoriousuario.findById(idUsuario).get();
+//    
+//    ContratoProveedor CP = new ContratoProveedor();
+//    
+//    CP.setEstado(EnumEstadoContrato.SOLICITADO);
+//    CP.setProveedor(p);
+//    CP.setUsuario(u);
+//    CP.setFechaContrato(new Date());
+//    
+//    
+//    return repositoriocontrato.save(CP);
+//}
+//    
 }

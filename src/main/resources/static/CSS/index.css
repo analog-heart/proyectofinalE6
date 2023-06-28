@@ -2,7 +2,7 @@
     
     min-height: 100vh
     
-    
+
 }
 
 .contenedor {
@@ -21,8 +21,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-
 
     display: grid;
     grid-template-columns: 1fr;
