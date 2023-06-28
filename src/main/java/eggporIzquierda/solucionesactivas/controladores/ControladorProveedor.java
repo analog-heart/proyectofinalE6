@@ -1,9 +1,7 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
-import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
-import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

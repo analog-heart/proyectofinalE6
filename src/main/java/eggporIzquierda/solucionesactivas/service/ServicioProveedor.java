@@ -2,12 +2,16 @@ package eggporIzquierda.solucionesactivas.service;
 
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
+
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+
 import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
+import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,12 +39,29 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private ServicioImagen imagenServicio;
+    
+     @Autowired
+    private RepositorioServicioOfrecido servOfrecidoServicio;
 
     @Transactional
-    public void registrar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
-
+    public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+        
         validar(nombre, email, password, password2);
-        Proveedor proveedor = new Proveedor();
+         Proveedor proveedor = new Proveedor();
+         //----------recupero con el id el dato de la clase servicio
+       
+         
+         Optional <ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
+       
+        if (respuesta.isPresent()) {
+         ServicioOfrecido servicioTemporal = respuesta.get();
+        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+        List <ServicioOfrecido> serviciosList = new ArrayList<>();
+        serviciosList.add(servicioTemporal);
+         proveedor.setServicios(serviciosList);
+            System.out.println( serviciosList.toString());
+        }  
+       
         proveedor.setNombreUsuario(nombreUsuario);
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
@@ -51,17 +72,27 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setRol(Rol.PROVEEDOR);
         Imagen imagen = imagenServicio.guardar(archivo);
         proveedor.setFotoPerfil(imagen);
-        proveedor.setServicios(servicios);
+        
+       
+       
+        
+        
         proveedor.setEstadoProveedorActivo(Boolean.TRUE);
         proveedor.setReputacion(0.0);
         proveedor.setNivel(EnumNivel.INICIAL);
         proveedorRepositorio.save(proveedor);
+        
+         
     }
 
+        
+        
     @Transactional
-    public void actualizar(EnumServiciosOfrecidos servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
+        
+        
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -76,7 +107,11 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setEmail(email);
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
             proveedor.setRol(Rol.PROVEEDOR);
-            proveedor.setServicios(servicios);
+            
+            List <ServicioOfrecido> serviciosList = new ArrayList<>();
+            serviciosList.add(servicios);
+            proveedor.setServicios(serviciosList);
+           
             proveedor.setEstadoProveedorActivo(Boolean.TRUE);
             proveedor.setReputacion(0.0);
             proveedor.setNivel(EnumNivel.INICIAL);
@@ -180,5 +215,14 @@ public class ServicioProveedor implements UserDetailsService {
             return null;
         }
     }
+
+
+    
+    
+    public List<Proveedor> findAllbyfechadesc() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
 
 }

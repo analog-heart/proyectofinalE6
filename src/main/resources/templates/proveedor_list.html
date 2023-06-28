@@ -21,7 +21,7 @@
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${proveedor.dni}"></h6>
                         <h6>Telefono</h6>
                         <p class="card-text" th:text="${proveedor.telefono}"></p>
-                        <p class="card-text" th:text="${proveedor.servicios}"></p>
+                        <p class="card-text"  th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
                         <a th:href="@{/proveedor/modificar/__${proveedor.id}__}" class="card-link">Modificar</a>
                     </div>
                 </div>
