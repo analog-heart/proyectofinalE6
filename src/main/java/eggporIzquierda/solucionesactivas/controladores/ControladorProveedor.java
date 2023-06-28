@@ -22,7 +22,7 @@ public class ControladorProveedor {
 
     @GetMapping("/proveedores")
     public String listar(ModelMap modelo) {
-        List<Proveedor> proveedores = proveedorServicio.listarProveedores();
+        List<Proveedor> proveedores = (List<Proveedor>) proveedorServicio.listarProveedores();
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
