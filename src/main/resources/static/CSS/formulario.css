@@ -5,7 +5,7 @@
 .elementosNav{
     display: flex;
     width: 30%;
-    justify-content: space-around;
+    justify-content: space-between;
     color: #37474f;
     font-weight: 700;
 }
@@ -22,9 +22,14 @@
     width: 20%;
 }
 
-.logo{
-    width: 40%;
-    margin: auto;
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100%;
 }
 
 .formulario {

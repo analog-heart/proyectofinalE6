@@ -1,8 +1,8 @@
 
 package eggporIzquierda.solucionesactivas.entity;
 
-
 import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +24,10 @@ public class Imagen {
     
     
     //lob = que puede ser pesado  // basic lazy puede demorar mucho tiempo y solo lo cargara cuando lo solicit explictamente
-    @Lob
+    @Lob 
     @Basic(fetch = FetchType.LAZY)
+    @Column(columnDefinition="LONGBLOB")
     private byte[] contenido;
-
     
     //----------------Constructor---------------
     public Imagen() {

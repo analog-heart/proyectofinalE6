@@ -1,6 +1,5 @@
 package eggporIzquierda.solucionesactivas;
 
-import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +8,7 @@ public class SolucionesactivasApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SolucionesactivasApplication.class, args);
-                }
+                
+          }
         
        }
