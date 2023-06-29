@@ -7,7 +7,8 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/inicio" class="nav-link px-2 link-secondary" style="color: azure">Inicio</a></li>
-                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis" >Historial</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis" >Historial Usuario</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/proveedor/proveedor}" class="nav-link px-2 link-body-emphasis" >Historial Proveedor</a></li>
                 <li><a href="#" class="nav-link px-2 link-body-emphasis" style="color: azure">Servicios</a></li>
                 <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
             </ul>
@@ -17,10 +18,8 @@
             </form>
 
             <div class="dropdown text-end" th:if="${session.usuariosession != null}">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-
+                <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img id="fotoPerfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle" width="50" height="50">
-
                 </a>
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
