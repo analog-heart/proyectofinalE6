@@ -61,27 +61,26 @@ public class ServicioContrato {
         repositoriocontrato.save(CP);
     }
 
-    @Transactional
-    public void aceptarContrato(String idContrato) throws MiException {
-
-        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
-
-        ContratoProveedor newCP = new ContratoProveedor();
-
-        if (respuestaCP.isPresent()) {
-
-            newCP = respuestaCP.get();
-            System.out.println("CONTRATO: " + newCP);
-
-            newCP.setEstado(EnumEstadoContrato.ENCURSO);
-
-            System.out.println("CONTRATO: " + newCP);
-
-            repositoriocontrato.save(newCP);
-        }
-
-    }
-
+//    @Transactional
+//    public void aceptarContrato(String idContrato) throws MiException {
+//
+//        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+//
+//        ContratoProveedor newCP = new ContratoProveedor();
+//
+//        if (respuestaCP.isPresent()) {
+//
+//            newCP = respuestaCP.get();
+//            System.out.println("CONTRATO: " + newCP);
+//
+//            newCP.setEstado(EnumEstadoContrato.ENCURSO);
+//
+//            System.out.println("CONTRATO: " + newCP);
+//
+//            repositoriocontrato.save(newCP);
+//        }
+//
+//    }
     public void actualizarContrato(String idContrato, String decision) throws MiException {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
@@ -110,6 +109,12 @@ public class ServicioContrato {
 
                 repositoriocontrato.save(newCP);
             }
+
+        }
+
+        if (respuestaCP.isEmpty()) {
+
+            System.out.println("EL CONTRATO NO EXISTE");
 
         }
 

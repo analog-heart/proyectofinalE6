@@ -239,14 +239,22 @@ public class ControladorPortal {
     @PostMapping("/aceptar_contrato")
     public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
 
+        String exito = "";
+
         System.out.println("ID CONTRATO: " + idContrato);
 
         try {
+            if (decision.equalsIgnoreCase("aceptar")) {
+                exito = "El contrato fue aceptado con exito";
+            }
+            if (decision.equalsIgnoreCase("rechazar")) {
+                exito = "El contrato fue rechazado con exito";
+            }
 
 //            contratoServicio.aceptarContrato(idContrato);
             contratoServicio.actualizarContrato(idContrato, decision);
 
-            modelo.put("exito", "El contrato fue ACTUALIZADO con exito");
+            modelo.put("exito", exito);
 
         } catch (MiException ex) {
 
