@@ -25,7 +25,7 @@
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
                     <li><a class="dropdown-item" href="#">Configuracion</a></li>
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li><a class="dropdown-item" th:href="@{/perfil}" th:if="${session.usuariosession != null}"> Mi Perfil </a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
                 </ul>

@@ -130,7 +130,7 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
 
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
@@ -138,15 +138,23 @@ public class ControladorPortal {
 
         if (usuario.getRol().toString().equals("PROVEEDOR")) {
             modelo.put("usuario", usuario);
-            return "/proveedor/proveedor_modificar.html";
+            return "proveedor_modificar.html";
 
         } else {
             modelo.put("usuario", usuario);
-            return "/usuario/usuario_modificar.html";
+            return "usuario_modificar.html";
         }
     }
+    
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
+//    @GetMapping("/perfil")
+//    public String perfil(ModelMap modelo,HttpSession session){
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//         modelo.put("usuario", usuario);
+//        return "perfil.html";
+//    }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
@@ -181,6 +189,8 @@ public class ControladorPortal {
         }
 
     }
+    
+    
 
     @GetMapping("/altaservicio_ofrecido")
     public String altaServicio() {
@@ -200,5 +210,5 @@ public class ControladorPortal {
         return "servicio_ofrecido_alta.html";
 
     }
-
+   
 }

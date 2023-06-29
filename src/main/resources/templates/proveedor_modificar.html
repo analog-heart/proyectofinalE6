@@ -25,12 +25,13 @@
                     <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
                 </div>
                 <div class="form-group my-3" >
-                    <input type="file" class="form-control" name="archivo" th:value="${usuario.imagen}">
+                    <img class="card-subtitle mb-2 text-muted rounded-circle" width="50" height="50" th:src="@{/imagen/perfil/__${usuario.id}__}"></img>
                 </div> 
 
                 <div class="form-group my-3">
                     <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
                 </div>
+                
                 <div class="form-group my-3">
                     <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
                 </div>
