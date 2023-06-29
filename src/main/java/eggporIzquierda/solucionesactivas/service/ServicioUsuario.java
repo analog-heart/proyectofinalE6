@@ -38,7 +38,7 @@ public class ServicioUsuario implements UserDetailsService {
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
         
-        validar( email, password, password2);
+        validar(nombre, apellido, email, password, password2, dni);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
@@ -69,7 +69,7 @@ public class ServicioUsuario implements UserDetailsService {
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
-        validar(email, password, password2);
+        validar(nombre, apellido, email, password, password2, dni);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -157,12 +157,25 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar(String email, String password, String password2) throws MiException {
+    private void validar(String nombre,String apellido, String email, String password, String password2, String dni) throws MiException {
 
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiException("el nombre no puede ser nulo o estar vacío");
+        }
+        
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("el apellido no puede ser nulo o estar vacío");
+        }
      
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
+        
+        Usuario respuesta = usuarioRepositorio.buscarPorEmail(email);
+        if (respuesta != null) {
+             throw new MiException("email ya registrado.");
+        }
+        
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
@@ -170,6 +183,10 @@ public class ServicioUsuario implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
+
+        if (dni.isEmpty() || dni == null || dni.length() > 8) {
+            throw new MiException("DNI no valido");
+        }        
 
     }
 
