@@ -17,7 +17,6 @@ public class ControladorProveedor {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
     @GetMapping("/proveedores")
     public String listar(ModelMap modelo) {
         List<Proveedor> proveedores = proveedorServicio.listarProveedores();
@@ -25,11 +24,12 @@ public class ControladorProveedor {
         return "proveedor_list.html";
     }
 
-    
+    @GetMapping("/buscar")
+    public String buscarProveedores(String nombre, ModelMap modelo) {
 
-    
-
+        List<Proveedor> resultados = proveedorServicio.buscarProveedoresXnombre(nombre);
+        modelo.addAttribute("resultados", resultados);
+        return "resultado_busqueda.html";
+    }
 
 }
-
-
