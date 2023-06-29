@@ -73,6 +73,10 @@ public class ControladorPortal {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("archivo", archivo);            
             modelo.put("email", email);
 
             return "registrar.html";
@@ -89,7 +93,8 @@ public class ControladorPortal {
 
     @PostMapping("/registroproveedor")
 
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni,String telefono,
+            @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
@@ -102,6 +107,10 @@ public class ControladorPortal {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("archivo", archivo);            
             modelo.put("email", email);
 
             return "registrar_proveedor.html";

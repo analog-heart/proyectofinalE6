@@ -201,7 +201,7 @@ public class ServicioProveedor implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
-        if (dni.isEmpty() || dni == null || dni.length() > 8) {
+        if (dni.isEmpty() || dni == null || dni.length() != 8) {
             throw new MiException("DNI no valido");
         }
     }
