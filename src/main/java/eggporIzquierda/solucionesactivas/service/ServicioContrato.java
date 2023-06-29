@@ -53,12 +53,66 @@ public class ServicioContrato {
 
         ContratoProveedor CP = new ContratoProveedor();
 
-//        CP.setEstado(EnumEstadoContrato.SOLICITADO);
+        CP.setEstado(EnumEstadoContrato.SOLICITADO);
         CP.setProveedor(p);
         CP.setUsuario(u);
         CP.setFechaContrato(new Date());
 
         repositoriocontrato.save(CP);
+    }
+
+    @Transactional
+    public void aceptarContrato(String idContrato) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            System.out.println("CONTRATO: " + newCP);
+
+            newCP.setEstado(EnumEstadoContrato.ENCURSO);
+
+            System.out.println("CONTRATO: " + newCP);
+
+            repositoriocontrato.save(newCP);
+        }
+
+    }
+
+    public void actualizarContrato(String idContrato, String decision) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            System.out.println("CONTRATO: " + newCP);
+
+            if (decision.equalsIgnoreCase("aceptar")) {
+
+                newCP.setEstado(EnumEstadoContrato.ENCURSO);
+
+                System.out.println("CONTRATO: " + newCP);
+
+                repositoriocontrato.save(newCP);
+            }
+
+            if (decision.equalsIgnoreCase("rechazar")) {
+
+                newCP.setEstado(EnumEstadoContrato.RECHAZADO);
+
+                System.out.println("CONTRATO: " + newCP);
+
+                repositoriocontrato.save(newCP);
+            }
+
+        }
+
     }
 
 }

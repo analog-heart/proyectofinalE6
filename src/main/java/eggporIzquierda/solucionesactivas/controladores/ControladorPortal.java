@@ -228,4 +228,34 @@ public class ControladorPortal {
         return "contrato.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/aceptacion")
+    public String aceptacion() {
+        return "aceptar_contrato.html";
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/aceptar_contrato")
+    public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
+
+        System.out.println("ID CONTRATO: " + idContrato);
+
+        try {
+
+//            contratoServicio.aceptarContrato(idContrato);
+            contratoServicio.actualizarContrato(idContrato, decision);
+
+            modelo.put("exito", "El contrato fue ACTUALIZADO con exito");
+
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+
+            return "contrato.html";
+        }
+
+        return "contrato.html";
+    }
+
 }
