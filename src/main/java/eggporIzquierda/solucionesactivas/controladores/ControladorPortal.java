@@ -260,10 +260,10 @@ public class ControladorPortal {
 
             modelo.put("error", ex.getMessage());
 
-            return "contrato.html";
+            return "aceptar_contrato.html";
         }
 
-        return "contrato.html";
+        return "inicio.html";
     }
 
 }

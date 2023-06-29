@@ -85,6 +85,8 @@ public class ServicioContrato {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
+        System.out.println("RESPUESTA QUERY CP: " + respuestaCP);
+
         ContratoProveedor newCP = new ContratoProveedor();
 
         if (respuestaCP.isPresent()) {
@@ -112,9 +114,10 @@ public class ServicioContrato {
 
         }
 
-        if (respuestaCP.isEmpty()) {
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
 
-            System.out.println("EL CONTRATO NO EXISTE");
+            System.out.println("EL CONTRATO NO EXISTE O ES NULL");
+            throw new MiException("El contrato no existe");
 
         }
 
