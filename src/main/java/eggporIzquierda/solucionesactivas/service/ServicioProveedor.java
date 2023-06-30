@@ -228,4 +228,15 @@ public class ServicioProveedor implements UserDetailsService {
        return proveedoresXnombre;
    }
 
+   
+
+    public List<Proveedor> buscarProveedoresxFiltro(String palabraClave) {
+       List<Proveedor> proveedoresList= new ArrayList();
+       
+       proveedoresList = proveedorRepositorio.listarXpalabraClave(palabraClave);
+       
+       return proveedoresList;
+        
+    }
+
 }

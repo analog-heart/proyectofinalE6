@@ -1,6 +1,7 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,7 +53,15 @@ public class ControladorPortal {
 //      
 //    }
 
-   
+    //-------------------------BUSCADOR--------------------
+    @GetMapping("/buscar")
+    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+
+        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", ListNoticias);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "index.html";
+    }
     
     
     

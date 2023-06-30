@@ -13,9 +13,16 @@
                 <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+<!--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
+            </form>-->
+
+         
+                <form th:action="@{/buscar}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-inline-block "  role="search">
+                    <input  th:value="${palabraClave}" class=" form me-2 searcherinput" id="palabraClave" name="palabraClave" type="text" placeholder="Search" aria-label="Search">
+                    <button  class="btn btn-success" type="button"  th:value="${palabraClave}">Search</button>
+                </form>
+           
 
             <div class="dropdown text-end" th:if="${session.usuariosession != null}">
                 <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
