@@ -122,11 +122,11 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
-        }
+        // if (logueado.getRol().toString().equals("ADMIN")) {
+        //     return "redirect:/admin/dashboard";
+        // }
 
         return "inicio.html";
     }
