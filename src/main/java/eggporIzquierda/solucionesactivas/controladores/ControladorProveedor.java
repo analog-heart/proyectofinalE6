@@ -32,4 +32,12 @@ public class ControladorProveedor {
         return "resultado_busqueda.html";
     }
 
+    @GetMapping("/contacto/{id}/")
+    public String contacto(String id, ModelMap modelo) {
+        Proveedor proveedor = proveedorServicio.getOne(id);
+        modelo.addAttribute("proveedor", proveedor);
+    return "proveedor_contratar.html";
+    }
+    
+    
 }
