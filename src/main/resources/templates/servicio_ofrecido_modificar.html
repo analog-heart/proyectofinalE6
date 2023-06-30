@@ -15,7 +15,7 @@
 
                                 <div class=" form-input" >
                                     <h3>Modificacion de Servicio Ofrecio</h3>
-                                     <input th:value="${serv_id}" name="serv_id">
+                                    <input hidden th:value="${serv_id}" name="serv_id">
                                     <input type="text" class="form-control"  name="serv_descripcion" placeholder="Descripcion" th:value="${servicio.serv_descripcion}" >
                                     <input type="file" class="form-control mb-3" name="serv_imagen"> 
 
