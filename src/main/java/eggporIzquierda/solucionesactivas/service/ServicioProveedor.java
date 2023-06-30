@@ -228,4 +228,55 @@ public class ServicioProveedor implements UserDetailsService {
        return proveedoresXnombre;
    }
 
+       
+    
+       
+       //----------
+       @Transactional
+    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+        
+        validar(nombre, email, password, password2);
+         Proveedor proveedor = new Proveedor();
+         //----------recupero con el id el dato de la clase servicio
+       
+         
+         Optional <ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
+         Optional <ServicioOfrecido> respuesta2 = servOfrecidoServicio.findById(serviciosID2);
+       
+        if (respuesta.isPresent()) {
+         ServicioOfrecido servicioTemporal = respuesta.get();
+        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+        List <ServicioOfrecido> serviciosList = new ArrayList<>();
+        serviciosList.add(servicioTemporal);
+         proveedor.setServicios(serviciosList);
+            
+        } 
+          if (respuesta2.isPresent()) {
+         ServicioOfrecido servicioTemporal = respuesta2.get();
+        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+        List <ServicioOfrecido> serviciosList2 = proveedor.getServicios();
+        serviciosList2.add(servicioTemporal);
+         proveedor.setServicios(serviciosList2);
+            
+        }  
+       
+        proveedor.setNombreUsuario(nombreUsuario);
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setFechaNacimiento(fechaNacimiento);
+        proveedor.setDni(dni);
+        proveedor.setEmail(email);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+        proveedor.setRol(Rol.PROVEEDOR);
+        Imagen imagen = imagenServicio.guardar(archivo);
+        proveedor.setFotoPerfil(imagen);
+        
+        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+        proveedor.setReputacion(0.0);
+        proveedor.setNivel(EnumNivel.INICIAL);
+        proveedorRepositorio.save(proveedor);
+        
+         
+    }
+       
 }
