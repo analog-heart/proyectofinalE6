@@ -4,7 +4,7 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     >
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
     <body class="footer-alpiso d-flex flex-column">
         <header th:replace="/fragments/header :: header"></header>
@@ -14,20 +14,21 @@
                 <h1 style="color: azure">Lista de Usuarios</h1>
             </div>
             <div class="container container-fluid  d-flex flex-wrap gap-3">
-                             <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
-                                    <div class="card-body">
-                                        <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                        <h6>DNI</h6>
-                                        <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
-                                        <h6>Telefono</h6>
-                                        <p class="card-text" th:text="${usuario.telefono}"></p>
-                                        <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
-                                    </div>
-                                </div>
+                <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
+                        <img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">
+                        <h6>DNI</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
+                        <h6>Telefono</h6>
+                        <p class="card-text" th:text="${usuario.telefono}"></p>
+                        <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
+                    </div>
+                </div>
             </div>
 
 
-            
+
 
         </main>
 

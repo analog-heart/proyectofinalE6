@@ -21,7 +21,7 @@ public class ControladorImagen {
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
-        Usuario usuario = usuarioServicio.getOne(id);
+        Usuario usuario = (Usuario) usuarioServicio.getOne(id);
         byte[] imagen = usuario.getFotoPerfil().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
@@ -29,4 +29,5 @@ public class ControladorImagen {
         headers.setContentType(MediaType.IMAGE_GIF);
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }
+
 }

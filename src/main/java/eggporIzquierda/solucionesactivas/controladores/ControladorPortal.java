@@ -1,7 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 
-
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -132,7 +131,7 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
 
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
@@ -148,7 +147,7 @@ public class ControladorPortal {
         }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
     @PostMapping("/perfil/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
@@ -184,56 +183,7 @@ public class ControladorPortal {
 
     }
 
-    @GetMapping("/altaservicio_ofrecido")
-    public String altaServicio() {
-        return "servicio_ofrecido_alta.html";
-    }
-
-    @PostMapping("/altaservicio_ofrecido_ok")
-    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
-
-        try {
-            servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/registrarproveedor";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-        }
-
-        return "servicio_ofrecido_alta.html";
-
-    }
-    //-----------listar
-    @GetMapping("/listarServicio_ofrecido")
-    public String listarservicio_ofrecido(ModelMap modelo) {
-        List<ServicioOfrecido> serviciosList = servOfrecidoServicio.listarServicios();
-        modelo.addAttribute("serviciosList", serviciosList);
-        return "servicio_ofrecido_list.html";
-    }
-    //-----------modificar ---
-    @GetMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(ModelMap modelo ,@PathVariable String serv_id) {
-        
-           modelo.addAttribute("servicio", servOfrecidoServicio.findById(serv_id));
-        
-        return "servicio_ofrecido_modificar.html";
-        
-    }
-     
     
-    
-    @PostMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id , @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
-        
-        try {
-            servOfrecidoServicio.modificarServicio( serv_id, serv_descripcion, serv_imagen);
-             return "redirect:/";
-
-        } catch (MiException ex) {
-          modelo.put("error", ex.getMessage());
-           return "servicio_ofrecido_modificar.html";
-        }
-
-    }
 
 }
 
