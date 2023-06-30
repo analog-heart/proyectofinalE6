@@ -29,11 +29,11 @@
                         <div class="face back">
                             <h3>Servicio:</h3>
                             <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
-                            <div class="link">
+                            <!-- <div class="link">
                                 <a th:href="@{/proveedor/contacto/__${proveedor.id}__}">
                                     <button value="">Contactar</button>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
