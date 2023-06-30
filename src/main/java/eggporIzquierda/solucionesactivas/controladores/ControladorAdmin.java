@@ -112,7 +112,7 @@ public class ControladorAdmin {
         return "servicio_ofrecido_alta.html";
     }
     //-----------listar
-    @GetMapping("/listarServicio_ofrecido")
+    @GetMapping("/listarservicio_ofrecido")
     public String listarservicio_ofrecido(ModelMap modelo) {
         List<ServicioOfrecido> serviciosList = servOfrecidoServicio.listarServicios();
         modelo.addAttribute("serviciosList", serviciosList);
@@ -128,8 +128,7 @@ public class ControladorAdmin {
         
     }
      
-    
-    
+      
     @PostMapping("/modificar_servicio_ofrecido/{serv_id}")
     public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id , @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
         
