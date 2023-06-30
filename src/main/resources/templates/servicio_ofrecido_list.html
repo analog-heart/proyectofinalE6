@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body class="footer-alpiso d-flex flex-column" >
+
+        <header th:replace="/fragments/header :: header"></header>
+        <div class="container container-fluid d-flex">
+            <main class="flex-grow-1 container-fluid" id="mainindex">
+          
+                    <div class=" container" >
+                        <h3>Lista Servicios Ofrecidos</h3>
+
+                        <table class="table table-dark">
+                            <thead class="align-items-center">
+                                <tr >
+                                    <th scope="col">Id del Servicio</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Modificar</th>
+                                </tr>
+                              
+                            </thead>
+                            <tbody th:each="servicio : ${serviciosList}"> 
+                                <tr>
+                                    <th scope="row" th:text="${servicio.serv_id}"></th>
+                                    <td th:text="${servicio.serv_descripcion}"></td>
+                                    <td>
+                                     <a th:href= "@{/modificar_servicio_ofrecido/__${servicio.serv_id}__}"><i class="fas fa-feather-alt"></i>Editar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </main>
+
+
+
+       <footer th:replace="/fragments/footer :: footer"></footer>
+        
+         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

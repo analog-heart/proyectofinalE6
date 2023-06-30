@@ -42,7 +42,7 @@ public class ServicioServicioOfrecido {
         Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(serv_id);
         if (respuesta.isPresent()) {
             ServicioOfrecido serv = respuesta.get();
-            serv.setServ_descripcion(serv_descripcion);
+            serv.setServ_descripcion(serv_descripcion.toUpperCase());
 
             if (serv_imagen != null) {
                 Imagen imagen = imagenServicio.guardar(serv_imagen);
@@ -96,4 +96,13 @@ public class ServicioServicioOfrecido {
         }
     }
 
+    
+    public ServicioOfrecido findById(String id){
+        Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            return respuesta.get();
+        } else 
+            return null;
+    }
 }

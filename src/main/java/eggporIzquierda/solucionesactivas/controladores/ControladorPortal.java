@@ -2,6 +2,7 @@ package eggporIzquierda.solucionesactivas.controladores;
 
 
 
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
@@ -9,6 +10,7 @@ import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -200,5 +202,39 @@ public class ControladorPortal {
         return "servicio_ofrecido_alta.html";
 
     }
+    //-----------listar
+    @GetMapping("/listarServicio_ofrecido")
+    public String listarservicio_ofrecido(ModelMap modelo) {
+        List<ServicioOfrecido> serviciosList = servOfrecidoServicio.listarServicios();
+        modelo.addAttribute("serviciosList", serviciosList);
+        return "servicio_ofrecido_list.html";
+    }
+    //-----------modificar ---
+    @GetMapping("/modificar_servicio_ofrecido/{serv_id}")
+    public String modificar_servicio_ofrecido(ModelMap modelo ,@PathVariable String serv_id) {
+        
+           modelo.addAttribute("servicio", servOfrecidoServicio.findById(serv_id));
+        
+        return "servicio_ofrecido_modificar.html";
+        
+    }
+     
+    
+    
+    @PostMapping("/modificar_servicio_ofrecido/{serv_id}")
+    public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id , @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
+        
+        try {
+            servOfrecidoServicio.modificarServicio( serv_id, serv_descripcion, serv_imagen);
+             return "redirect:/";
+
+        } catch (MiException ex) {
+          modelo.put("error", ex.getMessage());
+           return "servicio_ofrecido_modificar.html";
+        }
+
+    }
 
 }
+
+
