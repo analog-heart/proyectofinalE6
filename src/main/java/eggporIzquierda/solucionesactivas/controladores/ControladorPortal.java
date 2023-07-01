@@ -99,11 +99,11 @@ public class ControladorPortal {
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
-            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -132,11 +132,11 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
-        }
+        // if (logueado.getRol().toString().equals("ADMIN")) {
+        //     return "redirect:/admin/dashboard";
+        // }
 
         return "inicio.html";
     }
