@@ -2,6 +2,7 @@ package eggporIzquierda.solucionesactivas.controladores;
 
 
 
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
@@ -134,6 +135,8 @@ public class ControladorPortal {
 
     @GetMapping("/perfil")
     public String perfil(ModelMap modelo, HttpSession session) {
+        
+        
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
         if (usuario.getRol().toString().equals("PROVEEDOR")) {
@@ -167,31 +170,32 @@ public class ControladorPortal {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
+            return "usuario_modificar.html";
         }
 
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
     @PostMapping("/perfilproveedor/{id}")
-    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
 
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
             modelo.put("exito", "Proveedor actualizado correctamente!");
             return "inicio.html";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
+            return "proveedor_modificar.html";
         }
+        
+        
 
     }
     
-    
-
+   
     @GetMapping("/altaservicio_ofrecido")
     public String altaServicio() {
         return "servicio_ofrecido_alta.html";

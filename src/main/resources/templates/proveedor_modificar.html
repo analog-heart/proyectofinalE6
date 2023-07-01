@@ -6,53 +6,98 @@
     <body>
         <header th:replace= "~{/fragments/header :: header}"> </header>
 
+        <main class="flex-grow-1 container-fluid">
+            <div class="container container-fluid d-flex"> 
 
-
-
-        <div class="container-fluid m-3 contenedor">
-
-            <form class="formulario" th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data" >
-
-                <input hidden th:value="${id}" name ="id">
-
-                <div class="form-group my-3">
-                    <h3 class="card-title">Editar proveedor!</h3>
-                </div>
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="nombre"  th:value="${usuario.nombre}">
-                </div>
-                <div class="form-group my-3">
-                    <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
-                </div>
-                <div class="form-group my-3" >
-                    <img class="card-subtitle mb-2 text-muted rounded-circle" width="50" height="50" th:src="@{/imagen/perfil/__${usuario.id}__}"></img>
-                </div> 
-
-                <div class="form-group my-3">
-                    <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
-                </div>
+                      <div class="container container-fluid flex-wrap gap-3">
                 
-                <div class="form-group my-3">
-                    <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
-                </div>
+                    <div class="card" style="width: 18rem;" >
+                    
+                    <div class="card-body">
 
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${rol}">
-                </div>
+                        <h6>Foto de perfíl</h6>
+                        <img class="card-subtitle mb-2 text-muted rounded-circle" width="50" height="50" th:src="@{/imagen/perfil/__${usuario.id}__}"></img>
 
+                        <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
 
-                <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
-            </form>
+                        <h6>E-Mail</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.email}"></h6>
 
+                        <h6>DNI</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${usuario.dni}"></h6>
+                        
+                        <h6>Servicio Ofrecido</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${servicioOfrecido}"></h6>
+                        
+<!--                        <h6>Contraseña</h6>
+                        <p class="card-text" th:text="${password}"></p>
+                        <h6>Rrepetir Contraseña</h6>
+                        <p class="card-text" th:text="${password2}"></p>-->
 
-            <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                        <!--                        <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+
+
+
+
+
+            <div class="container-fluid m-3 contenedor">
+
+<!--                <div class="right-panel">-->
+
+                    <form class="formulario" th:action="@{/perfilproveedor/__${usuario.id}__}" method="POST" enctype="multipart/form-data" >
+
+<!--                        <div class ="texto">-->
+
+                            <input hidden th:value="${id}" name ="id">
+
+                            <div class="form-group my-3">
+                                <h3 class="card-title" style="color: azure">Modificar perfil</h3>
+                            </div>
+
+                            <div class="form-group my-3" >
+                                <img class="card-subtitle mb-2 text-muted rounded-circle" width="60" height="60" th:src="@{/imagen/perfil/__${usuario.id}__}"></img>
+                                <input type="file" class="form-control mb-3" name="archivo">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="nombre"  th:value="${usuario.nombre}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="apellido"  th:value="${usuario.apellido}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="servicioOfrecido" placeholder="Servicio Ofrecido" th:value="${servicioOfrecido}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
+                            </div>
+
+                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${rol}">
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                <a th:href="@{/}"><button type="button" class="btn btn-primary"> Volver </button> </a></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
 
         <footer th:replace="~{/fragments/footer :: footer}">    </footer>
 
