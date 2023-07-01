@@ -20,7 +20,7 @@ public class ControladorAdmin {
 
     @GetMapping("/dashboard")
     public String panelAdministrativo() {
-        return "dashboardadmin.html";
+        return "dashboard_admin.html";
     }
     
     @GetMapping("/usuarios")
