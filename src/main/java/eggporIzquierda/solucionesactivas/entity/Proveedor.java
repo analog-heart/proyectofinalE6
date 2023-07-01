@@ -18,8 +18,6 @@ import java.util.List;
 
 
 @Entity 
-
-
 public class Proveedor extends Usuario {
     
     
