@@ -2,12 +2,8 @@ package eggporIzquierda.solucionesactivas.service;
 
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
-
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
-import eggporIzquierda.solucionesactivas.entity.Usuario;
-
 import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
-import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
@@ -223,6 +219,13 @@ public class ServicioProveedor implements UserDetailsService {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    
+       public List<Proveedor> buscarProveedoresXnombre(String nombre){
+       
+       List<Proveedor> proveedoresXnombre = new ArrayList();
+       
+       proveedoresXnombre = proveedorRepositorio.buscarPorNombre(nombre);
+       
+       return proveedoresXnombre;
+   }
 
 }
