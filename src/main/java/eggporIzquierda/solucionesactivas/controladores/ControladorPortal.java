@@ -1,5 +1,7 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
@@ -7,6 +9,7 @@ import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -180,23 +183,8 @@ public class ControladorPortal {
 
     }
 
-    @GetMapping("/altaservicio_ofrecido")
-    public String altaServicio() {
-        return "servicio_ofrecido_alta.html";
-    }
-
-    @PostMapping("/altaservicio_ofrecido_ok")
-    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
-
-        try {
-            servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/registrarproveedor";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-        }
-
-        return "servicio_ofrecido_alta.html";
-
-    }
+    
 
 }
+
+
