@@ -66,10 +66,15 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setEmail(email);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
+        
+        if(archivo != null){
         Imagen imagen = imagenServicio.guardar(archivo);
         proveedor.setFotoPerfil(imagen);
+        }
         
-       
+       if(archivo == null){
+           
+       }
        
         
         

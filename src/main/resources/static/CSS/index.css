@@ -1,201 +1,253 @@
+*{
+    font-size: 20px;
+
+}
+
 .footer-alpiso {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .contenedor {
-  border: 5px;
-  max-width: 1500px;
-  width: 130%;
-  margin: auto;
+    border: 5px;
+    max-width: 1500px;
+    width: 130%;
+    margin: auto;
 
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 0.5px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5px;
 }
 
 .right-panel {
-  flex: 1 1 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    flex: 1 1 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-  display: grid;
-  grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
 .right-panel .texto {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 70%;
-  margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 70%;
+    margin: auto;
 }
 
 #mainindex {
-  background-image: url("https://img.freepik.com/free-photo/variety-handy-tools-dark-background-labor-day-background-concept_1150-41808.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+    background-image: url("https://img.freepik.com/free-photo/variety-handy-tools-dark-background-labor-day-background-concept_1150-41808.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .ParrafoIndex {
-  font-family: sans-serif;
-  font-style: italic;
-  color: azure;
+    font-family: sans-serif;
+    font-style: italic;
+    color: azure;
 }
 
 .TitutloIndex {
-  color: azure;
+    color: azure;
 }
 
 /* -------------- CSS TARJETAS PROVEEDORES: ---------------------*/
 section {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-  /* background: #181927; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    /* background: #181927; */
 }
 
 .card {
-  position: relative;
-  width: 300px;
-  height: 350px;
-  margin: 20px;
+    position: relative;
+    width: 300px;
+    height: 350px;
+    margin: 20px;
 }
 
 .card .face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: 0.5s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
 }
 
 .card .front {
-  transform: perspective(600px) rotateY(0deg);
-  box-shadow: 0 5px 10px #000;
+    transform: perspective(600px) rotateY(0deg);
+    box-shadow: 0 5px 10px #000;
 }
 
 .card .front img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .card .front h3 {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 45px;
-  line-height: 45px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.4);
-  text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
 }
 
 .card .back {
-  transform: perspective(600px) rotateY(180deg);
-  background: rgb(3, 35, 54);
-  padding: 15px;
-  color: #f3f3f3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  box-shadow: 0 5px 10px #000;
+    transform: perspective(600px) rotateY(180deg);
+    background: rgb(3, 35, 54);
+    padding: 15px;
+    color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 0 5px 10px #000;
 }
 
 .card .back .link {
-  border-top: solid 1px #f3f3f3;
-  height: 50px;
-  line-height: 50px;
+    border-top: solid 1px #f3f3f3;
+    height: 50px;
+    line-height: 50px;
 }
 
 .card .back .link a {
-  color: #f3f3f3;
+    color: #f3f3f3;
 }
 
 .card .back h3 {
-  font-size: 30px;
-  margin-top: 20px;
-  letter-spacing: 2px;
+    font-size: 30px;
+    margin-top: 20px;
+    letter-spacing: 2px;
 }
 
 .card .back p {
-  letter-spacing: 1px;
+    letter-spacing: 1px;
 }
 
 .card:hover .front {
-  transform: perspective(600px) rotateY(180deg);
+    transform: perspective(600px) rotateY(180deg);
 }
 
 .card:hover .back {
-  transform: perspective(600px) rotateY(360deg);
+    transform: perspective(600px) rotateY(360deg);
 }
 
 /* ----------- Fin CSS Tarjetas Proveedores ---------------*/
 
 .login {
-  background-image: url("https://img.freepik.com/free-photo/check-lock-wooden-table-background_93675-128371.jpg");
-  background-repeat: no-repeat;
+    background-image: url("https://img.freepik.com/free-photo/check-lock-wooden-table-background_93675-128371.jpg");
+    background-repeat: no-repeat;
 }
 
 /* ----------- INICIO DASHBOARD ---------------*/
 #dashboard {
-  background-image: url("https://img.freepik.com/free-vector/site-stats-concept-illustration_114360-1434.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 90%;
+
+    background-color: #2a363b;
+    /*  background-repeat: no-repeat;*/
+    background-position: center;
+    background-size: 90%;
+
 }
 
-#menu-dashboard {
+
+/*#menu-dashboard {
   transform: rotate(-30deg);
   position: relative;
   top: 31%;
   left: 68%;
   transform: skewY(-30deg);
-  /* width: 200px;
-    height: 200px; */
-  /* margin-top: -100px;
-    margin-left: -100px; */
+   width: 200px;
+    height: 200px; 
+   margin-top: -100px;
+    margin-left: -100px; 
+}*/
+
+
+/*opcion2 hernan*/
+#contendero-sidemenu-main{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background: #2a363b;
+    width: 60%;
+    flex-wrap:wrap;
+}
+.sidebar-menu-btones{
+    border: none;
+
+    text-align: left;
+    text-decoration: none;
+    
+    justify-content: center;
+    font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+
+}
+
+
+#menu-dashboard {
+    display: flex;
+    position: relative;
+    flex-direction:column;
+    min-width: 230px;
+    
+
 }
 
 .sidebar {
-  background-color: #2a363b;
-  color: #fff;
-  padding: 20px;
-  width: 250px;
+    background-color: #2a363b;
+    color: #fff;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
 }
 
 .sidebar-menu ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 20px 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 00px 0;
 }
 
 .sidebar-menu ul li {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .sidebar-menu ul li a {
-  color: #fff;
-  text-decoration: none;
+    color: #fff;
+    text-decoration: none;
 }
 
 .sidebar-menu ul li a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
+}
+
+
+/*--- MAIN DEL DASHBOARD */
+#main-dashboard{
+   background-color:#37474f;
+   display: inline-grid;
+  
+   width: 180%;
+    
 }
 
 /* ----------- Fin Dashboard ---------------*/
