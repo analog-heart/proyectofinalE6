@@ -9,7 +9,9 @@ import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,6 +122,16 @@ public class ServicioContrato {
             throw new MiException("El contrato no existe");
 
         }
+
+    }
+
+    public List<ContratoProveedor> listarContratos() {
+
+        List<ContratoProveedor> contratos = new ArrayList();
+
+        contratos = repositoriocontrato.findAll();
+
+        return contratos;
 
     }
 

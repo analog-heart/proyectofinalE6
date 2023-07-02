@@ -33,37 +33,34 @@ public class ServicioUsuario implements UserDetailsService {
 
     @Autowired
     private ServicioImagen imagenServicio;
-    
-    
+
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
-        
-        validar( email, password, password2);
+
+        validar(email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-         
+
         //se guarda la fecha de alta (no modificable)
         Date fechatemp = new Date();
         usuario.setFecha(fechatemp);
-                
+
         //se guarda la fecha de nacimiento que llega por formulario
         fechatemp = fechaNacimiento;
         usuario.setFechaNacimiento(fechatemp);
-        
-        
+
         usuario.setDni(dni);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
-        
-       
+
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
-        
+
     }
 
     @Transactional
@@ -81,7 +78,7 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setApellido(apellido);
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDni(dni);
-            
+
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuario.setRol(Rol.USUARIO);
@@ -114,13 +111,14 @@ public class ServicioUsuario implements UserDetailsService {
 
         return usuarios;
     }
-    
-     @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosActivos() {
         List<Usuario> usuarios = new ArrayList();
         usuarios = usuarioRepositorio.listarUsuariosActivos();
         return usuarios;
     }
+
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosInactivos() {
         List<Usuario> usuarios = new ArrayList();
@@ -128,16 +126,14 @@ public class ServicioUsuario implements UserDetailsService {
         return usuarios;
     }
 
-   public List<Usuario> buscarUsuariosXnombre(String nombre){
-       
-       List<Usuario> usuariosXnombre = new ArrayList();
-       
-       usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
-       
-       return usuariosXnombre;
-   }
-    
+    public List<Usuario> buscarUsuariosXnombre(String nombre) {
 
+        List<Usuario> usuariosXnombre = new ArrayList();
+
+        usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
+
+        return usuariosXnombre;
+    }
 
     @Transactional
     public void cambiarRol(String id) {
@@ -159,7 +155,6 @@ public class ServicioUsuario implements UserDetailsService {
 
     private void validar(String email, String password, String password2) throws MiException {
 
-     
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }

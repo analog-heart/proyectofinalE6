@@ -1,5 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioContrato;
@@ -7,7 +8,9 @@ import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -197,6 +200,7 @@ public class ControladorPortal {
 
     }
 
+    ////////////////////////////////////////////////////////////////////
     //Agrego el controlador para probar la generación de los contratos
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/contrato")
@@ -264,6 +268,34 @@ public class ControladorPortal {
         }
 
         return "inicio.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mi_perfil")
+    public String miPerfil(ModelMap modelo, HttpSession session) {
+
+        List<ContratoProveedor> contratos = new ArrayList();
+        List<ContratoProveedor> contratosUsuario = new ArrayList();
+
+        contratos = contratoServicio.listarContratos();
+
+        System.out.println("CONTRATOS: "+contratos);
+        
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        for (int i = 0; i < contratos.size(); i++) {
+
+            if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
+
+                contratosUsuario.add(contratos.get(i));
+
+            }
+        }
+
+        modelo.put("usuario", usuario);
+        modelo.put("contratosUsuario", contratosUsuario);
+
+        return "mi_perfil.html";
     }
 
 }
