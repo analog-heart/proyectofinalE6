@@ -1,6 +1,7 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,22 +38,29 @@ public class ControladorPortal {
 
 
 
+
+//    public String index() {
+//
+//        return "index.html";
+//    }
     @GetMapping("/")
+    public String index(ModelMap modelo) {
+         List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
+        modelo.addAttribute("proveedores", ListProveedores);
+        return "index.html";
 
-    public String index() {
+      
+    }
 
+    //-------------------------BUSCADOR--------------------
+    @GetMapping("/buscar")
+    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+
+        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", ListNoticias);
+        modelo.addAttribute("palabraClave", palabraClave);
         return "index.html";
     }
-//    @GetMapping("/")
-//    public String index(ModelMap modelo) {
-//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//        return "index.html";
-//
-//      
-//    }
-
-   
     
     
     
@@ -89,11 +98,11 @@ public class ControladorPortal {
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
-            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
