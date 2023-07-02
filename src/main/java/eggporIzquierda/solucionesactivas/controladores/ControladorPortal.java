@@ -264,6 +264,20 @@ public class ControladorPortal {
     @GetMapping("/mi_perfil")
     public String miPerfil(ModelMap modelo, HttpSession session) {
 
+//        List<ContratoProveedor> contratosSesion = new ArrayList();
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+
+        modelo.put("usuario", usuario);
+//        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mi_perfil.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mis_contratos")
+    public String misContratos(ModelMap modelo, HttpSession session) {
+
         List<ContratoProveedor> contratosSesion = new ArrayList();
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -272,7 +286,7 @@ public class ControladorPortal {
         modelo.put("usuario", usuario);
         modelo.put("contratosUsuario", contratosSesion);
 
-        return "mi_perfil.html";
+        return "mis_contratos.html";
     }
 
 }
