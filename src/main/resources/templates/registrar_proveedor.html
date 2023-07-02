@@ -88,10 +88,8 @@
                                         placeholder="REPETIR CONTRASEÑA"
                                         />
 
-                                    <select
-                                        class="form-select"
-                                        aria-label="Default select example"
-                                        name="serviciosID"
+                                    <select class="form-select" aria-label="Default select example"
+                                             name="serviciosID"
                                         >
                                         <option selected>Elegir servicio ofrecido</option>
                                         <option
@@ -100,6 +98,29 @@
                                             th:text="${servicios.nombreServicio}"
                                             />
                                     </select>
+                                    
+                                    <select class="form-select" aria-label="Default select example"
+                                             name="serviciosID2"
+                                        >
+                                        <option selected>Elegir servicio ofrecido</option>
+                                        <option
+                                            th:each="servicios : ${serviciosOfrecidos}"
+                                            th:value="${servicios.serv_id}"
+                                            th:text="${servicios.serv_descripcion}"
+                                            />
+                                    </select>
+
+                                    <select class="form-select" aria-label="Default select example"
+                                            name="serviciosID2"
+                                            >
+                                        <option selected>Elegir servicio ofrecido</option>
+                                        <option
+                                            th:each="servicios : ${serviciosOfrecidos}"
+                                            th:value="${servicios.serv_id}"
+                                            th:text="${servicios.serv_descripcion}"
+                                            />
+                                    </select>
+
 
                                     <div th:replace="~{fragments/error :: errores1}"></div>
 
