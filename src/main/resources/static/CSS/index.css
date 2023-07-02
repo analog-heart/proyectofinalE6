@@ -100,16 +100,28 @@ section {
 }
 
 .card .front h3 {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 45px;
-    line-height: 45px;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.4);
-    text-align: center;
-}
 
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 55px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  text-align: center;
+
+}
+.card .front p {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 22px;
+  line-height: 22px;
+  color: #784848;
+  background: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-size: 14px;
+}
 .card .back {
     transform: perspective(600px) rotateY(180deg);
     background: rgb(3, 35, 54);

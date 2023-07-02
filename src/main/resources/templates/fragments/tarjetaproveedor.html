@@ -12,7 +12,14 @@
       class="card-title"
       th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"
     ></h3>
+    <p
+    class="card-text"
+    th:each="serv : ${proveedor.servicios}"
+    th:text="${serv.serv_descripcion}"
+  ></p>
   </div>
+
+
   <div class="face back">
     <h3>Servicio:</h3>
     <p
@@ -20,7 +27,7 @@
       th:text="${serv.serv_descripcion}"
     ></p>
     <div class="link">
-      <a th:href="@{/proveedor/modificar/__${proveedor.id}__}">Contactar</a>
+      <a th:href="@{/proveedor/__${proveedor.id}__}">Contactar</a>
     </div>
   </div>
 </div>
