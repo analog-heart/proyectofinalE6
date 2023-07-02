@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -31,22 +29,22 @@ public class SeguridadWeb {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                        .requestMatchers("/admin/*").hasRole("ADMIN")
-                        .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
-                        .permitAll()
+                .requestMatchers("/admin/*").hasRole("ADMIN")
+                .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
+                .permitAll()
                 .and().formLogin()
-                        .loginPage("/login")
-                        .loginProcessingUrl("/logincheck")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/inicio")
-                        .permitAll()
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/inicio")
+                .permitAll()
                 .and().logout()
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
-                        .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
                 .and().csrf()
-                        .disable();
+                .disable();
 
         return http.build();
     }

@@ -112,7 +112,7 @@ public class ControladorAdmin {
         return "servicio_ofrecido_alta.html";
     }
     //-----------listar
-    @GetMapping("/listarservicio_ofrecido")
+    @GetMapping("/listarServicio_ofrecido")
     public String listarservicio_ofrecido(ModelMap modelo) {
         List<ServicioOfrecido> serviciosList = servOfrecidoServicio.listarServicios();
         modelo.addAttribute("serviciosList", serviciosList);
