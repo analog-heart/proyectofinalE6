@@ -5,6 +5,7 @@
     <body class="footer-alpiso d-flex flex-column" >
 
         <header th:replace="/fragments/header :: header"></header>
+
         <main class="container container-fluid d-flex">
             <div class="flex-grow-1 container-fluid" id="mainindex">
 
@@ -43,7 +44,6 @@
                                                                     ></p>-->
                             </div>
 
-
                             <div class="face back">
                                 <h3 th:text="${servicio.nombreServicio}"></h3>
                                 <p class="card-text" th:text="${servicio.serv_descripcion}"></p>
@@ -54,13 +54,9 @@
 
                         </div>
                     </section>
-
-
             </div>
 
         </main>
-
-
 
         <footer th:replace="/fragments/footer :: footer"></footer>
 

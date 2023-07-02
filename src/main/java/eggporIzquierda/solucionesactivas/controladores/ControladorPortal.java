@@ -1,15 +1,20 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,12 +38,10 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-//    @GetMapping("/")
-//
-//    public String index() {
-//
-//        return "index.html";
-//    }
+    @Autowired
+    private ServicioContrato contratoServicio;
+
+
     @GetMapping("/")
     public String index(ModelMap modelo) {
         List<ServicioOfrecido> ListServicioOfrecido = servOfrecidoServicio.listarServicios();
@@ -46,7 +49,18 @@ public class ControladorPortal {
         return "index.html";
     }
 
+    //-------------------------BUSCADOR--------------------
+    @GetMapping("/buscar")
+    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+
+        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", ListNoticias);
+        modelo.addAttribute("palabraClave", palabraClave);
+        return "index.html";
+    }
+
     @GetMapping("/registrar")
+
     public String registrar() {
         return "registrar.html";
 
@@ -80,11 +94,11 @@ public class ControladorPortal {
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
-            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -170,5 +184,103 @@ public class ControladorPortal {
             return "/usuario/usuario_modificar.html";
         }
 
+    }
+
+    ////////////////////////////////////////////////////////////////////
+    //Agrego el controlador para probar la generación de los contratos
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/contrato")
+    public String contrato() {
+        return "contrato.html";
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/contratar")
+    public String contratar(@RequestParam String idUsuario, @RequestParam String idProveedor, ModelMap modelo) {
+
+        System.out.println("ID USUARIO: " + idUsuario);
+        System.out.println("ID PROVEEDOR: " + idProveedor);
+
+        try {
+
+            contratoServicio.crearContrato(idUsuario, idProveedor);
+
+            modelo.put("exito", "El contrato fue generado con exito");
+
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+
+            return "contrato.html";
+        }
+
+        return "contrato.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/aceptacion")
+    public String aceptacion() {
+        return "aceptar_contrato.html";
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PostMapping("/aceptar_contrato")
+    public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
+
+        String exito = "";
+
+        System.out.println("ID CONTRATO: " + idContrato);
+
+        try {
+            if (decision.equalsIgnoreCase("aceptar")) {
+                exito = "El contrato fue aceptado con exito";
+            }
+            if (decision.equalsIgnoreCase("rechazar")) {
+                exito = "El contrato fue rechazado con exito";
+            }
+
+//            contratoServicio.aceptarContrato(idContrato);
+            contratoServicio.actualizarContrato(idContrato, decision);
+
+            modelo.put("exito", exito);
+
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+
+            return "aceptar_contrato.html";
+        }
+
+        return "inicio.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mi_perfil")
+    public String miPerfil(ModelMap modelo, HttpSession session) {
+
+        List<ContratoProveedor> contratos = new ArrayList();
+        List<ContratoProveedor> contratosUsuario = new ArrayList();
+
+        contratos = contratoServicio.listarContratos();
+
+        System.out.println("CONTRATOS: " + contratos);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        for (int i = 0; i < contratos.size(); i++) {
+
+            if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
+
+                contratosUsuario.add(contratos.get(i));
+
+            }
+        }
+
+        modelo.put("usuario", usuario);
+        modelo.put("contratosUsuario", contratosUsuario);
+
+        return "mi_perfil.html";
     }
 }
