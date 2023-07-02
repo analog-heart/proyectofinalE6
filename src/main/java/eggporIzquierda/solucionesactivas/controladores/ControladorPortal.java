@@ -1,6 +1,8 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.service.ServicioContrato;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,22 +41,30 @@ public class ControladorPortal {
     @Autowired
     private ServicioContrato contratoServicio;
 
+//    public String index() {
+//
+//        return "index.html";
+//    }
     @GetMapping("/")
+    public String index(ModelMap modelo) {
+        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
+        modelo.addAttribute("proveedores", ListProveedores);
+        return "index.html";
 
-    public String index() {
+    }
 
+    //-------------------------BUSCADOR--------------------
+    @GetMapping("/buscar")
+    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+
+        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", ListNoticias);
+        modelo.addAttribute("palabraClave", palabraClave);
         return "index.html";
     }
-//    @GetMapping("/")
-//    public String index(ModelMap modelo) {
-//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//        return "index.html";
-//
-//      
-//    }
 
     @GetMapping("/registrar")
+
     public String registrar() {
         return "registrar.html";
 
@@ -87,11 +98,11 @@ public class ControladorPortal {
     }
 
     @PostMapping("/registroproveedor")
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
-            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
@@ -120,12 +131,10 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
-        }
-
+        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // if (logueado.getRol().toString().equals("ADMIN")) {
+        //     return "redirect:/admin/dashboard";
+        // }
         return "inicio.html";
     }
 
@@ -178,25 +187,6 @@ public class ControladorPortal {
             modelo.put("email", email);
             return "/usuario/usuario_modificar.html";
         }
-
-    }
-
-    @GetMapping("/altaservicio_ofrecido")
-    public String altaServicio() {
-        return "servicio_ofrecido_alta.html";
-    }
-
-    @PostMapping("/altaservicio_ofrecido_ok")
-    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
-
-        try {
-            servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/registrarproveedor";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-        }
-
-        return "servicio_ofrecido_alta.html";
 
     }
 
@@ -279,8 +269,8 @@ public class ControladorPortal {
 
         contratos = contratoServicio.listarContratos();
 
-        System.out.println("CONTRATOS: "+contratos);
-        
+        System.out.println("CONTRATOS: " + contratos);
+
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
         for (int i = 0; i < contratos.size(); i++) {
