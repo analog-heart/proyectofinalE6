@@ -1,6 +1,8 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +20,25 @@ public class ControladorImagen {
 
     @Autowired
     ServicioUsuario usuarioServicio;
+    
+    @Autowired
+    ServicioServicioOfrecido servicioServicio;
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
         Usuario usuario = (Usuario) usuarioServicio.getOne(id);
         byte[] imagen = usuario.getFotoPerfil().getContenido();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentType(MediaType.IMAGE_PNG);
+        headers.setContentType(MediaType.IMAGE_GIF);
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/servicios/{id}")
+    public ResponseEntity<byte[]> imagenServicios(@PathVariable String id) {
+        ServicioOfrecido servicio = servicioServicio.getOne(id);
+        byte[] imagen = servicio.getServ_imagen().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentType(MediaType.IMAGE_PNG);

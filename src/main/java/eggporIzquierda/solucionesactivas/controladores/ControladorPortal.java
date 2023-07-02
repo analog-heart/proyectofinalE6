@@ -1,6 +1,5 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -34,27 +33,19 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
-
+//    @GetMapping("/")
+//
+//    public String index() {
+//
+//        return "index.html";
+//    }
     @GetMapping("/")
-
-    public String index() {
-
+    public String index(ModelMap modelo) {
+        List<ServicioOfrecido> ListServicioOfrecido = servOfrecidoServicio.listarServicios();
+        modelo.addAttribute("servicios", ListServicioOfrecido);
         return "index.html";
     }
-//    @GetMapping("/")
-//    public String index(ModelMap modelo) {
-//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//        return "index.html";
-//
-//      
-//    }
 
-   
-    
-    
-    
     @GetMapping("/registrar")
     public String registrar() {
         return "registrar.html";
@@ -123,11 +114,9 @@ public class ControladorPortal {
     public String inicio(HttpSession session) {
 
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
         // if (logueado.getRol().toString().equals("ADMIN")) {
         //     return "redirect:/admin/dashboard";
         // }
-
         return "inicio.html";
     }
 
@@ -182,9 +171,4 @@ public class ControladorPortal {
         }
 
     }
-
-    
-
 }
-
-
