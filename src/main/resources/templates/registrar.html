@@ -39,7 +39,7 @@
                                     <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
 
 
-                                    <div th:replace="fragments/error :: errores1"></div>
+                                    <div th:replace="~{/fragments/error:: errores1}"></div>
 
                                     <div class="form-button">
                                         <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>

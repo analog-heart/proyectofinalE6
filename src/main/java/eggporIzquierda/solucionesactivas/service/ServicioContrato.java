@@ -83,6 +83,7 @@ public class ServicioContrato {
 //        }
 //
 //    }
+    @Transactional
     public void actualizarContrato(String idContrato, String decision) throws MiException {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
@@ -122,6 +123,39 @@ public class ServicioContrato {
             throw new MiException("El contrato no existe");
 
         }
+
+    }
+
+    public List<ContratoProveedor> listarContratosSesion(Usuario usuario) {
+
+        List<ContratoProveedor> contratos = listarContratos();
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+//        List<Usuario> usuariosRol = repositoriocontrato.listarPorRol(usuario.getRol().toString());
+
+        System.out.println("CONTRATOS: " + contratos);
+
+        if (usuario.getRol().toString().equalsIgnoreCase("USUARIO")) {
+            for (int i = 0; i < contratos.size(); i++) {
+
+                if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
+
+                    contratosSesion.add(contratos.get(i));
+
+                }
+            }
+        }
+        if (usuario.getRol().toString().equalsIgnoreCase("PROVEEDOR")) {
+            for (int i = 0; i < contratos.size(); i++) {
+
+                if (contratos.get(i).getProveedor().getId().equalsIgnoreCase(usuario.getId())) {
+
+                    contratosSesion.add(contratos.get(i));
+
+                }
+            }
+        }
+
+        return contratosSesion;
 
     }
 

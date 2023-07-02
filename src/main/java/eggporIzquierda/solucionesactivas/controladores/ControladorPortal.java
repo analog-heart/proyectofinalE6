@@ -264,26 +264,13 @@ public class ControladorPortal {
     @GetMapping("/mi_perfil")
     public String miPerfil(ModelMap modelo, HttpSession session) {
 
-        List<ContratoProveedor> contratos = new ArrayList();
-        List<ContratoProveedor> contratosUsuario = new ArrayList();
-
-        contratos = contratoServicio.listarContratos();
-
-        System.out.println("CONTRATOS: " + contratos);
+        List<ContratoProveedor> contratosSesion = new ArrayList();
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        for (int i = 0; i < contratos.size(); i++) {
-
-            if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
-
-                contratosUsuario.add(contratos.get(i));
-
-            }
-        }
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
         modelo.put("usuario", usuario);
-        modelo.put("contratosUsuario", contratosUsuario);
+        modelo.put("contratosUsuario", contratosSesion);
 
         return "mi_perfil.html";
     }
