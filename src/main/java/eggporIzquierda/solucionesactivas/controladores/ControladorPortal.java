@@ -222,14 +222,14 @@ public class ControladorPortal {
         return "contrato.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/aceptacion")
     public String aceptacion() {
         return "aceptar_contrato.html";
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/aceptar_contrato")
     public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
 
