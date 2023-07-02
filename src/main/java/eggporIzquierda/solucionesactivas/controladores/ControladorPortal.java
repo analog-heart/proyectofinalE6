@@ -99,7 +99,7 @@ public class ControladorPortal {
         try {
 
             proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
-            modelo.put("exito", "Usuario registrado correctamente!");
+            modelo.put("exito", "Proveedor registrado correctamente!");
 
             return "index.html";
         } catch (MiException ex) {

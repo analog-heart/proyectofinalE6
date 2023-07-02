@@ -21,28 +21,28 @@ public class ServicioServicioOfrecido {
     @Autowired
     private RepositorioServicioOfrecido servOfrecidoRepositorio;
 
-    
-    //-Alta---------------------------
+    // -Alta---------------------------
     @Transactional
-    public void registrarServicio(String serv_descripcionrecibido) throws MiException {
-        String serv_descripcion = serv_descripcionrecibido.toUpperCase();
-       
-        validar(serv_descripcion);
+    public void registrarServicio(String nombreServicioRecibido) throws MiException {
+        String nombreServicio = nombreServicioRecibido.toUpperCase();
+
+        validar(nombreServicio);
         ServicioOfrecido serv = new ServicioOfrecido();
-        serv.setServ_descripcion(serv_descripcion);
+        serv.setServ_descripcion(nombreServicio);
         servOfrecidoRepositorio.save(serv);
-        
+
     }
-    
-    //-Modificar y Agregar Foto--------
+
+    // -Modificar y Agregar Foto--------
     @Transactional
-    public void modificarServicio(String serv_id,String serv_descripcion, MultipartFile serv_imagen) throws MiException {
-        validar(serv_descripcion);
+    public void modificarServicio(String serv_id, String nombreServicio, MultipartFile serv_imagen)
+            throws MiException {
+        validar(nombreServicio);
 
         Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(serv_id);
         if (respuesta.isPresent()) {
             ServicioOfrecido serv = respuesta.get();
-            serv.setServ_descripcion(serv_descripcion.toUpperCase());
+            serv.setServ_descripcion(nombreServicio.toUpperCase());
 
             if (serv_imagen != null) {
                 Imagen imagen = imagenServicio.guardar(serv_imagen);
@@ -54,21 +54,18 @@ public class ServicioServicioOfrecido {
 
     }
 
-     //-Eliminar---------------------------
+    // -Eliminar---------------------------
     @Transactional
-    public void eliminarServicio(String serv_id) throws MiException{
-        
-          Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(serv_id);
-          if (respuesta.isPresent()) {
-              
-              
+    public void eliminarServicio(String serv_id) throws MiException {
+
+        Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(serv_id);
+        if (respuesta.isPresent()) {
+
             ServicioOfrecido serv = respuesta.get();
             servOfrecidoRepositorio.delete(serv);
-          }
+        }
     }
-    
-    
-    
+
     @Transactional(readOnly = true)
     public List<ServicioOfrecido> listarServicios() {
         List<ServicioOfrecido> serviciosList = new ArrayList();
@@ -80,29 +77,32 @@ public class ServicioServicioOfrecido {
         return servOfrecidoRepositorio.getOne(serv_id);
     }
 
-    public ServicioOfrecido getOneByDescripcion(String serv_descripcion) {
-        return servOfrecidoRepositorio.getOneByDescripcion(serv_descripcion);
+    // public ServicioOfrecido getOneByDescripcion(String serv_descripcion) {
+    //     return servOfrecidoRepositorio.getOneByDescripcion(serv_descripcion);
+    // }
+
+    public ServicioOfrecido getOneBynombreServicio(String nombreServicio) {
+        return servOfrecidoRepositorio.getOneBynombreServicio(nombreServicio);
     }
 
-    private void validar(String serv_descripcion) throws MiException {
+    private void validar(String nombreServicio) throws MiException {
 
-        if (serv_descripcion.isEmpty() || serv_descripcion == null) {
+        if (nombreServicio.isEmpty() || nombreServicio == null) {
             throw new MiException("La descripcion del Servicio no puede estar vacio");
         }
-        
-         ServicioOfrecido respuesta = servOfrecidoRepositorio.getOneByDescripcion(serv_descripcion);
+
+        ServicioOfrecido respuesta = servOfrecidoRepositorio.getOneBynombreServicio(nombreServicio);
         if (respuesta != null) {
-             throw new MiException("Ya existe un servicio similar , consulte la base o modifiquelo");
+            throw new MiException("Ya existe un servicio similar , consulte la base o modifiquelo");
         }
     }
 
-    
-    public ServicioOfrecido findById(String id){
+    public ServicioOfrecido findById(String id) {
         Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
             return respuesta.get();
-        } else 
+        } else
             return null;
     }
 }
