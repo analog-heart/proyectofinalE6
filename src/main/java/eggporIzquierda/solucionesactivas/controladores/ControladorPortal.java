@@ -38,20 +38,19 @@ public class ControladorPortal {
 
 
 
-    @GetMapping("/")
 
-    public String index() {
-
-        return "index.html";
-    }
-//    @GetMapping("/")
-//    public String index(ModelMap modelo) {
-//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//        return "index.html";
+//    public String index() {
 //
-//      
+//        return "index.html";
 //    }
+    @GetMapping("/")
+    public String index(ModelMap modelo) {
+         List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
+        modelo.addAttribute("proveedores", ListProveedores);
+        return "index.html";
+
+      
+    }
 
     //-------------------------BUSCADOR--------------------
     @GetMapping("/buscar")
