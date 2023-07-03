@@ -89,13 +89,12 @@ public class ServicioUsuario implements UserDetailsService {
 
             String idImagen = null;
 
-            if (usuario.getFotoPerfil() != null) {
+            if (usuario.getFotoPerfil() != null && archivo!= null) {
                 idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
+                
             }
-
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-
-            usuario.setFotoPerfil(imagen);
 
             usuarioRepositorio.save(usuario);
         }

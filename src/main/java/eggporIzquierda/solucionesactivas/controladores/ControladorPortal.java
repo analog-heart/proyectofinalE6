@@ -1,7 +1,5 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-
-
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -34,8 +32,6 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
-
     @GetMapping("/")
 
     public String index() {
@@ -51,10 +47,6 @@ public class ControladorPortal {
 //      
 //    }
 
-   
-    
-    
-    
     @GetMapping("/registrar")
     public String registrar() {
         return "registrar.html";
@@ -131,71 +123,36 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+   
 
-    @GetMapping("/perfil")
-    public String perfil(ModelMap modelo, HttpSession session) {
-        
-        
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            modelo.put("usuario", usuario);
-            return "proveedor_modificar.html";
-
-        } else {
-            modelo.put("usuario", usuario);
-            return "usuario_modificar.html";
-        }
-    }
-    
-//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-//    @GetMapping("/perfil")
-//    public String perfil(ModelMap modelo,HttpSession session){
-//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-//         modelo.put("usuario", usuario);
-//        return "perfil.html";
-//    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-    @PostMapping("/perfil/{id}")
-    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @PostMapping("/perfilproveedor/{id}")
+    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
 
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
-            modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
+            modelo.put("exito", "Proveedor actualizado correctamente!");
+            return "redirect:../inicio";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "usuario_modificar.html";
+            return "proveedor_modificar.html";
         }
 
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
-    @PostMapping("/perfilproveedor/{id}")
-    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+    @GetMapping("/perfilproveedor/{id}")
+    public String actualizarProveedor(@PathVariable String id, ModelMap modelo) {
 
-        try {
-            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
-            modelo.put("exito", "Proveedor actualizado correctamente!");
-            return "inicio.html";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "proveedor_modificar.html";
-        }
-        
-        
+        modelo.put("usuario", proveedorServicio.getOne(id));
+        return "proveedor_modificar.html";
 
     }
-    
-   
+
     @GetMapping("/altaservicio_ofrecido")
     public String altaServicio() {
         return "servicio_ofrecido_alta.html";
@@ -214,5 +171,5 @@ public class ControladorPortal {
         return "servicio_ofrecido_alta.html";
 
     }
-   
+
 }

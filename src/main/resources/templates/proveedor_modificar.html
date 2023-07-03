@@ -73,26 +73,30 @@
                             <div class="form-group my-3">
                                 <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
                             </div>
+                            
+                            <div class="form-group my-3">
+                                <input type="date" class="form-control" name="fechaNacimiento" placeholder="Fecha Nacimiento" th:value="${usuario.fechaNacimiento}">
+                            </div>
+                            
+
+<!--                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="servicios" placeholder="Servicio Ofrecido" th:value="${usuario.servicios}">
+                            </div>-->
 
                             <div class="form-group my-3">
-                                <input type="text" class="form-control" name="servicioOfrecido" placeholder="Servicio Ofrecido" th:value="${servicioOfrecido}">
+                                <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${usuario.password}">
                             </div>
-
-                            <div class="form-group my-3">
-                                <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
-                            </div>
-
-                            <div class="form-group my-3">
-                                <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
-                            </div>
-
-                            <div class="form-group my-3">
-                                <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${rol}">
-                            </div>
+                         
+<!--                            <div class="form-group my-3">
+                                <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${usuario.rol}">
+                            </div>-->
 
                             <div>
-                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                                <a th:href="@{/}"><button type="button" class="btn btn-primary"> Volver </button> </a></div>
+                                <a th:href="@{/inicio/__${usuario.id}__}"<button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                       
+                               </a>
+                                <a th:href="@{/}"><button type="button" class="btn btn-primary"> Volver </button> </a>
+                            </div>
                         </div>
                     </form>
                 </div>

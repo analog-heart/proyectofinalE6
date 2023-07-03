@@ -11,13 +11,13 @@
 
         <div class="container-fluid m-3 contenedor">
 
-            <form class="formulario" th:action="@{/usuario/perfilproveedor/__${usuario.id}__}" method="POST" enctype="multipart/form-data" >
+            <form class="form-control formulario" th:action="@{/usuario/usuario_modificar/__${usuario.id}__}" method="POST" enctype="multipart/form-data" >
 
-                <input hidden th:value="${id}" name ="id">
+                <input hidden th:value="${usuario.id}" name ="id">
 
-                <div class="form-group my-3">
-                    <h3 class="card-title" style="color: azure">Modificar perfil</h3>
-                </div>
+                
+                    <h3 class="card-title" style="color: #2a363b"> Modificar datos perfil </h3>
+                
 
                 <div class="form-group my-3" >
                     <img class="card-subtitle mb-2 text-muted rounded-circle" width="50" height="50" th:src="@{/imagen/perfil/__${usuario.id}__}"></img>
@@ -26,44 +26,50 @@
                 <div class="form-group my-3">
                     <input type="text" class="form-control" name="nombre"  th:value="${usuario.nombre}">
                 </div>
-                
+
                 <div class="form-group my-3">
                     <input type="text" class="form-control" name="apellido"  th:value="${usuario.apellido}">
                 </div>
-                
+
                 <div class="form-group my-3">
                     <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
                 </div>
 
-                
                 <div class="form-group my-3">
-                    <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${password}">
+                    <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${usuario.dni}">
+                </div>
+                    
+                    <h4 class="card-title" style="color: #2a363b"> Valide sus claves para guardar los cambios </h4>
+
+                <div class="form-group my-3">
+                    <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" th:value="${usuario.password}">
                 </div>
 
                 <div class="form-group my-3">
-                    <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA" th:value="${password2}">
-                </div>
+                    <input type="password" class="form-control" name="password2" placeholder="REPETIR CONTRASEÑA">
 
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${rol}">
-                </div>
 
-                <div>
-                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    <a th:href="@{/}"><button type="button" class="btn btn-primary"> Volver </button> </a></div>
+
+                    <!--                <div class="form-group my-3">
+                                        <input type="text" class="form-control" name="rol" placeholder="ROL" th:value="${usuario.rol}">
+                                    </div>-->
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        <a th:href="@{/}"><button type="button" class="btn btn-primary"> Volver </button> </a></div>
+                </div>
+            </form>
+
+
         </div>
-    </form>
 
-
-</div>
-
-<footer th:replace="~{/fragments/footer :: footer}">    </footer>
+        <footer th:replace="~{/fragments/footer :: footer}">    </footer>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    </body>
 </html>
 
 
