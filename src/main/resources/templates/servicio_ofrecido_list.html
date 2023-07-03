@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
 
     <body class=" d-flex flex-column" >
 
-        <header th:replace="/fragments/header :: header"></header>
+        <header th:replace="~{/fragments/header :: header}"></header>
         <div class="container container-fluid ">
             <main class="flex-grow-1 container-fluid footer-alpiso" id="mainindex">
                 <div class=" container" >
@@ -13,6 +13,7 @@
                     <table class="table table-dark">
                         <thead class="align-items-center">
                             <tr >
+                                <th scope="col">Imagen</th>
                                 <th scope="col">Id del Servicio</th>
                                 <th scope="col">Descripcion</th>
                                 <th scope="col">Modificar</th>
@@ -21,10 +22,12 @@
                         </thead>
                         <tbody th:each="servicio : ${serviciosList}"> 
                             <tr>
-                                <th scope="row" th:text="${servicio.serv_id}"></th>
+                                <td > <img th:src="@{/imagen/servicio_ofrecido/__${servicio.serv_id}__}" alt="foto_serv"> </td>
+                                <td scope="row" th:text="${servicio.serv_id}"></td>
                                 <td th:text="${servicio.serv_descripcion}"></td>
+
                                 <td>
-                                    <a th:href= "@{/admin/modificar_servicio_ofrecido/__${servicio.serv_id}__}"><i class="fas fa-feather-alt"></i>Editar</a>
+                                    <a th:href= "@{/servicioOfrecido/modificar_servicio_ofrecido/__${servicio.serv_id}__}"><i class="fas fa-feather-alt"></i>Editar</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -64,7 +67,7 @@
 
 
 
-            <footer th:replace="/fragments/footer :: footer"></footer>
+            <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
             <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 

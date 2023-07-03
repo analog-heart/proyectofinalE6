@@ -89,12 +89,12 @@ public class ServicioProveedor implements UserDetailsService {
         
         
     @Transactional
-    public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password,
+            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre, email, password, password2);
         
         
-
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
 

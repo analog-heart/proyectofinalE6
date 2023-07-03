@@ -2,6 +2,7 @@ package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
+
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -41,10 +42,6 @@ public class ControladorPortal {
     @Autowired
     private ServicioContrato contratoServicio;
 
-//    public String index() {
-//
-//        return "index.html";
-//    }
     @GetMapping("/")
     public String index(ModelMap modelo) {
         List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
@@ -138,154 +135,74 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-
-    @GetMapping("/perfil")
-    public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            modelo.put("usuario", usuario);
-            return "/proveedor/proveedor_modificar.html";
-
-        } else {
-            modelo.put("usuario", usuario);
-            return "/usuario/usuario_modificar.html";
-        }
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-    @PostMapping("/perfil/{id}")
-    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
-
-        try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
-            modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
-        }
-
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+//=======
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//
+//    @GetMapping("/perfil")
+//    public String perfil(ModelMap modelo, HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//
+//        if (usuario.getRol().toString().equals("PROVEEDOR")) {
+//            modelo.put("usuario", usuario);
+//            return "/proveedor/proveedor_modificar.html";
+//
+//        } else {
+//            modelo.put("usuario", usuario);
+//            return "/usuario/usuario_modificar.html";
+//        }
+//    }
+//
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//    @PostMapping("/perfil/{id}")
+//    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+//            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+//>>>>>>> Developers
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
-    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
 
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
             modelo.put("exito", "Proveedor actualizado correctamente!");
-            return "inicio.html";
+            return "redirect:../inicio";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
+            return "proveedor_modificar.html";
         }
 
-    }
-
-    ////////////////////////////////////////////////////////////////////
-    //Agrego el controlador para probar la generación de los contratos
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
-    @GetMapping("/contrato")
-    public String contrato() {
-        return "contrato.html";
-
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
-    @PostMapping("/contratar")
-    public String contratar(@RequestParam String idUsuario, @RequestParam String idProveedor, ModelMap modelo) {
-
-        System.out.println("ID USUARIO: " + idUsuario);
-        System.out.println("ID PROVEEDOR: " + idProveedor);
-
-        try {
-
-            contratoServicio.crearContrato(idUsuario, idProveedor);
-
-            modelo.put("exito", "El contrato fue generado con exito");
-
-        } catch (MiException ex) {
-
-            modelo.put("error", ex.getMessage());
-
-            return "contrato.html";
-        }
-
-        return "contrato.html";
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
-    @GetMapping("/aceptacion")
-    public String aceptacion() {
-        return "aceptar_contrato.html";
-
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
-    @PostMapping("/aceptar_contrato")
-    public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
-
-        String exito = "";
-
-        System.out.println("ID CONTRATO: " + idContrato);
-
-        try {
-            if (decision.equalsIgnoreCase("aceptar")) {
-                exito = "El contrato fue aceptado con exito";
-            }
-            if (decision.equalsIgnoreCase("rechazar")) {
-                exito = "El contrato fue rechazado con exito";
-            }
-
-//            contratoServicio.aceptarContrato(idContrato);
-            contratoServicio.actualizarContrato(idContrato, decision);
-
-            modelo.put("exito", exito);
-
-        } catch (MiException ex) {
-
-            modelo.put("error", ex.getMessage());
-
-            return "aceptar_contrato.html";
-        }
-
-        return "inicio.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
     @GetMapping("/mi_perfil")
     public String miPerfil(ModelMap modelo, HttpSession session) {
 
-        List<ContratoProveedor> contratos = new ArrayList();
-        List<ContratoProveedor> contratosUsuario = new ArrayList();
-
-        contratos = contratoServicio.listarContratos();
-
-        System.out.println("CONTRATOS: " + contratos);
-
+//        List<ContratoProveedor> contratosSesion = new ArrayList();
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        for (int i = 0; i < contratos.size(); i++) {
-
-            if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
-
-                contratosUsuario.add(contratos.get(i));
-
-            }
-        }
+//        contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
         modelo.put("usuario", usuario);
-        modelo.put("contratosUsuario", contratosUsuario);
+//        modelo.put("contratosUsuario", contratosSesion);
 
         return "mi_perfil.html";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mis_contratos")
+    public String misContratos(ModelMap modelo, HttpSession session) {
+
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+
+        modelo.put("usuario", usuario);
+        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mis_contratos.html";
     }
 
 }
