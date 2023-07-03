@@ -40,7 +40,7 @@
                                 th:each="serv : ${proveedor.servicios}"
                                 th:text="${serv.serv_descripcion}"
                                 ></p>
-                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/proveedor/contratar}" method="POST">
+                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                                 <div class="link">
                                     <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                                 </div>

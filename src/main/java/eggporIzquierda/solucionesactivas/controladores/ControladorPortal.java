@@ -1,6 +1,5 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Controller
 @RequestMapping("/")
 public class ControladorPortal {
@@ -41,10 +39,8 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
     @Autowired
     private ServicioContrato contratoServicio;
-
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -161,12 +157,10 @@ public class ControladorPortal {
 //    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
 //            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
 //>>>>>>> Developers
-    
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
     public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
-
 
         try {
             proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
@@ -181,8 +175,6 @@ public class ControladorPortal {
         }
 
     }
-
- 
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
     @GetMapping("/mi_perfil")
