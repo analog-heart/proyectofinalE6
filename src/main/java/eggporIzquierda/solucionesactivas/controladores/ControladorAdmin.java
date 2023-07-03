@@ -48,23 +48,23 @@ public class ControladorAdmin {
     
     //----------creado 25/06 por Hernan -------------
     //---------usuarios
-    @GetMapping("/admin/listarusuarios_all")
+    @GetMapping("/listarusuarios_all")
     public String listarUsuarios(ModelMap modelo){
         List<Usuario> usuarios = usuarioservicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list.html";
     }
     
-    @GetMapping("/admin/listarusuarios_activos")
+    @GetMapping("/listarusuarios_activos")
     public String listarUsuariosActivos(ModelMap modelo){
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioservicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
        return "usuario_list.html";
     }
     
-    @GetMapping("/admin/listarusuarios_inactivos")
+    @GetMapping("/listarusuarios_inactivos")
     public String listarUsuariosInactivos(ModelMap modelo){
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioservicio.listarUsuariosInactivos();
         modelo.addAttribute("usuarios", usuarios);
       return "usuario_list.html";
     }

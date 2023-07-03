@@ -183,6 +183,15 @@ public class Usuario {
         this.fotoPerfil = fotoPerfil;
     }
 
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
