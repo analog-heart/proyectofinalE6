@@ -76,6 +76,9 @@ form {
     border-bottom: 1px solid #ddd;
     background-color: transparent;
     outline: none;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-button button {
@@ -86,6 +89,7 @@ form {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    
 }
 
 .form-button button:hover {

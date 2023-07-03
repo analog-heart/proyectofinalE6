@@ -70,6 +70,14 @@ public class ControladorPortal {
         modelo.addAttribute("serviciosOfrecidos", EnumServiciosOfrecidos.values());
         return "registrar_proveedor.html";
     }
+        //Agrego el controlador para probar la generación de los contratos
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+    @GetMapping("/contrato")
+    public String contrato() {
+        return "contrato.html";
+
+    }
+
 
     @PostMapping("/registroproveedor")
     public String registroProveedor(@RequestParam EnumServiciosOfrecidos servicios, MultipartFile archivo, String nombreUsuario,@RequestParam String nombre,@RequestParam String apellido, Date fechaNacimiento, String dni,@RequestParam String email,@RequestParam String password, String password2,ModelMap modelo) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head th:replace="/fragments/head :: head"></head>
@@ -28,4 +28,78 @@
 
     </body>
 
+</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    
+<head th:replace="/fragments/head :: head "></head>
+<body>
+
+  <style>
+    .carousel-item {
+      position: relative;
+    }
+  
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      color: #fff;
+    }
+  </style>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicadores -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+     <!-- Imágenes -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://img.freepik.com/free-vector/online-tech-talks-concept-illustration_114360-7379.jpg?size=626&ext=jpg&ga=GA1.2.1381254487.1688087373&semt=sph" class="d-block img-fluid" alt="Servicio 1">
+      <div class="carousel-caption">
+        <h3>Título del servicio 1</h3>
+        <p>Si buscas un servicio rápido, eficiente y de calidad para resolver los problemas
+                    domésticos que se te presenten, Soluciones Activas es la empresa que estabas esperando</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://img.freepik.com/free-vector/organic-flat-man-customer-support_23-2148893295.jpg?size=626&ext=jpg&ga=GA1.1.1381254487.1688087373&semt=sph" class="d-block img-fluid" alt="Servicio 2">
+      <div class="carousel-caption">
+        <h3>Título del servicio 2</h3>
+        <p>Soluciones Activas te ofrece una amplia red de profesionales capacitados
+                    y confiables que se encargan de atender tus necesidades en el menor tiempo posible.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://img.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg?size=626&ext=jpg&ga=GA1.2.1381254487.1688087373&semt=sph" class="d-block img-fluid" alt="Servicio 3">
+      <div class="carousel-caption">
+        <h3>Título del servicio 3</h3>
+        <p>Ya sea que necesites un electricista, un fontanero, un carpintero o cualquier otro oficio
+                    Soluciones Activas te conecta con el experto adecuado para cada situación.</p>
+      </div>
+    </div>
+  </div>
+
+    <!-- Controles -->
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+<footer th:replace="/fragments/footer :: footer"></footer>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
 </html>
