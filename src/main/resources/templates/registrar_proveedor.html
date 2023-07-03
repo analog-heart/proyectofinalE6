@@ -25,15 +25,15 @@
 
 
                     <div class="right-panel">
-                        <form
-                            class="formulario form-control"
-                            th:action="@{/registroproveedor}"
-                            method="POST"
-                            enctype="multipart/form-data"
-                            >
-                            <div class="texto">
-                                <div class="logo">
-                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo" />
+
+                        <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST" enctype="multipart/form-data">
+                            <div class ="texto">
+
+
+                                <div class="logo ">
+                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo">
+
+
                                 </div>
 
                                 <div class="form-input">
@@ -96,7 +96,7 @@
                                             th:each="servicios : ${serviciosOfrecidos}"
                                             th:value="${servicios.serv_id}"
                                             th:text="${servicios.serv_descripcion}"
-                                            />
+                                            ></option>
                                     </select>
                                     
                                     <select class="form-select" aria-label="Default select example"
@@ -107,8 +107,9 @@
                                             th:each="servicios : ${serviciosOfrecidos}"
                                             th:value="${servicios.serv_id}"
                                             th:text="${servicios.serv_descripcion}"
-                                            />
+                                            ></option>
                                     </select>
+                               
 
                                     <div th:replace="~{fragments/error :: errores1}"></div>
 
