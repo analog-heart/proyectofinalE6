@@ -1,7 +1,9 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
+
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Controller
 @RequestMapping("/")
 public class ControladorPortal {
@@ -38,13 +41,11 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
+
     @Autowired
     private ServicioContrato contratoServicio;
 
-//    public String index() {
-//
-//        return "index.html";
-//    }
+
     @GetMapping("/")
     public String index(ModelMap modelo) {
         List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
@@ -138,56 +139,50 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-
-    @GetMapping("/perfil")
-    public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            modelo.put("usuario", usuario);
-            return "/proveedor/proveedor_modificar.html";
-
-        } else {
-            modelo.put("usuario", usuario);
-            return "/usuario/usuario_modificar.html";
-        }
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-    @PostMapping("/perfil/{id}")
-    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
-
-        try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
-            modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
-        }
-
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+//=======
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//
+//    @GetMapping("/perfil")
+//    public String perfil(ModelMap modelo, HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//
+//        if (usuario.getRol().toString().equals("PROVEEDOR")) {
+//            modelo.put("usuario", usuario);
+//            return "/proveedor/proveedor_modificar.html";
+//
+//        } else {
+//            modelo.put("usuario", usuario);
+//            return "/usuario/usuario_modificar.html";
+//        }
+//    }
+//
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//    @PostMapping("/perfil/{id}")
+//    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+//            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+//>>>>>>> Developers
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
-    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
+
 
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
             modelo.put("exito", "Proveedor actualizado correctamente!");
-            return "inicio.html";
+            return "redirect:../inicio";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
+            return "proveedor_modificar.html";
         }
+
     }
+
+ 
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
     @GetMapping("/mi_perfil")
