@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     >
     <head th:replace="~{/fragments/head :: head}"></head>
     <body>
-        <header th:replace="/fragments/header :: header"></header>
+        <header th:replace="~{/fragments/header :: header}"></header>
         <div class="container container-fluid  d-flex flex-wrap gap-3">
             <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
                 <div class="card-body">
