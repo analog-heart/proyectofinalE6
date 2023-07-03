@@ -24,8 +24,7 @@ public class ControladorAdmin {
         @Autowired
     private ServicioUsuario usuarioservicio;
         
-        @Autowired
-     private ServicioServicioOfrecido servOfrecidoServicio;
+     
 
     @GetMapping("/dashboard")
     public String panelAdministrativo() {
@@ -94,54 +93,7 @@ public class ControladorAdmin {
        return "usuario_list.html";
     }
     
-    //-----------------------------Servicios Ofrecidos---------------------
-    @GetMapping("/altaservicio_ofrecido")
-    public String altaServicio() {
-        return "servicio_ofrecido_alta.html";
-    }
-    @PostMapping("/altaservicio_ofrecido_ok")
-    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
-
-        try {
-            servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/registrarproveedor";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-        }
-
-        return "servicio_ofrecido_alta.html";
-    }
-    //-----------listar
-    @GetMapping("/listarServicio_ofrecido")
-    public String listarservicio_ofrecido(ModelMap modelo) {
-        List<ServicioOfrecido> serviciosList = servOfrecidoServicio.listarServicios();
-        modelo.addAttribute("serviciosList", serviciosList);
-        return "servicio_ofrecido_list.html";
-    }
-    //-----------modificar ---
-    @GetMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(ModelMap modelo ,@PathVariable String serv_id) {
-        
-           modelo.addAttribute("servicio", servOfrecidoServicio.findById(serv_id));
-        
-        return "servicio_ofrecido_modificar.html";
-        
-    }
-     
-      
-    @PostMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id , @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
-        
-        try {
-            servOfrecidoServicio.modificarServicio( serv_id, serv_descripcion, serv_imagen);
-             return "redirect:/";
-
-        } catch (MiException ex) {
-          modelo.put("error", ex.getMessage());
-           return "servicio_ofrecido_modificar.html";
-        }
-
-    }
+   
     
     
 }
