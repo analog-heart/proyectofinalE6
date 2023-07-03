@@ -1,4 +1,4 @@
-<header class="p-3 mb-3" style="color: #2a363b">
+<header class="p-3 mb-3" id="header-fixed" style="color: #2a363b">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a class="navbar-brand" href="/">
@@ -6,41 +6,39 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 link-secondary" style="color: azure">Inicio</a></li>
-                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis" >Historial</a></li>
-                <li><a href="#" class="nav-link px-2 link-body-emphasis" style="color: azure">Servicios</a></li>
-                <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li>
+                <li><a href="/inicio" class="nav-link px-2 link-secondary" style="color: azure">Inicio</a></li>
+                <!-- <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis">Historial Usuario</a></li>
+                <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/proveedor/proveedor}" class="nav-link px-2 link-body-emphasis">Historial Proveedor</a></li> -->
+                <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/dashboard}" class="nav-link px-2 link-body-emphasis" style="color: azure">Dashboard</a></li>
+                <li><a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/proveedor/solicitudes}" class="nav-link px-2 link-body-emphasis" style="color: azure">Solicitudes pendientes</a></li>
+                <!-- <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li> -->
             </ul>
 
-
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+<!--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            </form>
+            </form>-->
+
+         
+                <form th:action="@{/buscar}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 "  role="search">
+                    <input  th:value="${palabraClave}" class=" form me-2 searcherinput" id="palabraClave" name="palabraClave" type="text" placeholder="Search" aria-label="Search">
+<!--                    <button  class="btn btn-success" type="button"  th:value="${palabraClave}">Search</button>-->
+                </form>
+           
 
             <div class="dropdown text-end" th:if="${session.usuariosession != null}">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img id="fotoPerfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle" width="50" height="50">
                 </a>
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
                     <li><a class="dropdown-item" href="#">Configuracion</a></li>
-                    <li><a class="dropdown-item" href="#">Perfil</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/usuario/mi_perfil_usuario}" th:if="${session.usuariosession != null}"> Mi Perfil </a></li>
+
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
                 </ul>
             </div>
-            <!--            <div class="text-end inline-block">
-                            <a type="button" class="btn btn-secondary" th:if="${session.usuariosession == null}" href="/login">Login</a>
-                            <div th:if="${session.usuariosession == null}">
-                                <a type="button" class="btn btn-warning d-block link-body-emphasis text-decoration-none dropdown-toggle z-index" data-bs-toggle="dropdown" th:if="${session.usuariosession == null}"> Registrarse</a>
-                                <ul class="dropdown-menu text-small">
-                                    <li><a class="dropdown-item" href="/registrar">Soy Cliente</a></li>
-                                    <li><a class="dropdown-item" href="/registrarproveedor">Soy Proveedor</a></li>
-            
-                                </ul>
-                            </div>
-                        </div>-->
 
             <div class="text-end inline-block">
                 <a type="button" class="btn btn-secondary" th:if="${session.usuariosession == null}" href="/login">Login</a>

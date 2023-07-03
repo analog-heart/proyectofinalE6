@@ -21,27 +21,31 @@ public class ContratoProveedor {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
     @ManyToOne
     private Proveedor proveedor;
+
     @ManyToOne
     private Usuario usuario;
+
     @Temporal(TemporalType.DATE)
     private Date fechaContrato;
+
     @Temporal(TemporalType.DATE)
     private Date fechaFinalizacion;
+
     @Enumerated(EnumType.STRING)
     private EnumEstadoContrato estado;
+
     @Enumerated(EnumType.STRING)
     private EnumCalificacion calificacion;
+
     private String comentario;
+
     private BigDecimal precio;
 
-
-
-
 // CONSTRUCTORES:
-    
-        public ContratoProveedor() {
+    public ContratoProveedor() {
     }
 
     public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, EnumCalificacion calificacion, String comentario, BigDecimal precio) {
@@ -56,9 +60,7 @@ public class ContratoProveedor {
         this.precio = precio;
     }
 
-    
     //GETTERS AND SETTERS
-
     public String getId() {
         return id;
     }
@@ -130,5 +132,5 @@ public class ContratoProveedor {
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
-     
+
 }

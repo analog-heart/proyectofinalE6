@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head th:replace="/fragments/head :: head"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
 
     <body class="footer-alpiso d-flex flex-column" >
 
-        <header th:replace="/fragments/header :: header"></header>
+        <header th:replace="~{/fragments/header :: header}"></header>
         <div class="container container-fluid d-flex">
             <main class="flex-grow-1 container-fluid" id="mainindex">
 
-                     <form class="formulario form-control" th:action="@{/altaservicio_ofrecido_ok}" method="POST" enctype="multipart/form-data">
+                     <form class="formulario form-control" th:action="@{/servicioOfrecido/altaservicio_ofrecido_ok}" method="POST" enctype="multipart/form-data">
                             <div class ="texto">
 
 
+                        <div class=" form-input" >
+                            <h3>Alta de Servicio Ofrecio</h3>
 
-                                <div class=" form-input" >
-                                    <h3>Alta de Servicio Ofrecio</h3>
-                                   
-                                    <input type="text" class="form-control"  name="serv_descripcion" placeholder="Descripcion" th:value="${serv_descripcion}">
-                                <!--<input type="file" class="form-control mb-3" name="archivo"> -->
-
-
-                                    <div th:replace="fragments/error :: errores1"></div>
-
-                                    <div class="form-button">
-                                        <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Guardar</button>
-                                    </div>
-
-                                </div>
-                            </div>   
-                        </form>
+                            <input type="text" class="form-control"  name="serv_descripcion" placeholder="Descripcion" th:value="${serv_descripcion}">
+                            <!--<input type="file" class="form-control mb-3" name="archivo"> -->
 
 
+                            <div th:replace="fragments/error :: errores1"></div>
 
-                </div>
+                            <div class="form-button">
+                                <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Guardar</button>
+                            </div>
 
-         </main>
+                        </div>
+                    </div>   
+                </form>
 
 
 
-       <footer th:replace="/fragments/footer :: footer"></footer>
-        
-         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-    </body>
+        </div>
+
+    </main>
+
+
+
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+</body>
 
 </html>

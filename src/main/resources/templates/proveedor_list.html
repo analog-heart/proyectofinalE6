@@ -1,42 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-    <head th:replace="/fragments/head :: head"></head>
+  <body class="footer-alpiso d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
-    <body class="footer-alpiso d-flex flex-column" >
+    <main class="flex-grow-1 container-fluid">
+      <div>
+        <h1 style="color: azure">Lista de Proveedores</h1>
+      </div>
 
-        <header th:replace="/fragments/header :: header"></header>
+ 
+      <section>
+        <div class="card" th:each="proveedor : ${proveedores}">
+          <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"></div>
+        </div>
+      </section>
+    
+    </main>
 
-        <main class="flex-grow-1 container-fluid">
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-            <div>
-                <h1 style="color: azure">Lista de Proveedores</h1>
-            </div>   
-
-            <div class="container container-fluid  d-flex flex-wrap gap-3">
-                <div class="card" style="width: 18rem;" th:each="proveedor : ${proveedores}">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h5>
-                        <h6>DNI</h6>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="${proveedor.dni}"></h6>
-                        <h6>Telefono</h6>
-                        <p class="card-text" th:text="${proveedor.telefono}"></p>
-                        <p class="card-text" th:text="${proveedor.servicios}"></p>
-                        <a th:href="@{/proveedor/modificar/__${proveedor.id}__}" class="card-link">Modificar</a>
-                    </div>
-                </div>
-            </div>
-
-
-        </main>  
-
-        <footer th:replace="/fragments/footer :: footer"></footer>
-
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-        crossorigin="anonymous"></script>
-
-    </body>
+  </body>
 </html>
