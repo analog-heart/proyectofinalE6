@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
-public class ControladorErrores implements ErrorController{
-        @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
+public class ControladorErrores implements ErrorController {
+
+    @RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
 
         ModelAndView errorPage = new ModelAndView("error");

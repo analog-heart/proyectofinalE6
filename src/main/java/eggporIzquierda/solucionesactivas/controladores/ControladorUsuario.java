@@ -55,17 +55,17 @@ public class ControladorUsuario {
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
         modelo.put("usuario", usuario);
         
-        return "usuario_modificar.html";
+        return "usuario_modificar_v2.html";
 
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
 //Falta validar por separdo las claves pssw
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono);
             modelo.put("exito", "Usuario actualizado correctamente!");
             
             return "inicio.html";
@@ -79,7 +79,32 @@ public class ControladorUsuario {
         }
 
     }
+    
+    
+    
+    @GetMapping("/mi_perfil_usuario")
+    public String mi_perfil_usuario(ModelMap modelo, HttpSession session) {
 
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+        modelo.put("usuario", usuario);
+        
+        return "mi_perfil_usuario.html";
+
+    }
+
+    
+       
+      @GetMapping("/dar_baja_usuario")
+    public String dar_baja_usuario(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        usuarioServicio.dar_baja_usuario(usuario.getId());
+        
+        
+        return "mi_perfil_usuario.html";
+
+    }         
 }
 
 

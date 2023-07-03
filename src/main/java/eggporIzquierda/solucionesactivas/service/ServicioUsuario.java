@@ -50,7 +50,8 @@ public class ServicioUsuario implements UserDetailsService {
         //se guarda la fecha de nacimiento que llega por formulario
         fechatemp = fechaNacimiento;
         usuario.setFechaNacimiento(fechatemp);
-
+        
+        usuario.setEstado(true);
         usuario.setDni(dni);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
@@ -64,7 +65,7 @@ public class ServicioUsuario implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) throws MiException {
 
         validar(email, password, password2);
 
@@ -78,18 +79,21 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setApellido(apellido);
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDni(dni);
-
+            usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuario.setRol(Rol.USUARIO);
 
             String idImagen = null;
 
-            if (usuario.getFotoPerfil() != null && archivo!= null) {
+            if (usuario.getFotoPerfil() != null && archivo != null) {
                 idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
-                
+            } else if (usuario.getFotoPerfil() == null && archivo != null) {
+                idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
             }
 
             usuarioRepositorio.save(usuario);
@@ -190,6 +194,16 @@ public class ServicioUsuario implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    public void dar_baja_usuario(String id) {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            if (usuario.getEstado()== true) {
+                usuario.setEstado(false);
+       }  }
     }
 
 }
