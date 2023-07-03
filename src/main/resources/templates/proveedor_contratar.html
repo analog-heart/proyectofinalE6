@@ -1,80 +1,110 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="~{/fragments/head :: head}"></head>
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    >
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-  <body class="footer-alpiso d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="container flex-grow-1 container-fluid">
-      <div class="container container-fluid d-flex">
-        <div class="contenedor">
-          <!--TARJETA PROVEEDOR-->
-          <div class="left-panel" id="login">
-            <div
-              th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"
-            ></div>
-
-            <!-- Frente de la tarjeta proveedor
+        <main class="container flex-grow-1 container-fluid">
+            <div class="container container-fluid d-flex">
+                <div class="contenedor">
+                    <!--TARJETA PROVEEDOR-->
+                    <div class="left-panel" id="login">
                         <div class="face front">
-                            <img id="fotoPerfil" th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">
-                            <h3 class="card-title" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h3>
-                            <h3>Servicio:</h3>
-                            <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
+                            <img
+                                id="fotoPerfil"
+                                th:src="@{/imagen/perfil/__${proveedor.id}__}"
+                                alt="imegen perfil"
+                                class="rounded-circle"
+                                width="100"
+                                height="100"
+                                />
+                            <h3
+                                class="card-title"
+                                th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"
+                                ></h3>
+                            <p
+                                class="card-text"
+                                th:each="serv : ${proveedor.servicios}"
+                                th:text="${serv.serv_descripcion}"
+                                ></p>
                         </div>
-                        
-                        dorso de la tarjeta proveedor-->
-            <!-- <div class="face back">
+
+
+                        <div class="face back">
                             <h3>Servicio:</h3>
-                            <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
-                            <!-- <div class="link">
-                                <a th:href="@{/proveedor/contacto/__${proveedor.id}__}">
-                                    <button value="">Contactar</button>
-                                </a>
-                            </div> -->
-            <!-- </div> -->
-          </div>
-
-          <!--                     
-                    
-                    <div class="right-panel">
-                        <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
-                            <div class ="texto">
-
-                                <div class="logo ">
-                                    <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width="300" height="300"  alt="Logo">
-
+                            <p
+                                th:each="serv : ${proveedor.servicios}"
+                                th:text="${serv.serv_descripcion}"
+                                ></p>
+                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/proveedor/contratar}" method="POST">
+                                <div class="link">
+                                    <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                                 </div>
-                                <div class="form-input ">
-                                    <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
-                                </div>
-                                <!--<input type="file" class="form-control mb-3" name="archivo">-->
-          <!-- <div class="form-input ">
-                                    <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                                </div>
+                            </form>
+                        </div>
 
-                                <div th:replace="~{fragments/error :: errores1}"></div>
-                                <div class="form-button">
-                                    <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
-                                </div>
-
-
-
-                            </div>
-                        </form>
+                        <!-- Frente de la tarjeta proveedor
+                                    <div class="face front">
+                                        <img id="fotoPerfil" th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">
+                                        <h3 class="card-title" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h3>
+                                        <h3>Servicio:</h3>
+                                        <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
+                                    </div>
+                                    
+                                    dorso de la tarjeta proveedor-->
+                        <!-- <div class="face back">
+                                        <h3>Servicio:</h3>
+                                        <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
+                        <!-- <div class="link">
+                            <a th:href="@{/proveedor/contacto/__${proveedor.id}__}">
+                                <button value="">Contactar</button>
+                            </a>
+                        </div> -->
+                        <!-- </div> -->
                     </div>
- -->
-        </div>
-      </div>
-    </main>
 
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+                    <!--                     
+                              
+                              <div class="right-panel">
+                                  <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
+                                      <div class ="texto">
+          
+                                          <div class="logo ">
+                                              <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width="300" height="300"  alt="Logo">
+          
+                                          </div>
+                                          <div class="form-input ">
+                                              <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
+                                          </div>
+                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                    <!-- <div class="form-input ">
+                                              <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
+                                          </div>
+          
+                                          <div th:replace="~{fragments/error :: errores1}"></div>
+                                          <div class="form-button">
+                                              <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
+                                          </div>
+          
+          
+          
+                                      </div>
+                                  </form>
+                              </div>
+                    -->
+                </div>
+            </div>
+        </main>
 
-    <script
-      src="https://kit.fontawesome.com/183f2a4aef.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+        <script
+            src="https://kit.fontawesome.com/183f2a4aef.js"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>
