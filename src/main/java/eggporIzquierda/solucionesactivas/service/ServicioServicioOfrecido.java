@@ -37,14 +37,14 @@ public class ServicioServicioOfrecido {
     //-Modificar y Agregar Foto--------
     @Transactional
     public void modificarServicio(String serv_id,String serv_descripcion, MultipartFile serv_imagen) throws MiException {
-        validar(serv_descripcion);
+        validarconimagen(serv_descripcion, serv_imagen);
 
         Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(serv_id);
         if (respuesta.isPresent()) {
             ServicioOfrecido serv = respuesta.get();
-            serv.setServ_descripcion(serv_descripcion);
+            serv.setServ_descripcion(serv_descripcion.toUpperCase());
 
-            if (serv_imagen != null) {
+            if (!serv_imagen.isEmpty()) {
                 Imagen imagen = imagenServicio.guardar(serv_imagen);
                 serv.setServ_imagen(imagen);
             }
@@ -86,7 +86,7 @@ public class ServicioServicioOfrecido {
 
     private void validar(String serv_descripcion) throws MiException {
 
-        if (serv_descripcion.isEmpty() || serv_descripcion == null) {
+        if (serv_descripcion.isEmpty() ) {
             throw new MiException("La descripcion del Servicio no puede estar vacio");
         }
         
@@ -96,4 +96,25 @@ public class ServicioServicioOfrecido {
         }
     }
 
+    
+     private void validarconimagen(String serv_descripcion, MultipartFile serv_imagen) throws MiException {
+
+        if (serv_descripcion.isEmpty() ) {
+            throw new MiException("La descripcion del Servicio no puede estar vacio");
+        }
+        
+         ServicioOfrecido respuesta = servOfrecidoRepositorio.getOneByDescripcion(serv_descripcion);
+        if (respuesta != null && serv_imagen.isEmpty()) {
+             throw new MiException("Ya existe un servicio similar , consulte la base o modifiquelo");
+        }
+    }
+    
+    public ServicioOfrecido findById(String id){
+        Optional<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            return respuesta.get();
+        } else 
+            return null;
+    }
 }
