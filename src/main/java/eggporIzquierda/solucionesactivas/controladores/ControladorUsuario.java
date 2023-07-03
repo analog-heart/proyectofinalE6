@@ -68,7 +68,7 @@ public class ControladorUsuario {
             usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
             modelo.put("exito", "Usuario actualizado correctamente!");
             
-            return "inicio.html";
+            return "redirect:../";
             
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
