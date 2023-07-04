@@ -1,137 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Soluciones Activas</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-        <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
-       
-        
-       
- </head>
 
-    <body class="" >
-
-        <header th:replace="~{/fragments/header :: header}"></header>
-
-        <div class="">
-            <main class="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Soluciones Activas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
 
 
 
-                <section style="background-color: #eee;">
-                    <div class="container py-5">
-                        <div class="row">
-                            <div class="col">
-                                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                                    <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
-                                    </ol>
-                                </nav>
-                            </div>
+</head>
+
+<body class="">
+
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <div class="">
+        <main class="">
+
+
+
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
+                                </ol>
+                            </nav>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card mb-4">
-                                    <div class="card-body text-center">
-                                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
-                                             class="" style="width: 150px;">
-                                        <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                        <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}" th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
-                                        <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
-                                        <p class="text-muted mb-4" th:text="'Rol: '+${usuario.rol}"></p>
-                                        <div class="d-flex justify-content-center mb-2">
-                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar" class=""
+                                        style="width: 150px;">
+                                    <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
+                                    <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}"
+                                        th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
+                                    <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
+                                    <p class="text-muted mb-4" th:text="'Rol: '+${usuario.rol}"></p>
+                                    <div class="d-flex justify-content-center mb-2">
+                                        <a type="button" class="btn btn-warning"
+                                            th:href="@{/usuario/modificar_perfil_usuario}"
+                                            th:if="${session.usuariosession != null}">Modificar </a>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-lg-8">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Full Name</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></p>
-                                            </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Full Name</p>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Email</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${usuario.email}"></p>
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0"
+                                                th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></p>
                                         </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0" >Fecha Nacimiento</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" >24/07/1982</p>
-                                            </div>
-                                        </div>
-                                         <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0" >D.N.I.</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${usuario.dni}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Telefono</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${usuario.telefono}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Domicilio</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Cantidad Servicios Contratados</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0">2</p>
-                                            </div>
-                                        </div>
-                                    
-                                        
                                     </div>
-                                </div>   
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Email</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0" th:text="${usuario.email}"></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Fecha Nacimiento</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">24/07/1982</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">D.N.I.</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0" th:text="${usuario.dni}"></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Telefono</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0" th:text="${usuario.telefono}"></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Domicilio</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Cantidad Servicios Contratados</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">2</p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!---Mis Contratos--->
+
+                <div class="container py-5 h-100">
+
+                    <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${contrato.id}"></h5>
+                            <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+                            <h6>ESTADO</h6>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
+                            <h6>FECHA ALTA</h6>
+                            <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
+                            <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
+                            <div>
+                            <a th:if="${contrato.estado.toString() == 'ENCURSO'}" th:ref="@{/}" class="btn-primary">Finalizar contrato</a>
                             </div>
                         </div>
                     </div>
 
 
-                    <!---Mis Contratos--->
-
-                    <div class="container py-5 h-100">
-                        
-
-                        <div class="row">
+                    <!-- <div class="row">
                             <div class="col">
                                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                                     <ol class="breadcrumb mb-0">
@@ -196,13 +216,13 @@
 
 
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                </div>
 
 
 
 
-                </section>
+            </section>
 
 
 
@@ -211,11 +231,10 @@
 
 
 
-            </main>  
-        </div>
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        </main>
+    </div>
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    </body>
+</body>
+
 </html>
-
-
