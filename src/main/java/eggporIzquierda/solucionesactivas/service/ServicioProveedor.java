@@ -43,11 +43,9 @@ public class ServicioProveedor implements UserDetailsService {
     private RepositorioServicioOfrecido servOfrecidoServicio;
 
     @Transactional
-<<<<<<< HEAD
+
     public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
-=======
-    public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
->>>>>>> b0e8a08993be66f313a31e005eea11574ce76d62
+
         
         validar(nombre, email, password, password2);
          Proveedor proveedor = new Proveedor();
