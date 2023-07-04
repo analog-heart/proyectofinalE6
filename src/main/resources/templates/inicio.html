@@ -1,26 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<<<<<<< HEAD
-<head th:replace="fragments/head :: head1"> </head>
-
-<body>
-
-    
-    <nav th:replace="fragments/navbar :: nav_bar2"> </nav>
-
-    <div style="align-content: center;">
-    <h1>INGRESASTE CORRECTAMENTE</h1>
-        
-    <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-primary"> Lista de Usuarios </button> </a>
-    <br>
-    <br>
-    <a th:href="@{/contrato}"><button type="button" class="btn btn-primary"> Generar contrato </button> </a>
-    </div>
-
-</body>
-=======
-
     <head th:replace="~{/fragments/head :: head}"></head>
 
     <body class="footer-alpiso d-flex flex-column" >
@@ -28,25 +8,25 @@
         <header th:replace="~{/fragments/header :: header}"></header>
 
         <main class="flex-grow-1 container-fluid">
-<!--            <div class="container container-fluid d-flex"> -->
-          <h1 style="color: azure">INGRESASTE CORRECTAMENTE</h1>
-          <br>
-          <div>
-          <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-info"> Lista de Usuarios </button> </a>
-          <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-info"> Lista de Proveedores </button> </a>
-          </div>
+            <!--            <div class="container container-fluid d-flex"> -->
+            <h1 style="color: azure">INGRESASTE CORRECTAMENTE</h1>
+            <br>
+            <div>
+                <a th:href="@{/usuario/usuarios}"><button type="button" class="btn btn-info"> Lista de Usuarios </button> </a>
+                <a th:href="@{/proveedor/proveedores}"><button type="button" class="btn btn-info"> Lista de Proveedores </button> </a>
+            </div>
 
-<!--          </div>-->
+            <!--          </div>-->
         </main>
 
 
-       <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-        
-         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     </body>
 
->>>>>>> 97a0373d5e9ee60af4f01a029880013a9cd61073
+    >>>>>>> 97a0373d5e9ee60af4f01a029880013a9cd61073
 
 </html>
