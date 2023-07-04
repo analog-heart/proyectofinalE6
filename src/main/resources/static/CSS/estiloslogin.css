@@ -1,13 +1,20 @@
 
+header{
 
+    background-color: #635985;
+}
 
 body {
     margin: 0;
     padding: 0;
-    background-color: #2a363b;
+    background-color: #443C68;
     font-family: 'Bitter';
     
-    
+}
+
+footer{
+
+    background-color: #393053;
 }
 
 .contenedor {
