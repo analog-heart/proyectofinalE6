@@ -1,5 +1,6 @@
 package eggporIzquierda.solucionesactivas.service;
 
+import eggporIzquierda.solucionesactivas.entity.Domicilio;
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
@@ -37,9 +38,12 @@ public class ServicioUsuario implements UserDetailsService {
     @Autowired
     private ServicioImagen imagenServicio;
 
+    @Autowired
+    private ServicioDomicilio domServicio;
+    
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido,
-            String fechaNacimiento, String dni, String telefono, String email, String password, String password2)
+            String fechaNacimiento, String dni, String telefono, String email, String password, String password2, String calle, String numero, String barrio, String lote)
             throws MiException {
 
         validar(email, password, password2);
@@ -72,13 +76,19 @@ public class ServicioUsuario implements UserDetailsService {
 
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
+        
+        
+        
+        Domicilio domTemp = domServicio.registrar(calle, numero, barrio, lote , "5505", "Chacras de Coria" );
+        usuario.setDomicilio(domTemp);
+        
         usuarioRepositorio.save(usuario);
 
     }
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password,
-            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
+            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono, String calle , String numero , String barrio , String lote)
             throws MiException {
 
         validar(email, password, password2);
@@ -105,11 +115,21 @@ public class ServicioUsuario implements UserDetailsService {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
             } else if (usuario.getFotoPerfil() == null && archivo != null) {
-                idImagen = usuario.getFotoPerfil().getId();
-                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+              
+                Imagen imagen = imagenServicio.guardar(archivo);
                 usuario.setFotoPerfil(imagen);
             }
 
+            //---------modificar Domicilio
+          
+             if (usuario.getDomicilio() != null && calle !=null && numero != null) {
+               String  idDom = usuario.getDomicilio().getId();
+                 Domicilio domTemp = domServicio.modificar(calle, numero, barrio, lote , idDom );
+                 usuario.setDomicilio(domTemp);
+             }else if (usuario.getDomicilio()== null && calle !=null && numero != null){
+                 Domicilio domTemp = domServicio.registrar(calle, numero, barrio, lote , "5505", "Chacras de Coria" );
+                 usuario.setDomicilio(domTemp);
+             }
             usuarioRepositorio.save(usuario);
         }
 
