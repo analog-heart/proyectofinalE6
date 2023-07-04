@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -34,41 +33,39 @@ public class ServicioUsuario implements UserDetailsService {
 
     @Autowired
     private ServicioImagen imagenServicio;
-    
-    
+
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
-        
-        validar( email, password, password2);
+
+        validar(email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-         
+
         //se guarda la fecha de alta (no modificable)
         Date fechatemp = new Date();
         usuario.setFecha(fechatemp);
-                
+
         //se guarda la fecha de nacimiento que llega por formulario
         fechatemp = fechaNacimiento;
         usuario.setFechaNacimiento(fechatemp);
         
-        
+        usuario.setEstado(true);
         usuario.setDni(dni);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USUARIO);
-        
-       
+
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
         usuarioRepositorio.save(usuario);
-        
+
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) throws MiException {
 
         validar(email, password, password2);
 
@@ -82,20 +79,22 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setApellido(apellido);
             usuario.setFechaNacimiento(fechaNacimiento);
             usuario.setDni(dni);
-            
+            usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
 
             usuario.setRol(Rol.USUARIO);
 
             String idImagen = null;
 
-            if (usuario.getFotoPerfil() != null) {
+            if (usuario.getFotoPerfil() != null && archivo != null) {
                 idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
+            } else if (usuario.getFotoPerfil() == null && archivo != null) {
+                idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
             }
-
-            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-
-            usuario.setFotoPerfil(imagen);
 
             usuarioRepositorio.save(usuario);
         }
@@ -115,13 +114,14 @@ public class ServicioUsuario implements UserDetailsService {
 
         return usuarios;
     }
-    
-     @Transactional(readOnly = true)
+
+    @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosActivos() {
         List<Usuario> usuarios = new ArrayList();
         usuarios = usuarioRepositorio.listarUsuariosActivos();
         return usuarios;
     }
+
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosInactivos() {
         List<Usuario> usuarios = new ArrayList();
@@ -129,16 +129,14 @@ public class ServicioUsuario implements UserDetailsService {
         return usuarios;
     }
 
-   public List<Usuario> buscarUsuariosXnombre(String nombre){
-       
-       List<Usuario> usuariosXnombre = new ArrayList();
-       
-       usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
-       
-       return usuariosXnombre;
-   }
-    
+    public List<Usuario> buscarUsuariosXnombre(String nombre) {
 
+        List<Usuario> usuariosXnombre = new ArrayList();
+
+        usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
+
+        return usuariosXnombre;
+    }
 
     @Transactional
     public void cambiarRol(String id) {
@@ -160,7 +158,6 @@ public class ServicioUsuario implements UserDetailsService {
 
     private void validar(String email, String password, String password2) throws MiException {
 
-     
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
@@ -197,6 +194,16 @@ public class ServicioUsuario implements UserDetailsService {
         } else {
             return null;
         }
+    }
+
+    public void dar_baja_usuario(String id) {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+
+            if (usuario.getEstado()== true) {
+                usuario.setEstado(false);
+       }  }
     }
 
 }

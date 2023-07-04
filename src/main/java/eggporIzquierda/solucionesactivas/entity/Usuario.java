@@ -16,7 +16,7 @@ import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Inheritance(strategy= InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -182,6 +182,15 @@ public class Usuario {
     public void setFotoPerfil(Imagen fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+    
 
     @Override
     public String toString() {

@@ -20,10 +20,10 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, String> {
 //    public List<Usuario> listarUsuariosActivos();
     //debe listar cuando el esado es activo y el dtype es Usuario
      
-    @Query("SELECT u FROM Usuario u ")
+    @Query("SELECT u FROM Usuario u WHERE u.rol='USUARIO' AND u.estado =true ")
     public List<Usuario> listarUsuariosActivos();
     
-    @Query("SELECT u FROM Usuario u WHERE u.estado = false")
+    @Query("SELECT u FROM Usuario u WHERE u.rol='USUARIO' AND  u.estado =false")
     public List<Usuario> listarUsuariosInactivos();
     
 
