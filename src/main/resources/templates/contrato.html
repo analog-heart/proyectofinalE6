@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="fragments/head :: head1"> </head>
 
 <body>
 
-     <header th:replace="/fragments/header :: header"></header>
+    <nav th:replace="fragments/navbar :: nav_bar2"> </nav>
     <br>
     <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contratar}" method="POST">
         <br>

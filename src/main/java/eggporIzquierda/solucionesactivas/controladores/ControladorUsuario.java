@@ -1,9 +1,12 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class ControladorUsuario {
     
     @Autowired
     private ServicioUsuario usuarioServicio;
+    
+    @Autowired
+    private ServicioContrato contratoServicio;
 
     
     @GetMapping("/usuarios")
@@ -84,10 +90,16 @@ public class ControladorUsuario {
     
     @GetMapping("/mi_perfil_usuario")
     public String mi_perfil_usuario(ModelMap modelo, HttpSession session) {
-
+        
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
         modelo.put("usuario", usuario);
+        
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+        
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+        modelo.put("contratosUsuario", contratosSesion);
+        
         
         return "mi_perfil_usuario.html";
 

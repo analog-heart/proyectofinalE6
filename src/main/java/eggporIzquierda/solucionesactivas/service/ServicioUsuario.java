@@ -6,6 +6,9 @@ import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
 import jakarta.servlet.http.HttpSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +38,9 @@ public class ServicioUsuario implements UserDetailsService {
     private ServicioImagen imagenServicio;
 
     @Transactional
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
+    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido,
+            String fechaNacimiento, String dni, String telefono, String email, String password, String password2)
+            throws MiException {
 
         validar(email, password, password2);
         Usuario usuario = new Usuario();
@@ -43,14 +48,21 @@ public class ServicioUsuario implements UserDetailsService {
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
 
-        //se guarda la fecha de alta (no modificable)
+        // se guarda la fecha de alta (no modificable)
         Date fechatemp = new Date();
         usuario.setFecha(fechatemp);
 
-        //se guarda la fecha de nacimiento que llega por formulario
-        fechatemp = fechaNacimiento;
-        usuario.setFechaNacimiento(fechatemp);
-        
+        // se guarda la fecha de nacimiento que llega por formulario
+
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNac = formato.parse(fechaNacimiento);
+            usuario.setFechaNacimiento(fechaNac);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+
         usuario.setEstado(true);
         usuario.setDni(dni);
         usuario.setTelefono(telefono);
@@ -65,7 +77,9 @@ public class ServicioUsuario implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password,
+            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
+            throws MiException {
 
         validar(email, password, password2);
 
@@ -201,9 +215,17 @@ public class ServicioUsuario implements UserDetailsService {
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
 
-            if (usuario.getEstado()== true) {
+            if (usuario.getEstado() == true) {
                 usuario.setEstado(false);
-       }  }
+            }
+        }
     }
+
+    /* @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+    } */
 
 }
