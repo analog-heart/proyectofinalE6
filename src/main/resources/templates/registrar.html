@@ -4,11 +4,11 @@
     <head th:replace="~{/fragments/head :: head}"></head>
 
 
-    <body class="footer-alpiso d-flex flex-column" >
+    <body class="d-flex flex-column" >
 
         <header th:replace="~{/fragments/header :: header}"></header>
 
-        <main class="flex-grow-1 container-fluid">
+        <main class="flex-grow-1 container-fluid footer-alpiso">
             <div class="container container-fluid d-flex">  
                 <div class="contenedor">
                     <div class="left-panel">
@@ -27,23 +27,23 @@
                                 <div class=" form-input" >
 
 
-                                    <input type="text" class="form-control" name="nombre" placeholder="Nombre" th:value="${nombre}">
-                                    <input type="text" class="form-control" name="apellido" placeholder="Apellido" th:value="${apellido}">
-                                    <input type="text" class="form-control" name="dni" placeholder="DNI" th:value="${dni}">
-                                    <input type="text" class="form-control" name="telefono" placeholder="Telefono" th:value="${telefono}">
-                                    <input type="date" class="form-control" name="fechaNacimiento" min="1923-01-01" max="3000-12-31" th:value="${fechaNacimiento}">
+                                    <input type="text" class="form-control mb-3" name="nombre" placeholder="Nombre" th:value="${nombre}">
+                                    <input type="text" class="form-control mb-3" name="apellido" placeholder="Apellido" th:value="${apellido}">
+                                    <input type="text" class="form-control mb-3" name="dni" placeholder="DNI" th:value="${dni}">
+                                    <input type="text" class="form-control mb-3" name="telefono" placeholder="Telefono" th:value="${telefono}">
+                                    <input type="date" class="form-control mb-3" name="fechaNacimiento" min="1923-01-01" max="3000-12-31" th:value="${fechaNacimiento}">
 
 
-                                    <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
+                                    <input type="email"class="form-control mb-3" name="email"  placeholder="EMAIL" th:value="${email}">
                                     <input type="file" class="form-control mb-3" name="archivo">
-                                    
-                                     <input th:value="${calle}"  type="text"class=" mb-3" name="calle"  placeholder=" Domicilio: calle">
-                                     <input th:value="${numero}"  type="text"class=" mb-3" name="numero"  placeholder=" Domicilio: altura">
-                                     <input th:value="${barrio}"  type="text"class=" mb-3" name="barrio"  placeholder=" Domicilio: barrio">
-                                     <input th:value="${lote}"  type="text"class=" mb-3" name="lote"  placeholder=" Domicilio: lote">
-                                   
-                                     
-                                   
+
+                                    <input type="text" th:value="${calle}"   class=" mb-3" name="calle"   placeholder=" Domicilio: calle">
+                                    <input type="text" th:value="${numero}"  class=" mb-3" name="numero"  placeholder=" Domicilio: altura">
+                                    <input type="text" th:value="${barrio}"  class=" mb-3" name="barrio"  placeholder=" Domicilio: barrio">
+                                    <input type="text" th:value="${lote}"    class=" mb-3" name="lote"    placeholder=" Domicilio: lote">
+
+
+
                                     <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                     <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
 
