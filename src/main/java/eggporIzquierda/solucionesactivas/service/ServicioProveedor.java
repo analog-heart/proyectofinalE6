@@ -2,17 +2,16 @@ package eggporIzquierda.solucionesactivas.service;
 
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
-
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
-import eggporIzquierda.solucionesactivas.entity.Usuario;
-
 import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
-import eggporIzquierda.solucionesactivas.enumation.EnumServiciosOfrecidos;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.servlet.http.HttpSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,12 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Transactional
 
+<<<<<<< HEAD
     public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+=======
+    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
+
+>>>>>>> Developers
         
 
         validar(nombre,apellido, email, password, password2, dni);
@@ -67,18 +71,38 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setNombreUsuario(nombreUsuario);
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
-        proveedor.setFechaNacimiento(fechaNacimiento);
+        
         proveedor.setDni(dni);
+<<<<<<< HEAD
         //proveedor.setTelefono(telefono);
+=======
+        proveedor.setTelefono(telefono);
+>>>>>>> Developers
         proveedor.setEmail(email);
+        proveedor.setTelefono(telefono);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
+
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNac = formato.parse(fechaNacimiento);
+            proveedor.setFechaNacimiento(fechaNac);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+        
+        if(archivo != null){
         Imagen imagen = imagenServicio.guardar(archivo);
         proveedor.setFotoPerfil(imagen);
+        }
         
-       
-       
-        
+       if(archivo == null){
+           
+       }
+       //seteo fecha de alta
+        Date fechatemp = new Date();
+        proveedor.setFecha(fechatemp);
         
         proveedor.setEstadoProveedorActivo(Boolean.TRUE);
         proveedor.setReputacion(0.0);
@@ -91,12 +115,12 @@ public class ServicioProveedor implements UserDetailsService {
         
         
     @Transactional
-    public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password, String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+    public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password,
+            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
 
         validar(nombre,apellido, email, password, password2, dni);
         
         
-
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
@@ -238,6 +262,75 @@ public class ServicioProveedor implements UserDetailsService {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    
+       public List<Proveedor> buscarProveedoresXnombre(String nombre){
+       
+       List<Proveedor> proveedoresXnombre = new ArrayList();
+       
+       proveedoresXnombre = proveedorRepositorio.buscarPorNombre(nombre);
+       
+       return proveedoresXnombre;
+   }
 
+  
+    public List<Proveedor> buscarProveedoresxFiltro(String palabraClave) {
+       List<Proveedor> proveedoresList= new ArrayList();
+       
+       proveedoresList = proveedorRepositorio.listarXpalabraClave(palabraClave);
+       
+       return proveedoresList;
+        
+    }
+
+
+       
+    
+       
+       //----------
+       @Transactional
+    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+        
+        validar(nombre, email, password, password2);
+         Proveedor proveedor = new Proveedor();
+         //----------recupero con el id el dato de la clase servicio
+       
+         
+         Optional <ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
+         Optional <ServicioOfrecido> respuesta2 = servOfrecidoServicio.findById(serviciosID2);
+       
+        if (respuesta.isPresent()) {
+         ServicioOfrecido servicioTemporal = respuesta.get();
+        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+        List <ServicioOfrecido> serviciosList = new ArrayList<>();
+        serviciosList.add(servicioTemporal);
+         proveedor.setServicios(serviciosList);
+            
+        } 
+          if (respuesta2.isPresent()) {
+         ServicioOfrecido servicioTemporal = respuesta2.get();
+        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+        List <ServicioOfrecido> serviciosList2 = proveedor.getServicios();
+        serviciosList2.add(servicioTemporal);
+         proveedor.setServicios(serviciosList2);
+            
+        }  
+       
+        proveedor.setNombreUsuario(nombreUsuario);
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setFechaNacimiento(fechaNacimiento);
+        proveedor.setDni(dni);
+        proveedor.setEmail(email);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+        proveedor.setRol(Rol.PROVEEDOR);
+        Imagen imagen = imagenServicio.guardar(archivo);
+        proveedor.setFotoPerfil(imagen);
+        
+        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+        proveedor.setReputacion(0.0);
+        proveedor.setNivel(EnumNivel.INICIAL);
+        proveedorRepositorio.save(proveedor);
+        
+         
+    }
+       
 }

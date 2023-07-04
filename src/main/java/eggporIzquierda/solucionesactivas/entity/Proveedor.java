@@ -7,33 +7,20 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
-
-
 import java.util.Date;
 import java.util.List;
 
-
-
-
-
-@Entity 
-
-
+@Entity
 public class Proveedor extends Usuario {
-    
-    
-   @ManyToMany
+
+    @ManyToMany
     private List<ServicioOfrecido> servicios;
-   
+
     private Boolean estadoProveedorActivo;
     private Double reputacion;
     @Enumerated(EnumType.STRING)
     private EnumNivel nivel;
 
-    
-    
-    
     // CONSTRUCTORES (sin atributo reputación)
     public Proveedor() {
     }
@@ -42,14 +29,6 @@ public class Proveedor extends Usuario {
         super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol, fotoPerfil);
         this.servicios = servicios;
     }
-
-    
-
-    
-    
-    
-
-
 
 //    MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
     public void activarProveedor() {
@@ -61,7 +40,6 @@ public class Proveedor extends Usuario {
     }
 
     // GUETTERS AND SETTERS
-
     public List<ServicioOfrecido> getServicios() {
         return servicios;
     }
@@ -93,10 +71,5 @@ public class Proveedor extends Usuario {
     public void setNivel(EnumNivel nivel) {
         this.nivel = nivel;
     }
-
-   
-
-    
-    
 
 }

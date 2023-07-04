@@ -1,6 +1,9 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
+import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -17,6 +23,8 @@ public class ControladorAdmin {
     
         @Autowired
     private ServicioUsuario usuarioservicio;
+        
+     
 
     @GetMapping("/dashboard")
     public String panelAdministrativo() {
@@ -40,23 +48,23 @@ public class ControladorAdmin {
     
     //----------creado 25/06 por Hernan -------------
     //---------usuarios
-    @GetMapping("/admin/listarusuarios_all")
+    @GetMapping("/listarusuarios_all")
     public String listarUsuarios(ModelMap modelo){
         List<Usuario> usuarios = usuarioservicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list.html";
     }
     
-    @GetMapping("/admin/listarusuarios_activos")
+    @GetMapping("/listarusuarios_activos")
     public String listarUsuariosActivos(ModelMap modelo){
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioservicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
        return "usuario_list.html";
     }
     
-    @GetMapping("/admin/listarusuarios_inactivos")
+    @GetMapping("/listarusuarios_inactivos")
     public String listarUsuariosInactivos(ModelMap modelo){
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioservicio.listarUsuariosInactivos();
         modelo.addAttribute("usuarios", usuarios);
       return "usuario_list.html";
     }
@@ -84,4 +92,8 @@ public class ControladorAdmin {
         modelo.addAttribute("usuarios", usuarios);
        return "usuario_list.html";
     }
+    
+   
+    
+    
 }

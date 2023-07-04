@@ -1,50 +1,136 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}">
+    Soluciones Activas
+  </head>
 
+  <body class="footer-alpiso d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
+<<<<<<< HEAD
 
     <head th:replace="~{/fragments/head :: head}"></head>
+=======
+    <main class="flex-grow-1 container-fluid">
+      <div class="container container-fluid d-flex">
+        <div class="contenedor">
+          <div class="left-panel">
+            <img
+              src="https://img.freepik.com/free-photo/mechanic-with-laptop-white-background_1368-4145.jpg"
+              style="border-radius: 5px"
+              width="100%"
+              alt="Background Image"
+            />
+          </div>
+>>>>>>> Developers
 
-
-    <body class="footer-alpiso d-flex flex-column" >
-
-        <header th:replace="/fragments/header :: header"></header>
-
-        <main class="flex-grow-1 container-fluid">
-            <div class="container container-fluid d-flex"> 
-                <div class="contenedor">
-                    <div class="left-panel">
-                        <img src="https://img.freepik.com/free-photo/mechanic-with-laptop-white-background_1368-4145.jpg" style="border-radius: 5px" width="100%" alt="Background Image">
-                    </div>
-
-                    <div class="right-panel">
-                        <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
-                            <div class ="texto">
-
-<!--<<<<<<< HEAD
-            <div class="contenedor">
-                <div class="left-panel">
-                    <img src="/IMG/imageninicio.jpg"  width="100%" alt="Background Image">
+          <div class="right-panel">
+            <form
+              class="formulario form-control"
+              th:action="@{/registroproveedor}"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="texto">
+                <div class="logo">
+                  <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo" />
                 </div>
 
-                <div class="right-panel">
-                    <form class="formulario form-control" th:action="@{/registroproveedor}" method="POST">
-                        <div class ="texto">
+                <div class="form-input">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="nombre"
+                    placeholder="Nombre"
+                    th:value="${nombre}"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="apellido"
+                    placeholder="Apellido"
+                    th:value="${apellido}"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="dni"
+                    placeholder="DNI"
+                    th:value="${dni}"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="telefono"
+                    placeholder="Telefono"
+                    th:value="${telefono}"
+                  />
 
-                            <div class="logo ">
-                                <img src="/Img/icon.png" width="30%" alt="Logo">
-                                <h2 class="card-title mb-3">Soluciones Activas </h2>
-                            </div>
+                  <input type="file" class="form-control mb-3" name="archivo" />
 
+                  <input
+                    required pattern="\d{4}-\d{2}-\d{2}"
+                    type="date"
+                    class="form-control"
+                    name="fechaNacimiento"
+                    min="1923-01-01"
+                    max="3000-12-31"
+                    th:value="${fechaNacimiento}"
+                  />
 
-                            <div class=" form-input" >
+                  <input
+                    th:value="${email}"
+                    type="email"
+                    class="mb-3"
+                    name="email"
+                    placeholder="EMAIL"
+                  />
+                  <input
+                    th:value="${password}"
+                    type="password"
+                    class="form-control mb-3"
+                    name="password"
+                    placeholder="CONTRASEÑA"
+                  />
+                  <input
+                    th:value="${password2}"
+                    type="password"
+                    class="form-control mb-3"
+                    name="password2"
+                    placeholder="REPETIR CONTRASEÑA"
+                  />
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="serviciosID"
+                  >
+                    <option selected>Elegir servicio ofrecido</option>
+                    <option
+                      th:each="servicios : ${serviciosOfrecidos}"
+                      th:value="${servicios.serv_id}"
+                      th:text="${servicios.serv_descripcion}"
+                    ></option>
+                  </select>
 
-                                <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
-                                <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
-                                <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
-                                <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="serviciosID2"
+                  >
+                    <option selected>Elegir servicio ofrecido</option>
+                    <option
+                      th:each="servicios : ${serviciosOfrecidos}"
+                      th:value="${servicios.serv_id}"
+                      th:text="${servicios.serv_descripcion}"
+                    ></option>
+                  </select>
 
+                  <div th:replace="~{fragments/error :: errores1}"></div>
 
+<<<<<<< HEAD
                                 <select class="form-select" aria-label="Default select example" name="servicios">
 
                                     <option selected>Elegir servicio ofrecido</option>
@@ -110,9 +196,39 @@
 
             </div>
         </main>
+=======
+                  <div class="form-button">
+                    <button
+                      type="submit"
+                      class="btn btn-primary mt-3 form-control mb-3 botones"
+                    >
+                      Registrarme
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+>>>>>>> Developers
 
-        <footer th:replace="~{/fragments/footer :: footer}">    </footer>
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+    <!-- <script src="../static/JS/forms.js"></script> -->
+    <script>
+      let previousTitle = document.title;
+      console.log(previousTitle);
+      window.addEventListener("blur", () => {
+        previousTitle = document.title;
+        document.title = "Sol.Activas: Complatar Form!";
+      });
 
-    </body>
+      window.addEventListener("focus", () => {
+        document.title = previousTitle;
+      });
+    </script>
+
+  </body>
 </html>
 

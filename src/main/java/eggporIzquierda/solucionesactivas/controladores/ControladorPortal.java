@@ -1,15 +1,21 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 
-
+import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,28 +39,29 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-
+    @Autowired
+    private ServicioContrato contratoServicio;
 
     @GetMapping("/")
+    public String index(ModelMap modelo) {
+        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
+        modelo.addAttribute("proveedores", ListProveedores);
+        return "index.html";
 
-    public String index() {
+    }
 
+    //-------------------------BUSCADOR--------------------
+    @GetMapping("/buscar")
+    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
+
+        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", ListNoticias);
+        modelo.addAttribute("palabraClave", palabraClave);
         return "index.html";
     }
-//    @GetMapping("/")
-//    public String index(ModelMap modelo) {
-//         List<Proveedor> ListProveedores = proveedorServicio.findAllbyfechadesc();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//        return "index.html";
-//
-//      
-//    }
 
-   
-    
-    
-    
     @GetMapping("/registrar")
+
     public String registrar() {
         return "registrar.html";
 
@@ -62,7 +69,7 @@ public class ControladorPortal {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
+            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono) {
 
         try {
             usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
@@ -93,12 +100,14 @@ public class ControladorPortal {
 
     @PostMapping("/registroproveedor")
 
+
     public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni,String telefono,
             @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
             proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+
 
             modelo.put("exito", "Usuario registrado correctamente!");
 
@@ -132,84 +141,81 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
 
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
-        if (logueado.getRol().toString().equals("ADMIN")) {
-            return "redirect:/admin/dashboard";
-        }
-
+        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // if (logueado.getRol().toString().equals("ADMIN")) {
+        //     return "redirect:/admin/dashboard";
+        // }
         return "inicio.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
 
-    @GetMapping("/perfil")
-    public String perfil(ModelMap modelo, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            modelo.put("usuario", usuario);
-            return "/proveedor/proveedor_modificar.html";
-
-        } else {
-            modelo.put("usuario", usuario);
-            return "/usuario/usuario_modificar.html";
-        }
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-    @PostMapping("/perfil/{id}")
-    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
-
-        try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
-            modelo.put("exito", "Usuario actualizado correctamente!");
-            return "inicio.html";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
-        }
-
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//
+//    @GetMapping("/perfil")
+//    public String perfil(ModelMap modelo, HttpSession session) {
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//
+//        if (usuario.getRol().toString().equals("PROVEEDOR")) {
+//            modelo.put("usuario", usuario);
+//            return "/proveedor/proveedor_modificar.html";
+//
+//        } else {
+//            modelo.put("usuario", usuario);
+//            return "/usuario/usuario_modificar.html";
+//        }
+//    }
+//
+//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+//    @PostMapping("/perfil/{id}")
+//    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+//            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+//>>>>>>> Developers
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
-    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
+    public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
 
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni);
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
             modelo.put("exito", "Proveedor actualizado correctamente!");
-            return "inicio.html";
+            return "redirect:../inicio";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "/usuario/usuario_modificar.html";
+            return "proveedor_modificar.html";
         }
 
     }
 
-    @GetMapping("/altaservicio_ofrecido")
-    public String altaServicio() {
-        return "servicio_ofrecido_alta.html";
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mi_perfil")
+    public String miPerfil(ModelMap modelo, HttpSession session) {
+
+//        List<ContratoProveedor> contratosSesion = new ArrayList();
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+
+        modelo.put("usuario", usuario);
+//        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mi_perfil.html";
     }
 
-    @PostMapping("/altaservicio_ofrecido_ok")
-    public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
+    @GetMapping("/mis_contratos")
+    public String misContratos(ModelMap modelo, HttpSession session) {
 
-        try {
-            servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/registrarproveedor";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-        }
+        List<ContratoProveedor> contratosSesion = new ArrayList();
 
-        return "servicio_ofrecido_alta.html";
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
+        modelo.put("usuario", usuario);
+        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mis_contratos.html";
     }
 
 }

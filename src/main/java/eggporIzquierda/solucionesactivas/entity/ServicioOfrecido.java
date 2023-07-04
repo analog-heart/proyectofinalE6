@@ -27,16 +27,8 @@ public class ServicioOfrecido {
     private Imagen serv_imagen;
     
     
-    
-//    @JoinTable(
-//        name = "proveedor_x_servicios", 
-//        joinColumns = {@JoinColumn(name = "serv_id")},
-//               inverseJoinColumns ={ @JoinColumn (name = "id")}
-//    )
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE })
-//    private List<Proveedor> proveedores ;
 
-   
+
     
     public ServicioOfrecido() {
     }
