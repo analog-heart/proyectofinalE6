@@ -9,6 +9,9 @@ import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.servlet.http.HttpSession;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +43,7 @@ public class ServicioProveedor implements UserDetailsService {
     private RepositorioServicioOfrecido servOfrecidoServicio;
 
     @Transactional
-    public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
         
         validar(nombre, email, password, password2);
          Proveedor proveedor = new Proveedor();
@@ -61,11 +64,21 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setNombreUsuario(nombreUsuario);
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
-        proveedor.setFechaNacimiento(fechaNacimiento);
+        
         proveedor.setDni(dni);
+        proveedor.setTelefono(telefono);
         proveedor.setEmail(email);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
+
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNac = formato.parse(fechaNacimiento);
+            proveedor.setFechaNacimiento(fechaNac);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
         
         if(archivo != null){
         Imagen imagen = imagenServicio.guardar(archivo);
@@ -75,8 +88,9 @@ public class ServicioProveedor implements UserDetailsService {
        if(archivo == null){
            
        }
-       
-        
+       //seteo fecha de alta
+        Date fechatemp = new Date();
+        proveedor.setFecha(fechatemp);
         
         proveedor.setEstadoProveedorActivo(Boolean.TRUE);
         proveedor.setReputacion(0.0);
