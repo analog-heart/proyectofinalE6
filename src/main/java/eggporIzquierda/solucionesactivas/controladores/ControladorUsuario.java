@@ -1,9 +1,12 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class ControladorUsuario {
     
     @Autowired
     private ServicioUsuario usuarioServicio;
+    
+    @Autowired
+    private ServicioContrato contratoServicio;
 
     
     @GetMapping("/usuarios")
@@ -62,10 +68,10 @@ public class ControladorUsuario {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono,String calle , String numero , String barrio , String lote) {
 //Falta validar por separdo las claves pssw
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono);
+            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono ,calle, numero, barrio, lote);
             modelo.put("exito", "Usuario actualizado correctamente!");
             
             return "inicio.html";
@@ -84,10 +90,16 @@ public class ControladorUsuario {
     
     @GetMapping("/mi_perfil_usuario")
     public String mi_perfil_usuario(ModelMap modelo, HttpSession session) {
-
+        
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
         modelo.put("usuario", usuario);
+        
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+        
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+        modelo.put("contratosUsuario", contratosSesion);
+        
         
         return "mi_perfil_usuario.html";
 

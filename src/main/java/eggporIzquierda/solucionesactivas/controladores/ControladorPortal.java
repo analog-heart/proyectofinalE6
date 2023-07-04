@@ -69,10 +69,10 @@ public class ControladorPortal {
 
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password,
-            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono) {
+            String password2, ModelMap modelo, MultipartFile archivo, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono ,@RequestParam String calle ,@RequestParam String numero ,@RequestParam String barrio , String lote) {
 
         try {
-            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
+            usuarioServicio.registrar(archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2, calle, numero, barrio, lote );
             modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";

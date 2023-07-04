@@ -20,8 +20,7 @@
                             <div class ="texto">
 
                                 <div class="logo ">
-                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo">
-                                    
+                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo">                           
                                 </div>
 
 
@@ -37,6 +36,14 @@
 
                                     <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
                                     <input type="file" class="form-control mb-3" name="archivo">
+                                    
+                                     <input th:value="${calle}"  type="text"class=" mb-3" name="calle"  placeholder=" Domicilio: calle">
+                                     <input th:value="${numero}"  type="text"class=" mb-3" name="numero"  placeholder=" Domicilio: altura">
+                                     <input th:value="${barrio}"  type="text"class=" mb-3" name="barrio"  placeholder=" Domicilio: barrio">
+                                     <input th:value="${lote}"  type="text"class=" mb-3" name="lote"  placeholder=" Domicilio: lote">
+                                   
+                                     
+                                   
                                     <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                     <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
 

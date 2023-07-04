@@ -40,7 +40,7 @@
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
 
                                         <div class="d-flex justify-content-center mb-2">
-<!--                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>-->
+                                            <!--                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>-->
 
                                         </div>
                                     </div>
@@ -85,11 +85,26 @@
                                                 <span class="input-group-text" id="basic-addon1">Telefono</span>
                                                 <input type="text" class="form-control" name="telefono" placeholder="telefono" th:value="${usuario.telefono}">
                                             </div>
-
-                                             <div class="input-group mb-3">
-                                                <input type="file" class="form-control mb-3" name="serv_imagen">
+                                            
+                                            
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Domicilio</span>
+                                                <input type="text" class="form-control" name="calle" placeholder="calle" th:value="${usuario.domicilio.calle}">
+                                                <input type="text" class="form-control" name="numero" placeholder="altura" th:value="${usuario.domicilio.numero}">
                                             </div>
                                             
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Barrio - Lote</span>
+                                                <input type="text" class="form-control" name="barrio" placeholder="calle" th:value="${usuario.domicilio.barrio}">
+                                                <input type="text" class="form-control" name="lote" placeholder="altura" th:value="${usuario.domicilio.lote}">
+                                            </div>
+                                               
+                                            
+
+                                            <div class="input-group mb-3">
+                                                <input type="file" class="form-control mb-3" name="archivo">
+                                            </div>
+
                                             <p class="card-title mb-3 text-center" style="color: #2a363b"> Valide sus claves para guardar los cambios </p>
 
                                             <div class="input-group mb-3">
@@ -102,21 +117,21 @@
                                                 <input type="password" class="form-control" name="password2" placeholder="****">
                                             </div>
 
-                                         
+
 
                                             <div>
                                                 <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion y volver a entrar para visualizar los cambios </p>
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
                                                 <a  class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver  </a>
-                                                
+
                                                 <hr>
-                                                
+
                                                 <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>
                                             </div>
-                                            
+
                                             <div th:replace="~{/fragments/error:: errores1}"></div>
-                                            
-                                            
+
+
                                         </form>
 
 

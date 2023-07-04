@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Domicilio {
-     @Id
+    @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name= "uuid" , strategy = "uuid2")
     private String id;
@@ -23,6 +23,9 @@ public class Domicilio {
     public Domicilio() {
     }
 
+   
+    
+    
     public Domicilio(String calle, String numero, String barrio, String lote, String codigoPostal, String localidad) {
         this.calle = calle;
         this.numero = numero;
@@ -32,6 +35,15 @@ public class Domicilio {
         this.localidad = localidad;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    
     public String getBarrio() {
         return barrio;
     }
