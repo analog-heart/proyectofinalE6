@@ -1,4 +1,6 @@
-<header class="p-3 mb-3" id="header-fixed" style="color: #2a363b">
+<header class="p-3 mb-3" id="header-fixed">
+    
+   
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a class="navbar-brand" href="/">
@@ -10,6 +12,7 @@
                 <!-- <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/usuarios}" class="nav-link px-2 link-body-emphasis">Historial Usuario</a></li>
                 <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/proveedor/proveedor}" class="nav-link px-2 link-body-emphasis">Historial Proveedor</a></li> -->
                 <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/dashboard}" class="nav-link px-2 link-body-emphasis" style="color: azure">Dashboard</a></li>
+                <li><a sec:authorize="hasRole('PROVEEDOR')" th:href="@{/proveedor/solicitudes}" class="nav-link px-2 link-body-emphasis" style="color: azure">Solicitudes pendientes</a></li>
                 <!-- <li><a href="#" class="nav-link px-2 link-body-emphasis"></a></li> -->
             </ul>
 
@@ -49,6 +52,7 @@
                     </ul>
                 </div>
             </div>
+           
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
             </header>

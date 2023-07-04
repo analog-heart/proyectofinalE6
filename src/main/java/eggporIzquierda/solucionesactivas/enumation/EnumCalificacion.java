@@ -1,4 +1,4 @@
-package eggporIzquierda.solucionesactivas.enumation;
+    package eggporIzquierda.solucionesactivas.enumation;
 
 public enum EnumCalificacion {
     MALO,

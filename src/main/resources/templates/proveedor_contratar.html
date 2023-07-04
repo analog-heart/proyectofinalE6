@@ -40,7 +40,7 @@
                                 th:each="serv : ${proveedor.servicios}"
                                 th:text="${serv.serv_descripcion}"
                                 ></p>
-                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/proveedor/contratar}" method="POST">
+                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                                 <div class="link">
                                     <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                                 </div>
@@ -59,7 +59,7 @@
                         <!-- <div class="face back">
                                         <h3>Servicio:</h3>
                                         <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
-                        <!-- <div class="link">
+                        <div class="link">
                             <a th:href="@{/proveedor/contacto/__${proveedor.id}__}">
                                 <button value="">Contactar</button>
                             </a>
@@ -80,7 +80,7 @@
                                           <div class="form-input ">
                                               <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
                                           </div>
-                    <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                    <input type="file" class="form-control mb-3" name="archivo">-->
                     <!-- <div class="form-input ">
                                               <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                           </div>
