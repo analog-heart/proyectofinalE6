@@ -145,7 +145,7 @@
                             <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
                             <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
                             <div>
-                            <a th:if="${contrato.estado.toString() == 'ENCURSO'}" th:ref="@{/}" class="btn-primary">Finalizar contrato</a>
+                            <a th:if="${contrato.estado.toString() == 'ENCURSO'}" th:ref="@{/}" class="btn btn-primary">Finalizar contrato</a>
                             </div>
                         </div>
                     </div>
