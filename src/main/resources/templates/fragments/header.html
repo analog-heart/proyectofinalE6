@@ -30,7 +30,7 @@
                     <img id="fotoPerfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle" width="50" height="50">
                 </a>
                 <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">Nuevo Projecto</a></li>
+                    <li><a class="dropdown-item" href="#">Nuevo Proyecto</a></li>
                     <li><a class="dropdown-item" href="#">Configuracion</a></li>
 
                     <li><a class="dropdown-item" th:href="@{/usuario/mi_perfil_usuario}" th:if="${session.usuariosession != null}"> Mi Perfil </a></li>
