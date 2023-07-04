@@ -7,10 +7,12 @@
     <body class="d-flex flex-column" >
 
         <header th:replace="~{/fragments/header :: header}"></header>
-        <div class="container container-fluid d-flex"> 
-        <main class="flex-grow-1 container-fluid footer-alpiso">
+
+        <!-- <div class="container container-fluid d-flex">  -->
+        <main class="flex-grow-1 container-fluid d-flex justify-content-center align-items-center">
+
            
-                <div class="contenedor">
+            <div class="contenedor w-75">
 
                     <div class="left-panel">
                         <img src="https://img.freepik.com/free-photo/check-lock-wooden-table-background_93675-128371.jpg"  style="border-radius: 5px" width="100%" alt="Background Image">
@@ -21,7 +23,7 @@
                             <div class ="texto">
 
                                 <div class="logo ">
-                                    <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width="300" height="300"  alt="Logo">
+                                    <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width=%100  alt="Logo">
 
                                 </div>
                                 <div class="form-input ">
@@ -48,7 +50,7 @@
 
             
         </main>
-    </div>
+    <!-- </div> -->
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
         <div th:replace="~{/fragments/error:: errores1}"></div>
         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
