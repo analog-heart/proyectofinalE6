@@ -88,8 +88,6 @@ public class ServicioContrato {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
-        System.out.println("RESPUESTA QUERY CP: " + respuestaCP);
-
         ContratoProveedor newCP = new ContratoProveedor();
 
         if (respuestaCP.isPresent()) {
@@ -101,16 +99,12 @@ public class ServicioContrato {
 
                 newCP.setEstado(EnumEstadoContrato.ENCURSO);
 
-                System.out.println("CONTRATO: " + newCP);
-
                 repositoriocontrato.save(newCP);
             }
 
             if (decision.equalsIgnoreCase("rechazar")) {
 
                 newCP.setEstado(EnumEstadoContrato.RECHAZADO);
-
-                System.out.println("CONTRATO: " + newCP);
 
                 repositoriocontrato.save(newCP);
             }
@@ -119,7 +113,6 @@ public class ServicioContrato {
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
 
-            System.out.println("EL CONTRATO NO EXISTE O ES NULL");
             throw new MiException("El contrato no existe");
 
         }
