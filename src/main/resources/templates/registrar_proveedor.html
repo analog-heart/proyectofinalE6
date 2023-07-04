@@ -63,15 +63,19 @@
                     placeholder="Telefono"
                     th:value="${telefono}"
                   />
+
+                  <input type="file" class="form-control mb-3" name="archivo" />
+
                   <input
+                    required pattern="\d{4}-\d{2}-\d{2}"
                     type="date"
                     class="form-control"
-                    name="fecha"
-                    placeholder="fechaNacimiento"
+                    name="fechaNacimiento"
                     min="1923-01-01"
                     max="3000-12-31"
+                    th:value="${fechaNacimiento}"
                   />
-                  <input type="file" class="form-control mb-3" name="archivo" />
+
                   <input
                     th:value="${email}"
                     type="email"
@@ -93,7 +97,6 @@
                     name="password2"
                     placeholder="REPETIR CONTRASEÑA"
                   />
-
                   <select
                     class="form-select"
                     aria-label="Default select example"
@@ -152,5 +155,6 @@
         document.title = previousTitle;
       });
     </script>
+
   </body>
 </html>
