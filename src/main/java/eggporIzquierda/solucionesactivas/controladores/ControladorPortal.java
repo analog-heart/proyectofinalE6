@@ -175,10 +175,10 @@ public class ControladorPortal {
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
     public String actualizarProveedor(ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
+            @RequestParam String password, ModelMap modelo, String apellido, Date fechaNacimiento, String dni, String telefono) {
 
         try {
-            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
+            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni, telefono);
             modelo.put("exito", "Proveedor actualizado correctamente!");
             return "redirect:../inicio";
 

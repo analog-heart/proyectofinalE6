@@ -42,7 +42,7 @@ public class ServicioUsuario implements UserDetailsService {
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String telefono, 
             String email, String password, String password2) throws MiException {
         
-        validar(nombre, apellido, email, password, password2, dni);
+        validar(nombre, apellido, email, password, password2, dni, telefono);
 
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
@@ -82,7 +82,7 @@ public class ServicioUsuario implements UserDetailsService {
             String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
             throws MiException {
 
-        validar(nombre, apellido, email, password, password2, dni);
+        validar(nombre, apellido, email, password, password2, dni, telefono);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -171,7 +171,7 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar(String nombre,String apellido, String email, String password, String password2, String dni) throws MiException {
+    private void validar(String nombre,String apellido, String email, String password, String password2, String dni, String telefono) throws MiException {
 
 
         if (nombre.isEmpty() || nombre == null) {
@@ -184,7 +184,9 @@ public class ServicioUsuario implements UserDetailsService {
         if (dni.isEmpty() || dni == null || dni.length() != 8) {
             throw new MiException("DNI no valido");
         }      
-
+        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20 ) {
+            throw new MiException("Telefono no valido");
+        }  
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }

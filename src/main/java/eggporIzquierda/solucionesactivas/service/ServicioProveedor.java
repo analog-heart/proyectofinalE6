@@ -49,7 +49,7 @@ public class ServicioProveedor implements UserDetailsService {
             String fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
 
         
-        validar(nombre,apellido, email, password, password2, dni);
+        validar(nombre,apellido, email, password, password2, dni, telefono);
         
          Proveedor proveedor = new Proveedor();
          //----------recupero con el id el dato de la clase servicio
@@ -112,9 +112,9 @@ public class ServicioProveedor implements UserDetailsService {
         
     @Transactional
     public void actualizar(ServicioOfrecido servicios, MultipartFile archivo, String id, String nombre, String email, String password,
-            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) throws MiException {
+            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) throws MiException {
 
-        validar(nombre,apellido, email, password, password2, dni);
+        validar(nombre,apellido, email, password, password2, dni, telefono);
         
         
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
@@ -196,7 +196,7 @@ public class ServicioProveedor implements UserDetailsService {
         }
     }
 
-    private void validar(String nombre,String apellido, String email, String password, String password2, String dni) throws MiException {
+    private void validar(String nombre,String apellido, String email, String password, String password2, String dni, String telefono) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacío");
@@ -207,7 +207,11 @@ public class ServicioProveedor implements UserDetailsService {
         }
         if (dni.isEmpty() || dni == null || dni.length() != 8) {
             throw new MiException("DNI no valido");
-        }        
+        }
+        
+        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20 ) {
+            throw new MiException("Telefono no valido");
+        }         
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }    
