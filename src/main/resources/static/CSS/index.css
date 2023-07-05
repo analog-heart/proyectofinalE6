@@ -3,6 +3,10 @@
 
 }
 
+h2 {
+    color: black;
+}
+
 .footer-alpiso {
     min-height: 100vh;
 }
@@ -39,7 +43,7 @@
 }
 
 #mainindex {
-    background-image: url("https://img.freepik.com/free-photo/variety-handy-tools-dark-background-labor-day-background-concept_1150-41808.jpg");
+
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

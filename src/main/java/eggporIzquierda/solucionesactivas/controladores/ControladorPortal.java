@@ -44,8 +44,7 @@ public class ControladorPortal {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
-        modelo.addAttribute("proveedores", ListProveedores);
+
         return "index.html";
 
     }
