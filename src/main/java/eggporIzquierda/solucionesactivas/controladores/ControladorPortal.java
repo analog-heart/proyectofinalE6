@@ -47,13 +47,14 @@ public class ControladorPortal {
     private RepositorioContrato repositorioContrato;
 
     @GetMapping("/")
-    public String index(HttpSession session, ModelMap modelo) {
-        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
-        modelo.addAttribute("proveedores", ListProveedores);
-
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+    public String index(ModelMap modelo) {
+        
+//        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
+//        modelo.addAttribute("proveedores", ListProveedores);
+//
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "index.html";
 
