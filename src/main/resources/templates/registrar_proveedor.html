@@ -10,10 +10,7 @@
   <body class="footer-alpiso d-flex flex-column">
     <header th:replace="~{/fragments/header :: header}"></header>
 
-<<<<<<< HEAD
 
-    <head th:replace="~{/fragments/head :: head}"></head>
-=======
     <main class="flex-grow-1 container-fluid">
       <div class="container container-fluid d-flex">
         <div class="contenedor">
@@ -25,7 +22,7 @@
               alt="Background Image"
             />
           </div>
->>>>>>> Developers
+
 
           <div class="right-panel">
             <form
@@ -115,7 +112,7 @@
                     ></option>
                   </select>
 
-                  <select
+<!--                  <select
                     class="form-select"
                     aria-label="Default select example"
                     name="serviciosID2"
@@ -127,76 +124,10 @@
                       th:text="${servicios.serv_descripcion}"
                     ></option>
                   </select>
-
+-->
                   <div th:replace="~{fragments/error :: errores1}"></div>
 
-<<<<<<< HEAD
-                                <select class="form-select" aria-label="Default select example" name="servicios">
 
-                                    <option selected>Elegir servicio ofrecido</option>
-                                    <option th:each="servicios : ${serviciosOfrecidos}"
-                                            th:value="${servicios}"
-                                            th:text="${servicios.nombre}"/>                                            
-
-
-                                </select>
-
-                                <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
-
-                                <input type="file" class="form-control mb-3" name="archivo">
-                                <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                                <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
-                                <div th:replace="fragments/error :: errores1"></div>
-                                <div class="form-button">
-                                    <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
-                                </div>
-                               
-                            </div>
-                        </div>   
-                    </form>
-=======-->
-                                <div class="logo ">
-                                    <img src="/IMG/Logo-Soluciones-Circular.png" alt="Logo">
-
-                                </div>
-
-
-                                <div class=" form-input" >
-
-                                    <input type="text" class="form-control"  name="nombre" placeholder="Nombre" th:value="${nombre}">
-                                    <input type="text" class="form-control"  name="apellido" placeholder="Apellido" th:value="${apellido}">
-                                    <input type="text" class="form-control"  name="dni" placeholder="DNI" th:value="${dni}">
-                                    <input type="text" class="form-control"  name="telefono" placeholder="Telefono" th:value="${telefono}">
-                                    <input type="file" class="form-control mb-3" name="archivo">
-                                    <input th:value="${email}"  type="email"class=" mb-3" name="email"  placeholder="EMAIL">
-                                    <input th:value="${password}" type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                                    <input th:value="${password2}"type="password" class="form-control mb-3" name="password2" placeholder="REPETIR CONTRASEÑA">
-
-                                    <select class="form-select" aria-label="Default select example" name="serviciosID">
-
-                                        <option selected>Elegir servicio ofrecido</option>
-                                        <option th:each="servicios : ${serviciosOfrecidos}"
-                                                th:value="${servicios.serv_id}"
-                                                th:text="${servicios.serv_descripcion}"/>                                            
-
-
-                                    </select>
-
-                                    <div th:replace="fragments/error :: errores1"></div>
-
-                                    <div class="form-button">
-                                        <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
-                                    </div>                                  
-                                </div>
-                            </div>   
-                        </form>
-
-                    </div>
-                </div>
-
-            </div>
-        </main>
-=======
                   <div class="form-button">
                     <button
                       type="submit"
@@ -212,7 +143,7 @@
         </div>
       </div>
     </main>
->>>>>>> Developers
+
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
     <!-- <script src="../static/JS/forms.js"></script> -->

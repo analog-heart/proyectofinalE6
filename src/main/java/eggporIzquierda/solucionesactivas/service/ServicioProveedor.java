@@ -44,15 +44,13 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Transactional
 
-<<<<<<< HEAD
-    public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
-=======
-    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
 
->>>>>>> Developers
+    public void registrar(String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, 
+            String fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
+
         
-
         validar(nombre,apellido, email, password, password2, dni);
+        
          Proveedor proveedor = new Proveedor();
          //----------recupero con el id el dato de la clase servicio
        
@@ -73,11 +71,9 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setApellido(apellido);
         
         proveedor.setDni(dni);
-<<<<<<< HEAD
-        //proveedor.setTelefono(telefono);
-=======
-        proveedor.setTelefono(telefono);
->>>>>>> Developers
+
+  
+
         proveedor.setEmail(email);
         proveedor.setTelefono(telefono);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -209,7 +205,9 @@ public class ServicioProveedor implements UserDetailsService {
         if (apellido.isEmpty() || apellido == null) {
             throw new MiException("el apellido no puede ser nulo o estar vacío");
         }
-        
+        if (dni.isEmpty() || dni == null || dni.length() != 8) {
+            throw new MiException("DNI no valido");
+        }        
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }    
@@ -225,9 +223,7 @@ public class ServicioProveedor implements UserDetailsService {
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
-        if (dni.isEmpty() || dni == null || dni.length() != 8) {
-            throw new MiException("DNI no valido");
-        }
+
     }
 
     @Override
@@ -285,52 +281,53 @@ public class ServicioProveedor implements UserDetailsService {
        
     
        
-       //----------
-       @Transactional
-    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
-        
-        validar(nombre, email, password, password2);
-         Proveedor proveedor = new Proveedor();
-         //----------recupero con el id el dato de la clase servicio
-       
-         
-         Optional <ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
-         Optional <ServicioOfrecido> respuesta2 = servOfrecidoServicio.findById(serviciosID2);
-       
-        if (respuesta.isPresent()) {
-         ServicioOfrecido servicioTemporal = respuesta.get();
-        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
-        List <ServicioOfrecido> serviciosList = new ArrayList<>();
-        serviciosList.add(servicioTemporal);
-         proveedor.setServicios(serviciosList);
-            
-        } 
-          if (respuesta2.isPresent()) {
-         ServicioOfrecido servicioTemporal = respuesta2.get();
-        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
-        List <ServicioOfrecido> serviciosList2 = proveedor.getServicios();
-        serviciosList2.add(servicioTemporal);
-         proveedor.setServicios(serviciosList2);
-            
-        }  
-       
-        proveedor.setNombreUsuario(nombreUsuario);
-        proveedor.setNombre(nombre);
-        proveedor.setApellido(apellido);
-        proveedor.setFechaNacimiento(fechaNacimiento);
-        proveedor.setDni(dni);
-        proveedor.setEmail(email);
-        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-        proveedor.setRol(Rol.PROVEEDOR);
-        Imagen imagen = imagenServicio.guardar(archivo);
-        proveedor.setFotoPerfil(imagen);
-        
-        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
-        proveedor.setReputacion(0.0);
-        proveedor.setNivel(EnumNivel.INICIAL);
-        proveedorRepositorio.save(proveedor);
-        
-         
-    }
+//       //----------
+//       @Transactional
+//    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, 
+//            String apellido, Date fechaNacimiento, String dni, String email, String password, String password2) throws MiException {
+//        
+//        validar(nombre,apellido, email, password, password2, dni);
+//         Proveedor proveedor = new Proveedor();
+//         //----------recupero con el id el dato de la clase servicio
+//       
+//         
+//         Optional <ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
+//         Optional <ServicioOfrecido> respuesta2 = servOfrecidoServicio.findById(serviciosID2);
+//       
+//        if (respuesta.isPresent()) {
+//         ServicioOfrecido servicioTemporal = respuesta.get();
+//        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+//        List <ServicioOfrecido> serviciosList = new ArrayList<>();
+//        serviciosList.add(servicioTemporal);
+//         proveedor.setServicios(serviciosList);
+//            
+//        } 
+//          if (respuesta2.isPresent()) {
+//         ServicioOfrecido servicioTemporal = respuesta2.get();
+//        //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+//        List <ServicioOfrecido> serviciosList2 = proveedor.getServicios();
+//        serviciosList2.add(servicioTemporal);
+//         proveedor.setServicios(serviciosList2);
+//            
+//        }  
+//       
+//        proveedor.setNombreUsuario(nombreUsuario);
+//        proveedor.setNombre(nombre);
+//        proveedor.setApellido(apellido);
+//        proveedor.setFechaNacimiento(fechaNacimiento);
+//        proveedor.setDni(dni);
+//        proveedor.setEmail(email);
+//        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+//        proveedor.setRol(Rol.PROVEEDOR);
+//        Imagen imagen = imagenServicio.guardar(archivo);
+//        proveedor.setFotoPerfil(imagen);
+//        
+//        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+//        proveedor.setReputacion(0.0);
+//        proveedor.setNivel(EnumNivel.INICIAL);
+//        proveedorRepositorio.save(proveedor);
+//        
+//         
+//    }
        
 }

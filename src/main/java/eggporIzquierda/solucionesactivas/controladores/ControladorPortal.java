@@ -83,6 +83,7 @@ public class ControladorPortal {
             modelo.put("apellido", apellido);
             modelo.put("dni", dni);
             modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);            
             modelo.put("archivo", archivo);            
             modelo.put("email", email);
 
@@ -101,12 +102,12 @@ public class ControladorPortal {
     @PostMapping("/registroproveedor")
 
 
-    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, Date fechaNacimiento, String dni,String telefono,
+    public String registroProveedor(@RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, String fechaNacimiento, String dni,String telefono,
             @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo) {
 
         try {
 
-            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2);
+            proveedorServicio.registrar(serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni,telefono, email, password, password2);
 
 
             modelo.put("exito", "Usuario registrado correctamente!");
@@ -119,6 +120,7 @@ public class ControladorPortal {
             modelo.put("apellido", apellido);
             modelo.put("dni", dni);
             modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);
             modelo.put("archivo", archivo);            
             modelo.put("email", email);
 

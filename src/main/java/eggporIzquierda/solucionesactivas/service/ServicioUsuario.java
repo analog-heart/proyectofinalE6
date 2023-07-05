@@ -38,17 +38,12 @@ public class ServicioUsuario implements UserDetailsService {
     private ServicioImagen imagenServicio;
 
     @Transactional
-<<<<<<< HEAD
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, String email, String password, String password2) throws MiException {
+
+    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String telefono, 
+            String email, String password, String password2) throws MiException {
         
         validar(nombre, apellido, email, password, password2, dni);
-=======
-    public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido,
-            String fechaNacimiento, String dni, String telefono, String email, String password, String password2)
-            throws MiException {
 
-        validar(email, password, password2);
->>>>>>> Developers
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
@@ -178,7 +173,7 @@ public class ServicioUsuario implements UserDetailsService {
 
     private void validar(String nombre,String apellido, String email, String password, String password2, String dni) throws MiException {
 
-<<<<<<< HEAD
+
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacío");
         }
@@ -186,9 +181,10 @@ public class ServicioUsuario implements UserDetailsService {
         if (apellido.isEmpty() || apellido == null) {
             throw new MiException("el apellido no puede ser nulo o estar vacío");
         }
-     
-=======
->>>>>>> Developers
+        if (dni.isEmpty() || dni == null || dni.length() != 8) {
+            throw new MiException("DNI no valido");
+        }      
+
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
@@ -206,9 +202,7 @@ public class ServicioUsuario implements UserDetailsService {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
 
-        if (dni.isEmpty() || dni == null || dni.length() != 8) {
-            throw new MiException("DNI no valido");
-        }        
+       
 
     }
 
