@@ -1,68 +1,68 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="~{/fragments/head :: head}"></head>
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    >
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-  <body class="footer-alpiso d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
-      <h1 style="color: azure; text-align: center; margin-top: 50px;">SELECCIONA EL SERVICIO BUSCADO</h1>
-      
-      <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-38.svg" width="140" alt="Construcción y Arquitectura" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pequeños Arreglos</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-6.svg" width="140" alt="Electricista" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Electricista</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-2.svg" width="140" alt="Plomero" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Plomero</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-1.svg" width="140" alt="Pintor" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pintor</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-27.svg" width="140" alt="Técnico de Aire" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Tecnico A/A</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-14.svg" width="140" alt="Gasista" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Gasista</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-18.svg" width="140" alt="Albañil" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Albañil</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-36.svg" width="140" alt="Paisajismo y Jardinería" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Jardineria</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-13.svg" width="140" alt="Carpintero" style="display: block; margin: 0 auto; align-items: center;">
-          <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Carpintero</p>
-        </div>
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-          <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-29.svg" width="140" alt="Fumigador" style="display: block; margin: 0 auto; align-items: center;">
-          <a href="/#" style="font-size: larger; color: blueviolet; margin-top: 5px;">Fumigador</a>
-        </div>
-      </div>
+        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+            <h1 style="color: azure; text-align: center; margin-top: 50px;">SELECCIONA EL SERVICIO BUSCADO</h1>
 
-      
-    </main>
-    
+            <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-38.svg" width="140" alt="Construcción y Arquitectura" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pequeños Arreglos</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-6.svg" width="140" alt="Electricista" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Electricista</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-2.svg" width="140" alt="Plomero" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Plomero</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-1.svg" width="140" alt="Pintor" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pintor</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-27.svg" width="140" alt="Técnico de Aire" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Tecnico A/A</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-14.svg" width="140" alt="Gasista" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Gasista</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-18.svg" width="140" alt="Albañil" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Albañil</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-36.svg" width="140" alt="Paisajismo y Jardinería" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Jardineria</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-13.svg" width="140" alt="Carpintero" style="display: block; margin: 0 auto; align-items: center;">
+                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Carpintero</p>
+                </div>
+                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-29.svg" width="140" alt="Fumigador" style="display: block; margin: 0 auto; align-items: center;">
+                    <a href="/#" style="font-size: larger; color: blueviolet; margin-top: 5px;">Fumigador</a>
+                </div>
+            </div>
 
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    <script
-      src="https://kit.fontawesome.com/183f2a4aef.js"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+        </main>
+
+
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+        <script
+            src="https://kit.fontawesome.com/183f2a4aef.js"
+            crossorigin="anonymous"
+        ></script>
+    </body>
 </html>

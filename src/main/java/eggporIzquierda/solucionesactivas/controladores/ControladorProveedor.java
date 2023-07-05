@@ -10,6 +10,7 @@ import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,15 +35,31 @@ public class ControladorProveedor {
     @Autowired
     private ServicioContrato contratoServicio;
 
+    @Autowired
+    private ServicioUsuario usuarioServicio;
+
     @GetMapping("/proveedores")
-    public String listar(ModelMap modelo) {
+    public String listar(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+        //Agrego logia para probar notificaciones al proveedor
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
         List<Proveedor> proveedores = proveedorServicio.listarProveedores();
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
 
     @GetMapping("/buscar")
-    public String buscarProveedores(String nombre, ModelMap modelo) {
+    public String buscarProveedores(String nombre, ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+        //Agrego logia para probar notificaciones al proveedor
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         List<Proveedor> resultados = proveedorServicio.buscarProveedoresXnombre(nombre);
         modelo.addAttribute("resultados", resultados);
@@ -50,9 +67,17 @@ public class ControladorProveedor {
     }
 
     @GetMapping("/{id}")
-    public String contacto(@PathVariable String id, ModelMap modelo) {
+    public String contacto(@PathVariable String id, ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Proveedor proveedor = proveedorServicio.getOne(id);
         modelo.addAttribute("proveedor", proveedor);
+
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+        //Agrego logia para probar notificaciones al proveedor
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
         return "proveedor_contratar.html";
     }
 
@@ -63,10 +88,30 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
 
-        List<ContratoProveedor> contratos = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+        //Agrego logia para probar notificaciones al proveedor
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-        modelo.addAttribute("contratos", contratos);
         return "contratos_solicitados.html";
+    }
+
+    @GetMapping("/mi_perfil_proveedor")
+    public String mi_perfil_proveedor(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+        
+        modelo.put("contratosUsuario", contratosSesion);
+
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+        return "mi_perfil_proveedor.html";
+
     }
 
 }
