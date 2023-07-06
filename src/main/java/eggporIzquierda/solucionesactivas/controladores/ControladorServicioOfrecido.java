@@ -1,4 +1,3 @@
-
 package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
@@ -18,15 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/servicioOfrecido")
 public class ControladorServicioOfrecido {
-    
-       @Autowired
-     private ServicioServicioOfrecido servOfrecidoServicio;
-    
-     //-----------------------------Servicios Ofrecidos---------------------
+
+    @Autowired
+    private ServicioServicioOfrecido servOfrecidoServicio;
+
+    //-----------------------------Servicios Ofrecidos---------------------
     @GetMapping("/altaservicio_ofrecido")
     public String altaServicio() {
         return "servicio_ofrecido_alta.html";
     }
+
     @PostMapping("/altaservicio_ofrecido_ok")
     public String guardarServicio(@RequestParam String serv_descripcion, ModelMap modelo) throws MiException {
 
@@ -39,6 +39,7 @@ public class ControladorServicioOfrecido {
 
         return "servicio_ofrecido_alta.html";
     }
+
     //-----------listar
     @GetMapping("/listarServicio_ofrecido")
     public String listarservicio_ofrecido(ModelMap modelo) {
@@ -46,27 +47,27 @@ public class ControladorServicioOfrecido {
         modelo.addAttribute("serviciosList", serviciosList);
         return "servicio_ofrecido_list.html";
     }
+
     //-----------modificar ---
     @GetMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(ModelMap modelo ,@PathVariable String serv_id) {
-        
-           modelo.addAttribute("servicio", servOfrecidoServicio.findById(serv_id));
-        
+    public String modificar_servicio_ofrecido(ModelMap modelo, @PathVariable String serv_id) {
+
+        modelo.addAttribute("servicio", servOfrecidoServicio.findById(serv_id));
+
         return "servicio_ofrecido_modificar.html";
-        
+
     }
-     
-      
+
     @PostMapping("/modificar_servicio_ofrecido/{serv_id}")
-    public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id , @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
-        
+    public String modificar_servicio_ofrecido(@PathVariable @RequestParam String serv_id, @RequestParam String serv_descripcion, MultipartFile serv_imagen, ModelMap modelo) {
+
         try {
-            servOfrecidoServicio.modificarServicio( serv_id, serv_descripcion, serv_imagen);
-             return "redirect:/";
+            servOfrecidoServicio.modificarServicio(serv_id, serv_descripcion, serv_imagen);
+            return "redirect:/";
 
         } catch (MiException ex) {
-          modelo.put("error", ex.getMessage());
-           return "servicio_ofrecido_modificar.html";
+            modelo.put("error", ex.getMessage());
+            return "servicio_ofrecido_modificar.html";
         }
 
     }

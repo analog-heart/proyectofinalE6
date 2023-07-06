@@ -11,9 +11,36 @@
 
         <main class="flex-grow-1 container-fluid">
             <div>
+                <h2>Lista de Usuarios</h2>
+
+                <!--                <table class="table table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Id del Usuario</th>
+                                            <th scope="co1">Nombre del Usuario</th>
+                                            <th scope="col">Apellido del Usuario</th>
+                                            <th scope="col">DNI del Usuario</th>
+                                                                            <th scope="co1">Modificar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="usuario : ${usuarios}">
+                                        <tr>
+                                            <th scope="row" th:text="${usuario.id}"></th>
+                                            <td th:text="${usuario.nombre} "></td>
+                                            <td th:text="${usuario.apellido} "></td>
+                                            <td th:text="${usuario.dni} "></td>
+                                                                            <td><a th:href= "@{/usuario/modificar/__${usuario.id}__}"><i class=" fas fa-feather-alt"> </i> Modificar </a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>-->
+
+                               <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
+
                 <h1 style="color: azure">Lista de Usuarios</h1>
             </div>
+
             <div class="container container-fluid  d-flex flex-wrap gap-3">
+
                 <div class="card" style="width: 18rem;" th:each="usuario : ${usuarios}">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
@@ -25,6 +52,7 @@
                         <a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>
                     </div>
                 </div>
+
             </div>
 
 
