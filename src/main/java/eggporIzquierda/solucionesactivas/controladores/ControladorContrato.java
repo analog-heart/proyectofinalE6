@@ -13,6 +13,7 @@ import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -82,9 +83,10 @@ public class ControladorContrato {
     //este post viene de una vista del proveedor, el cual acepta o rechaza la solicitud de contratacion
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/aceptar_contrato")
-    public String aceptar_contrato(@RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
+    public String aceptar_contrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
 
         String exito = "";
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
         try {
             if (decision.equalsIgnoreCase("aceptar")) {
@@ -94,12 +96,56 @@ public class ControladorContrato {
                 exito = "El contrato fue rechazado con exito";
             }
             contratoServicio.actualizarContrato(idContrato, decision);
+
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+            //modelo.put("usuario", usuario);
             modelo.put("exito", exito);
+
+            return "inicio.html";
+
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "aceptar_contrato.html";
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+            return "contratos_solicitados.html";
         }
-        return "inicio.html";
+
+    }
+
+//este post viene de una vista del proveedor, el cual acepta o rechaza la solicitud de contratacion
+    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    @PostMapping("/finalizar_contrato")
+    public String finalizar_contrato(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        try {
+
+            contratoServicio.finalizarContrato(idContrato);
+
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+            List<ContratoProveedor> contratosSesion = new ArrayList();
+            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            modelo.put("contratosUsuario", contratosSesion);
+
+            modelo.put("exito", "El contrato fue finalizado con exito");
+            return "mi_perfil_proveedor.html";
+
+        } catch (MiException ex) {
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+            List<ContratoProveedor> contratosSesion = new ArrayList();
+            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            modelo.put("contratosUsuario", contratosSesion);
+
+            modelo.put("error", ex.getMessage());
+            return "mi_perfil_proveedor.html";
+        }
     }
 
 }

@@ -40,7 +40,9 @@ public class ContratoProveedor {
     @Enumerated(EnumType.STRING)
     private EnumCalificacion calificacion;
 
-    private String comentario;
+    private String comentarioFinal;
+
+    private String comentarioInicial;
 
     private BigDecimal precio;
 
@@ -48,7 +50,7 @@ public class ContratoProveedor {
     public ContratoProveedor() {
     }
 
-    public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, EnumCalificacion calificacion, String comentario, BigDecimal precio) {
+    public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, EnumCalificacion calificacion, String comentarioFinal, String comentarioInicial, BigDecimal precio) {
         this.id = id;
         this.proveedor = proveedor;
         this.usuario = usuario;
@@ -56,7 +58,8 @@ public class ContratoProveedor {
         this.fechaFinalizacion = fechaFinalizacion;
         this.estado = estado;
         this.calificacion = calificacion;
-        this.comentario = comentario;
+        this.comentarioFinal = comentarioFinal;
+        this.comentarioInicial = comentarioInicial;
         this.precio = precio;
     }
 
@@ -117,12 +120,12 @@ public class ContratoProveedor {
         this.calificacion = calificacion;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getComentarioFinal() {
+        return comentarioFinal;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setComentarioFinal(String comentario) {
+        this.comentarioFinal = comentario;
     }
 
     public BigDecimal getPrecio() {
@@ -131,6 +134,14 @@ public class ContratoProveedor {
 
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
+    }
+
+    public String getComentarioInicial() {
+        return comentarioInicial;
+    }
+
+    public void setComentarioInicial(String comentarioInicial) {
+        this.comentarioInicial = comentarioInicial;
     }
 
 }

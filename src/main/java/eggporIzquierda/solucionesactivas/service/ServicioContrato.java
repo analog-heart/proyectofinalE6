@@ -34,23 +34,14 @@ public class ServicioContrato {
         Optional<Proveedor> respuestaProveedor = repositorioproveedor.findById(idProveedor);
 
         Proveedor p = new Proveedor();
-        System.out.println("PROVEEDOR P: " + respuestaProveedor);
         Usuario u = new Usuario();
 
-        System.out.println("DESDE EL SERVICIO:");
-        System.out.println("ID USUARIO: " + idUsuario);
-        System.out.println("ID PROVEEDOR: " + idProveedor);
-
         if (respuestaUsuario.isPresent()) {
-
             u = respuestaUsuario.get();
-            System.out.println("USUARIO: " + u);
         }
 
         if (respuestaProveedor.isPresent()) {
-
             p = respuestaProveedor.get();
-            System.out.println("PROVEEDOR: " + p);
         }
 
         ContratoProveedor CP = new ContratoProveedor();
@@ -63,32 +54,10 @@ public class ServicioContrato {
         repositoriocontrato.save(CP);
     }
 
-//    @Transactional
-//    public void aceptarContrato(String idContrato) throws MiException {
-//
-//        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
-//
-//        ContratoProveedor newCP = new ContratoProveedor();
-//
-//        if (respuestaCP.isPresent()) {
-//
-//            newCP = respuestaCP.get();
-//            System.out.println("CONTRATO: " + newCP);
-//
-//            newCP.setEstado(EnumEstadoContrato.ENCURSO);
-//
-//            System.out.println("CONTRATO: " + newCP);
-//
-//            repositoriocontrato.save(newCP);
-//        }
-//
-//    }
     @Transactional
     public void actualizarContrato(String idContrato, String decision) throws MiException {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
-
-        System.out.println("RESPUESTA QUERY CP: " + respuestaCP);
 
         ContratoProveedor newCP = new ContratoProveedor();
 
@@ -101,16 +70,12 @@ public class ServicioContrato {
 
                 newCP.setEstado(EnumEstadoContrato.ENCURSO);
 
-                System.out.println("CONTRATO: " + newCP);
-
                 repositoriocontrato.save(newCP);
             }
 
             if (decision.equalsIgnoreCase("rechazar")) {
 
                 newCP.setEstado(EnumEstadoContrato.RECHAZADO);
-
-                System.out.println("CONTRATO: " + newCP);
 
                 repositoriocontrato.save(newCP);
             }
@@ -119,7 +84,6 @@ public class ServicioContrato {
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
 
-            System.out.println("EL CONTRATO NO EXISTE O ES NULL");
             throw new MiException("El contrato no existe");
 
         }
@@ -156,6 +120,33 @@ public class ServicioContrato {
         }
 
         return contratosSesion;
+
+    }
+
+    @Transactional
+    public void finalizarContrato(String idContrato) throws MiException {
+
+        System.out.println("ENTRANDO AL SERVICIO");
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            System.out.println("RESPUESTA PRESENTE");
+            newCP = respuestaCP.get();
+
+            newCP.setEstado(EnumEstadoContrato.TERMINADO);
+
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            System.out.println("RESPUESTA EMPTY");
+            throw new MiException("El contrato no existe");
+
+        }
 
     }
 
