@@ -28,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/proveedor")
 public class ControladorProveedor {
+    
+    @Autowired
+    private ServicioServicioOfrecido servOfrecidoServicio;
 
     @Autowired
     private ServicioServicioOfrecido servOfrecidoServicio;
@@ -56,6 +59,32 @@ public class ControladorProveedor {
         List<Proveedor> proveedores = proveedorServicio.listarProveedores();
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
+    }
+    
+        @GetMapping("/registrarproveedor")
+    public String registrarProveedor(ModelMap modelo) {
+        modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
+        return "registrar_proveedor.html";
+    }
+
+    @PostMapping("/registroproveedor")
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, String fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo, String telefono) {
+
+        try {
+
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2, telefono);
+            modelo.put("exito", "Usuario registrado correctamente!");
+
+            return "index.html";
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+
+            return "registrar_proveedor.html";
+        }
+
     }
 
     @GetMapping("/registrarproveedor")
@@ -143,6 +172,42 @@ public class ControladorProveedor {
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "mi_perfil_proveedor.html";
+
+    }
+    
+     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @PostMapping("/perfil_proveedor/{id}")
+    public String actualizarProveedor(  MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String apellido, String dni, String telefono) {
+
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+        try {
+            proveedorServicio.actualizar( archivo, id, nombre, email, password, password2, "proveedor_userNick", apellido, dni, telefono);
+            modelo.put("exito", "Proveedor actualizado correctamente!");
+            return "redirect:../../inicio";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+            return "proveedor_modificar.html";
+        }
+   
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @GetMapping("/modificar_perfil_proveedor")
+    public String perfil(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
+        modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
+        modelo.put("usuario", usuario);
+
+        return "proveedor_modificar.html";
 
     }
 

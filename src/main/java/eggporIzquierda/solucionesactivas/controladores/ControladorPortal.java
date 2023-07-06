@@ -47,7 +47,7 @@ public class ControladorPortal {
     private RepositorioContrato repositorioContrato;
 
     @GetMapping("/")
-    public String index(ModelMap modelo) {
+    public String index( ModelMap modelo) {
 //        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
 //        modelo.addAttribute("proveedores", ListProveedores);
 //
