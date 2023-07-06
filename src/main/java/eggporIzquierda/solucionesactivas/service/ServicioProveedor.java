@@ -43,7 +43,6 @@ public class ServicioProveedor implements UserDetailsService {
     private RepositorioServicioOfrecido servOfrecidoServicio;
 
     @Transactional
-
     public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
 
         

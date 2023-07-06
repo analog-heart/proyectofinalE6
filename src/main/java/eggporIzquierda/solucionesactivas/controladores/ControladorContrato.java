@@ -62,7 +62,7 @@ public class ControladorContrato {
     //este post recibe los IDs de las partes para generar una solicitu de contratacion (crea contrato en estado SOLICITADO)
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @PostMapping("/contratar")
-    public String contratar(@RequestParam String idProveedor, ModelMap modelo, HttpSession session) {
+    public String contratar(@RequestParam String idProveedor,@RequestParam String comentarioInicial, ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
@@ -71,7 +71,7 @@ public class ControladorContrato {
         modelo.addAttribute("proveedores", proveedores);
 
         try {
-            contratoServicio.crearContrato(usuario.getId(), idProveedor);
+            contratoServicio.crearContrato(usuario.getId(), idProveedor, comentarioInicial);
             modelo.put("exito", "El contrato fue generado con exito");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

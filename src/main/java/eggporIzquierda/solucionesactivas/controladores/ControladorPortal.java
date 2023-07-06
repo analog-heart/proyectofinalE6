@@ -51,10 +51,9 @@ public class ControladorPortal {
         List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", ListProveedores);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
         return "index.html";
 
     }
@@ -175,7 +174,6 @@ public class ControladorPortal {
 //    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
 //            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni) {
 //>>>>>>> Developers
-    
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfilproveedor/{id}")
     public String actualizarProveedor(HttpSession session, ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
@@ -199,29 +197,4 @@ public class ControladorPortal {
 
     }
 
-//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
-//    @GetMapping("/mi_perfil")
-//    public String miPerfil(ModelMap modelo, HttpSession session) {
-//        List<ContratoProveedor> contratosSesion = new ArrayList();
-//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-//        contratosSesion = contratoServicio.listarContratosSesion(usuario);
-//        modelo.put("usuario", usuario);
-//        modelo.put("contratosUsuario", contratosSesion);
-//
-//        return "mi_perfil.html";
-//    }
-//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_PROVEEDOR')")
-//    @GetMapping("/mis_contratos")
-//    public String misContratos(ModelMap modelo, HttpSession session) {
-//
-//        List<ContratoProveedor> contratosSesion = new ArrayList();
-//
-//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-//        contratosSesion = contratoServicio.listarContratosSesion(usuario);
-//
-//        modelo.put("usuario", usuario);
-//        modelo.put("contratosUsuario", contratosSesion);
-//
-//        return "mis_contratos.html";
-//    }
 }

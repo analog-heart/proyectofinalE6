@@ -42,6 +42,7 @@
                                 ></p>
                             <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                                 <div class="link">
+                                    <input class="comentarioInicial" type="text" name="comentarioInicial"/>
                                     <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                                 </div>
                             </form>

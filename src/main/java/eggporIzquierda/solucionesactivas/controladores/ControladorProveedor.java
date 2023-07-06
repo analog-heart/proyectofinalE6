@@ -97,14 +97,14 @@ public class ControladorProveedor {
     }
 
     @GetMapping("/mi_perfil_proveedor")
-    public String mi_perfil_proveedor(ModelMap modelo, HttpSession session) {
+    public String miPerfilProveedor(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         List<ContratoProveedor> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
-        
+
         modelo.put("contratosUsuario", contratosSesion);
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
