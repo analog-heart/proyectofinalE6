@@ -32,20 +32,49 @@
                                 th:text="${serv.serv_descripcion}"
                                 ></p>
                         </div>
-
-
                         <div class="face back">
                             <h3>Servicio:</h3>
-                            <p
-                                th:each="serv : ${proveedor.servicios}"
-                                th:text="${serv.serv_descripcion}"
-                                ></p>
-                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
+                            <p th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></p>
+                            <form style="width: 800px; margin: 0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                                 <div class="link">
-                                    <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
+                                    <button  type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
+                                </div>
+                                <style>
+                                    .link button {
+                                        background-color: blue;
+                                        color: white;
+                                        border: none;
+                                        padding: 10px 20px;
+                                        border-radius: 4px;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                    }
+
+                                    .link button:hover {
+                                        background-color: darkblue;
+                                    }
+                                </style>
+                                <div class="comment" style="margin-top: 20px;">
+                                    <label for="comentario">Comentarios:</label>
+                                    <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea>
                                 </div>
                             </form>
                         </div>
+
+
+
+                        <!--                        <div class="face back">
+                                                    <h3>Servicio:</h3>
+                                                    <p
+                                                        th:each="serv : ${proveedor.servicios}"
+                                                        th:text="${serv.serv_descripcion}"
+                                                        ></p>
+                                                    <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
+                                                        <div class="link">
+                                                            <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
+                                                        </div>
+                                                    </form>
+                                                </div>-->
 
                         <!-- Frente de la tarjeta proveedor
                                     <div class="face front">
