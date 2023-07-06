@@ -79,7 +79,7 @@ public class ServicioUsuario implements UserDetailsService {
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password,
-            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
+            String password2, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono)
             throws MiException {
 
         validar(nombre, apellido, email, password, password2, dni, telefono);
@@ -92,13 +92,17 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setEmail(email);
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setApellido(apellido);
-            usuario.setFechaNacimiento(fechaNacimiento);
+            try {
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechaNac = formato.parse(fechaNacimiento);
+                usuario.setFechaNacimiento(fechaNac);
+            } catch (ParseException e) {
+
+                e.printStackTrace();
+            }
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
-            usuario.setRol(Rol.USUARIO);
-
             String idImagen = null;
 
             if (usuario.getFotoPerfil() != null && archivo != null) {
@@ -106,8 +110,8 @@ public class ServicioUsuario implements UserDetailsService {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
             } else if (usuario.getFotoPerfil() == null && archivo != null) {
-                idImagen = usuario.getFotoPerfil().getId();
-                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+              
+                Imagen imagen = imagenServicio.guardar(archivo);
                 usuario.setFotoPerfil(imagen);
             }
 

@@ -78,6 +78,7 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setTelefono(telefono);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
+        
 
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -129,7 +130,7 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setDni(dni);
             proveedor.setEmail(email);
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-            proveedor.setRol(Rol.PROVEEDOR);
+            
             
             List <ServicioOfrecido> serviciosList = new ArrayList<>();
             serviciosList.add(servicios);

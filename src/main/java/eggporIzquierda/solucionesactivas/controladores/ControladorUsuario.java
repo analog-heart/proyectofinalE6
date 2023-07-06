@@ -64,7 +64,7 @@ public class ControladorUsuario {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono) {
 //Falta validar por separdo las claves pssw
         try {
             usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono);
