@@ -41,6 +41,8 @@ public class ContratoProveedor {
 
     @Enumerated(EnumType.STRING)
     private EnumCalificacion calificacion;
+    
+//    private Integer calificacion;
 
     private String comentarioFinal;
 

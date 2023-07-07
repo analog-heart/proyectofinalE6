@@ -86,7 +86,6 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setFotoPerfil(imagen);
         }
 
-        
         //seteo fecha de alta
         Date fechatemp = new Date();
         proveedor.setFecha(fechatemp);
@@ -99,13 +98,13 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar( MultipartFile archivo, String id, String nombre, String email, String password,
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password,
             String password2, String nombreUsuario, String apellido, String dni, String telefono) throws MiException {
 
         validar(nombre, email, password, password2);
-        
+
         System.out.println("previo al optional" + id);
-        
+
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
@@ -132,12 +131,10 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
             proveedor.setRol(Rol.PROVEEDOR);
             proveedor.setTelefono(telefono);
-            
-            
+
             proveedor.setEstadoProveedorActivo(Boolean.TRUE);
             proveedor.setReputacion(0.0);
             proveedor.setNivel(EnumNivel.INICIAL);
-            
 
             String idImagen = null;
             if (proveedor.getFotoPerfil() != null && archivo != null) {
@@ -149,7 +146,6 @@ public class ServicioProveedor implements UserDetailsService {
                 Imagen imagen = imagenServicio.guardar(archivo);
                 proveedor.setFotoPerfil(imagen);
 
-                
             }
             System.out.println("guardando");
 

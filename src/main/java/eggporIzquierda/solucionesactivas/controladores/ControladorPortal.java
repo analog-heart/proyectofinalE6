@@ -100,8 +100,6 @@ public class ControladorPortal {
 
     }
 
-
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
@@ -129,6 +127,7 @@ public class ControladorPortal {
         return "inicio.html";
     }
 
+
         @GetMapping("/registrarproveedor")
     public String registrarProveedor(ModelMap modelo) {
         modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
@@ -154,6 +153,7 @@ public class ControladorPortal {
         }
 
     }
+
 
 
 }
