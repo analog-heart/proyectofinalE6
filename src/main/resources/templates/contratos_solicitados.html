@@ -21,6 +21,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
                     <h6>FECHA ALTA</h6>
                     <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
+                    <h6>Comentarios del cliente:</h6>
+                    <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
                     <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
                         <input hidden th:value= "${contrato.id}" name="idContrato">
                         <button type="submit" name="decision" th:value="aceptar">Aceptar contrato</button>
