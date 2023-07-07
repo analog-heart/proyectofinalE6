@@ -50,14 +50,12 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
-        //Agrego logia para probar notificaciones al proveedor
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         List<Proveedor> proveedores = proveedorServicio.listarProveedores();
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
-
 
     @GetMapping("/buscar")
     public String buscarProveedores(String nombre, ModelMap modelo, HttpSession session) {
@@ -97,7 +95,6 @@ public class ControladorProveedor {
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
-        //Agrego logia para probar notificaciones al proveedor
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "contratos_solicitados.html";
@@ -152,12 +149,16 @@ public class ControladorProveedor {
         modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
         modelo.put("usuario", usuario);
 
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+//        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
         return "proveedor_modificar.html";
 
     }
 
-     @GetMapping("/proveedor_servicio/{serv_descripcion}")
-    public String listarProveedoresXServicio(ModelMap modelo,@PathVariable String serv_descripcion) {
+    @GetMapping("/proveedor_servicio/{serv_descripcion}")
+    public String listarProveedoresXServicio(ModelMap modelo, @PathVariable String serv_descripcion) {
 
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresconfiltro(serv_descripcion);
         modelo.addAttribute("proveedores", proveedores);

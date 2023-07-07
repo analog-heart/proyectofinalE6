@@ -38,6 +38,10 @@ public class ControladorUsuario {
     public String listarUsuariosActivos(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
+
+        //ESTA VISTA VA A SER SOLO PARA LOS LOGEADOS? EN ESE CASO AGREGAR PREAUTH
+        //Y SI ESTA VISTA LA TIENE EL PROVEEDOR, HAY QUE INYECTAR LOS CONTRATOS SOLICITADOS (BRIAN)
+        
         return "usuario_list.html";
     }
 

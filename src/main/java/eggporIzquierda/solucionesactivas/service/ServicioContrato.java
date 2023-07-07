@@ -167,6 +167,7 @@ public class ServicioContrato {
 
             // newCP.setEstado(EnumEstadoContrato.TERMINADO);
             newCP.setComentarioFinal(comentarioFinal);
+            newCP.setEstado(EnumEstadoContrato.CALIFICADO);
 
             switch (calificacion) {
                 case "1":
