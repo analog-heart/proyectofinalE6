@@ -9,7 +9,7 @@
         <header th:replace="~{/fragments/header :: header}"></header>
 
         <main class="container flex-grow-1 container-fluid">
-            <div class="container container-fluid d-flex">
+            <!-- <div class="container container-fluid d-flex"> -->
                 <div class="contenedor">
                     <!--TARJETA PROVEEDOR-->
                     <div class="left-panel" id="login">
@@ -42,8 +42,7 @@
                                 ></p>
                             <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                                 <div class="link">
-                                    <input class="comentarioInicial" type="text" name="comentarioInicial" placeholder="Comentario del trabajo..."/>
-                                    <button type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
+                                    <button class="btn btn-primary" type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                                 </div>
                             </form>
                         </div>
@@ -98,10 +97,12 @@
                               </div>
                     -->
                 </div>
-            </div>
+            <!-- </div> -->
         </main>
 
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+        <div th:replace="~{/fragments/error :: errores1}"></div>
 
         <script
             src="https://kit.fontawesome.com/183f2a4aef.js"

@@ -3,6 +3,7 @@ package eggporIzquierda.solucionesactivas.entity;
 
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class ServicioOfrecido {
 
     private String serv_descripcion;
     
-    @OneToOne
+    @OneToOne (cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private Imagen serv_imagen;
     
     
@@ -33,6 +34,11 @@ public class ServicioOfrecido {
     public ServicioOfrecido() {
     }
 
+    public ServicioOfrecido(String serv_descripcion) {
+        this.serv_descripcion = serv_descripcion;
+    }
+
+    
     public ServicioOfrecido(String serv_descripcion, Imagen serv_imagen) {
         this.serv_descripcion = serv_descripcion;
         this.serv_imagen = serv_imagen;

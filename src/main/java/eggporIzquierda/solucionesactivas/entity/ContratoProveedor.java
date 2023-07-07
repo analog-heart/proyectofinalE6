@@ -2,10 +2,12 @@ package eggporIzquierda.solucionesactivas.entity;
 
 import eggporIzquierda.solucionesactivas.enumation.EnumCalificacion;
 import eggporIzquierda.solucionesactivas.enumation.EnumEstadoContrato;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
@@ -46,6 +48,8 @@ public class ContratoProveedor {
 
     private BigDecimal precio;
 
+
+ 
 // CONSTRUCTORES:
     public ContratoProveedor() {
     }
@@ -61,6 +65,8 @@ public class ContratoProveedor {
         this.comentarioFinal = comentarioFinal;
         this.comentarioInicial = comentarioInicial;
         this.precio = precio;
+       
+    
     }
 
     //GETTERS AND SETTERS
@@ -143,5 +149,9 @@ public class ContratoProveedor {
     public void setComentarioInicial(String comentarioInicial) {
         this.comentarioInicial = comentarioInicial;
     }
+
+ 
+
+   
 
 }
