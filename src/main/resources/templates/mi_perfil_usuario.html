@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="/CSS/estiloslogin.css">
     </head>
 
-    <body class="" >
+    <body class="">
 
         <header th:replace="~{/fragments/header :: header}"></header>
 
@@ -35,14 +35,17 @@
                             <div class="col-lg-4">
                                 <div class="card mb-4">
                                     <div class="card-body text-center">
-                                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
-                                             class="" style="width: 150px;">
+                                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar" class=""
+                                             style="width: 150px;">
                                         <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                        <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}" th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
+                                        <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}"
+                                           th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
                                         <p class="text-muted mb-4" th:text="'Rol: '+${usuario.rol}"></p>
                                         <div class="d-flex justify-content-center mb-2">
-                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>
+                                            <a type="button" class="btn btn-warning"
+                                               th:href="@{/usuario/modificar_perfil_usuario}"
+                                               th:if="${session.usuariosession != null}">Modificar </a>
 
                                         </div>
                                     </div>
@@ -57,7 +60,8 @@
                                                 <p class="mb-0">Nombre y Apellido</p>
                                             </div>
                                             <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></p>
+                                                <p class="text-muted mb-0"
+                                                   th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></p>
                                             </div>
                                         </div>
                                         <hr>
@@ -72,7 +76,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <p class="mb-0" >Fecha Nacimiento</p>
+                                                <p class="mb-0">Fecha Nacimiento</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0" th:text="${usuario.fechaNacimiento}"></p>
@@ -81,7 +85,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <p class="mb-0" >D.N.I.</p>
+                                                <p class="mb-0">D.N.I.</p>
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0" th:text="${usuario.dni}"></p>
@@ -117,7 +121,7 @@
 
 
                                     </div>
-                                </div>   
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,6 +133,7 @@
 
                         <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
                             <div class="card-body">
+                                <h4>N° de Contrato (id):</h4>
                                 <h5 class="card-title" th:text="${contrato.id}"></h5>
                                 <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
                                 <h6>ESTADO</h6>
@@ -137,8 +142,27 @@
                                 <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
                                 <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
                                 <div>
-                                    <a th:if="${contrato.estado.toString() == 'TERMINADO'}" th:ref="@{/}"
-                                       class="btn btn-primary">Calificar trabajo del profesional</a>
+                                    <!-- <input hidden th:value="${contrato.id}" name="idContrato">
+                                    <input class="comentarioFinal" type="text" name="comentarioFinal" />
+                                    <button th:if="${contrato.estado.toString() == 'TERMINADO'}" type="submit"
+                                        class="btn btn-primary">Calificar trabajo del profesional</button> -->
+                                    <div class="input-group mb-3">
+
+                                        <form style="width:800px; margin:0 auto;" th:if="${contrato.estado.toString() == 'TERMINADO'}" type="form" method="POST"
+                                              th:action="@{/contrato/calificar_contrato}">
+                                            <input hidden th:value="${contrato.id}" name="idContrato">
+                                            <input class="comentarioFinal" type="text" name="comentarioFinal" placeholder="Valoracion..."/>
+                                            <select name="calificacion" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <option selected>Calificar trabajo del profesional:</option>
+                                                <option th:value="1">1</option>
+                                                <option th:value="2">2</option>
+                                                <option th:value="3">3</option>
+                                                <option th:value="4">4</option>
+                                                <option th:value="5">5</option>
+                                            </select>
+                                            <button type="submit">Enviar calificacion</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

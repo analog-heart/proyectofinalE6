@@ -44,25 +44,29 @@ public class ControladorContrato {
     @Autowired
     private ServicioContrato contratoServicio;
 
-    //vista de testeo para generar contratos ingresando los id de las partes via inputs (descontinuada en breve)
+    // vista de testeo para generar contratos ingresando los id de las partes via
+    // inputs (descontinuada en breve)
     @PreAuthorize("hasAnyRole('ROLE_USUARIO')")
     @GetMapping("/alta_manual")
     public String contrato() {
         return "contrato_crear_manual_testing.html";
     }
 
-    //vista para que el proveedor acepte o rechace la solicitud de contratacion
-//    @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
-//    @GetMapping("/aceptacion")
-//    public String aceptacion(ModelMap modelo) {
-//        List<ContratoProveedor> cotratatos = repositorioContrato.listarPorEstado("SOLICITADO");
-//        modelo.addAttribute("cotratatos", cotratatos);
-//        return "aceptar_contrato.html";
-//    }
-    //este post recibe los IDs de las partes para generar una solicitu de contratacion (crea contrato en estado SOLICITADO)
+    // vista para que el proveedor acepte o rechace la solicitud de contratacion
+    // @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
+    // @GetMapping("/aceptacion")
+    // public String aceptacion(ModelMap modelo) {
+    // List<ContratoProveedor> cotratatos =
+    // repositorioContrato.listarPorEstado("SOLICITADO");
+    // modelo.addAttribute("cotratatos", cotratatos);
+    // return "aceptar_contrato.html";
+    // }
+    // este post recibe los IDs de las partes para generar una solicitu de
+    // contratacion (crea contrato en estado SOLICITADO)
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @PostMapping("/contratar")
-    public String contratar(@RequestParam String idProveedor,@RequestParam String comentarioInicial, ModelMap modelo, HttpSession session) {
+    public String contratar(@RequestParam String idProveedor, @RequestParam String comentarioInicial, ModelMap modelo,
+            HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
@@ -80,10 +84,12 @@ public class ControladorContrato {
         return "proveedor_list.html";
     }
 
-    //este post viene de una vista del proveedor, el cual acepta o rechaza la solicitud de contratacion
+    // este post viene de una vista del proveedor, el cual acepta o rechaza la
+    // solicitud de contratacion
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/aceptar_contrato")
-    public String aceptar_contrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision, ModelMap modelo) {
+    public String aceptar_contrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
+            ModelMap modelo) {
 
         String exito = "";
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -97,23 +103,26 @@ public class ControladorContrato {
             }
             contratoServicio.actualizarContrato(idContrato, decision);
 
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-            //modelo.put("usuario", usuario);
+            // modelo.put("usuario", usuario);
             modelo.put("exito", exito);
 
             return "inicio.html";
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
             return "contratos_solicitados.html";
         }
 
     }
 
-//este post viene de una vista del proveedor, el cual acepta o rechaza la solicitud de contratacion
+    // este post viene de una vista del proveedor, el cual acepta o rechaza la
+    // solicitud de contratacion
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/finalizar_contrato")
     public String finalizar_contrato(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
@@ -125,7 +134,8 @@ public class ControladorContrato {
 
             contratoServicio.finalizarContrato(idContrato);
 
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
             List<ContratoProveedor> contratosSesion = new ArrayList();
@@ -136,7 +146,8 @@ public class ControladorContrato {
             return "mi_perfil_proveedor.html";
 
         } catch (MiException ex) {
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
             List<ContratoProveedor> contratosSesion = new ArrayList();
@@ -145,6 +156,46 @@ public class ControladorContrato {
 
             modelo.put("error", ex.getMessage());
             return "mi_perfil_proveedor.html";
+        }
+    }
+
+    // este post viene de una vista del cliente, el cual califica la contratacion
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @PostMapping("/calificar_contrato")
+    public String calificarContrato(HttpSession session, @RequestParam String idContrato, ModelMap modelo, @RequestParam String comentarioFinal, @RequestParam String calificacion) {
+
+         System.out.println("ENTRANDO A CONTROLADOR..");
+         
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        try {
+
+            System.out.println("ENTRANDO A CONTROLADOR tryyyyyyyyyyyyy..");
+            contratoServicio.calificarContrato(idContrato, comentarioFinal, calificacion);
+
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+            List<ContratoProveedor> contratosSesion = new ArrayList();
+            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            modelo.put("contratosUsuario", contratosSesion);
+
+            modelo.put("exito", "El contrato fue calificado con exito");
+            return "mi_perfil_usuario.html";
+
+        } catch (MiException ex) {
+            
+            System.out.println("ENTRANDO A CONTROLADOR CAAAATHCH..");
+            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+            List<ContratoProveedor> contratosSesion = new ArrayList();
+            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            modelo.put("contratosUsuario", contratosSesion);
+
+            modelo.put("error", ex.getMessage());
+            return "mi_perfil_usuario.html";
         }
     }
 
