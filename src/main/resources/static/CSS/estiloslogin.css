@@ -109,3 +109,25 @@ form {
     align-items: center;
 }
 
+
+h4,h5 #H-MAIN{
+    color: white;
+    font-family: 'Caprasimo', sans-serif;
+}
+p #P-MAIN{
+  color: white;  
+  font-family: 'Open Sans', sans-serif;  
+}
+h2 #H2-MAIN{
+    color: peru;
+    font-family: 'Cinzel', sans-serif;
+}
+h1 #H1-MAIN{
+    color:chocolate ;
+    font-family: 'Cinzel', sans-serif;
+}
+h3 #H3-MAIN{
+    color:chocolate ;
+    font-family: 'Cinzel', sans-serif;
+    text-align: center
+}
