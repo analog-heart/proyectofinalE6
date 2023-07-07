@@ -310,4 +310,11 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
+    public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
+        
+        return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
+    
+
+    }
+
 }

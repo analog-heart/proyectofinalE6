@@ -49,14 +49,7 @@ public class ContratoProveedor {
     private BigDecimal precio;
 
 
-   /*  @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    @Column(nullable = false, unique = true)  
-    private Integer numeroContrato; */
-
-    /*@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    private int atributoAutoincremental; */
-
+ 
 // CONSTRUCTORES:
     public ContratoProveedor() {
     }
@@ -72,7 +65,7 @@ public class ContratoProveedor {
         this.comentarioFinal = comentarioFinal;
         this.comentarioInicial = comentarioInicial;
         this.precio = precio;
-        /* this.numeroContrato = numeroContrato; */
+       
     
     }
 
@@ -157,9 +150,7 @@ public class ContratoProveedor {
         this.comentarioInicial = comentarioInicial;
     }
 
-    /*  public Integer getNumeroContrato() {
-        return numeroContrato;
-    } */
+ 
 
    
 

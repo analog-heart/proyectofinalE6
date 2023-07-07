@@ -95,20 +95,22 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
-            usuario.setRol(Rol.USUARIO);
-
+ 
             String idImagen = null;
 
-            if (usuario.getFotoPerfil() != null && archivo != null) {
+            if (usuario.getFotoPerfil().getContenido() != null && archivo != null) {
                 idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
-            } else if (usuario.getFotoPerfil() == null && archivo != null) {
+                System.out.println("Condicion 1");
+            } else if (usuario.getFotoPerfil().getContenido() == null && archivo != null) {
                 idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
+                System.out.println("Condicion 2");
             }
+                
+            
 
             usuarioRepositorio.save(usuario);
         }
