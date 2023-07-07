@@ -130,7 +130,7 @@
                         <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
                             <div class="card-body">
                                 <h4 class="card-title">N° de contrato:</h4>
-                                <h3 class="card-title" th:text="${contrato.id}"></h3>
+                                <h3 class="card-title" th:text="${contrato.numeroContrato}"></h3>
                                 <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
                                 <h6>ESTADO</h6>
                                 <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
