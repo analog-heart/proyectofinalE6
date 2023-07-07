@@ -158,4 +158,12 @@ public class ControladorProveedor {
 
     }
 
+     @GetMapping("/proveedor_servicio/{serv_descripcion}")
+    public String listarProveedoresXServicio(ModelMap modelo,@PathVariable String serv_descripcion) {
+
+        List<Proveedor> proveedores = proveedorServicio.listarProveedoresconfiltro(serv_descripcion);
+        modelo.addAttribute("proveedores", proveedores);
+        return "proveedor_list.html";
+    }
+
 }

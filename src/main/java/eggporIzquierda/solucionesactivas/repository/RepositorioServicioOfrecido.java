@@ -15,5 +15,15 @@ public interface RepositorioServicioOfrecido extends JpaRepository <ServicioOfre
     @Query("SELECT s FROM ServicioOfrecido s WHERE s.serv_descripcion = :serv_descripcion")
     public ServicioOfrecido getOneByDescripcion(@Param("serv_descripcion")String serv_descripcion);
     
+
+ 
     
 }
+
+
+    
+    
+    
+
+
+
