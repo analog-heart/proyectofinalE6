@@ -126,10 +126,10 @@ public class ServicioServicioOfrecido {
         
         if (respuesta.isEmpty()) {
         String[]serv_descripcio={"ELECTRICISTA", "PEQUEÑOS ARREGLOS"
-                ,"PLOMERO","PINTOR","TECNICO_AA", "GASISTA","ALBAÑIL",
+                ,"PLOMERO","PINTOR","TECNICO AA", "GASISTA","ALBAÑIL",
         "JARDINERO","CARPINTERO","FUMIGADOR"};
         
-        ArrayList <ServicioOfrecido> lista_para_crear = new ArrayList<>();
+
         
         for (String x : serv_descripcio) {
              ServicioOfrecido serv = new ServicioOfrecido(x); 

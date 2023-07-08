@@ -35,14 +35,14 @@
     <div class="dropdown text-end m1-auto" th:if="${session.usuariosession != null}">
         <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
            aria-expanded="false">
-            <img id="fotoPerfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil"
+            <img id="fotoPerfil" th:if="${session.usuariosession.fotoPerfil != null}" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil"
                  class="rounded-circle" width="50" height="50" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
         </a>
         <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="#" th:if="${session.usuariosession != null}">Mis Contratos</a>
             </li>
 
-            <li><a class="dropdown-item" sec:authorize="hasRole('USUARIO')"
+            <li><a class="dropdown-item" sec:authorize="hasAnyRole('USUARIO','ADMIN')"
                    th:href="@{/usuario/mi_perfil_usuario}" th:if="${session.usuariosession != null}"> Mi Perfil
                 </a></li>
             <li><a class="dropdown-item" sec:authorize="hasRole('PROVEEDOR')"

@@ -120,6 +120,9 @@ public class ControladorPortal {
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
+        
+         List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
+         modelo.put("servicios", listaServ);
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         // if (logueado.getRol().toString().equals("ADMIN")) {
         //     return "redirect:/admin/dashboard";
