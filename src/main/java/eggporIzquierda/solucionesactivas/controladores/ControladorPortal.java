@@ -100,8 +100,6 @@ public class ControladorPortal {
 
     }
 
-
-
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
@@ -122,12 +120,43 @@ public class ControladorPortal {
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
+        
+         List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
+         modelo.put("servicios", listaServ);
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         // if (logueado.getRol().toString().equals("ADMIN")) {
         //     return "redirect:/admin/dashboard";
         // }
         return "inicio.html";
     }
+
+
+        @GetMapping("/registrarproveedor")
+    public String registrarProveedor(ModelMap modelo) {
+        modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
+        return "registrar_proveedor.html";
+    }
+
+    @PostMapping("/registroproveedor")
+    public String registroProveedor(String serviciosID2, @RequestParam String serviciosID, MultipartFile archivo, String nombreUsuario, @RequestParam String nombre, @RequestParam String apellido, String fechaNacimiento, String dni, @RequestParam String email, @RequestParam String password, String password2, ModelMap modelo, String telefono) {
+
+        try {
+
+            proveedorServicio.registrar(serviciosID2, serviciosID, archivo, nombreUsuario, nombre, apellido, fechaNacimiento, dni, email, password, password2, telefono);
+            modelo.put("exito", "Usuario registrado correctamente!");
+
+            return "index.html";
+        } catch (MiException ex) {
+
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+
+            return "registrar_proveedor.html";
+        }
+
+    }
+
 
 
 }

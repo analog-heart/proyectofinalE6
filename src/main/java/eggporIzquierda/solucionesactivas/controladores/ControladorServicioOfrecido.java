@@ -32,12 +32,13 @@ public class ControladorServicioOfrecido {
 
         try {
             servOfrecidoServicio.registrarServicio(serv_descripcion);
-            return "redirect:/admin";
+            return "redirect:/admin/dashboard";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
+            return "servicio_ofrecido_alta.html";
         }
 
-        return "servicio_ofrecido_alta.html";
+        
     }
 
     //-----------listar
@@ -63,7 +64,7 @@ public class ControladorServicioOfrecido {
 
         try {
             servOfrecidoServicio.modificarServicio(serv_id, serv_descripcion, serv_imagen);
-            return "redirect:/";
+            return "redirect:/servicioOfrecido/listarServicio_ofrecido";
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

@@ -75,7 +75,7 @@
 
     text-align: left;
     text-decoration: none;
-    
+
     justify-content: center;
     font-size: 17px;
     margin: 4px 2px;
@@ -90,7 +90,7 @@
     position: relative;
     flex-direction:column;
     min-width: 230px;
-    
+
 
 }
 
@@ -124,11 +124,11 @@
 
 /*--- MAIN DEL DASHBOARD */
 #main-dashboard{
-   background-color:#37474f;
-   display: inline-grid;
-  
-   width: 180%;
-    
+    background-color:#37474f;
+    display: inline-grid;
+
+    width: 180%;
+
 }
 
 /* ----------- Fin Dashboard ---------------*/

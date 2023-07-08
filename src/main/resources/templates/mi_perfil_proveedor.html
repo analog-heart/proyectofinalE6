@@ -24,7 +24,7 @@
                             <div class="col">
                                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/inicio">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
                                     </ol>
                                 </nav>
@@ -36,7 +36,7 @@
                                 <div class="card mb-4">
                                     <div class="card-body text-center">
                                         <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
-                                             class="" style="width: 150px;">
+                                             class="" style="width: 150px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
                                         <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                         <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}" th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
@@ -125,37 +125,38 @@
 
                     <!---Mis Contratos--->
 
-                    <div class="container py-5 h-100">
+                <div class="container py-5 h-100">
 
-                        <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
-                            <div class="card-body">
-                                <h4 class="card-title">N° de contrato:</h4>
-                                <h3 class="card-title" th:text="${contrato.id}"></h3>
-                                <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                                <h6>ESTADO</h6>
-                                <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                                <h6>FECHA ALTA</h6>
-                                <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
-                                <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
-                                <div>
-                                    <form type="form" method="POST" th:action="@{/contrato/finalizar_contrato}">
-                                        <input hidden th:value= "${contrato.id}" name="idContrato">
-                                        <button th:if="${contrato.estado.toString() == 'ENCURSO'}" type="submit" class="btn btn-primary">
-                                            Finalizar contrato</button>
-                                    </form>
-                                </div>
+                    <div class="card" style="width: 18rem;" th:each="contrato : ${contratosUsuario}">
+                        <div class="card-body">
+                            <h4 class="card-title">N° de contrato:</h4>
+                            <h3 class="card-title" th:text="${contrato.id}"></h3>
+                            <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+                            <h6>ESTADO</h6>
+                            <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
+                            <h6>FECHA ALTA</h6>
+                            <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
+                            <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
+                            <div>
+                                <form th:if="${contrato.estado.toString() == 'ENCURSO'}" type="form" method="POST"
+                                    th:action="@{/contrato/finalizar_contrato}">
+                                    <input hidden th:value="${contrato.id}" name="idContrato">
+                                    <button type="submit" class="btn btn-primary">
+                                        Finalizar contrato</button>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
 
 
 
-                </section>
-            </main>
-        </div>
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+            </section>
+        </main>
+    </div>
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    </body>
+</body>
 
 </html>

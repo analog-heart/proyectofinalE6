@@ -4,6 +4,7 @@ import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -117,4 +118,33 @@ public class ServicioServicioOfrecido {
         } else 
             return null;
     }
+    
+    @Transactional
+    @PostConstruct
+    public void crearServicios_script() throws MiException {
+                 List<ServicioOfrecido> respuesta = servOfrecidoRepositorio.findAll();
+        
+        if (respuesta.isEmpty()) {
+        String[]serv_descripcio={"ELECTRICISTA", "PEQUEÑOS ARREGLOS"
+                ,"PLOMERO","PINTOR","TECNICO AA", "GASISTA","ALBAÑIL",
+        "JARDINERO","CARPINTERO","FUMIGADOR"};
+        
+
+        
+        for (String x : serv_descripcio) {
+             ServicioOfrecido serv = new ServicioOfrecido(x); 
+             servOfrecidoRepositorio.save(serv);
+        }
+        
+        }
+
+        
+//        ServicioOfrecido serv = new ServicioOfrecido();
+//        serv.setServ_descripcion(serv_descripcion);
+//        servOfrecidoRepositorio.save(serv);
+//        
+    }
+    
+    
+    
 }
