@@ -129,7 +129,7 @@ public class ServicioServicioOfrecido {
                 ,"PLOMERO","PINTOR","TECNICO_AA", "GASISTA","ALBAÑIL",
         "JARDINERO","CARPINTERO","FUMIGADOR"};
         
-        ArrayList <ServicioOfrecido> lista_para_crear = new ArrayList<>();
+
         
         for (String x : serv_descripcio) {
              ServicioOfrecido serv = new ServicioOfrecido(x); 
