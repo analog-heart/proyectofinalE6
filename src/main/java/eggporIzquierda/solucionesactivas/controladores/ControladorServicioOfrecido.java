@@ -64,7 +64,7 @@ public class ControladorServicioOfrecido {
 
         try {
             servOfrecidoServicio.modificarServicio(serv_id, serv_descripcion, serv_imagen);
-            return "redirect:/";
+            return "redirect:/servicioOfrecido/listarServicio_ofrecido";
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
