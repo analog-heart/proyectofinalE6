@@ -136,14 +136,16 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setReputacion(0.0);
             proveedor.setNivel(EnumNivel.INICIAL);
 
-            String idImagen = null;
-            if ( !archivo.isEmpty()) {
-                idImagen = proveedor.getFotoPerfil().getId();
+            if (proveedor.getFotoPerfil() != null && !archivo.isEmpty()) {
+                String idImagen = proveedor.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 proveedor.setFotoPerfil(imagen);
-            
+
+            } else if (proveedor.getFotoPerfil() == null && !archivo.isEmpty()) {
+
+                Imagen imagen = imagenServicio.guardar(archivo);
+                proveedor.setFotoPerfil(imagen);
             }
-            
 
             proveedorRepositorio.save(proveedor);
         }
@@ -303,9 +305,8 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
-        
+
         return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
-    
 
     }
 

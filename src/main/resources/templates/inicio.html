@@ -31,7 +31,7 @@
                     <div  class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
                         <a th:href="@{/proveedor/proveedor_servicio/__${serv.serv_descripcion}__}"  style=" text-decoration: none; ">
                        
-                        <img th:src="@{/imagen/servicio_ofrecido/__${serv.serv_id}__}" width="140" alt="ser_imagen" style="display: block; margin: 0 auto; align-items: center;">
+                        <img th:src="@{/IMG/ICONS_SERVICIOS/__${serv.serv_descripcion}__.png}" width="140" alt="serv_imagen" style="display: block; margin: 0 auto; align-items: center;">
                         <p style="font-size: smaller; color: blueviolet; margin-top: 5px; text-decoration: none; " th:text="${serv.serv_descripcion}"></p>
                         </a>
                     </div>

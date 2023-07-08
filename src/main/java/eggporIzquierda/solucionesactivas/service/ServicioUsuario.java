@@ -5,6 +5,7 @@ import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 
 import java.text.ParseException;
@@ -53,7 +54,6 @@ public class ServicioUsuario implements UserDetailsService {
         usuario.setFecha(fechatemp);
 
         // se guarda la fecha de nacimiento que llega por formulario
-
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fechaNac = formato.parse(fechaNacimiento);
@@ -91,21 +91,21 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setEmail(email);
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setApellido(apellido);
-           
+
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
- 
-            String idImagen = null;
 
-            if (usuario.getFotoPerfil().getContenido() != null && !archivo.isEmpty()) {
-                idImagen = usuario.getFotoPerfil().getId();
+            if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
+                String idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 usuario.setFotoPerfil(imagen);
-                
-            } 
-                
-            
+
+            } else if (usuario.getFotoPerfil() == null && !archivo.isEmpty()) {
+
+                Imagen imagen = imagenServicio.guardar(archivo);
+                usuario.setFotoPerfil(imagen);
+            }
 
             usuarioRepositorio.save(usuario);
         }
@@ -224,5 +224,22 @@ public class ServicioUsuario implements UserDetailsService {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     } */
+    @Transactional
+    @PostConstruct
+    public void crearAdmin_script() throws MiException {
+
+        List<Usuario> respuesta = usuarioRepositorio.findAll();
+        if (respuesta.isEmpty()) {
+            Usuario usuario = new Usuario();
+            usuario.setNombre("Don");
+            usuario.setEmail("admin@admin.com");
+            usuario.setApellido("Admin");
+            usuario.setRol(Rol.ADMIN);
+            usuario.setTelefono("666");
+            usuario.setPassword(new BCryptPasswordEncoder().encode("987654"));
+            usuarioRepositorio.save(usuario);
+
+        }
+    }
 
 }
