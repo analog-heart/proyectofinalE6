@@ -15,7 +15,6 @@
         <h1 style="color: azure">Lista de Proveedores</h1>
       </div>
 
- 
       <section>
         <div class="card" th:each="proveedor : ${proveedores}">
           <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"></div>
@@ -25,7 +24,7 @@
     </main>
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
-    <div th:replace="~{/fragments/error :: errores1}"></div>
+   
 
   </body>
 </html>

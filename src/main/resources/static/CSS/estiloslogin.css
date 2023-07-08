@@ -39,12 +39,7 @@ footer{
 }
 
 .right-panel {
-   /* flex: 1 1 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-   */
-   
+ 
    
     display: grid;
     grid-template-columns: 1fr;
