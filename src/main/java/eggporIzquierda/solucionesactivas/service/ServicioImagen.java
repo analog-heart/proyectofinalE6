@@ -59,3 +59,26 @@ public class ServicioImagen {
 	}
       
 }
+
+//-------------------------------
+//    @Autowired
+//    private ResourceLoader resourceLoader;
+//----------------------------------------------------
+    
+//    @PostConstruct
+//    public void cargarImagenes() throws IOException {
+//        
+//        
+//        String[] serv_descripcio = {"ELECTRICISTA", "PEQUEÑOS_ARREGLOS", "PLOMERO", "PINTOR", "TECNICO_AA", "GASISTA", "ALBAÑIL", "JARDINERO", "CARPINTERO", "FUMIGADOR"};
+//        for (String x : serv_descripcio) {
+//            Imagen imagen_serv = (Imagen)resourceLoader.getResource(String.format("classpath:static/IMG/ICONS_SERVICIOS/%s.jpg", x));
+//            
+//         
+//            imagen_serv.setMime("serv_image/png");
+//            imagen_serv.setNombre("electricista.png");
+//            imagen_serv.setContenido(imagen_serv.getContenido());
+//            imagenRepositorio.save(imagen_serv);
+//
+//        }
+//
+//    }
