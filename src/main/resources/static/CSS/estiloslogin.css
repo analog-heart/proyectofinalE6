@@ -110,24 +110,20 @@ form {
 }
 
 
-h4,h5 #H-MAIN{
-    color: white;
-    font-family: 'Caprasimo', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
+
+#nombreCard{
+
+    font-family: 'Lobster Two', cursive;
+    font-size: 35px;
+
 }
-p #P-MAIN{
-  color: white;  
-  font-family: 'Open Sans', sans-serif;  
-}
-h2 #H2-MAIN{
-    color: peru;
-    font-family: 'Cinzel', sans-serif;
-}
-h1 #H1-MAIN{
-    color:chocolate ;
-    font-family: 'Cinzel', sans-serif;
-}
-h3 #H3-MAIN{
-    color:chocolate ;
-    font-family: 'Cinzel', sans-serif;
-    text-align: center
+
+#span-card{
+
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+
 }
