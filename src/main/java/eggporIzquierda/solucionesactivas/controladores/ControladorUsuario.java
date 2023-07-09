@@ -113,4 +113,45 @@ public class ControladorUsuario {
         return "mi_perfil_usuario.html";
 
     }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario")
+    public String misContratosUsuario(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+
+        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mis_contratos_usuario.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario_encurso")
+    public String misContratosUsuarioEncurso(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosEncurso = repositorioContrato.listarPorEstadoEncursoCliente(usuario.getId());
+        modelo.put("contratosEncurso", contratosEncurso);
+
+        return "mis_contratos_usuario_encurso.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario_terminado")
+    public String misContratosUsuarioTerminado(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosTerminados = repositorioContrato.listarPorEstadoTerminadoCliente(usuario.getId());
+        modelo.put("contratosTerminados", contratosTerminados);
+
+        return "mis_contratos_usuario_terminado.html";
+    }
 }
