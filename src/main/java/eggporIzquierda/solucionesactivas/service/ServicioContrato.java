@@ -3,7 +3,6 @@ package eggporIzquierda.solucionesactivas.service;
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
-import eggporIzquierda.solucionesactivas.enumation.EnumCalificacion;
 import eggporIzquierda.solucionesactivas.enumation.EnumEstadoContrato;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
@@ -52,6 +51,7 @@ public class ServicioContrato {
         CP.setUsuario(u);
         CP.setFechaContrato(new Date());
         CP.setComentarioInicial(comentarioInicial);
+        CP.setComentarioOfensivo(false);
 
         repositoriocontrato.save(CP);
     }
@@ -126,9 +126,32 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void finalizarContrato(String idContrato) throws MiException {
+    public void finalizarContratoProveedor(String idContrato, BigDecimal precio) throws MiException {
 
-        System.out.println("ENTRANDO AL SERVICIO");
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            newCP.setEstado(EnumEstadoContrato.TERMINADO);
+            newCP.setPrecio(precio);
+            newCP.setFechaFinalizacion(new Date());
+
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
+    @Transactional
+    public void finalizarContratoUsuario(String idContrato, BigDecimal precio, String comentarioFinal) throws MiException {
+
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
         ContratoProveedor newCP = new ContratoProveedor();
@@ -138,7 +161,10 @@ public class ServicioContrato {
             System.out.println("RESPUESTA PRESENTE");
             newCP = respuestaCP.get();
 
-            newCP.setEstado(EnumEstadoContrato.TERMINADO);
+            newCP.setEstado(EnumEstadoContrato.CANCELADO);
+            newCP.setPrecio(precio);
+            newCP.setFechaFinalizacion(new Date());
+            newCP.setComentarioFinal("CANCELADO POR EL CLIENTE: "+comentarioFinal);
 
             repositoriocontrato.save(newCP);
         }
@@ -153,51 +179,46 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void calificarContrato(String idContrato, String comentarioFinal, String calificacion) throws MiException {
+    public void calificarContrato(String idContrato, String comentarioFinal, Integer calificacion) throws MiException {
 
-        System.out.println("ENTRANDO AL SERVICIO");
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
         ContratoProveedor newCP = new ContratoProveedor();
 
         if (respuestaCP.isPresent()) {
 
-            System.out.println("RESPUESTA PRESENTE");
             newCP = respuestaCP.get();
-
-            // newCP.setEstado(EnumEstadoContrato.TERMINADO);
             newCP.setComentarioFinal(comentarioFinal);
             newCP.setEstado(EnumEstadoContrato.CALIFICADO);
-
-            switch (calificacion) {
-                case "1":
-                    newCP.setCalificacion(EnumCalificacion.MALO);
-                    break;
-                case "2":
-                    newCP.setCalificacion(EnumCalificacion.REGULAR);
-                    break;
-                case "3":
-                    newCP.setCalificacion(EnumCalificacion.BUENO);
-                    break;
-                case "4":
-                    newCP.setCalificacion(EnumCalificacion.MUYBUENO);
-                    break;
-                case "5":
-                    newCP.setCalificacion(EnumCalificacion.EXCELENTE);
-                    break;
-
-                default:
-                    break;
-            }
+            newCP.setCalificacion(calificacion);
 
             repositoriocontrato.save(newCP);
         }
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
 
-            System.out.println("RESPUESTA EMPTY");
             throw new MiException("El contrato no existe");
+        }
 
+    }
+
+    @Transactional
+    public void denunciarComentario(String idContrato) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+            
+            newCP = respuestaCP.get();
+            newCP.setComentarioOfensivo(true);
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
         }
 
     }
@@ -205,11 +226,8 @@ public class ServicioContrato {
     public List<ContratoProveedor> listarContratos() {
 
         List<ContratoProveedor> contratos = new ArrayList();
-
         contratos = repositoriocontrato.findAll();
-
         return contratos;
-
     }
 
 }

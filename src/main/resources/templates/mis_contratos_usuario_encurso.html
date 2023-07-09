@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    >
+    <head th:replace="~{/fragments/head :: head}"></head>
+
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
+
+        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+
+            <!---Mis Contratos--->
+
+            <div class="container py-5 h-200">
+
+                <a type="button" th:href="@{/usuario/mis_contratos_usuario}">
+                    <button type="button" class="btn btn-secondary btn-lg">
+                        Volver
+                    </button>
+                </a>
+
+
+                <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosEncurso}">
+                    <div class="card-body">
+                        <h4 class="card-title">N° de contrato:</h4>
+                        <h3 class="card-title" th:text="${contrato.id}"></h3>
+                        <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+                        <h6>ESTADO</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
+                        <h6>FECHA ALTA</h6>
+                        <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
+                        <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
+                        <div>
+
+                            <form class="row g-3" type="form" method="POST" th:action="@{/contrato/finalizar_contrato_usuario}">
+                                <input hidden th:value="${contrato.id}" name="idContrato">
+                                <div class="col-md-4">
+                                    <label for="validationServer01" class="form-label" value="">¿Desea cancelar el trabajo en curso?</label>
+                                    <input placeholder="Indicar motivo..." type="text" class="form-control is-valid" id="validationServer01" name="comentarioFinal" required>
+                                    <div class="valid-feedback">
+                                        !Que lastima! Esperamos ser de mas utilidad la proxima vez
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
+                                        <label class="form-check-label" for="invalidCheck3">
+                                            CANCELAR - Aceptaciòn de terminos y condiciones
+                                        </label>
+                                        <div id="invalidCheck3Feedback" class="invalid-feedback">
+                                            Debes aceptarlos
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Cancelar contrato</button>
+                                </div>
+                            </form>
+
+                            <!--                                    <form th:if="${contrato.estado.toString() == 'ENCURSO'}" type="form" method="POST" th:action="@{/contrato/finalizar_contrato}">
+                                                                    <input hidden th:value="${contrato.id}" name="idContrato">
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Finalizar contrato</button>
+                                                                </form>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+        <script
+            src="https://kit.fontawesome.com/183f2a4aef.js"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

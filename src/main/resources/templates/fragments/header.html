@@ -8,6 +8,12 @@
                      class="d-inline-block align-text-top">
             </a>
 
+            <!--TRABAJANDO EN EL RUTEO POR TEMA PROVEEDOR - SOLICITUDES-->
+            <!--            <a sec:authorize="hasAnyRole('ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMIN')" class="navbar-brand" href="/inicio">
+                            <img src="/IMG/Logo1-sin-fondo.png" alt="Logo" width="40" height="36"
+                                 class="d-inline-block align-text-top">
+                        </a>-->
+
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-auto">
                 <li><a href="/inicio" class="nav-link px-2 link-secondary" style="color: azure">Inicio</a></li>
 
@@ -34,8 +40,10 @@
                  class="rounded-circle" width="50" height="50" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
         </a>
         <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="#" th:if="${session.usuariosession != null}">Mis Contratos</a>
-            </li>
+            <li><a class="dropdown-item" sec:authorize="hasAnyRole('USUARIO','ADMIN')"
+                   th:href="@{/usuario/mis_contratos_usuario}" th:if="${session.usuariosession != null}">Mis Contratos</a></li>
+            <li><a class="dropdown-item" sec:authorize="hasRole('PROVEEDOR')"
+                   th:href="@{/proveedor/mis_contratos_proveedor}" th:if="${session.usuariosession != null}">Mis Contratos</a></li>
 
             <li><a class="dropdown-item" sec:authorize="hasAnyRole('USUARIO','ADMIN')"
                    th:href="@{/usuario/mi_perfil_usuario}" th:if="${session.usuariosession != null}"> Mi Perfil
