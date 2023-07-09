@@ -265,3 +265,10 @@ section {
 /* ----------- Fin Dashboard ---------------*/
 
 
+.tarjeta{
+    border: solid 1px; 
+    border-radius: 5px; 
+    width: 200px; height:
+    200px; padding: 5px; 
+    margin: 5px;
+}

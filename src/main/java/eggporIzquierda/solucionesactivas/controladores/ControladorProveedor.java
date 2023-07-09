@@ -181,5 +181,5 @@ public class ControladorProveedor {
         return "proveedor_modificar.html";
 
     }
-
-}
+    
+    }
