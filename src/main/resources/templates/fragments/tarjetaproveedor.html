@@ -37,7 +37,7 @@
             <hr>
             <div class="container">
               <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-dark btn-rounded">Contratame</a>
-              <a href="https://web.whatsapp.com/send?phone=+5491169654234" class="btn btn-success btn-rounded">MSG
+              <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded" target="_blank">MSG
                 Whatsapp</a>
             </div>
           </div>
