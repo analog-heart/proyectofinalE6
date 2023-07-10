@@ -226,19 +226,42 @@ public class ServicioUsuario implements UserDetailsService {
     } */
     @Transactional
     @PostConstruct
-    public void crearAdmin_script() throws MiException {
-
+    public void crearUsuarios_script() throws MiException {
         List<Usuario> respuesta = usuarioRepositorio.findAll();
         if (respuesta.isEmpty()) {
-            Usuario usuario = new Usuario();
-            usuario.setNombre("Don");
-            usuario.setEmail("admin@admin.com");
-            usuario.setApellido("Admin");
-            usuario.setRol(Rol.ADMIN);
-            usuario.setTelefono("666");
-            usuario.setPassword(new BCryptPasswordEncoder().encode("987654"));
-            usuarioRepositorio.save(usuario);
+            // Crear usuario ADMIN
+            Usuario admin = new Usuario();
+            admin.setNombre("Admin");
+            admin.setEmail("admin@admin.com");
+            admin.setApellido("Admin");
+            admin.setRol(Rol.ADMIN);
+            admin.setTelefono("123456789");
+            admin.setPassword(new BCryptPasswordEncoder().encode("123456"));
+            usuarioRepositorio.save(admin);
 
+          /*   // Crear 2 usuarios con rol USUARIO
+            for (int i = 0; i < 2; i++) {
+                Usuario usuario = new Usuario();
+                usuario.setNombre("Usuario" + (i + 1));
+                usuario.setEmail("usuario" + (i + 1) + "@example.com");
+                usuario.setApellido("Apellido" + (i + 1));
+                usuario.setRol(Rol.USUARIO);
+                usuario.setTelefono("123456789");
+                usuario.setPassword(new BCryptPasswordEncoder().encode("123456"));
+                usuarioRepositorio.save(usuario);
+            }
+
+            // Crear 10 usuarios con rol PROVEEDOR
+            for (int i = 0; i < 10; i++) {
+                Usuario proveedor = new Usuario();
+                proveedor.setNombre("Proveedor" + (i + 1));
+                proveedor.setEmail("proveedor" + (i + 1) + "@example.com");
+                proveedor.setApellido("Apellido" + (i + 1));
+                proveedor.setRol(Rol.PROVEEDOR);
+                proveedor.setTelefono("123456789");
+                proveedor.setPassword(new BCryptPasswordEncoder().encode("123456"));
+                usuarioRepositorio.save(proveedor);
+            } */
         }
     }
 

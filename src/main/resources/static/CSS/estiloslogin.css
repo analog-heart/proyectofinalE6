@@ -105,20 +105,4 @@ form {
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
 
-
-#nombreCard{
-
-    font-family: 'Lobster Two', cursive;
-    font-size: 35px;
-
-}
-
-#span-card{
-
-    font-family: 'Arvo', serif;
-    font-size: 20px;
-
-}
