@@ -1,6 +1,5 @@
 package eggporIzquierda.solucionesactivas.entity;
 
-import eggporIzquierda.solucionesactivas.enumation.EnumCalificacion;
 import eggporIzquierda.solucionesactivas.enumation.EnumEstadoContrato;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,10 +38,9 @@ public class ContratoProveedor {
     @Enumerated(EnumType.STRING)
     private EnumEstadoContrato estado;
 
-    @Enumerated(EnumType.STRING)
-    private EnumCalificacion calificacion;
-    
-//    private Integer calificacion;
+    private Boolean comentarioOfensivo;
+
+    private Integer calificacion;
 
     private String comentarioFinal;
 
@@ -50,13 +48,11 @@ public class ContratoProveedor {
 
     private BigDecimal precio;
 
-
- 
 // CONSTRUCTORES:
     public ContratoProveedor() {
     }
 
-    public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, EnumCalificacion calificacion, String comentarioFinal, String comentarioInicial, BigDecimal precio) {
+    public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, Integer calificacion, String comentarioFinal, String comentarioInicial, BigDecimal precio, Boolean comentarioOfensivo) {
         this.id = id;
         this.proveedor = proveedor;
         this.usuario = usuario;
@@ -67,8 +63,8 @@ public class ContratoProveedor {
         this.comentarioFinal = comentarioFinal;
         this.comentarioInicial = comentarioInicial;
         this.precio = precio;
-       
-    
+        this.comentarioOfensivo = comentarioOfensivo;
+
     }
 
     //GETTERS AND SETTERS
@@ -120,11 +116,11 @@ public class ContratoProveedor {
         this.estado = estado;
     }
 
-    public EnumCalificacion getCalificacion() {
+    public Integer getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(EnumCalificacion calificacion) {
+    public void setCalificacion(Integer calificacion) {
         this.calificacion = calificacion;
     }
 
@@ -152,8 +148,12 @@ public class ContratoProveedor {
         this.comentarioInicial = comentarioInicial;
     }
 
- 
+    public Boolean getComentarioOfensivo() {
+        return comentarioOfensivo;
+    }
 
-   
+    public void setComentarioOfensivo(Boolean comentarioOfensivo) {
+        this.comentarioOfensivo = comentarioOfensivo;
+    }
 
 }

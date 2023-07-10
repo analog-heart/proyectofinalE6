@@ -242,4 +242,47 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
+    public void modificarClave(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
+
+        validarClaves(passwordold, passwordnew, passwordconf, id);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setPassword(new BCryptPasswordEncoder().encode(passwordnew));
+
+            usuarioRepositorio.save(usuario);
+        }
+
+    }
+
+    private void validarClaves(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
+
+        if (passwordnew.isEmpty() || passwordnew == null) {
+            throw new MiException("La contraseña no puede estar vacía");
+        }
+
+        if (passwordnew.length() < 5) {
+            throw new MiException("La contraseña debe tener al menos 6 caracteres");
+
+        }
+
+        if (!passwordnew.equals(passwordconf)) {
+            throw new MiException("Las contraseñas ingresadas deben ser iguales");
+        }
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            String poe = new BCryptPasswordEncoder().encode(passwordold);
+            BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+            bc.matches(passwordold, usuario.getPassword());
+            if (!bc.matches(passwordold, usuario.getPassword())) {
+                System.out.println(usuario.getPassword() + " nueva " + poe);
+                throw new MiException("La contraseña anterior, no es válida");
+            }
+
+        }
+
+    }
 }

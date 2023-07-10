@@ -47,7 +47,7 @@ public class ControladorPortal {
     private RepositorioContrato repositorioContrato;
 
     @GetMapping("/")
-    public String index( ModelMap modelo) {
+    public String index(ModelMap modelo) {
 //        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
 //        modelo.addAttribute("proveedores", ListProveedores);
 //
@@ -151,8 +151,7 @@ public class ControladorPortal {
         return "inicio_proveedor.html";
     }
 
-
-        @GetMapping("/registrarproveedor")
+    @GetMapping("/registrarproveedor")
     public String registrarProveedor(ModelMap modelo) {
         modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
         return "registrar_proveedor.html";
@@ -177,7 +176,5 @@ public class ControladorPortal {
         }
 
     }
-
-
 
 }
