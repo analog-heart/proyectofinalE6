@@ -31,7 +31,8 @@
                                 <div class="form-input ">
                                     <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                 </div>
-
+                                
+                                <div th:replace="~{/fragments/error:: errores1}"></div>
                                 
                                 <div class="form-button">
                                     <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
@@ -45,12 +46,12 @@
 
 
                 </div>
-
             
+                        
         </main>
     <!-- </div> -->
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
-        <div th:replace="~{/fragments/error:: errores1}"></div>
+        
         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     </body>

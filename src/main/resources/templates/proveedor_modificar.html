@@ -41,6 +41,7 @@
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
 
                                         <div class="d-flex justify-content-center mb-2">
+
                                         </div>
                                     </div>
                                 </div>
@@ -102,8 +103,6 @@
                                                 <input type="password" class="form-control" name="password2" placeholder="****">
                                             </div>
 
-
-
                                             <div>
                                                 <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion y volver a entrar para visualizar los cambios </p>
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
@@ -112,43 +111,42 @@
                                                 <hr>
 
 
-                                                <!--                                                <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>-->
+                                                <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>
                                             </div>
 
+                                        </form>
 
-                                            <!--                                                <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>-->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+
+                                        <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
+
                                     </div>
-
-
-                                    </form>
-
-
-
                                 </div>
                             </div>   
                         </div>
-                    </div>
-                    </div>
 
-
-                    <!---Mis Contratos--->
+                    </div>
 
                 </section>
 
-
-
             </main>  
         </div>
+
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
 
-        <div th:replace="~{/fragments/error:: errores1}"></div>
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
 
   
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
-
 
 
 </html>
