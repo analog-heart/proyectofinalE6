@@ -41,7 +41,6 @@
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
 
                                         <div class="d-flex justify-content-center mb-2">
-                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>
 
                                         </div>
                                     </div>
@@ -121,8 +120,6 @@
 
                                         <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
 
-
-                                        <!--                                                <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>-->
                                     </div>
                                 </div>
                             </div>   
@@ -130,15 +127,13 @@
 
                     </div>
 
-                    -Mis Contratos-
-
                 </section>
 
             </main>  
         </div>
 
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
-        
+
 
         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
@@ -147,26 +142,6 @@
                 window.history.back();
             }
         </script>
-
-<!--        <script>
-
-            var password1 = document.getElementById("newpw");
-            var confirm_password = document.getElementById("confirmpw");
-
-            function validatePassword() {
-                if (password1.value != confirm_password.value) {
-                    //Colorear confirm en rojo o usar:
-                    confirm_password.setCustomValidity("Las contraseñas no coinciden");
-                } else {
-                    confirm_password.setCustomValidity('');
-                }
-            }
-
-            password1.onchange = validatePassword;
-            confirm_password.onkeyup = validatePassword;
-
-
-        </script>-->
 
     </body>
 
