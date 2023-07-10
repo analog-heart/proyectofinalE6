@@ -28,7 +28,7 @@ public class ServicioContrato {
     private RepositorioUsuario repositoriousuario;
 
     @Transactional
-    public void crearContrato(String idUsuario, String idProveedor) throws MiException {
+    public void crearContrato(String idUsuario, String idProveedor, String comentarioInicial) throws MiException {
 
         Optional<Usuario> respuestaUsuario = repositoriousuario.findById(idUsuario);
         Optional<Proveedor> respuestaProveedor = repositorioproveedor.findById(idProveedor);
@@ -50,6 +50,8 @@ public class ServicioContrato {
         CP.setProveedor(p);
         CP.setUsuario(u);
         CP.setFechaContrato(new Date());
+        CP.setComentarioInicial(comentarioInicial);
+        CP.setComentarioOfensivo(false);
 
         repositoriocontrato.save(CP);
     }
@@ -94,10 +96,10 @@ public class ServicioContrato {
 
         List<ContratoProveedor> contratos = listarContratos();
         List<ContratoProveedor> contratosSesion = new ArrayList();
-//        List<Usuario> usuariosRol = repositoriocontrato.listarPorRol(usuario.getRol().toString());
+        // List<Usuario> usuariosRol =
+        // repositoriocontrato.listarPorRol(usuario.getRol().toString());
 
-        System.out.println("CONTRATOS: " + contratos);
-
+//        System.out.println("CONTRATOS: " + contratos);
         if (usuario.getRol().toString().equalsIgnoreCase("USUARIO")) {
             for (int i = 0; i < contratos.size(); i++) {
 
@@ -124,9 +126,32 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void finalizarContrato(String idContrato) throws MiException {
+    public void finalizarContratoProveedor(String idContrato, BigDecimal precio) throws MiException {
 
-        System.out.println("ENTRANDO AL SERVICIO");
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            newCP.setEstado(EnumEstadoContrato.TERMINADO);
+            newCP.setPrecio(precio);
+            newCP.setFechaFinalizacion(new Date());
+
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
+    @Transactional
+    public void finalizarContratoUsuario(String idContrato, BigDecimal precio, String comentarioFinal) throws MiException {
+
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
         ContratoProveedor newCP = new ContratoProveedor();
@@ -136,7 +161,10 @@ public class ServicioContrato {
             System.out.println("RESPUESTA PRESENTE");
             newCP = respuestaCP.get();
 
-            newCP.setEstado(EnumEstadoContrato.TERMINADO);
+            newCP.setEstado(EnumEstadoContrato.CANCELADO);
+            newCP.setPrecio(precio);
+            newCP.setFechaFinalizacion(new Date());
+            newCP.setComentarioFinal("CANCELADO POR EL CLIENTE: "+comentarioFinal);
 
             repositoriocontrato.save(newCP);
         }
@@ -150,14 +178,56 @@ public class ServicioContrato {
 
     }
 
+    @Transactional
+    public void calificarContrato(String idContrato, String comentarioFinal, Integer calificacion) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            newCP.setComentarioFinal(comentarioFinal);
+            newCP.setEstado(EnumEstadoContrato.CALIFICADO);
+            newCP.setCalificacion(calificacion);
+
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
+    @Transactional
+    public void denunciarComentario(String idContrato) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+            
+            newCP = respuestaCP.get();
+            newCP.setComentarioOfensivo(true);
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
     public List<ContratoProveedor> listarContratos() {
 
         List<ContratoProveedor> contratos = new ArrayList();
-
         contratos = repositoriocontrato.findAll();
-
         return contratos;
-
     }
 
 }

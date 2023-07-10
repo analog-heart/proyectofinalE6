@@ -9,50 +9,39 @@
         <header th:replace="~{/fragments/header :: header}"></header>
 
         <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+            
+            <div th:replace="~{/fragments/error:: errores1}"></div>
+            
             <h1 style="color: azure; text-align: center; margin-top: 50px;">SELECCIONA EL SERVICIO BUSCADO</h1>
 
-            <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-38.svg" width="140" alt="Construcción y Arquitectura" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pequeños Arreglos</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-6.svg" width="140" alt="Electricista" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Electricista</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-2.svg" width="140" alt="Plomero" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Plomero</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-1.svg" width="140" alt="Pintor" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Pintor</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-27.svg" width="140" alt="Técnico de Aire" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Tecnico A/A</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-14.svg" width="140" alt="Gasista" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Gasista</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-18.svg" width="140" alt="Albañil" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Albañil</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-36.svg" width="140" alt="Paisajismo y Jardinería" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Jardineria</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-13.svg" width="140" alt="Carpintero" style="display: block; margin: 0 auto; align-items: center;">
-                    <p style="font-size: larger; color: blueviolet; margin-top: 5px;">Carpintero</p>
-                </div>
-                <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-                    <img src="https://s3.us-east-2.amazonaws.com/static.homesolution.net/res/img/cats/c-29.svg" width="140" alt="Fumigador" style="display: block; margin: 0 auto; align-items: center;">
-                    <a href="/#" style="font-size: larger; color: blueviolet; margin-top: 5px;">Fumigador</a>
-                </div>
+            <div style="text-align: center; margin-top: 20px">
+                <a th:href="@{/usuario/usuarios}">
+                    <button type="button" class="btn btn-info">Lista de Usuarios</button>
+                </a>
+                <a th:href="@{/proveedor/proveedores}">
+                    <button type="button" class="btn btn-info">
+                        Lista de Proveedores
+                    </button>
+                </a>
             </div>
+
+            <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
+
+                
+                <!--.foreach de los botones con todas las categorias.-->
+                <div th:each="serv : ${servicios}" >
+
+                    <div  class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                        <a th:href="@{/proveedor/proveedor_servicio/__${serv.serv_descripcion}__}"  style=" text-decoration: none; ">
+                       
+                        <img th:src="@{/IMG/ICONS_SERVICIOS/__${serv.serv_descripcion}__.png}" width="140" alt="serv_imagen" style="display: block; margin: 0 auto; align-items: center;">
+                        <p style="font-size: smaller; color: blueviolet; margin-top: 5px; text-decoration: none; " th:text="${serv.serv_descripcion}"></p>
+                        </a>
+                    </div>
+                    
+                </div>    
+            </div> 
+
 
 
         </main>

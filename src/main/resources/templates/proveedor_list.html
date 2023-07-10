@@ -9,6 +9,8 @@
     <header th:replace="~{/fragments/header :: header}"></header>
 
     <main class="flex-grow-1 container-fluid">
+
+      <div th:replace="~{/fragments/error :: errores1}"></div>
       <div>
         <h1 style="color: azure">Lista de Proveedores</h1>
       </div>
@@ -23,6 +25,7 @@
     </main>
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
+    <div th:replace="~{/fragments/error :: errores1}"></div>
 
   </body>
 </html>

@@ -26,5 +26,11 @@ public interface RepositorioProveedor extends JpaRepository<Proveedor, String> {
      @Query("SELECT p FROM Proveedor p WHERE p.nombre LIKE %:filtro% OR p.apellido LIKE %:filtro% ORDER BY p.reputacion DESC")
     public List<Proveedor> listarXpalabraClave(@Param("filtro") String filtro);
 
+    //BUSQUEDA POR SERVICIO OFRECIDO
+   /*  @Query("SELECT p FROM proveedor_servicios p WHERE p.servicios_serv_id = :servicios_serv_id") */
+    @Query("SELECT p FROM Proveedor p JOIN p.servicios s WHERE s.serv_descripcion = :serv_descripcion")
+    public List<Proveedor> listarProveedoresXServicio(@Param ("serv_descripcion") String serv_descripcion);
 
 }
+
+
