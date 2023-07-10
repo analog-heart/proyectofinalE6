@@ -109,7 +109,7 @@ public class ControladorPortal {
         return "login.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
 
@@ -128,6 +128,27 @@ public class ControladorPortal {
         //     return "redirect:/admin/dashboard";
         // }
         return "inicio.html";
+    }
+    
+     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR')")
+    @GetMapping("/inicio_proveedor")
+    public String inicio_proveedor(ModelMap modelo, HttpSession session) {
+
+        //Agrego logia para probar notificaciones al proveedor
+        Proveedor proveedor = (Proveedor) session.getAttribute("proveedorsession");
+        modelo.put("proveedor", proveedor);
+
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(proveedor.getId());
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+        
+         List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
+         modelo.put("servicios", listaServ);
+        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        // if (logueado.getRol().toString().equals("ADMIN")) {
+        //     return "redirect:/admin/dashboard";
+        // }
+        return "inicio_proveedor.html";
     }
 
 
