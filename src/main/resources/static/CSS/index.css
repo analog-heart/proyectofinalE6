@@ -1,3 +1,7 @@
+@import '~mdb-ui-kit/css/mdb.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
 *{
     font-size: 20px;
 
@@ -264,4 +268,21 @@ section {
 
 /* ----------- Fin Dashboard ---------------*/
 
+/*-------------tarjetas de lilsta proveedor-----------*/
+
+#nombreCard {
+
+    font-family: 'Lobster Two', cursive;
+    font-size: 35px;
+
+  }
+
+  #span-card {
+
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+
+  }
+
+  /*-----------------fin----------------------------*/
 

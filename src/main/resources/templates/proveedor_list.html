@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{/fragments/head :: head}"></head>
-<style>
+<!-- <style>
   @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
 
@@ -20,7 +20,7 @@
 
   }
 
-  </style>
+  </style> -->
 
 <body class="footer-alpiso d-flex flex-column">
   <header th:replace="~{/fragments/header :: header}"></header>
@@ -32,11 +32,13 @@
       <h1 style="color: azure">Lista de Proveedores</h1>
     </div>
 
-    <!--  <section> -->
-    <div th:each="proveedor : ${proveedores}">
-      <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"></div>
+    <div class="container-fluid">
+      <div th:each="proveedor : ${proveedores}">
+        <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}">
+        </div>
+      </div>
     </div>
-    <!-- </section> -->
+
 
   </main>
 
