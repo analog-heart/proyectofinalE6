@@ -43,7 +43,6 @@ public class ServicioProveedor implements UserDetailsService {
     private RepositorioServicioOfrecido servOfrecidoServicio;
 
     @Transactional
-
     public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
 
         validar(nombre, email, password, password2);
@@ -145,6 +144,7 @@ public class ServicioProveedor implements UserDetailsService {
 
                 Imagen imagen = imagenServicio.guardar(archivo);
                 proveedor.setFotoPerfil(imagen);
+
             }
 
             proveedorRepositorio.save(proveedor);
@@ -304,6 +304,7 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
+
     public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
 
         return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
@@ -311,3 +312,4 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
 }
+

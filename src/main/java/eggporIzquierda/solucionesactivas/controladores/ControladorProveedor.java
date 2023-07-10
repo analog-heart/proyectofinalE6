@@ -168,6 +168,7 @@ public class ControladorProveedor {
 
     }
 
+
     @GetMapping("/proveedor_servicio/{serv_descripcion}")
     public String listarProveedoresXServicio(ModelMap modelo, @PathVariable String serv_descripcion) {
 
@@ -228,5 +229,27 @@ public class ControladorProveedor {
 
         return "mis_contratos_proveedor_calificado.html";
     }
+    
+    @PostMapping("/actualizarclave/{id}")
+    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
+            @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
+        
+        try {
+            usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
+            
+            return "redirect:../mi_perfil_proveedor";
+            
+        } catch (MiException ex) {
+            
+          
+            modelo.put("error", ex.getMessage());
+            
+            return "inicio.html";
+   
+        }
+ 
+        
+    }
 
 }
+
