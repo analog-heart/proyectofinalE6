@@ -177,6 +177,7 @@ public class ControladorProveedor {
         return "proveedor_list.html";
     }
 
+
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/mis_contratos_proveedor")
     public String misContratosProveedor(ModelMap modelo, HttpSession session) {
@@ -250,6 +251,7 @@ public class ControladorProveedor {
  
         
     }
+
 
 }
 
