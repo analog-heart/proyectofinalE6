@@ -43,8 +43,10 @@
                                         <p class="text-muted mb-1" th:if="${usuario.fechaAlta != null}" th:text="'Fecha Alta: '+${usuario.fechaAlta}"> </p>
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
                                         <p class="text-muted mb-4" th:text="'Rol: '+${usuario.rol}"></p>
+                                        <p class="text-muted mb-4" th:if="${usuario.estadoProveedorActivo == true}" th:text=" 'Estado Activo' "></p>
+                                        <p class="text-muted mb-4" th:if="${usuario.estadoProveedorActivo == false}" th:text=" 'Estado Inactivos' "></p>                                                                        
                                         <div class="d-flex justify-content-center mb-2">
-                                            <a type="button" class="btn btn-warning" th:href="@{/proveedor/modificar_perfil_proveedor}" th:if="${session.usuariosession != null}">Modificar  </a>
+                                          <a type="button" class="btn btn-warning" th:href="@{/proveedor/modificar_perfil_proveedor}" th:if="${session.usuariosession != null}">Modificar  </a>
 
                                         </div>
                                     </div>

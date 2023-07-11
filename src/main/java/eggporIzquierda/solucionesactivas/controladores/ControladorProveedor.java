@@ -53,7 +53,7 @@ public class ControladorProveedor {
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-        List<Proveedor> proveedores = proveedorServicio.listarProveedores();
+        List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
@@ -104,10 +104,11 @@ public class ControladorProveedor {
         return "contratos_solicitados.html";
     }
 
+    //-----VER MI PERFIL
     @GetMapping("/mi_perfil_proveedor")
     public String miPerfilProveedor(ModelMap modelo, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Proveedor usuario = (Proveedor) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
 
         List<ContratoProveedor> contratosSesion = new ArrayList();
@@ -123,38 +124,13 @@ public class ControladorProveedor {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
-    @PostMapping("/perfil_proveedor/{id}")
-    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
-            @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String apellido, String dni,
-            String telefono) {
 
-        // Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        // List<ContratoProveedor> cantidadContratosSolicitados =
-        // repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-        // modelo.put("cantidadContratosSolicitados",
-        // cantidadContratosSolicitados.size());
-        try {
-            proveedorServicio.actualizar(archivo, id, nombre, email, password, password2, "proveedor_userNick",
-                    apellido, dni, telefono);
-            modelo.put("exito", "Proveedor actualizado correctamente!");
-            return "redirect:../../inicio";
-
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            modelo.put("nombre", nombre);
-            modelo.put("email", email);
-            return "proveedor_modificar.html";
-        }
-
-    }
-
+    //------------MODIFICAR PERFIL PROVEEDOR GET
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @GetMapping("/modificar_perfil_proveedor")
     public String perfil(ModelMap modelo, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Proveedor usuario = (Proveedor) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
         modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
         modelo.put("usuario", usuario);
@@ -168,11 +144,39 @@ public class ControladorProveedor {
 
     }
 
+     //------------MODIFICAR PERFIL PROVEEDOR POST
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @PostMapping("/perfil_proveedor/{id}")
+    public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
+            @RequestParam String email, ModelMap modelo, String apellido, String dni,
+            String telefono) {
+
+        // Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        // List<ContratoProveedor> cantidadContratosSolicitados =
+        // repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        // modelo.put("cantidadContratosSolicitados",
+        // cantidadContratosSolicitados.size());
+        try {
+            proveedorServicio.actualizar(archivo, id, nombre, email, "proveedor_userNick",
+                    apellido, dni, telefono);
+            modelo.put("exito", "Proveedor actualizado correctamente!");
+            return "redirect:../../inicio";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+            return "proveedor_modificar.html";
+        }
+
+    }
+    
 
     @GetMapping("/proveedor_servicio/{serv_descripcion}")
     public String listarProveedoresXServicio(ModelMap modelo, @PathVariable String serv_descripcion) {
-
+        
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresconfiltro(serv_descripcion);
+        modelo.addAttribute("servicio",serv_descripcion);
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
@@ -231,27 +235,41 @@ public class ControladorProveedor {
         return "mis_contratos_proveedor_calificado.html";
     }
     
+    
+    //---------------ACTUALIZAR CLAVE---------------
     @PostMapping("/actualizarclave/{id}")
     public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
             @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
         
         try {
             usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
-            
             return "redirect:../mi_perfil_proveedor";
             
         } catch (MiException ex) {
-            
-          
-            modelo.put("error", ex.getMessage());
-            
+                 
+            modelo.put("error", ex.getMessage()); 
             return "inicio.html";
-   
-        }
- 
-        
+        }  
     }
 
+    //--------------SUSPENDER PERFIL PROVEEDOR------------
+   @PostMapping ("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
+        
+        proveedorServicio.suspenderMiCuenta(id);
+        
+         return "redirect:../mi_perfil_proveedor";
+    }
+    
+     @PostMapping ("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
+        
+        proveedorServicio.reactivarMiCuenta(id);
+        
+         return "redirect:../mi_perfil_proveedor";
+    }
+    
+    
 
 }
 
