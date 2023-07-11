@@ -1,11 +1,13 @@
 package eggporIzquierda.solucionesactivas.service;
 
+import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
+import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +37,9 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private RepositorioProveedor proveedorRepositorio;
+
+    @Autowired
+    private RepositorioContrato contratoRepositorio;
 
     @Autowired
     private ServicioImagen imagenServicio;
@@ -113,18 +118,6 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setNombreUsuario(nombreUsuario);
             proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
-
-//            if (fechaNacimiento != null) {
-//                
-//            try {
-//                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-//                Date fechaNac = formato.parse(fechaNacimiento);
-//                proveedor.setFechaNacimiento(fechaNac);
-//            } catch (ParseException e) {
-//
-//                e.printStackTrace();
-//            }
-//            }
             proveedor.setDni(dni);
             proveedor.setEmail(email);
             proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -193,6 +186,36 @@ public class ServicioProveedor implements UserDetailsService {
         }
     }
 
+    public void grabarReputacion(String id) throws MiException {
+
+        List<ContratoProveedor> contratos = new ArrayList();
+
+        contratos = contratoRepositorio.listarPorEstadoCalificado(id);
+        Double acumulador = 0d;
+
+        for (int i = 0; i < contratos.size(); i++) {
+            if (contratos.get(i).getCalificacion() != null) {
+                acumulador = acumulador + contratos.get(i).getCalificacion();
+            }
+        }
+
+        Double reputacion = acumulador / contratos.size();
+        System.out.println("La reputacion actual es: " + reputacion);
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setReputacion(reputacion);
+            proveedorRepositorio.save(proveedor);
+        }
+
+        if (respuesta.isEmpty()) {
+            throw new MiException("El proveedor no existe");
+        }
+
+    }
+
     private void validar(String nombre, String email, String password, String password2) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -204,11 +227,9 @@ public class ServicioProveedor implements UserDetailsService {
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
-
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
-
     }
 
     @Override
@@ -304,7 +325,6 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
-
     public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
 
         return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
@@ -312,4 +332,3 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
 }
-
