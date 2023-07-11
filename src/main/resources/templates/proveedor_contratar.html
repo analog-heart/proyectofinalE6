@@ -4,112 +4,154 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     >
     <head th:replace="~{/fragments/head :: head}"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <style>
+        h4,h5{
+            color: white;
+            font-family: 'Caprasimo', sans-serif;
+        }
+        p{
+            color: peru;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center
+        }
+        h2{
+            color: peru;
+            font-family: 'Cinzel', sans-serif;
+        }
+        h1{
+            color:chocolate ;
+            font-family: 'Cinzel', sans-serif;
+        }
+        h3{
+            color:azure ;
+            font-family: 'Cinzel', sans-serif;
+            text-align: center
+        }
 
+
+
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .flex-grow-1 {
+            flex-grow: 1;
+        }
+
+        .footer-alpiso {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contenedor {
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .left-panel {
+            position: relative;
+            width: 100%;
+            max-width: 500px; /* Adjust the maximum width as needed */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Font1', sans-serif; /* Replace 'Font1' with the desired font from Google Fonts */
+            background: linear-gradient(45deg, #635985, #CD853F); /* Adjust the gradient colors as needed */
+            color: #fff;
+        }
+
+        .left-panel .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 0.8s;
+        }
+
+        .left-panel .front {
+            transform: rotateY(0deg);
+        }
+
+        .left-panel .back {
+            transform: rotateY(180deg);
+        }
+
+        .left-panel:hover .front {
+            transform: rotateY(-180deg);
+        }
+
+        .left-panel:hover .back {
+            transform: rotateY(0deg);
+        }
+
+        .card-title {
+            margin-top: 20px;
+        }
+
+        .card-text {
+            margin-top: 10px;
+        }
+
+        .link {
+            margin-top: 20px;
+        }
+
+        .comentarioInicial {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
     <body class="footer-alpiso d-flex flex-column">
-        <header th:replace="~{/fragments/header :: header}"></header>
+        <header th :replace="~{/fragments/header :: header}"></header>
+    </head>
 
-        <main class="container flex-grow-1 container-fluid">
-            <!-- <div class="container container-fluid d-flex"> -->
-                <div class="contenedor">
-                    <!--TARJETA PROVEEDOR-->
-                    <div class="left-panel" id="login">
-                        <div class="face front">
-                            <img
-                                id="fotoPerfil"
-                                th:src="@{/imagen/perfil/__${proveedor.id}__}"
-                                alt="imegen perfil"
-                                class="rounded-circle"
-                                width="100"
-                                height="100"
-                                />
-                            <h3
-                                class="card-title"
-                                th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"
-                                ></h3>
-                            <p
-                                class="card-text"
-                                th:each="serv : ${proveedor.servicios}"
-                                th:text="${serv.serv_descripcion}"
-                                ></p>
-                        </div>
+<body class="footer-alpiso">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
-
-                        <div class="face back">
-                            <h3>Servicio:</h3>
-                            <p
-                                th:each="serv : ${proveedor.servicios}"
-                                th:text="${serv.serv_descripcion}"
-                                ></p>
-                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
-                                <div class="link">
-
-                                    <input class="comentarioInicial" type="text" name="comentarioInicial" placeholder="Comentario del trabajo..."/>
-                                    <button class="btn btn-primary" type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
-
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Frente de la tarjeta proveedor
-                                    <div class="face front">
-                                        <img id="fotoPerfil" th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">
-                                        <h3 class="card-title" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h3>
-                                        <h3>Servicio:</h3>
-                                        <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
-                                    </div>
-                                    
-                                    dorso de la tarjeta proveedor-->
-                        <!-- <div class="face back">
-                                        <h3>Servicio:</h3>
-                                        <p th:each="serv : ${proveedor.servicios}"  th:text="${serv.serv_descripcion}"></p>
-                        <div class="link">
-                            <a th:href="@{/proveedor/contacto/__${proveedor.id}__}">
-                                <button value="">Contactar</button>
-                            </a>
-                        </div> -->
-                        <!-- </div> -->
-                    </div>
-
-                    <!--                     
-                              
-                              <div class="right-panel">
-                                  <form th:action="@{/logincheck}" class="formulario form-control "  method="POST">
-                                      <div class ="texto">
-          
-                                          <div class="logo ">
-                                              <img src="/IMG/Logo-Soluciones-Circular-removebg-preview.png" width="300" height="300"  alt="Logo">
-          
-                                          </div>
-                                          <div class="form-input ">
-                                              <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
-                                          </div>
-                    <input type="file" class="form-control mb-3" name="archivo">-->
-                    <!-- <div class="form-input ">
-                                              <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
-                                          </div>
-          
-                                          <div th:replace="~{fragments/error :: errores1}"></div>
-                                          <div class="form-button">
-                                              <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
-                                          </div>
-          
-          
-          
-                                      </div>
-                                  </form>
-                              </div>
-                    -->
+    <main class="container flex-grow-1">
+        <div class="contenedor">
+            <!-- TARJETA PROVEEDOR -->
+            <div class="left-panel" id="login">
+                <div class="face front">
+                    <img id="fotoPerfil" th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="imagen perfil" class="rounded-circle" width="100" height="100" />
+                    <h3 class="card-title" th:text="${proveedor.nombre} + ' ' + ${proveedor.apellido}"></h3>
+                    <p class="card-text" th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></p>
                 </div>
-            <!-- </div> -->
-        </main>
 
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+                <div class="face back">
+                    <h3>Servicio:</h3>
+                    <p th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></p>
+                    <form style="width: 100%; max-width: 800px; margin: 0 auto;" method="POST" th:action="@{/contrato/contratar}">
+                        <div class="link">
+                            <input class="comentarioInicial" type="text" name="comentarioInicial" placeholder="Comentario del trabajo..." />
+                            <button class="btn btn-primary" type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
 
-        <div th:replace="~{/fragments/error :: errores1}"></div>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-        <script
-            src="https://kit.fontawesome.com/183f2a4aef.js"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+<div th:replace="~{/fragments/error :: errores1}"></div>
+
+<script
+    src="https://kit.fontawesome.com/183f2a4aef.js"
+    crossorigin="anonymous"
+></script>
+</body>
 </html>
