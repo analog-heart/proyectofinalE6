@@ -26,6 +26,8 @@ public class ServicioContrato {
     private RepositorioProveedor repositorioproveedor;
     @Autowired
     private RepositorioUsuario repositoriousuario;
+    @Autowired
+    private ServicioProveedor servicioProveedor;
 
     @Transactional
     public void crearContrato(String idUsuario, String idProveedor, String comentarioInicial) throws MiException {
@@ -164,7 +166,7 @@ public class ServicioContrato {
             newCP.setEstado(EnumEstadoContrato.CANCELADO);
             newCP.setPrecio(precio);
             newCP.setFechaFinalizacion(new Date());
-            newCP.setComentarioFinal("CANCELADO POR EL CLIENTE: "+comentarioFinal);
+            newCP.setComentarioFinal("CANCELADO POR EL CLIENTE: " + comentarioFinal);
 
             repositoriocontrato.save(newCP);
         }
@@ -192,6 +194,9 @@ public class ServicioContrato {
             newCP.setEstado(EnumEstadoContrato.CALIFICADO);
             newCP.setCalificacion(calificacion);
 
+            //grabando la reputacion sobre el proveedor de este contrato calificado:
+            servicioProveedor.grabarReputacion(newCP.getProveedor().getId());
+
             repositoriocontrato.save(newCP);
         }
 
@@ -210,7 +215,7 @@ public class ServicioContrato {
         ContratoProveedor newCP = new ContratoProveedor();
 
         if (respuestaCP.isPresent()) {
-            
+
             newCP = respuestaCP.get();
             newCP.setComentarioOfensivo(true);
             repositoriocontrato.save(newCP);
