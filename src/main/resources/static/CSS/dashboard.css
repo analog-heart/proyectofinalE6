@@ -1,0 +1,29 @@
+@import '~mdb-ui-kit/css/mdb.min.css';
+
+.sidebar {
+        background-color: #2a363b;
+        color: #fff;
+        padding: 20px;
+        width: 250px;
+      }
+
+     
+
+      .sidebar-menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+
+      .sidebar-menu ul li {
+        margin-bottom: 10px;
+      }
+
+      .sidebar-menu ul li a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .sidebar-menu ul li a:hover {
+        text-decoration: underline;
+      }

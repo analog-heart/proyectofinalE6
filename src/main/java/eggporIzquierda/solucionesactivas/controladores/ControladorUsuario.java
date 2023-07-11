@@ -38,6 +38,10 @@ public class ControladorUsuario {
     public String listarUsuariosActivos(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
+
+        //ESTA VISTA VA A SER SOLO PARA LOS LOGEADOS? EN ESE CASO AGREGAR PREAUTH
+        //Y SI ESTA VISTA LA TIENE EL PROVEEDOR, HAY QUE INYECTAR LOS CONTRATOS SOLICITADOS (BRIAN)
+        
         return "usuario_list.html";
     }
 
@@ -108,5 +112,46 @@ public class ControladorUsuario {
 
         return "mi_perfil_usuario.html";
 
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario")
+    public String misContratosUsuario(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosSesion = new ArrayList();
+        contratosSesion = contratoServicio.listarContratosSesion(usuario);
+
+        modelo.put("contratosUsuario", contratosSesion);
+
+        return "mis_contratos_usuario.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario_encurso")
+    public String misContratosUsuarioEncurso(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosEncurso = repositorioContrato.listarPorEstadoEncursoCliente(usuario.getId());
+        modelo.put("contratosEncurso", contratosEncurso);
+
+        return "mis_contratos_usuario_encurso.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario_terminado")
+    public String misContratosUsuarioTerminado(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<ContratoProveedor> contratosTerminados = repositorioContrato.listarPorEstadoTerminadoCliente(usuario.getId());
+        modelo.put("contratosTerminados", contratosTerminados);
+
+        return "mis_contratos_usuario_terminado.html";
     }
 }

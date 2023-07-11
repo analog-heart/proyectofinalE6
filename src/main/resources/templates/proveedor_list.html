@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="~{/fragments/head :: head}"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-  <body class="footer-alpiso d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
+<head th:replace="~{/fragments/head :: head}"></head>
+<!-- <style>
+  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
 
-    <main class="flex-grow-1 container-fluid">
-      <div>
-        <h1 style="color: azure">Lista de Proveedores</h1>
-      </div>
+  #nombreCard {
 
- 
-      <section>
-        <div class="card" th:each="proveedor : ${proveedores}">
-          <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"></div>
+    font-family: 'Lobster Two', cursive;
+    font-size: 35px;
+
+  }
+
+  #span-card {
+
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+
+  }
+
+  </style> -->
+
+<body class="footer-alpiso d-flex flex-column">
+  <header th:replace="~{/fragments/header :: header}"></header>
+
+  <main class="flex-grow-1 container-fluid">
+
+    <div th:replace="~{/fragments/error :: errores1}"></div>
+    <div>
+      <h1 style="color: azure">Lista de Proveedores</h1>
+    </div>
+
+    <div class="container-fluid">
+      <div th:each="proveedor : ${proveedores}">
+        <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}">
         </div>
-      </section>
-    
-    </main>
+      </div>
+    </div>
 
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-  </body>
+  </main>
+
+  <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+
+</body>
+
 </html>
