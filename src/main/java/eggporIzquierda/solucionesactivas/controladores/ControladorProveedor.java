@@ -122,6 +122,62 @@ public class ControladorProveedor {
         return "mi_perfil_proveedor.html";
 
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @PostMapping("/perfilproveedor/{id}")
+    public String actualizarProveedor(HttpSession session, ServicioOfrecido servicios, MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
+            @RequestParam String password, String password2, String telefono, String nombreUsuario, ModelMap modelo, String apellido, Date fechaNacimiento, String dni) {
+        
+//Falta validar por separdo las claves pssw
+        try {
+            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono);
+            modelo.put("exito", "Usuario actualizado correctamente!");
+
+            return "inicio.html";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
+
+            return "proveedor_modificar.html";
+        }
+
+    
+    }
+
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+//
+//        try {
+//            proveedorServicio.actualizar(servicios, archivo, id, nombre, email, password, password, "", apellido, fechaNacimiento, dni);
+//            modelo.put("exito", "Proveedor actualizado correctamente!");
+//            return "redirect:../inicio";
+//
+//        } catch (MiException ex) {
+//            modelo.put("error", ex.getMessage());
+//            modelo.put("nombre", nombre);
+//            modelo.put("email", email);
+//            return "proveedor_modificar.html";
+//        }
+//
+//    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
+    @GetMapping("/modificar_perfil_proveedor")
+    public String modificarPerfilProveedor (ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+        modelo.put("usuario", usuario);
+        
+         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+
+        return "proveedor_modificar.html";
+
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfil_proveedor/{id}")
