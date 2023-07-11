@@ -1,44 +1,40 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    >
-    <head th:replace="~{/fragments/head :: head}"></head>
-    
-    <body>
-        <header th:replace="~{/fragments/header :: header}"></header>
-        <h1>ACA SE VERAN LAS SOLICITUDES PENDIENTES DE APROBACION POR EL PROVEEDOR</h1>
-        <div class="container container-fluid  d-flex flex-wrap gap-3">
-            <div class="card" style="width: 18rem;" th:each="contrato : ${contratos}">
-                <div class="card-body">
-                    <h6>N° de Contrato:</h6>
-                    <h5 class="card-title" th:text="${contrato.id}"></h5>
-                    <h6>ESTADO:</h6>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body>
+    <header th:replace="~{/fragments/header :: header}"></header>
+    <main>
+        
+        <div class="container">
+            <h2 style="color: azure;">CONTRATOS</h2>
+                <div class="card" style="max-width: 540px;" th:each="contrato : ${contratos}">
+                    <div class="card-body">
+                    <h5 class="card-title">N° DE CONTRATO:</h5>
+                    <h6 class="card-subtitle" th:text="${contrato.id}"></h6>
+                    <h5 class="card-title">ESTADO:</h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                    <h6>FECHA ALTA</h6>
+                    <h5 class="card-title">FECHA ALTA:</h5>
                     <!-- <p class="card-text" th:text="${contrato.fecha_contrato}"></p> -->
                     <h6>Comentarios del cliente:</h6>
                     <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
-                    <div>
-                    <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
-                        <input hidden th:value= "${contrato.id}" name="idContrato">
-                        <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar contrato</button>
-                        <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar contrato</button>
+                    <form type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
+                        <input hidden th:value="${contrato.id}" name="idContrato">
+                        <a type="submit" name="decision" th:value="aceptar"
+                            class="btn btn-success btn-rounded">Aceptar contrato</a>
+                        <a type="submit" name="decision" th:value="rechazar"
+                            class="btn btn-danger btn-rounded">Rechazar contrato</a>
                     </form>
                     </div>
                 </div>
-            </div>
         </div>
-    </body>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    <!-- MDB -->
-<script
-type="text/javascript"
-src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"
-></script>
 
 </html>

@@ -96,8 +96,7 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
-                .listarPorEstadoSolicitado(usuario.getId());
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
