@@ -126,7 +126,7 @@ public class ServicioServicioOfrecido {
         
         if (respuesta.isEmpty()) {
         String[]serv_descripcio={"ELECTRICISTA", "PEQUEÑOS ARREGLOS"
-                ,"PLOMERO","PINTOR","TECNICO AA", "GASISTA","ALBANIL",
+                ,"PLOMERO","PINTOR","TECNICO AA", "GASISTA","ALBAÑIL",
         "JARDINERO","CARPINTERO","FUMIGADOR"};
         
 
