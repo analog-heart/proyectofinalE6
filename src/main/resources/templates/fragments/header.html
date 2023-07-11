@@ -3,11 +3,18 @@
 
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a class="navbar-brand" href="/">
+           
+            <a class="navbar-brand"th:if="${session.usuariosession!= null }" href="/inicio">
                 <img src="/IMG/Logo1-sin-fondo.png" alt="Logo" width="40" height="36"
                      class="d-inline-block align-text-top">
-            </a>
-
+             </a>
+           
+            <a class="navbar-brand"th:if="${session.usuariosession == null }" href="/">
+                <img src="/IMG/Logo1-sin-fondo.png" alt="Logo" width="40" height="36"
+                     class="d-inline-block align-text-top">
+             </a>
+                
+            
             <!--TRABAJANDO EN EL RUTEO POR TEMA PROVEEDOR - SOLICITUDES-->
             <!--            <a sec:authorize="hasAnyRole('ROLE_USUARIO','ROLE_PROVEEDOR','ROLE_ADMIN')" class="navbar-brand" href="/inicio">
                             <img src="/IMG/Logo1-sin-fondo.png" alt="Logo" width="40" height="36"
