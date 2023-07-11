@@ -1,3 +1,6 @@
+@import '~mdb-ui-kit/css/mdb.min.css';
+
+
 .navBar{
     background-color: #fff !important;
 }

@@ -1,4 +1,4 @@
-
+@import '~mdb-ui-kit/css/mdb.min.css';
 header{
 
     background-color: #635985;
@@ -39,12 +39,7 @@ footer{
 }
 
 .right-panel {
-   /* flex: 1 1 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-   */
-   
+ 
    
     display: grid;
     grid-template-columns: 1fr;
@@ -108,4 +103,6 @@ form {
     justify-content: space-around;
     align-items: center;
 }
+
+
 

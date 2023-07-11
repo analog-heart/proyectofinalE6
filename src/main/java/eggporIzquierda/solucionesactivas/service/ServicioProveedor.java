@@ -8,6 +8,7 @@ import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
+import eggporIzquierda.solucionesactivas.repository.RepositorioDomicilio;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.servlet.http.HttpSession;
@@ -46,6 +47,7 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private RepositorioServicioOfrecido servOfrecidoServicio;
+        
 
     @Transactional
     public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
