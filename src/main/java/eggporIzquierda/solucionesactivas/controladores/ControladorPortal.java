@@ -48,7 +48,6 @@ public class ControladorPortal {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-
 //        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
 //        modelo.addAttribute("proveedores", ListProveedores);
 //
@@ -177,33 +176,5 @@ public class ControladorPortal {
         }
 
     }
-
-//    @GetMapping("/login")
-//    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-//
-//        if (error != null) {
-//            modelo.put("error", "Usuario o Contraseña invalidos!");
-//        }
-//        return "login.html";
-//    }
-//
-//
-//    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN', 'ROLE_PROVEEDOR')")
-//    @GetMapping("/inicio")
-//    public String inicio(ModelMap modelo, HttpSession session) {
-//
-//        //Agrego logia para probar notificaciones al proveedor
-//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-//        modelo.put("usuario", usuario);
-//
-//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-//
-//        // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-//        // if (logueado.getRol().toString().equals("ADMIN")) {
-//        //     return "redirect:/admin/dashboard";
-//        // }
-//        return "inicio.html";
-//    }
 
 }
