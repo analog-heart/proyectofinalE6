@@ -12,6 +12,7 @@
             <h5 class="card-title" id="nombreCard" th:text="${proveedor.nombre} + ' ' + ${proveedor.apellido}"></h5>
             <hr>
             <span id="span-card" th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></span>
+            <h5 class="card-title" id="nombreCard" th:text="'Trabajos realizados: ' + ${proveedor.cantidadTrabajos}"></h5>
             <hr>
             <div class="container">
               <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-dark btn-rounded">Contratame</a>
