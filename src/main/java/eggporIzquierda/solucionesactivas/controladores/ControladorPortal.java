@@ -61,16 +61,12 @@ public class ControladorPortal {
 
     //-------------------------BUSCADOR--------------------
     @GetMapping("/buscar")
-    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave, HttpSession session) {
-
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-
-        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
-        modelo.addAttribute("proveedores", ListNoticias);
-        modelo.addAttribute("palabraClave", palabraClave);
-        return "index.html";
+    public String buscar(ModelMap modelo, String palabraClave) {
+        
+        List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+        modelo.addAttribute("proveedores", proveedores);
+        
+        return "proveedor_list.html";
     }
 
     @GetMapping("/registrar")
