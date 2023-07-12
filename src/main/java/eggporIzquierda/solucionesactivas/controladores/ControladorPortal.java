@@ -54,13 +54,9 @@ public class ControladorPortal {
     //-------------------------BUSCADOR--------------------
     @GetMapping("/buscar")
     public String buscar(ModelMap modelo, String palabraClave) {
-<<<<<<< HEAD
         
         List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxPalabraClave(palabraClave);
-=======
 
-        List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
->>>>>>> Developers
         modelo.addAttribute("proveedores", proveedores);
 
         return "proveedor_list.html";
