@@ -6,7 +6,7 @@
     <body class="footer-alpiso d-flex flex-column">
         <header th:replace="~{/fragments/header :: header}"></header>
 
-        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso">
 
             <!---Mis Contratos--->
 
@@ -22,7 +22,7 @@
                 <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosCalificados}">
                     <div class="card-body">
                         <h4 class="card-title">N° de contrato:</h4>
-                        <h3 class="card-title" th:text="${contrato.id}"></h3>
+                        <h3 class="card-title" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h3>
                         <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
                         <h6>Estado:</h6>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
@@ -65,7 +65,6 @@
 
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
     </body>
 
 </html>

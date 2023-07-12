@@ -66,7 +66,8 @@ public class ControladorContrato {
         return "proveedor_list.html";
     }
 
-    // este post viene de una vista del proveedor, el cual acepta o rechaza la solicitud de contratacion
+    // este post viene de una vista del proveedor, el cual acepta o rechaza la
+    // solicitud de contratacion
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/aceptar_contrato")
     public String aceptarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
@@ -114,6 +115,8 @@ public class ControladorContrato {
         try {
 
             contratoServicio.finalizarContratoProveedor(idContrato, precio);
+            proveedorServicio
+                    .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
             List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
@@ -140,7 +143,8 @@ public class ControladorContrato {
         }
     }
 
-    // este post viene de una vista del usuario, el cual cancela la solicitud en curso
+    // este post viene de una vista del usuario, el cual cancela la solicitud en
+    // curso
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @PostMapping("/finalizar_contrato_usuario")
     public String finalizarContratoUsuario(HttpSession session, @RequestParam String idContrato,
@@ -185,7 +189,9 @@ public class ControladorContrato {
 
         try {
 
+            // proveedorServicio.cantidadDeTrabajos(repositorioContrato.getOne(idContrato).getProveedor().getId());
             contratoServicio.calificarContrato(idContrato, comentarioFinal, calificacion);
+            proveedorServicio.cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
             List<ContratoProveedor> contratosSesion = new ArrayList();
             contratosSesion = contratoServicio.listarContratosSesion(usuario);

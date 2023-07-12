@@ -21,6 +21,7 @@ public interface RepositorioProveedor extends JpaRepository<Proveedor, String> {
     
    @Query("SELECT p FROM Proveedor p WHERE p.estadoProveedorActivo =true")
     public List<Proveedor> listarProveedoresActivos();
+
     
     @Query("SELECT p FROM Proveedor p WHERE p.estadoProveedorActivo =false")
     public List<Proveedor> listarProveedoresInactivos();
