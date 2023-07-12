@@ -9,26 +9,32 @@
         <header th:replace="~{/fragments/header :: header}"></header>
 
         <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
-
+            
             <div th:replace="~{/fragments/error:: errores1}"></div>
-
+            
             <h1 style="color: azure; text-align: center; margin-top: 50px;">SELECCIONA EL SERVICIO BUSCADO</h1>
 
-          <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
-    <!-- .foreach de los botones con todas las categorias. -->
-    <div th:each="serv, status : ${servicios}" class="col-2">
-        <div class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
-            <a th:href="@{/proveedor/proveedor_servicio/__${serv.serv_descripcion}__}" style="text-decoration: none;">
-                <img th:src="@{/IMG/ICONS_SERVICIOS/__${serv.serv_descripcion}__.png}" width="140" alt="serv_imagen" style="display: block; margin: 0 auto; align-items: center;">
-                <p style="font-size: smaller; color: blueviolet; margin-top: 5px; text-decoration: none;" th:text="${serv.serv_descripcion}"></p>
-            </a>
-        </div>
-    </div>
-</div>
+            <div class="d-flex flex-wrap justify-content-center" style="margin-top: 20px; text-align: center;">
+
+                
+                <!--.foreach de los botones con todas las categorias.-->
+                <div th:each="serv : ${servicios}" >
+
+                    <div  class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 200px; height: 200px; padding: 5px; margin: 5px;">
+                        <a th:href="@{/proveedor/proveedor_servicio/__${serv.serv_descripcion}__}"  style=" text-decoration: none; ">
+                       
+                        <img th:src="@{/IMG/ICONS_SERVICIOS/__${serv.serv_descripcion}__.png}" width="140" alt="serv_imagen" style="display: block; margin: 0 auto; align-items: center;">
+                        <p style="font-size: smaller; color: blueviolet; margin-top: 5px; text-decoration: none; " th:text="${serv.serv_descripcion}"></p>
+                        </a>
+                    </div>
+                    
+                </div>    
+            </div> 
 
 
 
         </main>
+
 
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
 

@@ -15,19 +15,19 @@
             <div class="container py-5 h-200">
 
                 <a type="button" th:href="@{/proveedor/mis_contratos_proveedor_encurso}">
-                    <button type="button" class="btn btn-secondary btn-lg">
+                    <button type="button" class="btn btn-secondary">
                         Ver contratos en Curso
                     </button>
                 </a>
 
                 <a type="button" th:href="@{/proveedor/mis_contratos_proveedor_calificado}">
-                    <button type="button" class="btn btn-secondary btn-lg">
+                    <button type="button" class="btn btn-secondary">
                         Ver contratos Calificados
                     </button>
                 </a>
 
                 <a type="button" th:href="@{/proveedor/mi_perfil_proveedor}">
-                    <button type="button" class="btn btn-secondary btn-lg">
+                    <button type="button" class="btn btn-secondary">
                         Mi Perfil
                     </button>
                 </a>
@@ -36,13 +36,13 @@
                 <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosUsuario}">
                     <div class="card-body">
                         <h4 class="card-title">N° de contrato:</h4>
-                        <h3 class="card-title" th:text="${contrato.id}"></h3>
-                        <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+                        <h3 class="card-title" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h3>
+                        
                         <h6>ESTADO</h6>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
                         <h6>FECHA ALTA</h6>
-                        <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
-                        <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
+                        <p class="card-text" th:text="${contrato.fechaContrato}"></p>
+                        
                         <div>
 
                             <form class="row g-3" th:if="${contrato.estado.toString() == 'ENCURSO'}" type="form" method="POST" th:action="@{/contrato/finalizar_contrato_proveedor}">
@@ -54,27 +54,13 @@
                                         ¡Gracias!
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-check">
-                                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
-                                        <label class="form-check-label" for="invalidCheck3">
-                                            Aceptaciòn de terminos y condiciones
-                                        </label>
-                                        <div id="invalidCheck3Feedback" class="invalid-feedback">
-                                            Debes aceptarlos
-                                        </div>
-                                    </div>
-                                </div>
+                           
                                 <div class="col-12">
                                     <button class="btn btn-primary" type="submit">Finalizar contrato</button>
                                 </div>
                             </form>
 
-                            <!--                                    <form th:if="${contrato.estado.toString() == 'ENCURSO'}" type="form" method="POST" th:action="@{/contrato/finalizar_contrato}">
-                                                                    <input hidden th:value="${contrato.id}" name="idContrato">
-                                                                    <button type="submit" class="btn btn-primary">
-                                                                        Finalizar contrato</button>
-                                                                </form>-->
+                           
                         </div>
                     </div>
                 </div>
@@ -85,9 +71,6 @@
 
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-        <script
-            src="https://kit.fontawesome.com/183f2a4aef.js"
-            crossorigin="anonymous"
-        ></script>
     </body>
+
 </html>
