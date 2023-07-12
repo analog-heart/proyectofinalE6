@@ -41,7 +41,7 @@
                                         <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
 
                                         <div class="d-flex justify-content-center mb-2">
-<!--                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>-->
+                                            <!--                                            <a type="button" class="btn btn-warning" th:href="@{/usuario/modificar_perfil_usuario}" th:if="${session.usuariosession != null}">Modificar  </a>-->
 
                                         </div>
                                     </div>
@@ -87,48 +87,37 @@
                                                 <input type="text" class="form-control" name="telefono" placeholder="telefono" th:value="${usuario.telefono}">
                                             </div>
 
-                                             <div class="input-group mb-3">
+                                            <div class="input-group mb-3">
                                                 <input type="file" class="form-control mb-3" name="archivo">
                                             </div>
-                                            
-                                           
-                                            
-                                            
-                                            <p class="card-title mb-3 text-center" style="color: #2a363b"> Valide sus claves para guardar los cambios </p>
 
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Password</span>
-                                                <input type="password" class="form-control" name="password" placeholder="****">
-                                            </div>
 
-                                            
-                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
 
-                                        
-                                            
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Password</span>
-                                                <input type="password" class="form-control" name="password2" placeholder="****">
-                                            </div>
 
-                                         
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+
+                                            <br>
+
 
                                             <div>
-                                                <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion y volver a entrar para visualizar los cambios </p>
+                                                <br>
+
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
-                                                <a  class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver  </a>
+                                                <br>
+                                                <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+                                                <br>
+                                                <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
                                                 
-                                                <hr>
-                                                
+
                                                 <a  class="btn btn-danger form-control mb-3" th:href="@{/usuario/dar_baja_usuario}"> Suspender mi cuenta y dejar de mostrar mi perfil  </a>
                                             </div>
-                                            
+
                                             <div th:replace="~{/fragments/error:: errores1}"></div>
-                                            
-                                            
+
+
                                         </form>
 
-                                            <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
+                                        <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
 
                                     </div>
                                 </div>   

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +10,16 @@
         <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
         <link rel="stylesheet" href="/CSS/estiloslogin.css">
     </head>
+
     <body class="" >
 
         <header th:replace="~{/fragments/header :: header}"></header>
 
-        <div class="">
-            <main class="">
+        <div class="container container-fluid d-flex">
+            <main class="flex-grow-1 container-fluid">
+
+                <div th:replace="~{/fragments/error :: errores1}"></div>
+
 
                 <section style="background-color: #443C68;">
                     <div class="container py-5">
@@ -91,52 +96,48 @@
                                                 <input type="file" class="form-control mb-3" name="archivo">
                                             </div>
 
-                                            
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+                                            <br>
 
-                                           
 
                                             <div>
-                                                <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion y volver a entrar para visualizar los cambios </p>
+                                                <br>
+
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
-                                               
+                                                
+                                                <button class="btn btn-primary form-control mb-3" id="botonVolver" onclick="goBack()">Volver</button>
+
+                                                <br>
+                                                <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
+
+                                                <br>
+
+
 
                                                 <hr>
 
 
                                                 </form>
-                                                
-                                                 <button type="button" class="btn btn-primary form-control mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+
                                                 <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
                                                 <div th:if="${usuario.estadoProveedorActivo==true}">
-                                                <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
+                                                    <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
                                                 </div>
 
                                                 <div th:if="${usuario.estadoProveedorActivo==false}">
-                                               <button type="button" class="btn btn-success form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"  > Reactivar Mi Cuenta  </a>
+                                                    <button type="button" class="btn btn-success form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"  > Reactivar Mi Cuenta  </a>
                                                 </div>
-                                                 <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
+                                                <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
 
                                                 <a  class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver  </a>
 
-                                                
-                                                
+
+
                                                 <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
 
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
+
+
+
                                                 <!----MODAL DE SUSPERNDER CUENTA ---->
                                                 <form th:action="@{suspender_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
                                                     <div class ="texto">
@@ -157,7 +158,7 @@
                                                                         <p class="mb-4" style="color: #FF0000" id = "campo"></p>
                                                                         <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
 
-                                                                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+                                                                        
 
                                                                     </div>
 
@@ -167,12 +168,12 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                                 <!----FIN MODAL DE SUSPERNDER CUENTA ---->
+                                                <!----FIN MODAL DE SUSPERNDER CUENTA ---->
 
-                                                 
-                                                 
-                                                 <!---- MODAL DE REACTIVAR CUENTA ---->
-                                                 <form th:action="@{/proveedor/reactivar_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
+
+
+                                                <!---- MODAL DE REACTIVAR CUENTA ---->
+                                                <form th:action="@{/proveedor/reactivar_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
                                                     <div class ="texto">
 
                                                         <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -198,13 +199,14 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                                        <!----FIN MODAL DE REACTIVAR CUENTA ---->
+                                                <!----FIN MODAL DE REACTIVAR CUENTA ---->
                                             </div>
                                     </div>
                                 </div>   
                             </div>
 
                         </div>
+                    </div>
 
                 </section>
 
