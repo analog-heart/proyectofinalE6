@@ -38,20 +38,8 @@
                                     <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
                                 </div>
 
-                                <!-- <div th:replace="~{/fragments/error:: errores1}"></div> -->
-                                <div id="errorDiv" th:if="${error != null}" class="text-white bg-danger mb-3 mensajeError" style="position: fixed; top: 32%; left: 75%; transform: translate(-50%, -50%);">
-                                    <div class="card-body">
-                                        <h5 class="card-title">!!Pone bien los dedos!</h5>
-                                        <img src="/IMG/Caras/face-palm.gif" style="width: 200px; height: 200px;" alt="error img">
-                                        <p class="card-text" th:text="${error}"></p>
-                                    </div>
-                                </div>
-                                <div th:if="${exito != null}" class=" text-white bg-success mb-3 mt-3 mensajeExito" >
-                                    <div class="card-body">
-                                        <h5 class="card-title">Exito!</h5>
-                                        <p class="card-text" th:text="${exito}"></p>
-                                    </div>
-                                </div>
+                                 <div th:replace="~{/fragments/error:: errores1}"></div> 
+                                
 
                             </div>
                         </form>
@@ -66,18 +54,7 @@
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
         
         <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-        <script>
-            // Obtener el elemento del div de error
-            const errorDiv = document.getElementById('errorDiv');
-        
-            // Mostrar el div de error
-            errorDiv.classList.add('show');
-        
-            // Ocultar el div de error después de 3 segundos
-            setTimeout(function() {
-                errorDiv.classList.remove('show');
-            }, 3000);
-        </script>
+       
 
     </body>
 

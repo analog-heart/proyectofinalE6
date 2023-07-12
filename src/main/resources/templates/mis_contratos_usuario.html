@@ -50,44 +50,69 @@
                                                 <button th:if="${contrato.estado.toString() == 'TERMINADO'}" type="submit"
                                                     class="btn btn-primary">Calificar trabajo del profesional</button> -->
                             <div class="input-group mb-3">
+                                <div th:if="${contrato.estado.toString() == 'TERMINADO'}">
 
-                                <form class="row g-3" style="width:800px; margin:0 auto;"
-                                    th:if="${contrato.estado.toString() == 'TERMINADO'}" type="form" method="POST"
-                                    th:action="@{/contrato/calificar_contrato}">
-                                    <input hidden th:value="${contrato.id}" name="idContrato">
-                                    <label for="validationServer01" class="form-label">Comentarios del servicio del
-                                        profesional:</label>
-                                    <input class="form-control is-valid" type="text" name="comentarioFinal"
-                                        placeholder="Valoracion..." />
+                               
 
-                                    <select name="calificacion" class="form-select form-select-sm"
-                                        aria-label=".form-select-sm example">
-                                        <option selected class="form-control is-valid">Calificar trabajo:</option>
-                                        <option th:value="1">1</option>
-                                        <option th:value="2">2</option>
-                                        <option th:value="3">3</option>
-                                        <option th:value="4">4</option>
-                                        <option th:value="5">5</option>
-                                    </select>
-                                    <div class="valid-feedback">
-                                        ¡Gracias!
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input is-invalid" type="checkbox" value=""
-                                                id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
-                                            <label class="form-check-label" for="invalidCheck3">
-                                                Aceptaciòn de terminos y condiciones
-                                            </label>
-                                            <div id="invalidCheck3Feedback" class="invalid-feedback">
-                                                Debes aceptarlos
+                                <!--Boton que abre el modal-->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modalPuntuacion">
+                                    Calificar proveedor</button>
+
+                                <!--modal-->
+                                <div class="modal fade" id="modalPuntuacion" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Calificar proveedor</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Puntuación y comentario dentro del modal -->
+                                                <label>¿Cómo calificarías el servicio?</label>
+                                                <form style="position: fixed;" id="formu" method="POST"
+                                                    th:action="@{/contrato/calificar_contrato}">
+                                                    <input hidden th:value="${contrato.id}" name="idContrato">
+                                                    <p class="clasificacion">
+                                                        <input id="radio1" type="radio" name="calificacion"
+                                                            th:value="5">
+                                                        <label for="radio1">★</label>
+                                                        <input id="radio2" type="radio" name="calificacion"
+                                                            th:value="4">
+                                                        <label for="radio2">★</label>
+                                                        <input id="radio3" type="radio" name="calificacion"
+                                                            th:value="3">
+                                                        <label for="radio3">★</label>
+                                                        <input id="radio4" type="radio" name="calificacion"
+                                                            th:value="2">
+                                                        <label for="radio4">★</label>
+                                                        <input id="radio5" type="radio" name="calificacion"
+                                                            th:value="1">
+                                                        <label for="radio5">★</label>
+                                                    </p>
+
+                                                </form>
+
+                                                <br><br><br>
+
+                                                <div>
+                                                    <textarea style="font-size:larger" rows="6" cols="35"
+                                                        maxlength="250" name="comentarioFinal"
+                                                        placeholder="Dejá tu comentario"></textarea>
+                                                    <br>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary"
+                                                    onclick="enviarFormulario()">Enviar</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary" type="submit">Enviar</button>
-                                    </div>
-                                </form>
+                                </div>
+                            </div>
 
                                 <div class="input-group mb-3" th:if="${contrato.estado.toString() == 'ENCURSO'}">
 
@@ -98,8 +123,8 @@
                                             <label for="validationServer01" class="form-label" value="">¿Desea cancelar
                                                 el trabajo en curso?</label>
                                             <input placeholder="Indicar motivo..." type="text"
-                                                class="form-control is-valid" id="validationServer01" name="comentarioFinal"
-                                                required>
+                                                class="form-control is-valid" id="validationServer01"
+                                                name="comentarioFinal" required>
                                             <div class="valid-feedback">
                                                 !Que lastima! Esperamos ser de mas utilidad la proxima vez
                                             </div>
@@ -131,8 +156,8 @@
                                             <label for="validationServer01" class="form-label" value="">¿Desea cancelar
                                                 la solicitud realizada?</label>
                                             <input placeholder="Indicar motivo..." type="text"
-                                                class="form-control is-valid" id="validationServer01" name="comentarioFinal"
-                                                required>
+                                                class="form-control is-valid" id="validationServer01"
+                                                name="comentarioFinal" required>
                                             <div class="valid-feedback">
                                                 !Que lastima! Esperamos ser de mas utilidad la proxima vez
                                             </div>
@@ -168,6 +193,27 @@
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
     <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+
+    <script>
+        function enviarFormulario() {
+            // Obtener el valor del campo comentarioFinal
+            var comentarioFinal = document.querySelector("#modalPuntuacion textarea[name='comentarioFinal']").value;
+
+            // Crear un input oculto para enviar el campo comentarioFinal
+            var inputComentarioFinal = document.createElement("input");
+            inputComentarioFinal.type = "hidden";
+            inputComentarioFinal.name = "comentarioFinal";
+            inputComentarioFinal.value = comentarioFinal;
+
+            // Agregar el input oculto al formulario
+            var formulario = document.getElementById("formu");
+            formulario.appendChild(inputComentarioFinal);
+
+            // Enviar el formulario
+            formulario.submit();
+        }
+    </script>
+
 </body>
 
 </html>

@@ -1,8 +1,7 @@
 <div th:fragment="errores1">
-    <div id="errorDiv" th:if="${error != null}" class="text-white bg-danger mb-3 mensajeError" style="position: fixed; top: 32%; left: 75%; transform: translate(-50%, -50%);">
+    <div id="errorDiv" th:if="${error != null}" class="text-white bg-danger mb-3 mensajeError" >
         <div class="card-body">
-            <h5 class="card-title">!!Pone bien los dedos!</h5>
-            <img src="/IMG/Caras/face-palm.gif" style="width: 200px; height: 200px;" alt="error img">
+                 <h5 class="card-title">Error:</h5>
             <p class="card-text" th:text="${error}"></p>
         </div>
     </div>
@@ -14,15 +13,4 @@
     </div>
 </div>
 
-<script>
-    // Obtener el elemento del div de error
-    const errorDiv = document.getElementById('errorDiv');
 
-    // Mostrar el div de error
-    errorDiv.classList.add('show');
-
-    // Ocultar el div de error después de 3 segundos
-    setTimeout(function() {
-        errorDiv.classList.remove('show');
-    }, 3000);
-</script>
