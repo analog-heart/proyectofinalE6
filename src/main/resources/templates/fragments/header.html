@@ -26,9 +26,9 @@
 
                 <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/dashboard}"
                        class="nav-link px-2 link-body-emphasis" style="color: azure">Dashboard</a></li>
-                  <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/solicitudesPendientes}"
+                <li th:if="${cantSolict > 0 }"><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/autorizar_solicitudes_nuevo}"
                        class="nav-link px-2 link-body-emphasis" style="color: azure"
-                      th:if="${cantSolict != null}" th:text="'Solicitudes pendientes (' + ${cantSolict} + ')'"></a></li>       
+                      th:text="'Solicitudes pendientes (' + ${cantSolict} + ')'"></a></li>       
                        
                        
                        

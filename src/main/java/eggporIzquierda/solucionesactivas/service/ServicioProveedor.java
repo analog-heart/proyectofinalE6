@@ -75,12 +75,15 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setNombreUsuario(nombreUsuario);
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
-
         proveedor.setDni(dni);
         proveedor.setTelefono(telefono);
         proveedor.setEmail(email);
         proveedor.setTelefono(telefono);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+        proveedor.setEstadoProveedorActivo(Boolean.FALSE);
+        proveedor.setReputacion(0.0);
+        proveedor.setNivel(EnumNivel.INICIAL);
+        // al registarse se guarda como usuario y solo cuando el admin lo acepte cambiara a PROVEEDOR
         proveedor.setRol(Rol.USUARIO);
 
         try {
@@ -101,9 +104,7 @@ public class ServicioProveedor implements UserDetailsService {
         Date fechatemp = new Date();
         proveedor.setFecha(fechatemp);
 
-        proveedor.setEstadoProveedorActivo(Boolean.FALSE);
-        proveedor.setReputacion(0.0);
-        proveedor.setNivel(EnumNivel.INICIAL);
+       
         proveedorRepositorio.save(proveedor);
 
     }
@@ -150,25 +151,7 @@ public class ServicioProveedor implements UserDetailsService {
         return proveedorRepositorio.getOne(id);
     }
 
-    @Transactional(readOnly = true)
-    public List<Proveedor> listarProveedores() {
-
-        List<Proveedor> proveedores = new ArrayList();
-
-        proveedores = proveedorRepositorio.findAll();
-
-        return proveedores;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Proveedor> listarProveedoresActivos() {
-
-        List<Proveedor> proveedores = new ArrayList();
-
-        proveedores = proveedorRepositorio.listarProveedoresActivos();
-
-        return proveedores;
-    }
+    
 
     @Transactional
     public void cambiarRol(String id) {
@@ -218,6 +201,101 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
+    
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(email);
+
+        if (proveedor != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + proveedor.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = (HttpSession) attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", proveedor);
+
+            return new User(proveedor.getEmail(), proveedor.getPassword(), permisos);
+        } else {
+            return null;
+        }
+    }
+
+   @Transactional(readOnly = true)
+    public List<Proveedor> listarProveedores() {
+        List<Proveedor> proveedores = proveedorRepositorio.findAll();
+        return proveedores;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Proveedor> listarProveedoresActivos() {
+        List<Proveedor> proveedores = proveedorRepositorio.listarProveedoresActivos();
+        return proveedores;
+    }
+
+    public List<Proveedor> buscarProveedoresXnombre(String nombre) {
+        List<Proveedor> proveedoresXnombre =  proveedorRepositorio.buscarPorNombre(nombre);
+        return proveedoresXnombre;
+    }
+
+    public List<Proveedor> buscarProveedoresxPalabraClave(String palabraClave) {
+        List<Proveedor> proveedoresList = proveedorRepositorio.listarXpalabraClave(palabraClave);
+        return proveedoresList;
+
+    }
+
+    public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
+        return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
+
+    }
+
+    // -------autogestion desde mi perfil
+    public void suspenderMiCuenta(String id) {
+       
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setEstadoProveedorActivo(false);
+            proveedorRepositorio.save(proveedor);
+        }
+    }
+
+    public void reactivarMiCuenta(String id) {
+         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setEstadoProveedorActivo(true);
+            proveedorRepositorio.save(proveedor);
+        }
+
+     }
+    
+    
+    private void validardatosbasicos(String nombre, String apellido,String email,String dni ,String telefono) throws MiException{
+          if (nombre.isEmpty() ) {
+            throw new MiException("el nombre no puede estar vacío");
+        }
+          
+           if (apellido.isEmpty() ) {
+            throw new MiException("el apellido no estar vacio");
+        }
+        if (email.isEmpty() ) {
+            throw new MiException("el email no puede ser nulo o estar vacio");
+        }
+         if (dni.isEmpty() ) {
+            throw new MiException("el dni no puede  estar vacio");
+        }
+          if (telefono.isEmpty() ) {
+            throw new MiException("el email no puede estar vacio");
+        }
+    }
+
     private void validar(String nombre,String apellido, String email, String password, String password2, String dni, String telefono) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
@@ -251,102 +329,8 @@ public class ServicioProveedor implements UserDetailsService {
         }
 
     } 
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Proveedor proveedor = proveedorRepositorio.buscarPorEmail(email);
-
-        if (proveedor != null) {
-
-            List<GrantedAuthority> permisos = new ArrayList();
-
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + proveedor.getRol().toString());
-
-            permisos.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-            HttpSession session = (HttpSession) attr.getRequest().getSession(true);
-
-            session.setAttribute("usuariosession", proveedor);
-
-            return new User(proveedor.getEmail(), proveedor.getPassword(), permisos);
-        } else {
-            return null;
-        }
-    }
-
-    public List<Proveedor> findAllbyfechadesc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public List<Proveedor> buscarProveedoresXnombre(String nombre) {
-
-        List<Proveedor> proveedoresXnombre = new ArrayList();
-
-        proveedoresXnombre = proveedorRepositorio.buscarPorNombre(nombre);
-
-        return proveedoresXnombre;
-    }
-
-    public List<Proveedor> buscarProveedoresxFiltro(String palabraClave) {
-        List<Proveedor> proveedoresList = new ArrayList();
-
-        proveedoresList = proveedorRepositorio.listarXpalabraClave(palabraClave);
-
-        return proveedoresList;
-
-    }
-
     
-
-    public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
-
-        return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
-
-    }
-
-
-    public void suspenderMiCuenta(String id) {
-       
-        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Proveedor proveedor = respuesta.get();
-            proveedor.setEstadoProveedorActivo(false);
-            proveedorRepositorio.save(proveedor);
-        }
-    }
-
-    public void reactivarMiCuenta(String id) {
-         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Proveedor proveedor = respuesta.get();
-            proveedor.setEstadoProveedorActivo(true);
-            proveedorRepositorio.save(proveedor);
-        }
-
-     }
-    
-    private void validardatosbasicos(String nombre, String apellido,String email,String dni ,String telefono) throws MiException{
-          if (nombre.isEmpty() ) {
-            throw new MiException("el nombre no puede estar vacío");
-        }
-          
-           if (apellido.isEmpty() ) {
-            throw new MiException("el apellido no estar vacio");
-        }
-        if (email.isEmpty() ) {
-            throw new MiException("el email no puede ser nulo o estar vacio");
-        }
-         if (dni.isEmpty() ) {
-            throw new MiException("el dni no puede  estar vacio");
-        }
-          if (telefono.isEmpty() ) {
-            throw new MiException("el email no puede estar vacio");
-        }
-    }
-
+     //------Autorizacion Inicial del Admin----
     public void autorizarnuevoproveedor(String id) {
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
