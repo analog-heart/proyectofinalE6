@@ -154,4 +154,22 @@ public class ControladorUsuario {
 
         return "mis_contratos_usuario_terminado.html";
     }
+    
+     @PostMapping("/actualizarclave/{id}")
+    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
+            @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
+        
+        try {
+            usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
+            return "redirect:../mi_perfil_usuario";
+            
+        } catch (MiException ex) {
+            
+            modelo.put("error", ex.getMessage());
+            return "inicio.html";
+   
+        }
+ 
+        
+    }
 }

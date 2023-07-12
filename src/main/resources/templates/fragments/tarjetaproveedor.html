@@ -1,6 +1,6 @@
 <div th:fragment="tarjetaproveedor">
    <div class="container">
-    <div class="card" style="width: 30rem;">
+    <div class="card my-3" style="width: 40rem;">
       <div class="row">
         <div class="col d-flex align-items-stretch">
           <img th:src="@{/imagen/perfil/__${proveedor.id}__}" class="card-img-top" style="width: 300px; height: 348px;"
@@ -15,8 +15,7 @@
             <hr>
             <div class="container">
               <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-dark btn-rounded">Contratame</a>
-              <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded" target="_blank">MSG
-                Whatsapp</a>
+              <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded" target="_blank">Whatsapp</a>
             </div>
           </div>
         </div>
