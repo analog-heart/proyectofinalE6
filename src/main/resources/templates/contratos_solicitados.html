@@ -23,11 +23,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <!-- <p class="card-text" th:text="${contrato.fecha_contrato}"></p> -->
                     <h6>Comentarios del cliente:</h6>
                     <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
-                    <div>
+                    <div class="d-flex justify-content-between ">
                     <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
                         <input hidden th:value= "${contrato.id}" name="idContrato">
-                        <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar contrato</button>
-                        <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar contrato</button>
+                        <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded btn-block">Aceptar contrato</button>
+                        <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded btn-block">Rechazar contrato</button>
                     </form>
                     </div>
                 </div>

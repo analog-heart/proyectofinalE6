@@ -43,13 +43,13 @@
                         <p
                             th:each="serv : ${proveedor.servicios}"
                             th:text="${serv.serv_descripcion}"
-                            ></p>
+                            >
+                                
+                        </p>
                         <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/contratar}" method="POST">
                             <div class="link">
-
-                                <input class="comentarioInicial" type="text" name="comentarioInicial" placeholder="Comentario del trabajo..."/>
-                                <button class="btn btn-primary" type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
-
+                                <input class="comentarioInicial btn-block" type="text" name="comentarioInicial" placeholder="Comentario del trabajo..."/>
+                                <button class="btn btn-primary btn-block" type="submit" name="idProveedor" th:value="${proveedor.id}">Solicitar trabajo</button>
                             </div>
                         </form>
                     </div>

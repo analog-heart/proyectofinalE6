@@ -28,20 +28,20 @@
                         <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
                         <h6>ESTADO</h6>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                        <h6>FECHA ALTA</h6>
+<!--                        <h6>FECHA ALTA</h6>-->
                         <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
                         <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
                         <div>
 
                             <form class="row g-3" type="form" method="POST" th:action="@{/contrato/finalizar_contrato_usuario}">
-                                <input hidden th:value="${contrato.id}" name="idContrato">
+<!--                                <input hidden th:value="${contrato.id}" name="idContrato">
                                 <div class="col-md-4">
                                     <label for="validationServer01" class="form-label" value="">¿Desea cancelar el trabajo en curso?</label>
                                     <input placeholder="Indicar motivo..." type="text" class="form-control is-valid" id="validationServer01" name="comentarioFinal" required>
                                     <div class="valid-feedback">
                                         !Que lastima! Esperamos ser de mas utilidad la proxima vez
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
