@@ -101,10 +101,12 @@ public class ControladorPortal {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
-
+    public String login(@RequestParam(required = false) String error, ModelMap modelo, HttpSession session) {
+      
         if (error != null) {
+
             modelo.put("error", "Usuario o Contraseña invalidos!");
+            session.removeAttribute("usuariosession");
         }
         return "login.html";
     }
@@ -113,7 +115,7 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
 
-        //Agrego logia para probar notificaciones al proveedor
+        //Agrego logica para probar notificaciones al proveedor
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
 

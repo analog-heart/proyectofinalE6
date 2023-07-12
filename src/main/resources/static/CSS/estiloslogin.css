@@ -1,4 +1,7 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
+.footer-alpiso {
+    min-height: 100vh;
+}
 header{
 
     background-color: #635985;
@@ -60,16 +63,16 @@ footer{
     margin-bottom: 30px;
 }
 
-form {
+/* form {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} */
 
-/*.form-input {
+.form-input {
     margin-bottom: 20px;
     width: 100%;
-}*/
+}
 
 .form-input input {
      width: 100%;
