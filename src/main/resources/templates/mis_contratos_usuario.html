@@ -51,7 +51,7 @@
                                                     class="btn btn-primary">Calificar trabajo del profesional</button> -->
                             <div class="input-group mb-3">
 
-                                <form class="row g-3" style="width:800px; margin:0 auto;"
+                                <form class="row g-3" style="width:800px; margin:0 auto; height: auto;"
                                     th:if="${contrato.estado.toString() == 'TERMINADO'}" type="form" method="POST"
                                     th:action="@{/contrato/calificar_contrato}">
                                     <input hidden th:value="${contrato.id}" name="idContrato">
@@ -89,7 +89,7 @@
                                     </div>
                                 </form>
 
-                                <div class="input-group mb-3" th:if="${contrato.estado.toString() == 'ENCURSO'}">
+                                <div class="input-group mb-3" style="width: 24rem; height: auto;" th:if="${contrato.estado.toString() == 'ENCURSO'}">
 
                                     <form class="row g-3" type="form" method="POST"
                                         th:action="@{/contrato/finalizar_contrato_usuario}">
