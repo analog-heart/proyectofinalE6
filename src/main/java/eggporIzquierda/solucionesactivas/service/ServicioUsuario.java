@@ -195,6 +195,8 @@ public class ServicioUsuario implements UserDetailsService {
 
             permisos.add(p);
 
+            System.out.println("ingresa a loaduser");
+
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 
             HttpSession session = (HttpSession) attr.getRequest().getSession(true);
