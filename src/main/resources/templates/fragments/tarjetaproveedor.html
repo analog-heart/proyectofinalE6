@@ -1,5 +1,5 @@
 <div th:fragment="tarjetaproveedor">
-   <div class="container">
+  <div class="container">
     <div class="card my-3" style="width: 600px;">
       <div class="row g-0">
         <div class="col align-self-stretch">
@@ -13,25 +13,28 @@
             <h6>SERVICIO PRESTADO</h6>
             <h5 id="span-card" th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></h5>
             <hr>
-            <h5>REPUTACION: <span id="span-card" th:text="${proveedor.reputacion}"></span></h5>
-            <p>TRABAJOS REALIZADOS: 10</p>
-           
+            <h5 th:if="${proveedor.reputacion != 0.0}">Reputación: <span id="span-card" th:text="${proveedor.reputacion}"></span></h5>
+            <h5 th:if="${proveedor.reputacion == 0.0}">Reputación: <span id="span-card">Aún sin Calificaciones</span></h5>
+            <h5 class="card-title" id="nombreCard" th:text="'Trabajos realizados: ' + ${proveedor.cantidadTrabajos}">
+            </h5>
+
           </div>
         </div>
       </div>
     </div>
     <div sec:authorize="hasAnyRole('USUARIO','ADMIN')">
       <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-info btn-rounded">Contratame</a>
-      <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded" target="_blank">Whatsapp</a>
+      <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded"
+        target="_blank">Whatsapp</a>
     </div>
   </div>
 
   <style>
     .img-stretch {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  }
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 
 

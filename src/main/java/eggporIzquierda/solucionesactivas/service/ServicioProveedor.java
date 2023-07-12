@@ -40,9 +40,9 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private RepositorioProveedor proveedorRepositorio;
-    
+
     @Autowired
-    private RepositorioUsuario usuarioRepositorio;    
+    private RepositorioUsuario usuarioRepositorio;
 
     @Autowired
     private RepositorioContrato contratoRepositorio;
@@ -52,20 +52,22 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private RepositorioServicioOfrecido servOfrecidoServicio;
-        
 
     @Transactional
-    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
+    public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario,
+            String nombre, String apellido, String fechaNacimiento, String dni, String email, String password,
+            String password2, String telefono) throws MiException {
 
-        validar(nombre, apellido,  email,  password,  password2,  dni,  telefono);
+        validar(nombre, apellido, email, password, password2, dni, telefono);
         Proveedor proveedor = new Proveedor();
-        //----------recupero con el id el dato de la clase servicio
+        // ----------recupero con el id el dato de la clase servicio
 
         Optional<ServicioOfrecido> respuesta = servOfrecidoServicio.findById(serviciosID);
 
         if (respuesta.isPresent()) {
             ServicioOfrecido servicioTemporal = respuesta.get();
-            //----------creo una lista de servicios , le guardo los datos que recupere con el id y lo seteo en proveedor
+            // ----------creo una lista de servicios , le guardo los datos que recupere con
+            // el id y lo seteo en proveedor
             List<ServicioOfrecido> serviciosList = new ArrayList<>();
             serviciosList.add(servicioTemporal);
             proveedor.setServicios(serviciosList);
@@ -97,7 +99,7 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setFotoPerfil(imagen);
         }
 
-        //seteo fecha de alta
+        // seteo fecha de alta
         Date fechatemp = new Date();
         proveedor.setFecha(fechatemp);
 
@@ -109,12 +111,10 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, 
-      String nombreUsuario, String apellido, String dni, String telefono) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email,
+            String nombreUsuario, String apellido, String dni, String telefono) throws MiException {
 
-        validardatosbasicos(nombre, apellido, email, dni , telefono);
-
-     
+        validardatosbasicos(nombre, apellido, email, dni, telefono);
 
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -126,10 +126,9 @@ public class ServicioProveedor implements UserDetailsService {
             proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
             proveedor.setDni(dni);
-            proveedor.setEmail(email);   
+            proveedor.setEmail(email);
             proveedor.setTelefono(telefono);
 
-          
             if (proveedor.getFotoPerfil() != null && !archivo.isEmpty()) {
                 String idImagen = proveedor.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
@@ -218,30 +217,55 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
-    private void validar(String nombre,String apellido, String email, String password, String password2, String dni, String telefono) throws MiException {
+    public void cantidadDeTrabajos(String id) throws MiException {
+
+        List<ContratoProveedor> contratosCalif = new ArrayList();
+        List<ContratoProveedor> contratosTerminados = new ArrayList();
+
+        contratosCalif = contratoRepositorio.listarPorEstadoCalificado(id);
+        contratosTerminados = contratoRepositorio.listarPorEstadoTerminado(id);
+
+        Integer cantidadTotal = contratosCalif.size() + contratosTerminados.size();
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setCantidadTrabajos(cantidadTotal);
+            proveedorRepositorio.save(proveedor);
+        }
+
+        if (respuesta.isEmpty()) {
+            throw new MiException("El proveedor no existe");
+        }
+
+    }
+
+    private void validar(String nombre, String apellido, String email, String password, String password2, String dni,
+            String telefono) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacío");
         }
-        
+
         if (apellido.isEmpty() || apellido == null) {
             throw new MiException("el apellido no puede ser nulo o estar vacío");
         }
         if (dni.isEmpty() || dni == null || dni.length() != 8) {
             throw new MiException("DNI no valido");
         }
-        
-        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20 ) {
+
+        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20) {
             throw new MiException("Telefono no valido");
-        }         
+        }
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
-        }    
+        }
         Usuario respuesta = usuarioRepositorio.buscarPorEmail(email);
         if (respuesta != null) {
-             throw new MiException("email ya registrado.");
-        }            
-        
+            throw new MiException("email ya registrado.");
+        }
+
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
@@ -250,7 +274,7 @@ public class ServicioProveedor implements UserDetailsService {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
 
-    } 
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -278,7 +302,8 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public List<Proveedor> findAllbyfechadesc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public List<Proveedor> buscarProveedoresXnombre(String nombre) {
@@ -299,17 +324,14 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
-    
-
     public List<Proveedor> listarProveedoresconfiltro(String serv_descripcion) {
 
         return proveedorRepositorio.listarProveedoresXServicio(serv_descripcion);
 
     }
 
-
     public void suspenderMiCuenta(String id) {
-       
+
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
@@ -319,36 +341,33 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public void reactivarMiCuenta(String id) {
-         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             proveedor.setEstadoProveedorActivo(true);
             proveedorRepositorio.save(proveedor);
         }
 
-     }
-    
-    private void validardatosbasicos(String nombre, String apellido,String email,String dni ,String telefono) throws MiException{
-          if (nombre.isEmpty() ) {
+    }
+
+    private void validardatosbasicos(String nombre, String apellido, String email, String dni, String telefono)
+            throws MiException {
+        if (nombre.isEmpty()) {
             throw new MiException("el nombre no puede estar vacío");
         }
-          
-           if (apellido.isEmpty() ) {
+
+        if (apellido.isEmpty()) {
             throw new MiException("el apellido no estar vacio");
         }
-        if (email.isEmpty() ) {
+        if (email.isEmpty()) {
             throw new MiException("el email no puede ser nulo o estar vacio");
         }
-         if (dni.isEmpty() ) {
+        if (dni.isEmpty()) {
             throw new MiException("el dni no puede  estar vacio");
         }
-          if (telefono.isEmpty() ) {
+        if (telefono.isEmpty()) {
             throw new MiException("el email no puede estar vacio");
         }
     }
-    
-    
-    
-    
 
 }
