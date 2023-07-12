@@ -92,6 +92,11 @@ public class ControladorPortal {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);
+            modelo.put("archivo", archivo);            
             modelo.put("email", email);
 
             return "registrar.html";
@@ -148,9 +153,17 @@ public class ControladorPortal {
 
             return "index.html";
         } catch (MiException ex) {
-
+            
+            List<ServicioOfrecido>  serviciosOfrecidos = servOfrecidoServicio.listarServicios();
+            modelo.put("serviciosOfrecidos",serviciosOfrecidos);
+            
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);
+            modelo.put("archivo", archivo);            
             modelo.put("email", email);
 
             return "registrar_proveedor.html";
