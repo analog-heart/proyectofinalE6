@@ -27,7 +27,7 @@
                                 <div class="form-input ">
                                     <input  type="email"class="form-control mb-3 " name="email"  placeholder="EMAIL">
                                 </div>
-                                <!--<input type="file" class="form-control mb-3" name="archivo">-->
+                                
                                 <div class="form-input ">
                                     <input type="password" class="form-control mb-3" name="password" placeholder="CONTRASEÑA">
                                 </div>
@@ -38,11 +38,10 @@
                                     <button type="submit texto" class="btn btn-primary mt-3 form-control mb-3 botones">Ingresar</button>
                                 </div>
 
-                                <!-- <div th:replace="~{/fragments/error:: errores1}"></div> -->
+                                
                                 <div id="errorDiv" th:if="${error != null}" class="text-white bg-danger mb-3 mensajeError" style="position: fixed; top: 32%; left: 75%; transform: translate(-50%, -50%);">
                                     <div class="card-body">
-                                        <h5 class="card-title">!!Pone bien los dedos!</h5>
-                                        <img src="/IMG/Caras/face-palm.gif" style="width: 200px; height: 200px;" alt="error img">
+                                        <h5 class="card-title">La contraseña es incorrecta</h5>
                                         <p class="card-text" th:text="${error}"></p>
                                     </div>
                                 </div>
@@ -62,22 +61,10 @@
             
                         
         </main>
-    <!-- </div> -->
+    
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
-        
-        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-        <script>
-            // Obtener el elemento del div de error
-            const errorDiv = document.getElementById('errorDiv');
-        
-            // Mostrar el div de error
-            errorDiv.classList.add('show');
-        
-            // Ocultar el div de error después de 3 segundos
-            setTimeout(function() {
-                errorDiv.classList.remove('show');
-            }, 3000);
-        </script>
+      
+       
 
     </body>
 

@@ -60,8 +60,7 @@
     </div>
   </main>
 
-  <footer th:replace="~{/fragments/footer :: footer}"></footer>
-  <!-- <script src="../static/JS/forms.js"></script> -->
+
   <script>
     let previousTitle = document.title;
     console.log(previousTitle);
@@ -74,6 +73,8 @@
       document.title = previousTitle;
     });
   </script>
+
+<footer th:replace="~{/fragments/footer :: footer}"></footer>
 
 </body>
 
