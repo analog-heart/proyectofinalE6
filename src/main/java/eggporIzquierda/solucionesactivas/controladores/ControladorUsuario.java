@@ -134,11 +134,12 @@ public class ControladorUsuario {
         List<ContratoProveedor> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
+       
+        modelo.put("contratosUsuario", contratosSesion);
+       //agregado por lucho y juan
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", proveedores);
-
-        modelo.put("contratosUsuario", contratosSesion);
-        modelo.put("proveedores", proveedores);
+         modelo.put("proveedores", proveedores);
 
         return "mis_contratos_usuario.html";
     }
