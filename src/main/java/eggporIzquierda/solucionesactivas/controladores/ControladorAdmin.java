@@ -32,7 +32,6 @@ public class ControladorAdmin {
     @Autowired
     private ServicioContrato contratoServicio;
 
-
     @GetMapping("/dashboard")
     public String panelAdministrativo() {
         return "dashboardadmin.html";
@@ -99,30 +98,17 @@ public class ControladorAdmin {
     @GetMapping("/dashboard/contratos_denunciados")
     public String listarContratosDenunciados(ModelMap modelo) {
 
-        System.out.println("ENTRANDO AL CONTROLADOR");
-
-        //List<Usuario> usuarios = usuarioservicio.listarUsuarios();
         List<ContratoProveedor> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
-
-        System.out.println("CONTRATOS DENUNCIADOS: " + contratosDenunciados);
-        //modelo.addAttribute("usuarios", usuarios);
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
-        //modelo.put("contratosDenunciados", contratosDenunciados);
-
-        System.out.println("ENTRANDO AL CONTROLADOR 2");
 
         return "contratos_denunciados.html";
     }
 
     @PostMapping("/dashboard/comentario_eliminado")
     public String eliminarComentarioDenunciado(ModelMap modelo, String idContrato) throws MiException {
-        //List<Usuario> usuarios = usuarioservicio.listarUsuarios();
 
         contratoServicio.eliminarComentarioDenunciado(idContrato);
-        
         List<ContratoProveedor> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
-
-        //modelo.addAttribute("usuarios", usuarios);
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
 
         return "contratos_denunciados.html";
