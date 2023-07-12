@@ -120,8 +120,14 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
 
+        
+          Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario.getRol().toString().equals("ADMIN")) {
+            return "redirect:/admin/dashboard";
+         }
+        
         //Agrego logica para probar notificaciones al proveedor
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+      
         modelo.put("usuario", usuario);
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
@@ -131,9 +137,7 @@ public class ControladorPortal {
          List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
          modelo.put("servicios", listaServ);
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        // if (logueado.getRol().toString().equals("ADMIN")) {
-        //     return "redirect:/admin/dashboard";
-        // }
+        // 
         return "inicio.html";
     }
 

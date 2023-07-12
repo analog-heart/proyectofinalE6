@@ -81,7 +81,7 @@ public class ServicioProveedor implements UserDetailsService {
         proveedor.setEmail(email);
         proveedor.setTelefono(telefono);
         proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-        proveedor.setRol(Rol.PROVEEDOR);
+        proveedor.setRol(Rol.USUARIO);
 
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,7 +101,7 @@ public class ServicioProveedor implements UserDetailsService {
         Date fechatemp = new Date();
         proveedor.setFecha(fechatemp);
 
-        proveedor.setEstadoProveedorActivo(Boolean.TRUE);
+        proveedor.setEstadoProveedorActivo(Boolean.FALSE);
         proveedor.setReputacion(0.0);
         proveedor.setNivel(EnumNivel.INICIAL);
         proveedorRepositorio.save(proveedor);
@@ -344,6 +344,16 @@ public class ServicioProveedor implements UserDetailsService {
         }
           if (telefono.isEmpty() ) {
             throw new MiException("el email no puede estar vacio");
+        }
+    }
+
+    public void autorizarnuevoproveedor(String id) {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setEstadoProveedorActivo(true);
+            proveedor.setRol(Rol.PROVEEDOR);
+            proveedorRepositorio.save(proveedor);
         }
     }
     
