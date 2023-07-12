@@ -13,7 +13,8 @@
             <h6>SERVICIO PRESTADO</h6>
             <h5 id="span-card" th:each="serv : ${proveedor.servicios}" th:text="${serv.serv_descripcion}"></h5>
             <hr>
-            <h5>REPUTACION: <span id="span-card" th:text="${proveedor.reputacion}"></span></h5>
+            <h5 th:if="${proveedor.reputacion != 0.0}">Reputación: <span id="span-card" th:text="${proveedor.reputacion}"></span></h5>
+            <h5 th:if="${proveedor.reputacion == 0.0}">Reputación: <span id="span-card">Aún sin Calificaciones</span></h5>
             <h5 class="card-title" id="nombreCard" th:text="'Trabajos realizados: ' + ${proveedor.cantidadTrabajos}">
             </h5>
 
