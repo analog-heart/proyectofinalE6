@@ -1,127 +1,136 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{/fragments/head :: head}"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-<body class="footer-alpiso d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid footer-alpiso">
-        <h3 style="text-align: center; color: azure;">Administracion</h3>
-        <!-- <aside class="sidebar sidebar-menu small" id="menu-dashboard"> -->
+        <main class="flex-grow-1 container-fluid footer-alpiso">
+            <h3 style="text-align: center; color: azure;">Administracion</h3>
+            <!-- <aside class="sidebar sidebar-menu small" id="menu-dashboard"> -->
 
-        <div style="text-align: center; margin-top: 20px">
-            <a th:href="@{/usuario/usuarios}">
-                <button type="button" class="btn btn-info">Lista de Usuarios</button>
-            </a>
-            <a th:href="@{/proveedor/proveedores}">
-                <button type="button" class="btn btn-info">
-                    Lista de Proveedores
-                </button>
-            </a>
-        </div>
-        <hr>
-        <!---COMIENzA LOS ACORDEONES--->
-        <div class="row">
-            <div class="col-6">
-                <div class="accordion" id="accordionExample">
-                    <!---Usuarios--->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                Usuarios
-                            </button>
-                        </h2>
-                        <div id="collapse1" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="list-group">
-                                    <a th:href="@{/admin/listarusuarios_activos}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
-                                    <a th:href="@{/admin/listarusuarios_inactivos}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+            <div style="text-align: center; margin-top: 20px">
+                <a th:href="@{/usuario/usuarios}">
+                    <button type="button" class="btn btn-info">Lista de Usuarios</button>
+                </a>
+                <a th:href="@{/proveedor/proveedores}">
+                    <button type="button" class="btn btn-info">
+                        Lista de Proveedores
+                    </button>
+                </a>
+            </div>
+            <hr>
+            <!---COMIENzA LOS ACORDEONES--->
+            <div class="row">
+                <div class="col-6">
+                    <div class="accordion" id="accordionExample">
+                        <!---Usuarios--->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    Usuarios
+                                </button>
+                            </h2>
+
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+
+
+                                <div class="accordion-body">
+                                    <div class="list-group">
+                                        <a th:href="@{/admin/listarusuarios_activos}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
+                                        <a th:href="@{/admin/listarusuarios_inactivos}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!---Proveedores--->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                                    Proveedores
+                                </button>
+                            </h2>
+
+                            <div id="collapse2" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+
+
+                                <div class="accordion-body">
+                                    <div class="list-group">
+                                        <a th:href="@{/proveedor/proveedores}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
+                                        <a th:href="@{/proveedor/proveedores}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-6">
+                    <div class="accordion" id="accordionExample">
+                        <!---Contratos--->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                                    Contratos
+                                </button>
+                            </h2>
 
-                    <!---Proveedores--->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                                Proveedores
-                            </button>
-                        </h2>
-                        <div id="collapse2" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="list-group">
-                                    <a th:href="@{/proveedor/proveedores}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
-                                    <a th:href="@{/proveedor/proveedores}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+                            <div id="collapse3" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+
+
+                                <div class="accordion-body">
+                                    <div class="list-group">
+                                        <a th:href="@{/}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
+                                        <a th:href="@{/}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+                                        <a th:href="@{/admin/dashboard/contratos_denunciados}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Denunciados</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!---Servicios Ofrecidos--->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                                    Servicios Ofrecidos
+                                </button>
+                            </h2>
+
+                            <div id="collapse4" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+
+                                <div class="accordion-body">
+                                    <div class="list-group">
+                                        <a th:href="@{/servicioOfrecido/listarServicio_ofrecido}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Lista
+                                            Servicios</a>
+                                        <a th:href="@{/servicioOfrecido/altaservicio_ofrecido}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Alta de
+                                            Servicio</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="accordion" id="accordionExample">
-                    <!---Contratos--->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                                Contratos
-                            </button>
-                        </h2>
-                        <div id="collapse3" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="list-group">
-                                    <a th:href="@{/}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
-                                    <a th:href="@{/}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!--  </aside> -->
 
-                    <!---Servicios Ofrecidos--->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                                Servicios Ofrecidos
-                            </button>
-                        </h2>
-                        <div id="collapse4" class="accordion-collapse collapse show"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="list-group">
-                                    <a th:href="@{/servicioOfrecido/listarServicio_ofrecido}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Lista
-                                        Servicios</a>
-                                    <a th:href="@{/servicioOfrecido/altaservicio_ofrecido}"
-                                        class="list-group-item list-group-item-action list-group-item-dark">Alta de
-                                        Servicio</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--  </aside> -->
+        </main>
 
-    </main>
-
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
-    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-</body>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+    </body>
 
 </html>
