@@ -40,8 +40,6 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-    @Autowired
-    private ServicioContrato contratoServicio;
 
     @Autowired
     private RepositorioContrato repositorioContrato;
@@ -56,10 +54,15 @@ public class ControladorPortal {
     //-------------------------BUSCADOR--------------------
     @GetMapping("/buscar")
     public String buscar(ModelMap modelo, String palabraClave) {
+<<<<<<< HEAD
         
         List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxPalabraClave(palabraClave);
+=======
+
+        List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
+>>>>>>> Developers
         modelo.addAttribute("proveedores", proveedores);
-        
+
         return "proveedor_list.html";
 
     }
@@ -87,7 +90,7 @@ public class ControladorPortal {
             modelo.put("dni", dni);
             modelo.put("telefono", telefono);
             modelo.put("fechaNacimiento", fechaNacimiento);
-            modelo.put("archivo", archivo);            
+            modelo.put("archivo", archivo);
             modelo.put("email", email);
 
             return "registrar.html";
@@ -98,7 +101,7 @@ public class ControladorPortal {
 
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo, HttpSession session) {
-      
+
         if (error != null) {
 
             modelo.put("error", "Usuario o Contraseña invalidos!");
@@ -111,22 +114,19 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
 
-        
-          Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
-         }
-        
+        }
+
         //Agrego logica para probar notificaciones al proveedor
-      
         modelo.put("usuario", usuario);
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-        
-         List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
-         modelo.put("servicios", listaServ);
+        List<ServicioOfrecido> listaServ = servOfrecidoServicio.listarServicios();
+        modelo.put("servicios", listaServ);
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         // 
         return "inicio.html";
@@ -148,17 +148,17 @@ public class ControladorPortal {
 
             return "index.html";
         } catch (MiException ex) {
-            
-            List<ServicioOfrecido>  serviciosOfrecidos = servOfrecidoServicio.listarServicios();
-            modelo.put("serviciosOfrecidos",serviciosOfrecidos);
-            
+
+            List<ServicioOfrecido> serviciosOfrecidos = servOfrecidoServicio.listarServicios();
+            modelo.put("serviciosOfrecidos", serviciosOfrecidos);
+
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("dni", dni);
             modelo.put("telefono", telefono);
             modelo.put("fechaNacimiento", fechaNacimiento);
-            modelo.put("archivo", archivo);            
+            modelo.put("archivo", archivo);
             modelo.put("email", email);
 
             return "registrar_proveedor.html";
