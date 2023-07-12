@@ -4,6 +4,7 @@ import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
 import eggporIzquierda.solucionesactivas.entity.Imagen;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
+import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -11,6 +12,7 @@ import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.repository.RepositorioDomicilio;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
+import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
 import jakarta.servlet.http.HttpSession;
 
 import java.text.ParseException;
@@ -38,6 +40,9 @@ public class ServicioProveedor implements UserDetailsService {
 
     @Autowired
     private RepositorioProveedor proveedorRepositorio;
+    
+    @Autowired
+    private RepositorioUsuario usuarioRepositorio;    
 
     @Autowired
     private RepositorioContrato contratoRepositorio;
@@ -52,7 +57,7 @@ public class ServicioProveedor implements UserDetailsService {
     @Transactional
     public void registrar(String serviciosID2, String serviciosID, MultipartFile archivo, String nombreUsuario, String nombre, String apellido, String fechaNacimiento, String dni, String email, String password, String password2, String telefono) throws MiException {
 
-        validar(nombre, email, password, password2);
+        validar(nombre, apellido,  email,  password,  password2,  dni,  telefono);
         Proveedor proveedor = new Proveedor();
         //----------recupero con el id el dato de la clase servicio
 
@@ -213,21 +218,39 @@ public class ServicioProveedor implements UserDetailsService {
 
     }
 
-    private void validar(String nombre, String email, String password, String password2) throws MiException {
+    private void validar(String nombre,String apellido, String email, String password, String password2, String dni, String telefono) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("el nombre no puede ser nulo o estar vacío");
         }
+        
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("el apellido no puede ser nulo o estar vacío");
+        }
+        if (dni.isEmpty() || dni == null || dni.length() != 8) {
+            throw new MiException("DNI no valido");
+        }
+        
+        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20 ) {
+            throw new MiException("Telefono no valido");
+        }         
         if (email.isEmpty() || email == null) {
             throw new MiException("el email no puede ser nulo o estar vacio");
-        }
+        }    
+        Usuario respuesta = usuarioRepositorio.buscarPorEmail(email);
+        if (respuesta != null) {
+             throw new MiException("email ya registrado.");
+        }            
+        
         if (password.isEmpty() || password == null || password.length() <= 5) {
             throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
         }
+
         if (!password.equals(password2)) {
             throw new MiException("Las contraseñas ingresadas deben ser iguales");
         }
-    }
+
+    } 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

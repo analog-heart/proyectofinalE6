@@ -101,7 +101,7 @@ public class ServicioContrato {
         // List<Usuario> usuariosRol =
         // repositoriocontrato.listarPorRol(usuario.getRol().toString());
 
-//        System.out.println("CONTRATOS: " + contratos);
+        // System.out.println("CONTRATOS: " + contratos);
         if (usuario.getRol().toString().equalsIgnoreCase("USUARIO")) {
             for (int i = 0; i < contratos.size(); i++) {
 
@@ -152,7 +152,8 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void finalizarContratoUsuario(String idContrato, BigDecimal precio, String comentarioFinal) throws MiException {
+    public void finalizarContratoUsuario(String idContrato, BigDecimal precio, String comentarioFinal)
+            throws MiException {
 
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
 
@@ -194,7 +195,7 @@ public class ServicioContrato {
             newCP.setEstado(EnumEstadoContrato.CALIFICADO);
             newCP.setCalificacion(calificacion);
 
-            //grabando la reputacion sobre el proveedor de este contrato calificado:
+            // grabando la reputacion sobre el proveedor de este contrato calificado:
             servicioProveedor.grabarReputacion(newCP.getProveedor().getId());
 
             repositoriocontrato.save(newCP);
@@ -218,6 +219,26 @@ public class ServicioContrato {
 
             newCP = respuestaCP.get();
             newCP.setComentarioOfensivo(true);
+            repositoriocontrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
+    public void eliminarComentarioDenunciado(String idContrato) throws MiException {
+
+        Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        ContratoProveedor newCP = new ContratoProveedor();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+            newCP.setComentarioFinal(null);
             repositoriocontrato.save(newCP);
         }
 
