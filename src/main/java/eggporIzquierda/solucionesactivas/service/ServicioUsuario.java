@@ -43,16 +43,21 @@ public class ServicioUsuario implements UserDetailsService {
             String fechaNacimiento, String dni, String telefono, String email, String password, String password2)
             throws MiException {
 
-        validar(email, password, password2);
+        validar(nombre, apellido,  email,  password,  password2, dni,  telefono);
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
-
+        usuario.setEstado(true);
+        usuario.setDni(dni);
+        usuario.setTelefono(telefono);
+        usuario.setEmail(email);
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        usuario.setRol(Rol.USUARIO);
         // se guarda la fecha de alta (no modificable)
         Date fechatemp = new Date();
         usuario.setFecha(fechatemp);
-
+        
         // se guarda la fecha de nacimiento que llega por formulario
         try {
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,15 +68,11 @@ public class ServicioUsuario implements UserDetailsService {
             e.printStackTrace();
         }
 
-        usuario.setEstado(true);
-        usuario.setDni(dni);
-        usuario.setTelefono(telefono);
-        usuario.setEmail(email);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        usuario.setRol(Rol.USUARIO);
-
+         if (!archivo.isEmpty()) {
         Imagen imagen = imagenServicio.guardar(archivo);
         usuario.setFotoPerfil(imagen);
+         }
+        
         usuarioRepositorio.save(usuario);
 
     }
@@ -81,7 +82,7 @@ public class ServicioUsuario implements UserDetailsService {
             String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
             throws MiException {
 
-        validar(email, password, password2);
+        //validar(email, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -91,7 +92,6 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setEmail(email);
             usuario.setNombreUsuario(nombreUsuario);
             usuario.setApellido(apellido);
-
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -112,31 +112,33 @@ public class ServicioUsuario implements UserDetailsService {
 
     }
 
+    
+    
+    
+    
+    
+    
+    //-----------metodos de busqueda de usuarios
+    
     public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
     }
 
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuarios() {
-
-        List<Usuario> usuarios = new ArrayList();
-
-        usuarios = usuarioRepositorio.findAll();
-
+        List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarios;
     }
 
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosActivos() {
-        List<Usuario> usuarios = new ArrayList();
-        usuarios = usuarioRepositorio.listarUsuariosActivos();
+        List<Usuario> usuarios = usuarioRepositorio.listarUsuariosActivos();
         return usuarios;
     }
 
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuariosInactivos() {
-        List<Usuario> usuarios = new ArrayList();
-        usuarios = usuarioRepositorio.listarUsuariosInactivos();
+        List<Usuario> usuarios = usuarioRepositorio.listarUsuariosInactivos();
         return usuarios;
     }
 
@@ -149,6 +151,11 @@ public class ServicioUsuario implements UserDetailsService {
         return usuariosXnombre;
     }
 
+    
+    
+    
+    
+    //-------------Dar Permisos de Administrador ---------
     @Transactional
     public void cambiarRol(String id) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -167,21 +174,7 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    private void validar(String email, String password, String password2) throws MiException {
-
-        if (email.isEmpty() || email == null) {
-            throw new MiException("el email no puede ser nulo o estar vacio");
-        }
-        if (password.isEmpty() || password == null || password.length() <= 5) {
-            throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
-        }
-
-        if (!password.equals(password2)) {
-            throw new MiException("Las contraseñas ingresadas deben ser iguales");
-        }
-
-    }
-
+ 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -220,13 +213,91 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    /* @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    } */
-    @Transactional
+ 
+   
+    //-----Autogestion desde Mi_perfil
+    public void modificarClave(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
+
+        validarClaves(passwordold, passwordnew, passwordconf, id);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setPassword(new BCryptPasswordEncoder().encode(passwordnew));
+
+            usuarioRepositorio.save(usuario);
+        }
+
+    }
+
+    
+      private void validar(String nombre,String apellido, String email, String password, String password2,
+                         String dni, String telefono) throws MiException {
+
+        if (nombre.isEmpty()) {
+            throw new MiException("el nombre no puede ser nulo o estar vacío");
+        }
+        
+        if (apellido.isEmpty() || apellido == null) {
+            throw new MiException("el apellido no puede ser nulo o estar vacío");
+        }
+        if (dni.isEmpty() || dni == null || dni.length() != 8) {
+            throw new MiException("DNI no valido");
+        }
+        
+        if (telefono.isEmpty() || telefono == null || telefono.length() < 9 || telefono.length() > 20 ) {
+            throw new MiException("Telefono no valido");
+        }         
+        if (email.isEmpty() || email == null) {
+            throw new MiException("el email no puede ser nulo o estar vacio");
+        }    
+        Usuario respuesta = usuarioRepositorio.buscarPorEmail(email);
+        if (respuesta != null) {
+             throw new MiException("email ya registrado.");
+        }            
+        
+        if (password.isEmpty() || password == null || password.length() <= 5) {
+            throw new MiException("La contraseña no puede estar vacía, y debe tener más de 5 dígitos");
+        }
+
+        if (!password.equals(password2)) {
+            throw new MiException("Las contraseñas ingresadas deben ser iguales");
+        }
+
+    }
+    
+    private void validarClaves(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
+
+        if (passwordnew.isEmpty() || passwordnew == null) {
+            throw new MiException("La contraseña no puede estar vacía");
+        }
+
+        if (passwordnew.length() < 5) {
+            throw new MiException("La contraseña debe tener al menos 6 caracteres");
+
+        }
+
+        if (!passwordnew.equals(passwordconf)) {
+            throw new MiException("Las contraseñas ingresadas deben ser iguales");
+        }
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            String poe = new BCryptPasswordEncoder().encode(passwordold);
+            BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+            bc.matches(passwordold, usuario.getPassword());
+            if (!bc.matches(passwordold, usuario.getPassword())) {
+                System.out.println(usuario.getPassword() + " nueva " + poe);
+                throw new MiException("La contraseña anterior, no es válida");
+            }
+
+        }
+
+    }
+
+// ---------si encuentra una base de datos vacia creara el admin-----
+ @Transactional
     @PostConstruct
     public void crearUsuarios_script() throws MiException {
         List<Usuario> respuesta = usuarioRepositorio.findAll();
@@ -267,47 +338,4 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
-    public void modificarClave(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
-
-        validarClaves(passwordold, passwordnew, passwordconf, id);
-
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setPassword(new BCryptPasswordEncoder().encode(passwordnew));
-
-            usuarioRepositorio.save(usuario);
-        }
-
-    }
-
-    private void validarClaves(String passwordold, String passwordnew, String passwordconf, String id) throws MiException {
-
-        if (passwordnew.isEmpty() || passwordnew == null) {
-            throw new MiException("La contraseña no puede estar vacía");
-        }
-
-        if (passwordnew.length() < 5) {
-            throw new MiException("La contraseña debe tener al menos 6 caracteres");
-
-        }
-
-        if (!passwordnew.equals(passwordconf)) {
-            throw new MiException("Las contraseñas ingresadas deben ser iguales");
-        }
-
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            String poe = new BCryptPasswordEncoder().encode(passwordold);
-            BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-            bc.matches(passwordold, usuario.getPassword());
-            if (!bc.matches(passwordold, usuario.getPassword())) {
-                System.out.println(usuario.getPassword() + " nueva " + poe);
-                throw new MiException("La contraseña anterior, no es válida");
-            }
-
-        }
-
-    }
 }
