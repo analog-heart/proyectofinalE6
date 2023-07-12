@@ -18,19 +18,25 @@ public class Proveedor extends Usuario {
 
     private Boolean estadoProveedorActivo;
     private Double reputacion;
+
     @Enumerated(EnumType.STRING)
     private EnumNivel nivel;
+
+    private Integer cantidadTrabajos = 0;
 
     // CONSTRUCTORES (sin atributo reputación)
     public Proveedor() {
     }
 
-    public Proveedor(List<ServicioOfrecido> servicios, String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
-        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado, fecha, rol, fotoPerfil);
+    public Proveedor(List<ServicioOfrecido> servicios, String id, String nombreUsuario, String email, String password,
+            String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio,
+            boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+        super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado,
+                fecha, rol, fotoPerfil);
         this.servicios = servicios;
     }
 
-//    MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
+    // MÉTODOS ESPECIALES PARA ACTIVAR O DESACTIVAR AL PROVEEDOR
     public void activarProveedor() {
         this.estadoProveedorActivo = true;
     }
@@ -70,6 +76,14 @@ public class Proveedor extends Usuario {
 
     public void setNivel(EnumNivel nivel) {
         this.nivel = nivel;
+    }
+
+    public Integer getCantidadTrabajos() {
+        return cantidadTrabajos;
+    }
+
+    public void setCantidadTrabajos(Integer cantidadTrabajos) {
+        this.cantidadTrabajos = cantidadTrabajos;
     }
 
 }

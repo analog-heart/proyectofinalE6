@@ -11,38 +11,38 @@
         <!---Mis Contratos--->
 
         <div class="container py-5 h-200">
-
-            <a type="button" th:href="@{/usuario/mis_contratos_usuario_encurso}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Ver contratos en Curso
-                </button>
-            </a>
-
-            <a type="button" th:href="@{/usuario/mis_contratos_usuario_terminado}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Ver contratos Terminados
-                </button>
-            </a>
-
-            <a type="button" th:href="@{/usuario/mi_perfil_usuario}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Mi Perfil
-                </button>
-            </a>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario_encurso}" class="btn btn-dark btn-block">Contratos
+                            en curso</a>
+                    </div>
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario_terminado}"
+                            class="btn btn-dark btn-block">Contratos terminados</a>
+                    </div>
+                    <!-- <div class="col-4">
+                        <a th:href="@{/usuario/mi_perfil_usuario}" class="btn btn-dark btn-block">Mi perfil</a>
+                    </div> -->
+                </div>
+            </div>
+            <hr>
 
             <!---Mis Contratos--->
 
-            <div class="container py-5 h-100">
+            <div class="d-flex flex-wrap justify-content-center" style="text-align: center;">
 
-                <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosUsuario}">
+                <div  class="black bg-white form-border" style="border: solid 1px; border-radius: 5px; width: 250px; height: auto; padding: 5px; margin: 5px;"
+                    th:each="contrato : ${contratosUsuario}">
                     <div class="card-body">
-                        <h4>N° de Contrato (id):</h4>
-                        <h5 class="card-title" th:text="${contrato.id}"></h5>
+                        <h5 style="color: grey;">N° de Contrato:</h5>
+                        <h6 class="card-title" th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
+                        </h6><hr>
                         <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                        <h6>ESTADO</h6>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                        <h6>FECHA ALTA</h6>
-                        <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
+                        <h5 style="color: grey;">ESTADO</h5>
+                        <h6 class="card-text" th:text="${contrato.estado}"></h6><hr>
+                        <h5 style="color: grey;">FECHA ALTA</h5>
+                        <p class="card-text" th:text="${contrato.fechaContrato}"></p>
                         <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
                         <div>
                             <!-- <input hidden th:value="${contrato.id}" name="idContrato">
@@ -192,8 +192,7 @@
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-
+    
     <script>
         function enviarFormulario() {
             // Obtener el valor del campo comentarioFinal
