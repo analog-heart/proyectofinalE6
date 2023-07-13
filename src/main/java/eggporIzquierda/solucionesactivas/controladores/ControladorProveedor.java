@@ -269,6 +269,15 @@ public class ControladorProveedor {
     }
     
     
+    
+    
+//    @GetMapping("/{id}/guest")
+//    public String contacto(@PathVariable String id, ModelMap modelo) {
+//
+//        
+//        Proveedor proveedor = proveedorServicio.getOne(id);
+//        modelo.addAttribute("proveedor", proveedor);
+//        return "proveedor_contratar.html";
 
 }
 
