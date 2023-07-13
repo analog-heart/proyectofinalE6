@@ -199,6 +199,10 @@ public class ServicioContrato {
 
         ContratoProveedor newCP = new ContratoProveedor();
 
+        if (comentarioFinal.equalsIgnoreCase("")) {
+            comentarioFinal = "Sin comentarios del cliente";
+        }
+        
         if (respuestaCP.isPresent()) {
 
             newCP = respuestaCP.get();

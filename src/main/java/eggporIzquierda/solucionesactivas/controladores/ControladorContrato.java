@@ -152,19 +152,16 @@ public class ControladorContrato {
     @PostMapping("/finalizar_contrato_usuario")
     public String finalizarContratoUsuario(HttpSession session, @RequestParam String idContrato,
             @RequestParam String comentarioFinal, ModelMap modelo) {
-
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
-
             contratoServicio.finalizarContratoUsuario(idContrato, null, comentarioFinal);
 
             List<ContratoProveedor> contratosSesion = new ArrayList();
             contratosSesion = contratoServicio.listarContratosSesion(usuario);
             //modelo.add("contratosUsuario", contratosSesion);
             modelo.addAttribute("contratosUsuario",contratosSesion);
-
             modelo.put("exito", "El contrato fue cancelado con exito");
             
             return "mis_contratos_usuario.html";
@@ -222,14 +219,11 @@ public class ControladorContrato {
     @PostMapping("/denunciar_comentario")
     public String denunciarComentario(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
 
-        System.out.println("ENTRANDO A CONTROLADOR..");
-
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
 
-            System.out.println("ENTRANDO A CONTROLADOR tryyyyyyyyyyyyy..");
             contratoServicio.denunciarComentario(idContrato);
 
             List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
