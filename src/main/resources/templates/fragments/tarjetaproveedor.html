@@ -23,7 +23,7 @@
       </div>
     </div>
     <div sec:authorize="hasAnyRole('USUARIO','ADMIN')">
-      <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-info btn-rounded">Contratame</a>
+      <a th:href="@{/proveedor/__${proveedor.id}__}" class="btn btn-info btn-rounded">Ver Perfil</a>
       <a th:href="@{|https://web.whatsapp.com/send?phone=${proveedor.telefono}|}" class="btn btn-success btn-rounded"
         target="_blank">Whatsapp</a>
     </div>
