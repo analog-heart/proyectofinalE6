@@ -11,179 +11,195 @@
         <!---Mis Contratos--->
 
         <div class="container py-5 h-200">
-
-            <a type="button" th:href="@{/usuario/mis_contratos_usuario_encurso}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Ver contratos en Curso
-                </button>
-            </a>
-
-            <a type="button" th:href="@{/usuario/mis_contratos_usuario_terminado}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Ver contratos Terminados
-                </button>
-            </a>
-
-            <a type="button" th:href="@{/usuario/mi_perfil_usuario}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Mi Perfil
-                </button>
-            </a>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario_encurso}" class="btn btn-dark btn-block">Contratos
+                            en curso</a>
+                    </div>
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario_terminado}"
+                            class="btn btn-dark btn-block">Contratos terminados</a>
+                    </div>
+                </div>
+            </div>
+            <hr style="color: azure;">
 
             <!---Mis Contratos--->
 
-            <div class="container py-5 h-100">
+            <div class="d-flex flex-wrap">
 
-                <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosUsuario}">
-                    <div class="card-body">
-                        <h4>N° de Contrato (id):</h4>
-                        <h5 class="card-title" th:text="${contrato.id}"></h5>
-                        <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                        <h6>ESTADO</h6>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                        <h6>FECHA ALTA</h6>
-                        <!--<p class="card-text" th:text="${contrato.fecha_contrato}"></p>-->
-                        <!--<a th:href="@{/usuario/modificar/__${usuario.id}__}" class="card-link">Modificar</a>-->
-                        <div>
-                            <!-- <input hidden th:value="${contrato.id}" name="idContrato">
-                                                <input class="comentarioFinal" type="text" name="comentarioFinal" />
-                                                <button th:if="${contrato.estado.toString() == 'TERMINADO'}" type="submit"
-                                                    class="btn btn-primary">Calificar trabajo del profesional</button> -->
-                            <div class="input-group mb-3">
-                                <div th:if="${contrato.estado.toString() == 'TERMINADO'}">
+                <div class="input-group mb-3" th:if="${contrato == null}">
+                    <h2 style="color: azure;">CONTRATOS</h2>
+                </div>
+                <div class="black bg-white form-border"
+                    style="border: solid 1px; border-radius: 5px; width: 50%; height: auto; padding: 5px; margin: 5px; color: cornflowerblue;"
+                    th:each="contrato : ${contratosUsuario}">
+                    <div class="card">
+                        <div class="card-header" style="text-align: center">
+                            <h5 class="card-title" id="nombreCard"
+                                th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
+                        </div>
 
-                               
 
-                                <!--Boton que abre el modal-->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalPuntuacion">
-                                    Calificar proveedor</button>
+                        <div class="card-body">
+                            <!-- Empieza tabla -->
 
-                                <!--modal-->
-                                <div class="modal fade" id="modalPuntuacion" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Calificar proveedor</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Puntuación y comentario dentro del modal -->
-                                                <label>¿Cómo calificarías el servicio?</label>
-                                                <form style="position: fixed;" id="formu" method="POST"
-                                                    th:action="@{/contrato/calificar_contrato}">
-                                                    <input hidden th:value="${contrato.id}" name="idContrato">
-                                                    <p class="clasificacion">
-                                                        <input id="radio1" type="radio" name="calificacion"
-                                                            th:value="5">
-                                                        <label for="radio1">★</label>
-                                                        <input id="radio2" type="radio" name="calificacion"
-                                                            th:value="4">
-                                                        <label for="radio2">★</label>
-                                                        <input id="radio3" type="radio" name="calificacion"
-                                                            th:value="3">
-                                                        <label for="radio3">★</label>
-                                                        <input id="radio4" type="radio" name="calificacion"
-                                                            th:value="2">
-                                                        <label for="radio4">★</label>
-                                                        <input id="radio5" type="radio" name="calificacion"
-                                                            th:value="1">
-                                                        <label for="radio5">★</label>
-                                                    </p>
+                            <table class="table table-bordered vertical-align: middle">
+                                <tr>
+                                    <td style="text-align: left"><strong>SERVICIO</strong></td>
+                                    <td>
+                                        <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
+                                        </h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left"><strong>N° CONTRATO</strong></td>
+                                    <td>
+                                        <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
+                                        </h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left"><strong>ESTADO</strong></td>
+                                    <td>
+                                        <h6 th:text="${contrato.estado}"></h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
+                                    <td>
+                                        <h6 th:text="${contrato.fechaContrato}"></h6>
+                                    </td>
+                                </tr>
+                            </table>
 
-                                                </form>
+                        </div>
 
-                                                <br><br><br>
+                        <!-- Termina tabla -->
 
-                                                <div>
-                                                    <textarea style="font-size:larger" rows="6" cols="35"
-                                                        maxlength="250" name="comentarioFinal"
-                                                        placeholder="Dejá tu comentario"></textarea>
-                                                    <br>
-                                                </div>
+                        <div class="card-footer" style="text-align: center;">
+                            <!--Boton que abre el modal CALIFICAR-->
+                            <div th:if="${contrato.estado.toString() == 'TERMINADO'}">
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary"
-                                                    onclick="enviarFormulario()">Enviar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPuntuacion">
+                                    Calificar proveedor</a>
+
                             </div>
 
-                                <div class="input-group mb-3" th:if="${contrato.estado.toString() == 'ENCURSO'}">
+                            <!--Boton que abre el modal CANCELAR-->
+                            <div
+                                th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}">
 
-                                    <form class="row g-3" type="form" method="POST"
-                                        th:action="@{/contrato/finalizar_contrato_usuario}">
-                                        <input hidden th:value="${contrato.id}" name="idContrato">
-                                        <div class="col-md-4">
-                                            <label for="validationServer01" class="form-label" value="">¿Desea cancelar
-                                                el trabajo en curso?</label>
-                                            <input placeholder="Indicar motivo..." type="text"
-                                                class="form-control is-valid" id="validationServer01"
-                                                name="comentarioFinal" required>
-                                            <div class="valid-feedback">
-                                                !Que lastima! Esperamos ser de mas utilidad la proxima vez
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input is-invalid" type="checkbox" value=""
-                                                    id="invalidCheck3" aria-describedby="invalidCheck3Feedback"
-                                                    required>
-                                                <label class="form-check-label" for="invalidCheck3">
-                                                    CANCELAR - Aceptaciòn de terminos y condiciones
-                                                </label>
-                                                <div id="invalidCheck3Feedback" class="invalid-feedback">
-                                                    Debes aceptarlos
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-primary" type="submit">Cancelar contrato</button>
-                                        </div>
-                                    </form>
+                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCancelar">
+                                    Cancelar contrato</a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Tramite FINALIZDOS -->
+
+                    <!--modal-->
+                    <div class="modal fade" id="modalPuntuacion" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Calificar proveedor
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
-                                <div class="input-group mb-3" th:if="${contrato.estado.toString() == 'SOLICITADO'}">
-
-                                    <form class="row g-3" type="form" method="POST"
-                                        th:action="@{/contrato/finalizar_contrato_usuario}">
+                                <div class="modal-body">
+                                    <!-- Puntuación y comentario dentro del modal -->
+                                    <label>¿Cómo calificarías el servicio?</label>
+                                    <form style="position: fixed;" id="formu" method="POST"
+                                        th:action="@{/contrato/calificar_contrato}">
                                         <input hidden th:value="${contrato.id}" name="idContrato">
-                                        <div class="col-md-4">
-                                            <label for="validationServer01" class="form-label" value="">¿Desea cancelar
-                                                la solicitud realizada?</label>
-                                            <input placeholder="Indicar motivo..." type="text"
-                                                class="form-control is-valid" id="validationServer01"
-                                                name="comentarioFinal" required>
-                                            <div class="valid-feedback">
-                                                !Que lastima! Esperamos ser de mas utilidad la proxima vez
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input is-invalid" type="checkbox" value=""
-                                                    id="invalidCheck3" aria-describedby="invalidCheck3Feedback"
-                                                    required>
-                                                <label class="form-check-label" for="invalidCheck3">
-                                                    CANCELAR - Aceptaciòn de terminos y condiciones
-                                                </label>
-                                                <div id="invalidCheck3Feedback" class="invalid-feedback">
-                                                    Debes aceptarlos
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-primary" type="submit">Cancelar solicitud</button>
-                                        </div>
+                                        <p class="clasificacion">
+                                            <input id="radio1" type="radio" name="calificacion" th:value="5">
+                                            <label for="radio1">★</label>
+                                            <input id="radio2" type="radio" name="calificacion" th:value="4">
+                                            <label for="radio2">★</label>
+                                            <input id="radio3" type="radio" name="calificacion" th:value="3">
+                                            <label for="radio3">★</label>
+                                            <input id="radio4" type="radio" name="calificacion" th:value="2">
+                                            <label for="radio4">★</label>
+                                            <input id="radio5" type="radio" name="calificacion" th:value="1">
+                                            <label for="radio5">★</label>
+                                        </p>
+
                                     </form>
+
+                                    <br><br><br>
+
+                                    <div>
+                                        <textarea style="font-size:medium" rows="6" cols="35" maxlength="250"
+                                            name="comentarioFinal" placeholder="Dejá tu comentario"></textarea>
+                                        <br>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="enviarFormulario()">Enviar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Tramites en curso e solicitado -->
+
+
+                    <!-- modal -->
+
+                    <div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Cancelar contrato
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <label>!Que lastima! Esperamos ser de mas utilidad la proxima
+                                    </label>
+                                    <hr>
+                                    <div>
+                                        <form style="position: fixed;" method="POST" id="formu2"
+                                            th:action="@{/contrato/finalizar_contrato_usuario}">
+                                            <input hidden th:value="${contrato.id}" name="idContrato">
+                                            <textarea style="font-size:medium" rows="3" cols="47" maxlength="250"
+                                                placeholder="Dejá tu comentario" name="comentarioFinal"></textarea>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <br><br><br><br>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger"
+                                        onclick="enviarFormulario2()">Aceptar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+
+                <!-- fin modales -->
+
+                <!-- termina aca -->
+
+
+
             </div>
         </div>
 
@@ -192,7 +208,6 @@
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 
     <script>
         function enviarFormulario() {
@@ -207,6 +222,26 @@
 
             // Agregar el input oculto al formulario
             var formulario = document.getElementById("formu");
+            formulario.appendChild(inputComentarioFinal);
+
+            // Enviar el formulario
+            formulario.submit();
+        }
+    </script>
+
+    <script>
+        function enviarFormulario2() {
+            // Obtener el valor del campo comentarioFinal
+            var comentarioFinal = document.querySelector("#modalCancelar textarea[name='comentarioFinal']").value;
+
+            // Crear un input oculto para enviar el campo comentarioFinal
+            var inputComentarioFinal = document.createElement("input");
+            inputComentarioFinal.type = "hidden";
+            inputComentarioFinal.name = "comentarioFinal";
+            inputComentarioFinal.value = comentarioFinal;
+
+            // Agregar el input oculto al formulario
+            var formulario = document.getElementById("formu2");
             formulario.appendChild(inputComentarioFinal);
 
             // Enviar el formulario

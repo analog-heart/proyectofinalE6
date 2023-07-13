@@ -62,10 +62,10 @@
 
                                 <div class="accordion-body">
                                     <div class="list-group">
-                                        <a th:href="@{/proveedor/proveedores}"
+                                        <a th:href="@{/admin/listarProvedores_activos}"
                                            class="list-group-item list-group-item-action list-group-item-dark">Activos</a>
-                                        <a th:href="@{/proveedor/proveedores}"
-                                           class="list-group-item list-group-item-action list-group-item-dark">Inactivos</a>
+                                        <a th:href="@{/admin/autorizar_solicitudes_nuevo}"
+                                           class="list-group-item list-group-item-action list-group-item-dark">Solicitudes Nuevas</a>
                                     </div>
                                 </div>
                             </div>
@@ -129,8 +129,10 @@
 
         </main>
 
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
-        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-    </body>
+    </main>
+
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+    
+</body>
 
 </html>

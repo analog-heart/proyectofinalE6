@@ -1,231 +1,226 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Soluciones Activas</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-        <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
-        <link rel="stylesheet" href="/CSS/estiloslogin.css">
-    </head>
-    <body class="" >
 
-        <header th:replace="~{/fragments/header :: header}"></header>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Soluciones Activas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
+    <link rel="stylesheet" href="/CSS/estiloslogin.css">
+</head>
 
-        <div class="">
-            <main class="">
+<body class="footer-alpiso">
 
-                <section style="background-color: #443C68;">
-                    <div class="container py-5">
-                        <div class="row">
-                            <div class="col">
-                                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                                    <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="/inicio">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="/proveedor/mi_perfil_proveedor">Mi Perfil</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Modificar</li>
-                                    </ol>
-                                </nav>
-                            </div>
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <div class="">
+        <main class="">
+
+            <section style="background-color: #443C68;">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="/inicio">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="/proveedor/mi_perfil_proveedor">Mi Perfil</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Modificar</li>
+                                </ol>
+                            </nav>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card mb-4">
-                                    <div class="card-body text-center">
-                                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
-                                             class="" style="width: 150px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
-                                        <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
-                                        <p class="text-muted mb-1" th:text="'DNI: '+${usuario.dni}"> </p>
-                                        <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
+                                    <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar" class=""
+                                        style="width: 150px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
+                                    <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
+                                    <p class="text-muted mb-1" th:text="'DNI: '+${usuario.dni}"> </p>
+                                    <p class="text-muted mb-4" th:text="'Tel: '+${usuario.telefono}"></p>
 
-                                        <div class="d-flex justify-content-center mb-2">
+                                    <div class="d-flex justify-content-center mb-2">
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            <div class="col-lg-8">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-
-
-                                        <form class="form-control"  th:action="@{/proveedor/perfil_proveedor/__${usuario.id}__}"method="POST" enctype="multipart/form-data" >
-
-                                            <input hidden th:value="${usuario.id}" name ="id">
-
-                                            <h4 class="form text-center" style="color: #2a363b"> Editar Perfil </h4>
-
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Nombre</span>
-                                                <input type="text" class="form-control" name="nombre"  th:value="${usuario.nombre}" aria-describedby="basic-addon1">
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Apellido</span>
-                                                <input type="text" class="form-control" name="apellido"  th:value="${usuario.apellido}" aria-describedby="basic-addon1">  
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Email</span>
-                                                <input type="email" class="form-control" name="email"  th:value="${usuario.email}">
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">D.N.I.</span>
-                                                <input type="text" class="form-control" name="dni" placeholder="dni" th:value="${usuario.dni}">
-                                            </div>
-
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">Telefono</span>
-                                                <input type="text" class="form-control" name="telefono" placeholder="telefono" th:value="${usuario.telefono}">
-                                            </div>
-
-
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control mb-3" name="archivo">
-                                            </div>
-
-                                            
-
-                                           
-
-                                            <div>
-                                                <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion y volver a entrar para visualizar los cambios </p>
-                                                <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
-                                               
-
-                                                <hr>
-
-
-                                                </form>
-                                                
-                                                 <button type="button" class="btn btn-primary form-control mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
-                                                <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
-                                                <div th:if="${usuario.estadoProveedorActivo==true}">
-                                                <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
-                                                </div>
-
-                                                <div th:if="${usuario.estadoProveedorActivo==false}">
-                                               <button type="button" class="btn btn-success form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"  > Reactivar Mi Cuenta  </a>
-                                                </div>
-                                                 <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
-
-                                                <a  class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver  </a>
-
-                                                
-                                                
-                                                <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
-
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                <!----MODAL DE SUSPERNDER CUENTA ---->
-                                                <form th:action="@{suspender_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
-                                                    <div class ="texto">
-
-                                                        <div class="modal fade" id="modalSuspenderCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">No mostrar mi Perfil temporalmente</h1>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-
-
-
-                                                                        <div th:replace="~{/fragments/error :: errores1}"></div>
-
-                                                                        <p class="mb-4" style="color: #FF0000" id = "campo"></p>
-                                                                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-
-                                                                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
-
-                                                                    </div>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                 <!----FIN MODAL DE SUSPERNDER CUENTA ---->
-
-                                                 
-                                                 
-                                                 <!---- MODAL DE REACTIVAR CUENTA ---->
-                                                 <form th:action="@{/proveedor/reactivar_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
-                                                    <div class ="texto">
-
-                                                        <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Reactivar Perfil</h1>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-
-                                                                        <div th:replace="~{/fragments/error :: errores1}"></div>
-                                                                        <p class="mb-4" style="color: #FF0000" id = "campo"></p>
-                                                                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-
-                                                                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
-
-                                                                    </div>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                        <!----FIN MODAL DE REACTIVAR CUENTA ---->
-                                            </div>
-                                    </div>
-                                </div>   
-                            </div>
-
                         </div>
 
-                </section>
 
-            </main>  
+
+
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-body">
+
+
+                                    <form class="form-control"
+                                        th:action="@{/proveedor/perfil_proveedor/__${usuario.id}__}" method="POST"
+                                        enctype="multipart/form-data">
+
+                                        <input hidden th:value="${usuario.id}" name="id">
+
+                                        <h4 class="form text-center" style="color: #2a363b"> Editar Perfil </h4>
+
+
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Nombre</span>
+                                            <input type="text" class="form-control" name="nombre"
+                                                th:value="${usuario.nombre}" aria-describedby="basic-addon1">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Apellido</span>
+                                            <input type="text" class="form-control" name="apellido"
+                                                th:value="${usuario.apellido}" aria-describedby="basic-addon1">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Email</span>
+                                            <input type="email" class="form-control" name="email"
+                                                th:value="${usuario.email}">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">D.N.I.</span>
+                                            <input type="text" class="form-control" name="dni" placeholder="dni"
+                                                th:value="${usuario.dni}">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">Telefono</span>
+                                            <input type="text" class="form-control" name="telefono"
+                                                placeholder="telefono" th:value="${usuario.telefono}">
+                                        </div>
+
+
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="form-control mb-3" name="archivo">
+                                        </div>
+
+
+
+
+
+                                        <div>
+                                            <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion
+                                                y volver a entrar para visualizar los cambios </p>
+                                            <button type="submit" class="btn btn-primary form-control mb-3">Guardar
+                                                cambios</button>
+
+
+                                            <hr>
+
+
+                                    </form>
+
+                                    <button type="button" class="btn btn-primary form-control mb-3"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        data-bs-whatever="@mdo">Cambiar contraseña</button>
+                                    <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
+                                    <div th:if="${usuario.estadoProveedorActivo==true}">
+                                        <button type="button" class="btn btn-danger form-control mb-3"
+                                            data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta">No mostrar Mi
+                                            Perfil </button>
+                                    </div>
+
+                                    <div th:if="${usuario.estadoProveedorActivo==false}">
+                                        <button type="button" class="btn btn-success form-control mb-3"
+                                            data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"> Reactivar Mi
+                                            Cuenta </a>
+                                    </div>
+                                    <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
+
+                                    <a class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+    <script> function goBack() { window.history.back(); }</script>
+
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+</body>
+
+<div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
+
+<!----MODAL DE SUSPERNDER CUENTA ---->
+<form th:action="@{suspender_mi_cuenta/__${usuario.id}__}" class="formulario form-control " method="POST">
+    <div class="texto">
+
+        <div class="modal fade" id="modalSuspenderCuenta" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">No
+                            mostrar mi Perfil temporalmente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                        <div th:replace="~{/fragments/error :: errores1}"></div>
+
+                        <p class="mb-4" style="color: #FF0000" id="campo"></p>
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+
+                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
-
-        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-
-        <script>
-                                                                            function goBack() {
-                                                                                window.history.back();
-                                                                            }
-        </script>
+    </div>
+</form>
+<!----FIN MODAL DE SUSPERNDER CUENTA ---->
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    </body>
+<!---- MODAL DE REACTIVAR CUENTA ---->
+<form th:action="@{/proveedor/reactivar_mi_cuenta/__${usuario.id}__}" class="formulario form-control " method="POST">
+    <div class="texto">
 
+        <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Reactivar Perfil</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div th:replace="~{/fragments/error :: errores1}"></div>
+                        <p class="mb-4" style="color: #FF0000" id="campo"></p>
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+
+                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!----FIN MODAL DE REACTIVAR CUENTA ---->
 
 </html>
