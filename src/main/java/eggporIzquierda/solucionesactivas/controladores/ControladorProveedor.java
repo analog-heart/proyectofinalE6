@@ -191,7 +191,7 @@ public class ControladorProveedor {
         List<ContratoProveedor> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
-        modelo.put("contratosUsuario", contratosSesion);
+        modelo.addAttribute("contratosUsuario", contratosSesion);
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());

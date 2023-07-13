@@ -109,10 +109,13 @@ public class ControladorContrato {
     public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato,
             @RequestParam BigDecimal precio, ModelMap modelo) {
 
+                System.out.println("log 1");
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
+
+            System.out.println("log 2");
 
             contratoServicio.finalizarContratoProveedor(idContrato, precio);
             proveedorServicio
@@ -159,9 +162,11 @@ public class ControladorContrato {
 
             List<ContratoProveedor> contratosSesion = new ArrayList();
             contratosSesion = contratoServicio.listarContratosSesion(usuario);
-            modelo.put("contratosUsuario", contratosSesion);
+            //modelo.add("contratosUsuario", contratosSesion);
+            modelo.addAttribute("contratosUsuario",contratosSesion);
 
             modelo.put("exito", "El contrato fue cancelado con exito");
+            
             return "mis_contratos_usuario.html";
 
         } catch (MiException ex) {

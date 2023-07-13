@@ -68,7 +68,6 @@ public class ServicioContrato {
         if (respuestaCP.isPresent()) {
 
             newCP = respuestaCP.get();
-            System.out.println("CONTRATO: " + newCP);
 
             if (decision.equalsIgnoreCase("aceptar")) {
 
@@ -130,22 +129,34 @@ public class ServicioContrato {
     @Transactional
     public void finalizarContratoProveedor(String idContrato, BigDecimal precio) throws MiException {
 
+        System.out.println("log 3");
+
         Optional<ContratoProveedor> respuestaCP = repositoriocontrato.findById(idContrato);
+
+        System.out.println(respuestaCP);
 
         ContratoProveedor newCP = new ContratoProveedor();
 
         if (respuestaCP.isPresent()) {
 
+            System.out.println("LOG IS PRESENT");
             newCP = respuestaCP.get();
+            
             newCP.setEstado(EnumEstadoContrato.TERMINADO);
             newCP.setPrecio(precio);
-            newCP.setFechaFinalizacion(new Date());
 
+            System.out.println(newCP.getPrecio());
+   
+            newCP.setFechaFinalizacion(new Date());
+ 
+            System.out.println(newCP);
             repositoriocontrato.save(newCP);
+
         }
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
 
+            System.out.println("LOG IS EMPTY");
             throw new MiException("El contrato no existe");
         }
 
