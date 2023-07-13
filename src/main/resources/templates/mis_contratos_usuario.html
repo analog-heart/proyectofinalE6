@@ -21,7 +21,7 @@
                         <a th:href="@{/usuario/mis_contratos_usuario_terminado}"
                             class="btn btn-dark btn-block">Contratos terminados</a>
                     </div>
-                   </div>
+                </div>
             </div>
             <hr style="color: azure;">
 
@@ -46,6 +46,13 @@
                             <!-- Empieza tabla -->
 
                             <table class="table table-bordered vertical-align: middle">
+                                <tr>
+                                    <td style="text-align: left"><strong>SERVICIO</strong></td>
+                                    <td>
+                                        <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
+                                        </h6>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="text-align: left"><strong>N° CONTRATO</strong></td>
                                     <td>
@@ -81,7 +88,8 @@
                             </div>
 
                             <!--Boton que abre el modal CANCELAR-->
-                            <div th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}">
+                            <div
+                                th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}">
 
                                 <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCancelar">
                                     Cancelar contrato</a>
@@ -175,8 +183,8 @@
                                 </div>
                                 <br><br><br><br>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"
-                                        onclick="enviarFormulario2()">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger"
+                                        onclick="enviarFormulario2()">Aceptar</button>
                                 </div>
 
                             </div>
