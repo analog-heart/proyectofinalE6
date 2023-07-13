@@ -272,6 +272,9 @@ public class ControladorProveedor {
 
         Proveedor proveedor = proveedorServicio.getOne(id);
         modelo.addAttribute("proveedor", proveedor);
+        
+        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        modelo.addAttribute("contratosCalificados", contratosCalificados);
         return "proveedor_perfil_guest.html";
 
     }
