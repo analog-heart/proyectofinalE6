@@ -1,208 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-<head th:replace="~{/fragments/head :: head}"></head>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
 
-<body class="footer-alpiso d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
-
-    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
-
-        <!---Mis Contratos--->
-
-        <div class="container py-5 h-200">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <a th:href="@{/proveedor/mis_contratos_proveedor_encurso}" class="btn btn-dark btn-block">Contratos
-                            en curso</a>
-                    </div>
-                    <div class="col-4">
-                        <a th:href="@{/proveedor/mis_contratos_proveedor_calificado}"
-                            class="btn btn-dark btn-block">Contratos calificados</a>
-                    </div>
-                </div>
-            </div>
-            <hr style="color: azure;">
+        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
 
             <!---Mis Contratos--->
 
-            <div class="d-flex flex-wrap">
+            <div class="container py-5 h-200">
 
-                <div class="input-group mb-3" th:if="${contrato == null}">
-                    <h2 style="color: azure;">CONTRATOS</h2>
-                </div>
-                <div class="black bg-white form-border"
-                    style="border: solid 1px; border-radius: 5px; width: 50%; height: auto; padding: 5px; margin: 5px; color: cornflowerblue;"
-                    th:each="contrato : ${contratosUsuario}">
-                    <div class="card">
-                        <div class="card-header" style="text-align: center">
-                            <h5 class="card-title" id="nombreCard"
-                                th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
-                        </div>
+                <a type="button" th:href="@{/proveedor/mis_contratos_proveedor_encurso}">
+                    <button type="button" class="btn btn-secondary mb-3">
+                        Ver contratos en Curso
+                    </button>
+                </a>
 
+                <a type="button" th:href="@{/proveedor/mis_contratos_proveedor_calificado}">
+                    <button type="button" class="btn btn-secondary mb-3">
+                        Ver contratos Calificados
+                    </button>
+                </a>
 
-                        <div class="card-body">
-                            <!-- Empieza tabla -->
+                <a type="button" th:href="@{/proveedor/mi_perfil_proveedor}">
+                    <button type="button" class="btn btn-secondary mb-3">
+                        Mi Perfil
+                    </button>
+                </a>
 
-                            <table class="table table-bordered vertical-align: middle">
-                                <tr>
-                                    <td style="text-align: left"><strong>SERVICIO</strong></td>
-                                    <td>
-                                        <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left"><strong>N° CONTRATO</strong></td>
-                                    <td>
-                                        <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left"><strong>ESTADO</strong></td>
-                                    <td>
-                                        <h6 th:text="${contrato.estado}"></h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
-                                    <td>
-                                        <h6 th:text="${contrato.fechaContrato}"></h6>
-                                    </td>
-                                </tr>
-                            </table>
-
-                        </div>
-
-                        <!-- Termina tabla -->
-
-                        <div class="card-footer" style="text-align: center;">
-
-                            <!--Boton que abre el modal DENUNCIAR-->
-                            <div th:if="${contrato.estado.toString() == 'CALIFICADO'}">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: left"><strong>Comentario del cliente</strong></td>
-                                        <td>
-                                            <h6 th:text="${contrato.comentarioFinal}"></h6>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPuntuacion">
-                                    Denunciar comentario</a>
-
-                            </div>
-
-                            <!--Boton que abre el modal FINALIZAR-->
-                            <div
-                                th:if="${contrato.estado.toString() == 'ENCURSO'}">
-
-                                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTerminar">
-                                    Terminar trabajo</a>
-
-
-                            </div>
-                        </div>
+                <div class="card mb-3" style="width: 24rem; height: auto;" th:each="contrato : ${contratosUsuario}">
+                    <div class="card-header">
+                        <h4 class="card-title">N° de contrato:</h4>
                     </div>
+                    <div class="card-body ">
 
-                    <!-- Tramites en curso y calificados -->
+                        <h3 class="card-title" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h3>
 
-                    <!-- modal -->
+                        <h6>ESTADO</h6>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
+                        <h6>FECHA ALTA</h6>
+                        <p class="card-text" th:text="${contrato.fechaContrato}"></p>
 
-                    <div class="modal fade" id="modalTerminar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Terminar trabajo
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
+                        <div>
 
-                                    <label>Ingresar el valor del trabajo:</label>
-                                    <hr>
-                                    <div>
-                                        <form style="position: fixed;" method="POST" id="formu2"
-                                            th:action="@{/contrato/finalizar_contrato_proveedor}">
-                                            <input hidden th:value="${contrato.id}" name="idContrato">
-                                            <textarea type="number" style="font-size:medium" rows="3" cols="47" maxlength="250"
-                                                placeholder="Precio $" name="precio"></textarea>
-                                        </form>
-                                    </div>
-                                </div>
-                                <br><br><br><br>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="enviarFormulario2()">Aceptar</button>
+                            <form class="row g-3" th:if="${contrato.estado.toString() == 'ENCURSO'}" type="form" method="POST" th:action="@{/contrato/finalizar_contrato_proveedor}">
+                                <input hidden th:value="${contrato.id}" name="idContrato">
+                                <div class="col-md-4">
+                                    <label for="validationServer01" class="form-label">Precio del trabajo:</label>
+                                    <input type="number" class="form-control is-valid" id="validationServer01" name="precio" required>
+                                 
                                 </div>
 
-                            </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" type="submit">Finalizar contrato</button>
+                                </div>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>
-
-
-
-                <!-- fin modales -->
-
-                <!-- termina aca -->
-
-
-
             </div>
-        </div>
 
-    </main>
-
-
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        </main>
 
 
-    <script>
-        function enviarFormulario() {
-            // Obtener el valor del campo Precio
-            var precio = document.querySelector("#modalPuntuacion textarea[name='precio']").value;
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-            // Crear un input oculto para enviar el campo Precio
-            var inputPrecio = document.createElement("input");
-            inputPrecio.type = "hidden";
-            inputPrecio.name = "precio";
-            inputPrecio.value = precio;
-
-            // Agregar el input oculto al formulario
-            var formulario = document.getElementById("formu");
-            formulario.appendChild(inputPrecio);
-
-            // Enviar el formulario
-            formulario.submit();
-        }
-    </script>
-
-    <script>
-        function enviarFormulario2() {
-            // Obtener el valor del campo Precio
-            var precio = document.querySelector("#modalTerminar textarea[name='precio']").value;
-
-            // Crear un input oculto para enviar el campo Precio
-            var inputPrecio = document.createElement("input");
-            inputPrecio.type = "hidden";
-            inputPrecio.name = "precio";
-            inputPrecio.value = precio;
-
-            // Agregar el input oculto al formulario
-            var formulario = document.getElementById("formu2");
-            formulario.appendChild(inputPrecio);
-
-            // Enviar el formulario
-            formulario.submit();
-        }
-    </script>
-
-</body>
+    </body>
 
 </html>
