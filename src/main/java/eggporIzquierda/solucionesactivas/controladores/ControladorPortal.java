@@ -40,37 +40,27 @@ public class ControladorPortal {
     @Autowired
     private ServicioProveedor proveedorServicio;
 
-    @Autowired
-    private ServicioContrato contratoServicio;
 
     @Autowired
     private RepositorioContrato repositorioContrato;
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-//        List<Proveedor> ListProveedores = proveedorServicio.listarProveedoresActivos();
-//        modelo.addAttribute("proveedores", ListProveedores);
-//
-//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-
-        return "index.html";
+     
+     return "index.html";
 
     }
 
     //-------------------------BUSCADOR--------------------
     @GetMapping("/buscar")
-    public String buscar(ModelMap modelo, @Param("palabraClave") String palabraClave, HttpSession session) {
+    public String buscar(ModelMap modelo, String palabraClave) {
+        
+        List<Proveedor> proveedores = proveedorServicio.buscarProveedoresxPalabraClave(palabraClave);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
-        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+        modelo.addAttribute("proveedores", proveedores);
 
-        List<Proveedor> ListNoticias = proveedorServicio.buscarProveedoresxFiltro(palabraClave);
-        modelo.addAttribute("proveedores", ListNoticias);
-        modelo.addAttribute("palabraClave", palabraClave);
-        return "index.html";
+        return "proveedor_list.html";
+
     }
 
     @GetMapping("/registrar")
@@ -92,6 +82,11 @@ public class ControladorPortal {
 
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);
+            modelo.put("archivo", archivo);
             modelo.put("email", email);
 
             return "registrar.html";
@@ -101,10 +96,12 @@ public class ControladorPortal {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+    public String login(@RequestParam(required = false) String error, ModelMap modelo, HttpSession session) {
 
         if (error != null) {
+
             modelo.put("error", "Usuario o Contraseña invalidos!");
+            session.removeAttribute("usuariosession");
         }
         return "login.html";
     }
@@ -113,20 +110,21 @@ public class ControladorPortal {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
 
-        //Agrego logia para probar notificaciones al proveedor
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario.getRol().toString().equals("ADMIN")) {
+            return "redirect:/admin/dashboard";
+        }
+
+        //Agrego logica para probar notificaciones al proveedor
         modelo.put("usuario", usuario);
 
         List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-        
-         List<ServicioOfrecido>  listaServ = servOfrecidoServicio.listarServicios();
-         modelo.put("servicios", listaServ);
+        List<ServicioOfrecido> listaServ = servOfrecidoServicio.listarServicios();
+        modelo.put("servicios", listaServ);
         // Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        // if (logueado.getRol().toString().equals("ADMIN")) {
-        //     return "redirect:/admin/dashboard";
-        // }
+        // 
         return "inicio.html";
     }
 
@@ -147,8 +145,16 @@ public class ControladorPortal {
             return "index.html";
         } catch (MiException ex) {
 
+            List<ServicioOfrecido> serviciosOfrecidos = servOfrecidoServicio.listarServicios();
+            modelo.put("serviciosOfrecidos", serviciosOfrecidos);
+
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("dni", dni);
+            modelo.put("telefono", telefono);
+            modelo.put("fechaNacimiento", fechaNacimiento);
+            modelo.put("archivo", archivo);
             modelo.put("email", email);
 
             return "registrar_proveedor.html";

@@ -1,21 +1,11 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
 
 
-.navBar{
-    background-color: #fff !important;
-}
 
-.elementosNav{
-    display: flex;
-    width: 30%;
-    justify-content: space-between;
-    color: #37474f;
-    font-weight: 700;
-}
-.card-title{
+/* .card-title{
     font-size: italic;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
+} */
 
 .elementos{
     margin-right: 50px;
@@ -46,11 +36,11 @@
   }
   
  
-  .card-title {
+ /*  .card-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-  }
+  } */
   
   
   .form-control {

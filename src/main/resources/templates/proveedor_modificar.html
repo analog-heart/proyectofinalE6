@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,16 +9,12 @@
         <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
         <link rel="stylesheet" href="/CSS/estiloslogin.css">
     </head>
-
     <body class="" >
 
         <header th:replace="~{/fragments/header :: header}"></header>
 
-        <div class="container container-fluid d-flex">
-            <main class="flex-grow-1 container-fluid">
-
-                <div th:replace="~{/fragments/error :: errores1}"></div>
-
+        <div class="">
+            <main class="">
 
                 <section style="background-color: #443C68;">
                     <div class="container py-5">
@@ -93,10 +88,11 @@
 
 
                                             <div class="input-group mb-3">
-                                                <input type="file" class="form-control mb-3" name="archivo" placeholder="Modificar foto de perfil">
+                                                <input type="file" class="form-control mb-3" name="archivo">
                                             </div>
 
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+
                                             <br>
 
 
@@ -104,15 +100,11 @@
                                                 <br>
 
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
-                                                
 
-                                                <br>
                                                 <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
 
                                                 <br>
 
-
-                                                
                                                 <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
                                                 <div th:if="${usuario.estadoProveedorActivo==true}">
                                                     <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
@@ -152,7 +144,7 @@
                                                                         <p class="mb-4" style="color: #FF0000" id = "campo"></p>
                                                                         <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
 
-                                                                        
+
 
                                                                     </div>
 

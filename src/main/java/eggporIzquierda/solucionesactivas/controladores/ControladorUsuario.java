@@ -1,10 +1,12 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
 import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioContrato;
+import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -34,14 +36,18 @@ public class ControladorUsuario {
     @Autowired
     private ServicioContrato contratoServicio;
 
+    @Autowired
+    private ServicioProveedor proveedorServicio;
+
     @GetMapping("/usuarios")
     public String listarUsuariosActivos(ModelMap modelo) {
         List<Usuario> usuarios = usuarioServicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
 
-        //ESTA VISTA VA A SER SOLO PARA LOS LOGEADOS? EN ESE CASO AGREGAR PREAUTH
-        //Y SI ESTA VISTA LA TIENE EL PROVEEDOR, HAY QUE INYECTAR LOS CONTRATOS SOLICITADOS (BRIAN)
-        
+        // ESTA VISTA VA A SER SOLO PARA LOS LOGEADOS? EN ESE CASO AGREGAR PREAUTH
+        // Y SI ESTA VISTA LA TIENE EL PROVEEDOR, HAY QUE INYECTAR LOS CONTRATOS
+        // SOLICITADOS (BRIAN)
+
         return "usuario_list.html";
     }
 
@@ -67,11 +73,14 @@ public class ControladorUsuario {
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
-    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre, @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono) {
-//Falta validar por separdo las claves pssw
+    public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
+            @RequestParam String email,
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario,
+            String apellido, Date fechaNacimiento, String dni, String telefono) {
+        // Falta validar por separdo las claves pssw
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido, fechaNacimiento, dni, telefono);
+            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido,
+                    fechaNacimiento, dni, telefono);
             modelo.put("exito", "Usuario actualizado correctamente!");
 
             return "inicio.html";
@@ -97,7 +106,8 @@ public class ControladorUsuario {
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
         modelo.put("contratosUsuario", contratosSesion);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+                .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "mi_perfil_usuario.html";
@@ -124,7 +134,12 @@ public class ControladorUsuario {
         List<ContratoProveedor> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
+       
         modelo.put("contratosUsuario", contratosSesion);
+       //agregado por lucho y juan
+        List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();
+        modelo.addAttribute("proveedores", proveedores);
+         modelo.put("proveedores", proveedores);
 
         return "mis_contratos_usuario.html";
     }
@@ -149,28 +164,28 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosTerminados = repositorioContrato.listarPorEstadoTerminadoCliente(usuario.getId());
+        List<ContratoProveedor> contratosTerminados = repositorioContrato
+                .listarPorEstadoTerminadoCliente(usuario.getId());
         modelo.put("contratosTerminados", contratosTerminados);
 
         return "mis_contratos_usuario_terminado.html";
     }
-    
-     @PostMapping("/actualizarclave/{id}")
-    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
+
+    @PostMapping("/actualizarclave/{id}")
+    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew,
             @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
-        
+
         try {
             usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
             return "redirect:../mi_perfil_usuario";
-            
+
         } catch (MiException ex) {
-            
+
             modelo.put("error", ex.getMessage());
             return "inicio.html";
-   
+
         }
- 
-        
+
     }
     
        //--------------SUSPENDER PERFIL PROVEEDOR------------

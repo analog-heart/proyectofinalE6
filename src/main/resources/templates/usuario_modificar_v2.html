@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="/CSS/estiloscssSinAfectarCards.css" />
         <link rel="stylesheet" href="/CSS/estiloslogin.css">
     </head>
-    <body class="" >
+    <body class="footer-alpiso" >
 
         <header th:replace="~{/fragments/header :: header}"></header>
 
@@ -103,11 +103,11 @@
                                                 <br>
 
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
-                                                
+
                                                 <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
 
                                                 <br>
-                                                
+
                                                 <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
                                                 <div th:if="${usuario.estado==true}">
                                                     <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
@@ -147,7 +147,7 @@
                                                                         <p class="mb-4" style="color: #FF0000" id = "campo"></p>
                                                                         <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
 
-                                                                        
+
 
                                                                     </div>
 
@@ -220,3 +220,4 @@
 
 
 </html>
+
