@@ -86,6 +86,9 @@ public class ControladorProveedor {
         // Agrego logia para probar notificaciones al proveedor
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
+        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        modelo.addAttribute("contratosCalificados", contratosCalificados);
+
         return "proveedor_contratar.html";
     }
 
@@ -123,7 +126,6 @@ public class ControladorProveedor {
 
     }
 
-
     //------------MODIFICAR PERFIL PROVEEDOR GET
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @GetMapping("/modificar_perfil_proveedor")
@@ -143,7 +145,7 @@ public class ControladorProveedor {
 
     }
 
-     //------------MODIFICAR PERFIL PROVEEDOR POST
+    //------------MODIFICAR PERFIL PROVEEDOR POST
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfil_proveedor/{id}")
     public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
@@ -169,17 +171,15 @@ public class ControladorProveedor {
         }
 
     }
-    
 
     @GetMapping("/proveedor_servicio/{serv_descripcion}")
     public String listarProveedoresXServicio(ModelMap modelo, @PathVariable String serv_descripcion) {
-        
+
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresconfiltro(serv_descripcion);
-        modelo.addAttribute("servicio",serv_descripcion);
+        modelo.addAttribute("servicio", serv_descripcion);
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
-
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/mis_contratos_proveedor")
@@ -233,42 +233,50 @@ public class ControladorProveedor {
 
         return "mis_contratos_proveedor_calificado.html";
     }
-    
-    
+
     //---------------ACTUALIZAR CLAVE---------------
     @PostMapping("/actualizarclave/{id}")
-    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
+    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew,
             @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
-        
+
         try {
             usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
             return "redirect:../mi_perfil_proveedor";
-            
+
         } catch (MiException ex) {
-                 
-            modelo.put("error", ex.getMessage()); 
+
+            modelo.put("error", ex.getMessage());
             return "inicio.html";
-        }  
+        }
     }
 
     //--------------SUSPENDER PERFIL PROVEEDOR------------
-   @PostMapping ("/suspender_mi_cuenta/{id}")
-    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
-        
+    @PostMapping("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo) {
+
         proveedorServicio.suspenderMiCuenta(id);
-        
-         return "redirect:../mi_perfil_proveedor";
+
+        return "redirect:../mi_perfil_proveedor";
     }
-    
-     @PostMapping ("/reactivar_mi_cuenta/{id}")
-    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
-        
+
+    @PostMapping("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo) {
+
         proveedorServicio.reactivarMiCuenta(id);
-        
-         return "redirect:../mi_perfil_proveedor";
+
+        return "redirect:../mi_perfil_proveedor";
     }
-    
-    
+
+    @GetMapping("/guest/{id}")
+    public String contacto(@PathVariable String id, ModelMap modelo) {
+
+        Proveedor proveedor = proveedorServicio.getOne(id);
+        modelo.addAttribute("proveedor", proveedor);
+        
+        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        modelo.addAttribute("contratosCalificados", contratosCalificados);
+        return "proveedor_perfil_guest.html";
+
+    }
 
 }
-

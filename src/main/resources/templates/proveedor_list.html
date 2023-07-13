@@ -8,13 +8,14 @@
   <header th:replace="~{/fragments/header :: header}"></header>
 
   <main class="flex-grow-1 container-fluid">
-      
+    
     <div th:replace="~{/fragments/error :: errores1}"></div>
+   
     <div>
       <h1  class="text-center" style="color: azure" th:text="${servicio}" >Lista de Proveedores</h1>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
       <div th:each="proveedor : ${proveedores}">
         <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}">
         </div>
@@ -27,5 +28,7 @@
   <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
 </body>
+
+
 
 </html>
