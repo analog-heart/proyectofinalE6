@@ -86,6 +86,9 @@ public class ControladorProveedor {
         // Agrego logia para probar notificaciones al proveedor
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
+        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        modelo.addAttribute("contratosCalificados", contratosCalificados);
+
         return "proveedor_contratar.html";
     }
 
