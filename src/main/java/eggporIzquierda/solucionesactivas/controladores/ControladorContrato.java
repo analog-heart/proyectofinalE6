@@ -198,7 +198,7 @@ public class ControladorContrato {
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("exito", "El contrato fue calificado con exito");
-            return "mis_contratos_usuario.html";
+            return "redirect:../inicio";
 
         } catch (MiException ex) {
 
