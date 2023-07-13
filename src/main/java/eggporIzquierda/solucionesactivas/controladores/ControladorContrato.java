@@ -45,7 +45,7 @@ public class ControladorContrato {
     @Autowired
     private ServicioContrato contratoServicio;
 
-    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    
     @PostMapping("/contratar")
     public String contratar(@RequestParam String idProveedor, @RequestParam String comentarioInicial, ModelMap modelo,
             HttpSession session) {
