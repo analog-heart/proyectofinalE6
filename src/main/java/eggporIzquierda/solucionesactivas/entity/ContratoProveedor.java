@@ -156,4 +156,25 @@ public class ContratoProveedor {
         this.comentarioOfensivo = comentarioOfensivo;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ContratoProveedor{");
+        sb.append("id=").append(id);
+        sb.append(", proveedor=").append(proveedor);
+        sb.append(", usuario=").append(usuario);
+        sb.append(", fechaContrato=").append(fechaContrato);
+        sb.append(", fechaFinalizacion=").append(fechaFinalizacion);
+        sb.append(", estado=").append(estado);
+        sb.append(", comentarioOfensivo=").append(comentarioOfensivo);
+        sb.append(", calificacion=").append(calificacion);
+        sb.append(", comentarioFinal=").append(comentarioFinal);
+        sb.append(", comentarioInicial=").append(comentarioInicial);
+        sb.append(", precio=").append(precio);
+        sb.append('}');
+        return sb.toString();
+    }
+    
+    
+
 }
