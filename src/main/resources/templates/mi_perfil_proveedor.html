@@ -48,15 +48,10 @@
                                         <p class="text-muted mb-4" th:if="${usuario.estadoProveedorActivo == true}" th:text=" 'Estado Activo' "></p>
                                         <p class="text-muted mb-4" th:if="${usuario.estadoProveedorActivo == false}" th:text=" 'Estado Inactivos' "></p>                                                                        
                                         <div class="d-flex justify-content-center mb-2">
-                                            <a type="button" class="btn btn-warning" th:href="@{/proveedor/modificar_perfil_proveedor}" th:if="${session.usuariosession != null}">Modificar  </a>
-
-                                            <br>
+                                            <a type="button" class="btn btn-primary" th:href="@{/proveedor/modificar_perfil_proveedor}" th:if="${session.usuariosession != null}">Modificar  </a>
 
                                             <a type="button" th:href="@{/proveedor/mis_contratos_proveedor}">
-                                                <button type="button" class="btn btn-secondary btn-lg">
-                                                    Ver Mis Contratos
-                                                </button>
-                                            </a>
+                                            <button type="button" class="btn btn-success">Ver Mis Contratos </button></a>
 
                                         </div>
                                     </div>

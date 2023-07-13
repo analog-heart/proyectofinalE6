@@ -63,7 +63,7 @@
 
                                             <input hidden th:value="${usuario.id}" name ="id">
 
-                                            <h4 class="form text-center" style="color: #2a363b"> Editar Perfil </h4>
+                                            <h4 class="form text-center text-decoration-underline" style="color: #2a363b"> Editar Perfil </h4>
 
 
                                             <div class="input-group mb-3">
@@ -93,7 +93,7 @@
 
 
                                             <div class="input-group mb-3">
-                                                <input type="file" class="form-control mb-3" name="archivo">
+                                                <input type="file" class="form-control mb-3" name="archivo" placeholder="Modificar foto de perfil">
                                             </div>
 
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
@@ -105,7 +105,6 @@
 
                                                 <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
                                                 
-                                                <button class="btn btn-primary form-control mb-3" id="botonVolver" onclick="goBack()">Volver</button>
 
                                                 <br>
                                                 <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
@@ -113,12 +112,7 @@
                                                 <br>
 
 
-
-                                                <hr>
-
-
-                                                </form>
-
+                                                
                                                 <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
                                                 <div th:if="${usuario.estadoProveedorActivo==true}">
                                                     <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>

@@ -95,7 +95,7 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+            
             if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
                 String idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
@@ -106,6 +106,9 @@ public class ServicioUsuario implements UserDetailsService {
                 Imagen imagen = imagenServicio.guardar(archivo);
                 usuario.setFotoPerfil(imagen);
             }
+            
+            usuario.setEstado(true);
+
 
             usuarioRepositorio.save(usuario);
         }
@@ -308,4 +311,24 @@ public class ServicioUsuario implements UserDetailsService {
         }
 
     }
+    
+        public void suspenderMiCuenta(String id) {
+       
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(false);
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    public void reactivarMiCuenta(String id) {
+         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(true);
+            usuarioRepositorio.save(usuario);
+        }
+
+     }
 }
