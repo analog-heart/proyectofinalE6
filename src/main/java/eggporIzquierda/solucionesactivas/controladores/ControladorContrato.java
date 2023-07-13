@@ -91,7 +91,7 @@ public class ControladorContrato {
             // modelo.put("usuario", usuario);
             modelo.put("exito", exito);
 
-            return "inicio.html";
+            return "redirect:../inicio";
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
