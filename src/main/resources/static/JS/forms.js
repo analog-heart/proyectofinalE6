@@ -3,7 +3,7 @@ let previousTitle = document.title;
 console.log(previousTitle);
 window.addEventListener("blur", () => {
   previousTitle = document.title;
-  document.title = "Soluciones Activas: Complatar Formulario!";
+  document.title = "Soluciones Activas: Completar Formulario!";
 });
 
 window.addEventListener("focus", () => {
