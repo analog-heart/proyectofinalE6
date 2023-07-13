@@ -1,18 +1,18 @@
 <div th:fragment="errores1">
-    <div id="errorDiv" th:if="${error != null}" class="text-white bg-danger mb-3 mensajeError" >
+
+    <div th:if="${error != null}" class="alert alert-danger" role="alert" style="max-width: 300px;" >
         <div class="card-body">
 
-                 <h5 class="card-title">Error:</h5>
-
+            <h5 class="card-title">Error:</h5>
             <p class="card-text" th:text="${error}"></p>
+
         </div>
     </div>
-    <div th:if="${exito != null}" class=" text-white bg-success mb-3 mt-3 mensajeExito" >
+    <div th:if="${exito != null}" class="alert alert-success" role="alert" style="max-width: 300px;" >
         <div class="card-body">
             <h5 class="card-title">Exito!</h5>
             <p class="card-text" th:text="${exito}"></p>
         </div>
-    </div>
+    </div>
 </div>
-
 
