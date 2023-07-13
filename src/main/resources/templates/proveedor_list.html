@@ -15,7 +15,7 @@
       <h1  class="text-center" style="color: azure" th:text="${servicio}" >Lista de Proveedores</h1>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
       <div th:each="proveedor : ${proveedores}">
         <div th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}">
         </div>
