@@ -278,6 +278,8 @@ public class ServicioProveedor implements UserDetailsService {
     
      public void cantidadDeTrabajos(String id) throws MiException {
 
+        System.out.println("log 4");
+
         List<ContratoProveedor> contratosCalif = new ArrayList();
         List<ContratoProveedor> contratosTerminados = new ArrayList();
 
