@@ -3,33 +3,23 @@
 
     <head th:replace="~{/fragments/head :: head}"></head>
 
-
     <body class="footer-alpiso d-flex flex-column">
-
         <header th:replace="~{/fragments/header :: header}"></header>
-
-
         <main class="flex-grow-1 container-fluid d-flex justify-content-center align-items-center">
             <div class="contenedor w-75">
                 <div class="left-panel" style="width: 120%;">
                     <img src="https://img.freepik.com/free-photo/mechanic-presenting-something_1368-4081.jpg"
                          style="border-radius: 5px; width: 100%;" alt="Background Image">
                 </div>
-
                 <div class="right-panel" style="width: 100%;">
-                    <form class="formulario form-control" th:action="@{/registro}" method="POST"
+                    <form class="formulario form-control" th:action="@{/registro}" method="POST"                          
                           enctype="multipart/form-data">
+                        <div  th:replace="~{/fragments/error:: errores1}" ></div>
                         <div class="texto">
-
-                          <div class="logo ">
-                              <img src="/IMG/Logo-Soluciones-Circular.png"  alt="Logo">
-
+                            <div class="logo ">
+                                <img src="/IMG/Logo-Soluciones-Circular.png"  alt="Logo">
                             </div> 
-
-                            <div  th:replace="~{/fragments/error:: errores1}" ></div>
                             <div class=" form-input">
-
-
                                 <br>
                                 <input type="text" class="form-control" name="nombre" placeholder="Nombre"
                                        th:value="${nombre}">   
@@ -40,35 +30,24 @@
                                        th:value="${telefono}">
                                 <input required pattern="\d{4}-\d{2}-\d{2}" type="date" class="form-control" name="fechaNacimiento" min="1923-01-01"
                                        max="3000-12-31" th:value="${fechaNacimiento}">
-
-
                                 <input th:value="${email}" type="email" class=" mb-3" name="email" placeholder="EMAIL">
                                 <input type="file" class="form-control mb-3" name="archivo">
                                 <input th:value="${password}" type="password" class="form-control mb-3" name="password"
                                        placeholder="CONTRASEÑA">
                                 <input th:value="${password2}" type="password" class="form-control mb-3" name="password2"
                                        placeholder="REPETIR CONTRASEÑA">
-
-
-                                <!--<div th:replace="~{/fragments/error:: errores1}"></div>-->
-
                                 <div class="form-button">
                                     <button type="submit"
                                             class="btn btn-primary mt-3 form-control mb-3 botones">Registrarme</button>
                                 </div>
-
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </main>
-
         <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
-
     </body>
-
 </html>
 
 
