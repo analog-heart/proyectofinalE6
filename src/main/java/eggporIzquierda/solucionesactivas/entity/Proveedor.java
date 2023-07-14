@@ -63,7 +63,7 @@ public class Proveedor extends Usuario {
     }
 
     public Double getReputacion() {
-        return reputacion;
+        return Math.round(reputacion*100.0)/100.0;
     }
 
     public void setReputacion(Double reputacion) {

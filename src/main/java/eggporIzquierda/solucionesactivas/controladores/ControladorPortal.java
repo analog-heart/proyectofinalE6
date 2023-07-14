@@ -46,6 +46,8 @@ public class ControladorPortal {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
+         List<ServicioOfrecido> listaServ = servOfrecidoServicio.listarServicios();
+        modelo.put("servicios", listaServ);
      
      return "index.html";
 
