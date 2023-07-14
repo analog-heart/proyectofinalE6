@@ -22,7 +22,7 @@
                 <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosTerminados}">
                     <div class="card-header" style="text-align: center">
                         <h5 class="card-title" id="nombreCard"
-                            th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
+                    th:text="${proveedor.nombre} + ' ' + ${proveedor.apellido}"></h5>
                     </div>
                     <div class="card-body">
 
