@@ -1,6 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
@@ -120,7 +120,7 @@ public class ControladorPortal {
         //Agrego logica para probar notificaciones al proveedor
         modelo.put("usuario", usuario);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         List<ServicioOfrecido> listaServ = servOfrecidoServicio.listarServicios();
