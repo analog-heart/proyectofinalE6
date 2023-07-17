@@ -338,4 +338,48 @@ public class ServicioUsuario implements UserDetailsService {
         }
     }
 
+    
+    @Transactional
+    public void modifcar_por_Admin(MultipartFile archivo, String id, String nombre, String email, String password,
+            String password2, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono)
+            throws MiException {
+
+        validar(nombre, apellido, email, password, password2, dni, telefono);
+        System.out.println("Paso el validar");
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombreUsuario);
+            usuario.setApellido(apellido);
+            usuario.setDni(dni);
+            usuario.setTelefono(telefono);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
+                String idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
+
+            } else if (usuario.getFotoPerfil() == null && !archivo.isEmpty()) {
+
+                Imagen imagen = imagenServicio.guardar(archivo);
+                usuario.setFotoPerfil(imagen);
+            }
+            
+             try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNac = formato.parse(fechaNacimiento);
+            usuario.setFechaNacimiento(fechaNac);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+                
+            usuarioRepositorio.save(usuario);
+        }
+
+    }
 }

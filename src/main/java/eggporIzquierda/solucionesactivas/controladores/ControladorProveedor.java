@@ -58,20 +58,20 @@ public class ControladorProveedor {
         return "proveedor_list.html";
     }
 
-    @GetMapping("/buscar")
-    public String buscarProveedores(String nombre, ModelMap modelo, HttpSession session) {
-
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
-                .listarPorEstadoSolicitado(usuario.getId());
-        modelo.addAttribute("contratos", cantidadContratosSolicitados);
-        // Agrego logia para probar notificaciones al proveedor
-        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-
-        List<Proveedor> resultados = proveedorServicio.buscarProveedoresXnombre(nombre);
-        modelo.addAttribute("resultados", resultados);
-        return "resultado_busqueda.html";
-    }
+//    @GetMapping("/buscar")
+//    public String buscarProveedores(String nombre, ModelMap modelo, HttpSession session) {
+//
+//        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+//        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+//                .listarPorEstadoSolicitado(usuario.getId());
+//        modelo.addAttribute("contratos", cantidadContratosSolicitados);
+//        // Agrego logia para probar notificaciones al proveedor
+//        modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+//
+//        List<Proveedor> resultados = proveedorServicio.buscarProveedoresXnombre(nombre);
+//        modelo.addAttribute("resultados", resultados);
+//        return "resultado_busqueda.html";
+//    }
 
     @GetMapping("/{id}")
     public String contacto(@PathVariable String id, ModelMap modelo, HttpSession session) {

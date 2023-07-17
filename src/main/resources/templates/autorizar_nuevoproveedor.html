@@ -11,7 +11,7 @@
                 <h3> Solicitudes Pendientes Proveedores </h3>
 
 
-                <table class="table table-dark" th:each="prov : ${proveedoresInactivos}">
+                <table class="table table-dark" >
 
                     <thead class="align-items-center">
                         <tr >
@@ -30,7 +30,7 @@
                         </tr>
 
                     </thead>
-                    <tbody > 
+                    <tbody th:each="prov : ${proveedoresInactivos}"> 
                         <tr>
                             <td > <img th:if="${prov.fotoPerfil != null}" th:src="@{/imagen/perfil/__${prov.id}__}" width="50" height="50" alt="foto_serv"> </td>
                             <td scope="row" th:text="${prov.nombre}"></td>
@@ -47,11 +47,8 @@
                                
                             </td>
                         </tr>
-                    </tbody>
-                    
-                    
-                    
-                     <!----MODAL DE SUSPERNDER CUENTA ---->
+                        
+                         <!----MODAL DE SUSPERNDER CUENTA ---->
                                                 
                                                 <form th:action="@{/admin/autorizar_proveedor/__${prov.id}__}" class="formulario form-control "  method="POST">
                                                     <div class ="texto">
@@ -83,6 +80,12 @@
                                                     </div>
                                                 </form>
                                                  <!----FIN MODAL DE SUSPERNDER CUENTA ---->
+                        
+                    </tbody>
+                    
+                    
+                    
+                    
                 </table>
 
 
