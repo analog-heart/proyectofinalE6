@@ -97,16 +97,7 @@ public class ServicioContrato {
         List<Contrato> contratos = listarContratos();
         List<Contrato> contratosSesion = new ArrayList();
 
-        if (usuario.getRol().toString().equalsIgnoreCase("USUARIO")) {
-            for (int i = 0; i < contratos.size(); i++) {
-
-                if (contratos.get(i).getUsuario().getId().equalsIgnoreCase(usuario.getId())) {
-
-                    contratosSesion.add(contratos.get(i));
-
-                }
-            }
-        }
+        
         if (usuario.getRol().toString().equalsIgnoreCase("PROVEEDOR")) {
             for (int i = 0; i < contratos.size(); i++) {
 
@@ -258,8 +249,8 @@ public class ServicioContrato {
 
     public List<Contrato> listarContratos() {
 
-        List<Contrato> contratos = new ArrayList();
-        contratos = repositorioContrato.findAll();
+        List<Contrato> contratos = repositorioContrato.findAll();
+        
         return contratos;
     }
 
