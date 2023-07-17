@@ -16,7 +16,7 @@ import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class ContratoProveedor {
+public class Contrato {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -38,7 +38,9 @@ public class ContratoProveedor {
     @Enumerated(EnumType.STRING)
     private EnumEstadoContrato estado;
 
-    private Boolean comentarioOfensivo;
+    private Boolean comentarioDenunciado;
+
+    private Boolean comentarioEliminado;
 
     private Integer calificacion;
 
@@ -46,13 +48,15 @@ public class ContratoProveedor {
 
     private String comentarioInicial;
 
+    private String comentarioOfensivoEliminado;
+
     private BigDecimal precio;
 
 // CONSTRUCTORES:
-    public ContratoProveedor() {
+    public Contrato() {
     }
 
-    public ContratoProveedor(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, Integer calificacion, String comentarioFinal, String comentarioInicial, BigDecimal precio, Boolean comentarioOfensivo) {
+    public Contrato(String id, Proveedor proveedor, Usuario usuario, Date fechaContrato, Date fechaFinalizacion, EnumEstadoContrato estado, Integer calificacion, String comentarioFinal, String comentarioInicial, String comentarioOfensivoEliminado, BigDecimal precio) {
         this.id = id;
         this.proveedor = proveedor;
         this.usuario = usuario;
@@ -62,9 +66,8 @@ public class ContratoProveedor {
         this.calificacion = calificacion;
         this.comentarioFinal = comentarioFinal;
         this.comentarioInicial = comentarioInicial;
+        this.comentarioOfensivoEliminado = comentarioOfensivoEliminado;
         this.precio = precio;
-        this.comentarioOfensivo = comentarioOfensivo;
-
     }
 
     //GETTERS AND SETTERS
@@ -148,12 +151,49 @@ public class ContratoProveedor {
         this.comentarioInicial = comentarioInicial;
     }
 
-    public Boolean getComentarioOfensivo() {
-        return comentarioOfensivo;
+    public Boolean getComentarioDenunciado() {
+        return comentarioDenunciado;
     }
 
-    public void setComentarioOfensivo(Boolean comentarioOfensivo) {
-        this.comentarioOfensivo = comentarioOfensivo;
+    public void setComentarioDenunciado(Boolean comentarioDenunciado) {
+        this.comentarioDenunciado = comentarioDenunciado;
+    }
+
+    public Boolean getComentarioEliminado() {
+        return comentarioEliminado;
+    }
+
+    public void setComentarioEliminado(Boolean comentarioEliminado) {
+        this.comentarioEliminado = comentarioEliminado;
+    }
+
+    public String getComentarioOfensivoEliminado() {
+        return comentarioOfensivoEliminado;
+    }
+
+    public void setComentarioOfensivoEliminado(String comentarioOfensivoEliminado) {
+        this.comentarioOfensivoEliminado = comentarioOfensivoEliminado;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Contrato{");
+        sb.append("id=").append(id);
+        sb.append(", proveedor=").append(proveedor);
+        sb.append(", usuario=").append(usuario);
+        sb.append(", fechaContrato=").append(fechaContrato);
+        sb.append(", fechaFinalizacion=").append(fechaFinalizacion);
+        sb.append(", estado=").append(estado);
+        sb.append(", comentarioDenunciado=").append(comentarioDenunciado);
+        sb.append(", comentarioEliminado=").append(comentarioEliminado);
+        sb.append(", calificacion=").append(calificacion);
+        sb.append(", comentarioFinal=").append(comentarioFinal);
+        sb.append(", comentarioInicial=").append(comentarioInicial);
+        sb.append(", comentarioOfensivoEliminado=").append(comentarioOfensivoEliminado);
+        sb.append(", precio=").append(precio);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

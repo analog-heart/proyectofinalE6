@@ -21,19 +21,21 @@
                     <h4 class="card-title">N° de contrato:</h4>
                     <h3 class="card-title" th:text="${contrato.id}"></h3>
                     <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                    <h6>Estado:</h6>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                    <h6>Precio:</h6>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.precio}"></h6>
-                    <h5>Comentario:</h5>
-                    <h6 th:if="${contrato.comentarioFinal == null}" class="card-subtitle mb-2 text-muted">Este
-                        comentario fue eliminado por el ADMIN</h6>
-                    <h6 th:if="${contrato.comentarioFinal != null}" class="card-subtitle mb-2 text-muted"
-                        th:text="${contrato.comentarioFinal}"></h6>
-
-                    <form th:if="${contrato.comentarioFinal != null}" method="POST"
-                        th:action="@{/admin/dashboard/comentario_eliminado}">
-                        <h6>¿Eliminar comentario?</h6>
+                    <h4>Estado:</h4>
+                    <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h4>
+                    <h4>Precio:</h4>
+                    <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.precio}"></h4>
+                    <h4>Comentario:</h4>
+                    <div th:if="${contrato.comentarioEliminado == true}" class="card-subtitle mb-2 text-muted">
+                        <h5>Este comentario fue denunciado por el proveedor y eliminado por el ADMIN:</h5>
+                        <h6 th:text="${contrato.comentarioOfensivoEliminado}"></h6>
+                    </div>
+                    <div th:if="${contrato.comentarioEliminado == false}" class="card-subtitle mb-2 text-muted">
+                        <h4 th:text="${contrato.comentarioFinal}"></h4>
+                    </div>
+                    <form th:if="${contrato.comentarioDenunciado == true} and ${contrato.comentarioEliminado = false}"
+                        method="POST" th:action="@{/admin/dashboard/comentario_eliminado}">
+                        <h4>¿Eliminar comentario?</h4>
                         <label>Se elimiará el comentario, quedando NULL</label>
                         <input hidden th:value="${contrato.id}" name="idContrato">
                         <button type="submit" class="btn btn-primary">Eliminar</button>
