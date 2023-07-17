@@ -139,14 +139,14 @@
 
 
 .modal-error  {
-  background: linear-gradient(to bottom, #ff4d4d, #ff0000);
-  color: #fff;
-  
+    background: linear-gradient(to bottom, #ff4d4d, #ff0000);
+    color: #fff;
+
 }
 
 .modal-success {
-  background: linear-gradient(to bottom, #66ff66, #00cc00);
-  color: #000;
+    background: linear-gradient(to bottom, #66ff66, #00cc00);
+    color: #000;
 }
 
 /* ----------- Fin error/exito ---------------*/

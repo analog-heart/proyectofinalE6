@@ -1,7 +1,7 @@
 <div th:fragment="errores1" >
 
     <div id="errorModal" th:if="${error != null}" class="modal " tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-error ">
                 <div class="modal-header">
                     <h5 class="modal-title">Error</h5>
@@ -14,7 +14,7 @@
     </div>
 
     <div id="succesModal" th:if="${exito != null}" class="modal " tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
             <div class="modal-content modal-success">
                 <div class="modal-header">
                     <h5 class="modal-title">Exito</h5>
