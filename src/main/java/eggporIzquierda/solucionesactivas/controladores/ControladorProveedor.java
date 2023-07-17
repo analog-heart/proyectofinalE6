@@ -1,6 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
@@ -48,7 +48,7 @@ public class ControladorProveedor {
     public String listar(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
@@ -62,7 +62,7 @@ public class ControladorProveedor {
     public String buscarProveedores(String nombre, ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         // Agrego logia para probar notificaciones al proveedor
@@ -80,13 +80,13 @@ public class ControladorProveedor {
         Proveedor proveedor = proveedorServicio.getOne(id);
         modelo.addAttribute("proveedor", proveedor);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         // Agrego logia para probar notificaciones al proveedor
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        List<Contrato> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
         modelo.addAttribute("contratosCalificados", contratosCalificados);
 
         return "proveedor_contratar.html";
@@ -99,7 +99,7 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato.listarPorEstadoSolicitado(usuario.getId());
         modelo.addAttribute("contratos", cantidadContratosSolicitados);
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
@@ -113,19 +113,18 @@ public class ControladorProveedor {
         Proveedor usuario = (Proveedor) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosSesion = new ArrayList();
+        List<Contrato> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
         modelo.put("contratosUsuario", contratosSesion);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "mi_perfil_proveedor.html";
 
     }
-
 
     //------------MODIFICAR PERFIL PROVEEDOR GET
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
@@ -137,7 +136,7 @@ public class ControladorProveedor {
         modelo.addAttribute("serviciosOfrecidos", servOfrecidoServicio.listarServicios());
         modelo.put("usuario", usuario);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         // modelo.addAttribute("contratos", cantidadContratosSolicitados);
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
@@ -146,7 +145,7 @@ public class ControladorProveedor {
 
     }
 
-     //------------MODIFICAR PERFIL PROVEEDOR POST
+    //------------MODIFICAR PERFIL PROVEEDOR POST
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
     @PostMapping("/perfil_proveedor/{id}")
     public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
@@ -172,17 +171,15 @@ public class ControladorProveedor {
         }
 
     }
-    
 
     @GetMapping("/proveedor_servicio/{serv_descripcion}")
     public String listarProveedoresXServicio(ModelMap modelo, @PathVariable String serv_descripcion) {
-        
+
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresconfiltro(serv_descripcion);
-        modelo.addAttribute("servicio",serv_descripcion);
+        modelo.addAttribute("servicio", serv_descripcion);
         modelo.addAttribute("proveedores", proveedores);
         return "proveedor_list.html";
     }
-
 
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @GetMapping("/mis_contratos_proveedor")
@@ -191,12 +188,12 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosSesion = new ArrayList();
+        List<Contrato> contratosSesion = new ArrayList();
         contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
-        modelo.put("contratosUsuario", contratosSesion);
+        modelo.addAttribute("contratosUsuario", contratosSesion);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
@@ -210,10 +207,10 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosEncurso = repositorioContrato.listarPorEstadoEncurso(usuario.getId());
+        List<Contrato> contratosEncurso = repositorioContrato.listarPorEstadoEncurso(usuario.getId());
         modelo.put("contratosEncurso", contratosEncurso);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
@@ -227,51 +224,59 @@ public class ControladorProveedor {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", proveedorServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(usuario.getId());
+        List<Contrato> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(usuario.getId());
         modelo.put("contratosCalificados", contratosCalificados);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
         return "mis_contratos_proveedor_calificado.html";
     }
-    
-    
+
     //---------------ACTUALIZAR CLAVE---------------
     @PostMapping("/actualizarclave/{id}")
-    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew, 
+    public String actualizarClave(@RequestParam String passwordold, @RequestParam String passwordnew,
             @RequestParam String passwordconf, @PathVariable String id, ModelMap modelo) {
-        
+
         try {
             usuarioServicio.modificarClave(passwordold, passwordnew, passwordconf, id);
             return "redirect:../mi_perfil_proveedor";
-            
+
         } catch (MiException ex) {
-                 
-            modelo.put("error", ex.getMessage()); 
+
+            modelo.put("error", ex.getMessage());
             return "inicio.html";
-        }  
+        }
     }
 
     //--------------SUSPENDER PERFIL PROVEEDOR------------
-   @PostMapping ("/suspender_mi_cuenta/{id}")
-    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
-        
+    @PostMapping("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo) {
+
         proveedorServicio.suspenderMiCuenta(id);
-        
-         return "redirect:../mi_perfil_proveedor";
+
+        return "redirect:../mi_perfil_proveedor";
     }
-    
-     @PostMapping ("/reactivar_mi_cuenta/{id}")
-    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
-        
+
+    @PostMapping("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo) {
+
         proveedorServicio.reactivarMiCuenta(id);
-        
-         return "redirect:../mi_perfil_proveedor";
+
+        return "redirect:../mi_perfil_proveedor";
     }
-    
-    
+
+    @GetMapping("/guest/{id}")
+    public String contacto(@PathVariable String id, ModelMap modelo) {
+
+        Proveedor proveedor = proveedorServicio.getOne(id);
+        modelo.addAttribute("proveedor", proveedor);
+        
+        List<Contrato> contratosCalificados = repositorioContrato.listarPorEstadoCalificado(id);
+        modelo.addAttribute("contratosCalificados", contratosCalificados);
+        return "proveedor_perfil_guest.html";
+
+    }
 
 }
-

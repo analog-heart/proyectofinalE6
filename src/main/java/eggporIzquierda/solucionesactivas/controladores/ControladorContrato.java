@@ -4,7 +4,7 @@
  */
 package eggporIzquierda.solucionesactivas.controladores;
 
-import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -45,7 +45,7 @@ public class ControladorContrato {
     @Autowired
     private ServicioContrato contratoServicio;
 
-    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    
     @PostMapping("/contratar")
     public String contratar(@RequestParam String idProveedor, @RequestParam String comentarioInicial, ModelMap modelo,
             HttpSession session) {
@@ -85,7 +85,7 @@ public class ControladorContrato {
             }
             contratoServicio.actualizarContrato(idContrato, decision);
 
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
             // modelo.put("usuario", usuario);
@@ -95,7 +95,7 @@ public class ControladorContrato {
 
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
             return "contratos_solicitados.html";
@@ -109,33 +109,34 @@ public class ControladorContrato {
     public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato,
             @RequestParam BigDecimal precio, ModelMap modelo) {
 
+                System.out.println("log 1");
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
 
+            System.out.println("log 2");
+
             contratoServicio.finalizarContratoProveedor(idContrato, precio);
             proveedorServicio
                     .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("exito", "El contrato fue finalizado con exito");
             return "mis_contratos_proveedor.html";
 
         } catch (MiException ex) {
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("error", ex.getMessage());
@@ -149,28 +150,25 @@ public class ControladorContrato {
     @PostMapping("/finalizar_contrato_usuario")
     public String finalizarContratoUsuario(HttpSession session, @RequestParam String idContrato,
             @RequestParam String comentarioFinal, ModelMap modelo) {
-
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
+            contratoServicio.cancelarContratoUsuario(idContrato, null, comentarioFinal);
 
-            contratoServicio.finalizarContratoUsuario(idContrato, null, comentarioFinal);
-
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
-            modelo.put("contratosUsuario", contratosSesion);
-
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            //modelo.add("contratosUsuario", contratosSesion);
+            modelo.addAttribute("contratosUsuario",contratosSesion);
             modelo.put("exito", "El contrato fue cancelado con exito");
+            
             return "mis_contratos_usuario.html";
 
         } catch (MiException ex) {
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("error", ex.getMessage());
@@ -193,8 +191,7 @@ public class ControladorContrato {
             contratoServicio.calificarContrato(idContrato, comentarioFinal, calificacion);
             proveedorServicio.cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("exito", "El contrato fue calificado con exito");
@@ -202,8 +199,7 @@ public class ControladorContrato {
 
         } catch (MiException ex) {
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("error", ex.getMessage());
@@ -217,22 +213,18 @@ public class ControladorContrato {
     @PostMapping("/denunciar_comentario")
     public String denunciarComentario(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
 
-        System.out.println("ENTRANDO A CONTROLADOR..");
-
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
 
-            System.out.println("ENTRANDO A CONTROLADOR tryyyyyyyyyyyyy..");
             contratoServicio.denunciarComentario(idContrato);
 
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("exito", "El contrato fue denunciado con exito");
@@ -241,12 +233,11 @@ public class ControladorContrato {
         } catch (MiException ex) {
 
             System.out.println("ENTRANDO A CONTROLADOR CAAAATHCH..");
-            List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
-            List<ContratoProveedor> contratosSesion = new ArrayList();
-            contratosSesion = contratoServicio.listarContratosSesion(usuario);
+            List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);
 
             modelo.put("error", ex.getMessage());
