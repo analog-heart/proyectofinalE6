@@ -2,35 +2,39 @@
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{/fragments/head :: head}"></head>
+    <head th:replace="~{/fragments/head :: head}"></head>
 
-<body>
-    <header th:replace="~{/fragments/header :: header}"></header>
-    <main class="footer-alpiso">
-        
-        <div class="container">
-            <h2 style="color: azure;">CONTRATOS</h2>
+    <body>
+        <header th:replace="~{/fragments/header :: header}"></header>
+        <main class="footer-alpiso">
+
+            <div class="container">
+                <h2 style="color: azure;">CONTRATOS</h2>
                 <div class="card" style="max-width: 540px;" th:each="contrato : ${contratos}">
                     <div class="card-body">
-                    <h5 class="card-title">N° DE CONTRATO:</h5><h6 class="card-subtitle" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h6>
-                    <h5 class="card-title">ESTADO:</h5>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                    <h5 class="card-title">FECHA ALTA:</h5>
-                    <p class="card-text" th:text="${contrato.fechaContrato}"></p>
-                    <h6>Comentarios del cliente:</h6>
-                    <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
-                    <div class="d-flex justify-content-between ">
-                        <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
-                            <input hidden th:value= "${contrato.id}" name="idContrato">
-                            <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar contrato</button>
-                            <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar contrato</button>
-                        </form>
+                        <h5 class="card-title">N° DE CONTRATO:</h5><h6 class="card-subtitle" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h6>
+                        <h5 class="card-title">ESTADO:</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
+                        <h5 class="card-title">FECHA ALTA:</h5>
+                        <p class="card-text" th:text="${contrato.fechaContrato}"></p>
+                        <h6>Comentarios del cliente:</h6>
+                        <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
+                        <div class="d-flex justify-content-between ">
+                            <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
+                                <input hidden th:value= "${contrato.id}" name="idContrato">
+                                <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar contrato</button>
+                                <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar contrato</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-        </div>
-    </main>
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+            </div>
+
+            <div th:replace="~{/fragments/error:: errores1}" ></div>
+
+
+        </main>
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
     </body>
 
