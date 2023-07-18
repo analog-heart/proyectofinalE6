@@ -11,7 +11,8 @@
         <!---Mis Contratos--->
 
         <div class="container py-5 h-200">
-            <div class="container">
+
+            <div th:if="${contratosUsuario.size() != 0}" class="container">
                 <div class="row justify-content-center">
                     <div class="col-4">
                         <a th:href="@{/usuario/mis_contratos_usuario_encurso}" class="btn btn-dark btn-block">Contratos
