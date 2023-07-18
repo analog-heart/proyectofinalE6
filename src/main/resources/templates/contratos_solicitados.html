@@ -21,6 +21,7 @@
                     <p class="card-text" th:text="${contrato.comentarioInicial}"></p>
                     <div class="d-flex justify-content-between ">
                         <form style="width:800px; margin:0 auto;" type="form" th:action="@{/contrato/aceptar_contrato}" method="POST">
+                            <div th:replace="~{/fragments/error:: errores1}" ></div>
                             <input hidden th:value= "${contrato.id}" name="idContrato">
                             <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar contrato</button>
                             <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar contrato</button>
