@@ -100,9 +100,8 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<Contrato> contratosSesion = new ArrayList();
+        List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
-        contratosSesion = contratoServicio.listarContratosSesion(usuario);
         modelo.put("contratosUsuario", contratosSesion);
 
         List<Contrato> cantidadContratosSolicitados = repositorioContrato
@@ -130,9 +129,8 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<Contrato> contratosSesion = new ArrayList();
-        contratosSesion = contratoServicio.listarContratosSesion(usuario);
-
+        List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
+        
         modelo.put("contratosUsuario", contratosSesion);
         //agregado por lucho y juan
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();

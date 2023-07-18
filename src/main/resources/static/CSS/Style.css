@@ -1,0 +1,412 @@
+@import '~mdb-ui-kit/css/mdb.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
+*{
+    font-size: 20px;
+
+}
+
+header{
+
+    background-color: #635985;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #443C68;
+    font-family: 'Bitter';
+    
+}
+
+footer{
+
+    background-color: #393053;
+}
+
+.footer-alpiso {
+    min-height: 80vh;
+}
+
+.contenedor {
+    border: 5px;
+    max-width: 1500px;
+    width: 130%;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0.5px;
+}
+
+.right-panel {
+    flex: 1 1 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.right-panel .texto {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 70%;
+    margin: auto;
+}
+
+.left-panel {
+
+    margin: 0;
+    display: grid;
+    grid-template-columns: 2fr;
+    background-size: cover;
+    background-position: left;  
+    
+}
+
+.form-input {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-input input {
+     width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    outline: none;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.form-button button {
+    background-color: #2a363b;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-button button:hover {
+    background-color: #3e8e41;
+}
+
+
+.containerFooter{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#mainindex {
+    background-image: url("https://img.freepik.com/free-photo/variety-handy-tools-dark-background-labor-day-background-concept_1150-41808.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.ParrafoIndex {
+    font-family: sans-serif;
+    font-style: italic;
+    color: azure;
+}
+
+.TitutloIndex {
+    color: azure;
+}
+
+
+.login {
+    background-image: url("https://img.freepik.com/free-photo/check-lock-wooden-table-background_93675-128371.jpg");
+    background-repeat: no-repeat;
+}
+
+/* ----------- INICIO DASHBOARD ---------------*/
+#dashboard {
+
+    background-color: #2a363b;
+    /*  background-repeat: no-repeat;*/
+    background-position: center;
+    background-size: 90%;
+
+}
+
+
+#contendero-sidemenu-main{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background: #2a363b;
+    width: 60%;
+    flex-wrap:wrap;
+}
+.sidebar-menu-btones{
+    border: none;
+
+    text-align: left;
+    text-decoration: none;
+    
+    justify-content: center;
+    font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+
+}
+
+
+#menu-dashboard {
+    display: flex;
+    position: relative;
+    flex-direction:column;
+    min-width: 230px;
+    
+
+}
+
+.sidebar {
+    background-color: #2a363b;
+    color: #fff;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 00px 0;
+}
+
+.sidebar-menu ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-menu ul li a:hover {
+    text-decoration: underline;
+}
+
+
+/*--- MAIN DEL DASHBOARD */
+#main-dashboard{
+   background-color:#37474f;
+   display: inline-grid;
+  
+   width: 180%;
+    
+}
+
+/* ----------- Fin Dashboard ---------------*/
+
+
+/*-------------tarjetas de lilsta proveedor-----------*/
+
+#nombreCard {
+
+    font-family: 'Lobster Two', cursive;
+    font-size: 35px;
+
+  }
+
+  #span-card {
+
+    font-family: 'Arvo', serif;
+    font-size: 20px;
+
+  }
+
+  /*-----------------fin----------------------------*/
+
+  
+
+  #card-index{
+
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 32px;
+        
+
+  }
+
+  /* puntuacion css */
+
+  input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    color: grey;
+  }
+  
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+  
+  label:hover,
+  label:hover~label {
+    color: orange;
+  }
+  
+  input[type="radio"]:checked~label {
+    color: orange;
+  }
+
+  /* ------------ fin puntuacion ----------- */
+
+  /* FORMULARIO */
+
+  @import '~mdb-ui-kit/css/mdb.min.css';
+
+
+
+
+.elementos{
+    margin-right: 50px;
+}
+
+.containerImg{
+    width: 20%;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+
+.formulario {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .formulario .form-group {
+    margin-bottom: 20px;
+  }
+  
+ 
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  
+  .botones {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  
+  @media (max-width: 600px) {
+    .formulario {
+      max-width: 100%;
+    }
+  }
+
+  .formulario .direccion {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+/* -------------------    FIN FORMULARIO ------------------ */
+
+/* ESTILOS HERNAN  */
+
+
+
+
+
+/*opcion2 hernan*/
+#contendero-sidemenu-main{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background: #2a363b;
+    width: 60%;
+    flex-wrap:wrap;
+}
+.sidebar-menu-btones{
+    border: none;
+
+    text-align: left;
+    text-decoration: none;
+
+    justify-content: center;
+    font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+
+}
+
+
+#menu-dashboard {
+    display: flex;
+    position: relative;
+    flex-direction:column;
+    min-width: 230px;
+
+
+}
+
+.sidebar {
+    background-color: #2a363b;
+    color: #fff;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 00px 0;
+}
+
+.sidebar-menu ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-menu ul li a:hover {
+    text-decoration: underline;
+}
+
+
+  
+
+
