@@ -26,13 +26,23 @@
             </div>
             <hr style="color: azure;">
 
+            <div class="container">
+                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
+                    th:if="${contratosUsuario.size() == 0}">
+                    <div class="card-header">
+                        <h4 class="card-title">De momento no tenes contratos</h4>
+                    </div>
+                </div>
+            </div>
+
             <!---Mis Contratos--->
 
             <div class="d-flex flex-wrap">
 
-                <div class="input-group mb-3" th:if="${contrato == null}">
-                    <h2 style="color: azure;">CONTRATOS</h2>
+                <div class="input-group mb-3" th:if="${contratosUsuario.size() != 0}">
+                    <h2 style="color: azure;">Tus contratos:</h2>
                 </div>
+                
                 <div class="black bg-white form-border"
                     style="border: solid 1px; border-radius: 5px; width: 50%; height: auto; padding: 5px; margin: 5px; color: cornflowerblue;"
                     th:each="contrato : ${contratosUsuario}">

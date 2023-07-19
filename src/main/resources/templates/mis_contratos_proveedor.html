@@ -37,6 +37,10 @@
                 </div>
             </div>
 
+            <div class="input-group mb-3" th:if="${contratosUsuario.size() != 0}">
+                <h2 style="color: azure;">Tus contratos:</h2>
+            </div>
+
             <div class="card mb-3" style="width: 24rem; height: auto;" th:each="contrato : ${contratosUsuario}">
                 <div class="card-header">
                     <h4 class="card-title">N° de contrato:</h4>
