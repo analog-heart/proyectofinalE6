@@ -33,7 +33,7 @@
                     <div th:if="${contrato.comentarioEliminado == false}" class="card-subtitle mb-2 text-muted">
                         <h4 th:text="${contrato.comentarioFinal}"></h4>
                     </div>
-                    <form th:if="${contrato.comentarioDenunciado == true} and ${contrato.comentarioEliminado = false}"
+                    <form th:if="${contrato.comentarioDenunciado == true} and ${contrato.comentarioEliminado == false}"
                         method="POST" th:action="@{/admin/dashboard/comentario_eliminado}">
                         <h4>¿Eliminar comentario?</h4>
                         <label>Se elimiará el comentario, quedando NULL</label>
