@@ -272,7 +272,7 @@ footer{
 
   /* FORMULARIO */
 
-  @import '~mdb-ui-kit/css/mdb.min.css';
+
 
 
 
@@ -404,6 +404,18 @@ footer{
 
 .sidebar-menu ul li a:hover {
     text-decoration: underline;
+}
+
+/* ---------- NavBar -------------- */
+
+.boton-login {
+    
+    margin: 10%;
+}
+
+.boton-registro {
+    
+    margin: 10%;
 }
 
 
