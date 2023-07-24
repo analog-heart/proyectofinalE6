@@ -1,49 +1,49 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    >
-    <head th:replace="~{/fragments/head :: head}"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <body class="footer-alpiso d-flex flex-column">
-        <header th:replace="~{/fragments/header :: header}"></header>
-           
-            <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
-                <div class=" container" >
-                    <h3>Lista Servicios Ofrecidos</h3>
+<head th:replace="~{/fragments/head :: head}"></head>
 
-                    <table class="table table-dark">
-                        <thead class="align-items-center">
-                            <tr >
-                                <th scope="col">Imagen</th>
-                                <th scope="col">Id del Servicio</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Modificar</th>
-                            </tr>
+<body class="footer-alpiso d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
-                        </thead>
-                        <tbody th:each="servicio : ${serviciosList}"> 
-                            <tr>
-                                <td > <img th:if="${servicio.serv_imagen != null}" th:src="@{/imagen/servicio_ofrecido/__${servicio.serv_id}__}" alt="foto_serv"> </td>
-                                <td scope="row" th:text="${servicio.serv_id}"></td>
-                                <td th:text="${servicio.serv_descripcion}"></td>
+    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+        <div class=" container">
+            <h3>Lista Servicios Ofrecidos</h3>
 
-                                <td>
-                                    <a th:href= "@{/servicioOfrecido/modificar_servicio_ofrecido/__${servicio.serv_id}__}"><i class="fas fa-feather-alt"></i>Editar</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <table class="table table-dark">
+                <thead class="align-items-center">
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Id del Servicio</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Modificar</th>
+                    </tr>
 
-                </div>
-            </main>
+                </thead>
+                <tbody th:each="servicio : ${serviciosList}">
+                    <tr>
+                        <td> <img th:if="${servicio.serv_imagen != null}"
+                                th:src="@{/imagen/servicio_ofrecido/__${servicio.serv_id}__}" alt="foto_serv"> </td>
+                        <td scope="row" th:text="${servicio.serv_id}"></td>
+                        <td th:text="${servicio.serv_descripcion}"></td>
 
+                        <td>
+                            <a th:href="@{/servicioOfrecido/modificar_servicio_ofrecido/__${servicio.serv_id}__}"><i
+                                    class="fas fa-feather-alt"></i>Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
+        </div>
+    </main>
 
 
 
-            <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-        </body>
-    
-    </html>
+
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>
