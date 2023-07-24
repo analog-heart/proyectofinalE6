@@ -149,9 +149,7 @@ public class ServicioUsuario implements UserDetailsService {
 
     public List<Usuario> buscarUsuariosXnombre(String nombre) {
 
-        List<Usuario> usuariosXnombre = new ArrayList();
-
-        usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
+        List<Usuario> usuariosXnombre = usuarioRepositorio.buscarPorNombre(nombre);
 
         return usuariosXnombre;
     }

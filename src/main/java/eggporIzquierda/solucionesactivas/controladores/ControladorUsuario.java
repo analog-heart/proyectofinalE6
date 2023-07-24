@@ -1,6 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
@@ -47,7 +47,6 @@ public class ControladorUsuario {
         // ESTA VISTA VA A SER SOLO PARA LOS LOGEADOS? EN ESE CASO AGREGAR PREAUTH
         // Y SI ESTA VISTA LA TIENE EL PROVEEDOR, HAY QUE INYECTAR LOS CONTRATOS
         // SOLICITADOS (BRIAN)
-
         return "usuario_list.html";
     }
 
@@ -96,17 +95,16 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/mi_perfil_usuario")
-    public String mi_perfil_usuario(ModelMap modelo, HttpSession session) {
+    public String miPerfilUsuario(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosSesion = new ArrayList();
+        List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
 
-        contratosSesion = contratoServicio.listarContratosSesion(usuario);
         modelo.put("contratosUsuario", contratosSesion);
 
-        List<ContratoProveedor> cantidadContratosSolicitados = repositorioContrato
+        List<Contrato> cantidadContratosSolicitados = repositorioContrato
                 .listarPorEstadoSolicitado(usuario.getId());
         modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
 
@@ -115,7 +113,7 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/dar_baja_usuario")
-    public String dar_baja_usuario(ModelMap modelo, HttpSession session) {
+    public String darBajaUsuario(ModelMap modelo, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         usuarioServicio.dar_baja_usuario(usuario.getId());
@@ -131,15 +129,13 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosSesion = new ArrayList();
-        contratosSesion = contratoServicio.listarContratosSesion(usuario);
-
-       
+        List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
+        
         modelo.put("contratosUsuario", contratosSesion);
-       //agregado por lucho y juan
+        //agregado por lucho y juan
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", proveedores);
-         modelo.put("proveedores", proveedores);
+        modelo.put("proveedores", proveedores);
 
         return "mis_contratos_usuario.html";
     }
@@ -151,7 +147,7 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosEncurso = repositorioContrato.listarPorEstadoEncursoCliente(usuario.getId());
+        List<Contrato> contratosEncurso = repositorioContrato.listarPorEstadoEncursoCliente(usuario.getId());
         modelo.put("contratosEncurso", contratosEncurso);
 
         return "mis_contratos_usuario_encurso.html";
@@ -164,7 +160,7 @@ public class ControladorUsuario {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
-        List<ContratoProveedor> contratosTerminados = repositorioContrato
+        List<Contrato> contratosTerminados = repositorioContrato
                 .listarPorEstadoTerminadoCliente(usuario.getId());
         modelo.put("contratosTerminados", contratosTerminados);
 
