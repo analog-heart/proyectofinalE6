@@ -404,14 +404,8 @@ footer{
 
 /* ---------- NavBar -------------- */
 
-.boton-login {
-    
-    margin: 10%;
-}
-
-.boton-registro {
-    
-    margin: 10%;
+.boton-login{
+    margin-right: 10px;
 }
 
 
@@ -434,7 +428,5 @@ footer{
 
 /* --------botones navbar --------- */
 
-.boton-login{
-    margin-right: 10px;
-}
+
 
