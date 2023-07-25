@@ -1,90 +1,136 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-<head th:replace="~{/fragments/head :: head}"></head>
-
-<body class="d-flex flex-column">
+  <body class="d-flex flex-column">
     <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso">
+    <main
+      class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso"
+    >
+      <!---Mis Contratos--->
 
-        <!---Mis Contratos--->
-
-        <div class="container py-5 h-200">
-
-            <div class="container">
-                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
-                    th:if="${contratosCalificados.size() == 0}">
-                    <div class="card-header">
-                        <h4 class="card-title">De momento no tenes contratos calificados :D</h4>
-                    </div>
-                </div>
+      <div class="container py-5 h-200">
+        <div class="container">
+          <div
+            class="card mb-3 row justify-content-center"
+            style="width: 32rem; height: auto"
+            th:if="${contratosCalificados.size() == 0}"
+          >
+            <div class="card-header">
+              <h4 class="card-title">
+                De momento no tenes contratos calificados :D
+              </h4>
             </div>
-
-
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <a th:href="@{/proveedor/mis_contratos_proveedor}" class="btn btn-dark btn-block">Volver</a>
-                    </div>
-                </div>
-            </div>
-
-            <hr style="color: azure;">
-
-            <div class="card mb-3" style="width: 24rem; height: auto;" th:each="contrato : ${contratosCalificados}">
-                <div class="card-header">
-                    <h4 class="card-title">N° de contrato:</h4>
-                </div>
-                <div class="card-body">
-
-                    <h3 class="card-title" th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"></h3>
-                    <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                    <h6>Estado:</h6>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h6>
-                    <h6>Precio:</h6>
-                    <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.precio}"></h6>
-                    <div>
-                        <h6>Calificacion:</h6>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="${contrato.calificacion}"></h6>
-                        <h6>Comentario:</h6>
-                        <h6 th:if="${contrato.comentarioFinal != null}" class="card-subtitle mb-2 text-muted"
-                            th:text="${contrato.comentarioFinal}"></h6>
-                        <h6 th:if="${contrato.comentarioFinal == null}" class="card-subtitle mb-2 text-muted">El
-                            ADMINISTRADOR ha eliminado este comentario</h6>
-                        <h6 th:if="${contrato.comentarioOfensivo == true}" class="card-subtitle mb-2 text-muted">Has
-                            denunciado este comentario</h6>
-
-
-                        <form class="row g-3" th:if="${contrato.comentarioOfensivo == false}" type="form" method="POST"
-                            th:action="@{/contrato/denunciar_comentario}">
-                            <input hidden th:value="${contrato.id}" name="idContrato">
-
-                            <div class="col-12 mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input is-invalid" type="checkbox" value=""
-                                        id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
-
-                                    <div id="invalidCheck3Feedback" class="invalid-feedback mb-3">
-                                        El administrador verificara el comentario del cliente
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <button class="btn btn-primary" type="submit">Denunciar</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
 
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <a
+                th:href="@{/proveedor/mis_contratos_proveedor}"
+                class="btn btn-dark btn-block"
+                >Volver</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <hr style="color: azure" />
+
+        <div
+          class="card mb-3"
+          style="width: 24rem; height: auto"
+          th:each="contrato : ${contratosCalificados}"
+        >
+          <div class="card-header">
+            <h4 class="card-title">N° de contrato:</h4>
+          </div>
+          <div class="card-body">
+            <h3
+              class="card-title"
+              th:text="${#strings.substring(#strings.toUpperCase(contrato.id),0,6)}"
+            ></h3>
+            <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+            <h6>Estado:</h6>
+            <h6
+              class="card-subtitle mb-2 text-muted"
+              th:text="${contrato.estado}"
+            ></h6>
+            <h6>Precio:</h6>
+            <h6
+              class="card-subtitle mb-2 text-muted"
+              th:text="${contrato.precio}"
+            ></h6>
+            <div>
+              <h6>Calificacion:</h6>
+              <h6
+                class="card-subtitle mb-2 text-muted"
+                th:text="${contrato.calificacion}"
+              ></h6>
+              <h6>Comentario:</h6>
+              <h6
+                th:if="${contrato.comentarioFinal != null}"
+                class="card-subtitle mb-2 text-muted"
+                th:text="${contrato.comentarioFinal}"
+              ></h6>
+              <h6
+                th:if="${contrato.comentarioFinal == null}"
+                class="card-subtitle mb-2 text-muted"
+              >
+                El ADMINISTRADOR ha eliminado este comentario
+              </h6>
+              <h6
+                th:if="${contrato.comentarioOfensivo == true}"
+                class="card-subtitle mb-2 text-muted"
+              >
+                Has denunciado este comentario
+              </h6>
+
+              <form
+                class="row g-3"
+                th:if="${contrato.comentarioOfensivo == false}"
+                type="form"
+                method="POST"
+                th:action="@{/contrato/denunciar_comentario}"
+              >
+                <input hidden th:value="${contrato.id}" name="idContrato" />
+
+                <div class="col-12 mb-3">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input is-invalid"
+                      type="checkbox"
+                      value=""
+                      id="invalidCheck3"
+                      aria-describedby="invalidCheck3Feedback"
+                      required
+                    />
+
+                    <div
+                      id="invalidCheck3Feedback"
+                      class="invalid-feedback mb-3"
+                    >
+                      El administrador verificara el comentario del cliente
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 mb-3">
+                  <button class="btn btn-primary" type="submit">
+                    Denunciar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
-
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
-</body>
-
+  </body>
 </html>

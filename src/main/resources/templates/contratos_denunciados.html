@@ -1,58 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-<head th:replace="~{/fragments/head :: head}"></head>
-
-<body class="d-flex flex-column">
+  <body class="d-flex flex-column">
     <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso">
+    <main
+      class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso"
+    >
+      <div class="container py-5 h-200">
+        <a type="button" th:href="@{/admin/dashboard}">
+          <button type="button" class="btn btn-secondary btn-lg">Volver</button>
+        </a>
 
-        <div class="container py-5 h-200">
-
-            <a type="button" th:href="@{/admin/dashboard}">
-                <button type="button" class="btn btn-secondary btn-lg">
-                    Volver
-                </button>
-            </a>
-
-            <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosDenunciados}">
-                <div class="card-body">
-                    <h4 class="card-title">N° de contrato:</h4>
-                    <h3 class="card-title" th:text="${contrato.id}"></h3>
-                    <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
-                    <h4>Estado:</h4>
-                    <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h4>
-                    <h4>Precio:</h4>
-                    <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.precio}"></h4>
-                    <h4>Comentario:</h4>
-                    <div th:if="${contrato.comentarioEliminado == true}" class="card-subtitle mb-2 text-muted">
-                        <h5>Este comentario fue denunciado por el proveedor y eliminado por el ADMIN:</h5>
-                        <h6 th:text="${contrato.comentarioOfensivoEliminado}"></h6>
-                    </div>
-                    <div th:if="${contrato.comentarioEliminado == false}" class="card-subtitle mb-2 text-muted">
-                        <h4 th:text="${contrato.comentarioFinal}"></h4>
-                    </div>
-                    <form th:if="${contrato.comentarioDenunciado == true} and ${contrato.comentarioEliminado = false}"
-                        method="POST" th:action="@{/admin/dashboard/comentario_eliminado}">
-                        <h4>¿Eliminar comentario?</h4>
-                        <label>Se elimiará el comentario, quedando NULL</label>
-                        <input hidden th:value="${contrato.id}" name="idContrato">
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                    </form>
-
-                </div>
+        <div
+          class="card"
+          style="width: 24rem; height: auto"
+          th:each="contrato : ${contratosDenunciados}"
+        >
+          <div class="card-body">
+            <h4 class="card-title">N° de contrato:</h4>
+            <h3 class="card-title" th:text="${contrato.id}"></h3>
+            <!--<img id="fotoPerfil" th:src="@{/imagen/perfil/__${usuario.id}__}" alt="imegen perfil" class="rounded-circle" width="100" height="100">-->
+            <h4>Estado:</h4>
+            <h4
+              class="card-subtitle mb-2 text-muted"
+              th:text="${contrato.estado}"
+            ></h4>
+            <h4>Precio:</h4>
+            <h4
+              class="card-subtitle mb-2 text-muted"
+              th:text="${contrato.precio}"
+            ></h4>
+            <h4>Comentario:</h4>
+            <div
+              th:if="${contrato.comentarioEliminado == true}"
+              class="card-subtitle mb-2 text-muted"
+            >
+              <h5>
+                Este comentario fue denunciado por el proveedor y eliminado por
+                el ADMIN:
+              </h5>
+              <h6 th:text="${contrato.comentarioOfensivoEliminado}"></h6>
             </div>
+            <div
+              th:if="${contrato.comentarioEliminado == false}"
+              class="card-subtitle mb-2 text-muted"
+            >
+              <h4 th:text="${contrato.comentarioFinal}"></h4>
+            </div>
+            <form
+              th:if="${contrato.comentarioDenunciado == true} and ${contrato.comentarioEliminado = false}"
+              method="POST"
+              th:action="@{/admin/dashboard/comentario_eliminado}"
+            >
+              <h4>¿Eliminar comentario?</h4>
+              <label>Se elimiará el comentario, quedando NULL</label>
+              <input hidden th:value="${contrato.id}" name="idContrato" />
+              <button type="submit" class="btn btn-primary">Eliminar</button>
+            </form>
+          </div>
         </div>
-
+      </div>
     </main>
-
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-
-    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-
-</body>
-
+    <script
+      src="https://kit.fontawesome.com/183f2a4aef.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

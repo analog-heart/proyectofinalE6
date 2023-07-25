@@ -1,72 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-    <head th:replace="~{/fragments/head :: head}"></head>
+  <body class="d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
+    <main
+      class="flex-grow-1 container-fluid d-flex justify-content-center align-items-center footer-alpiso"
+    >
+      <div class="contenedor w-75">
+        <div class="logo">
+          <img
+            class="rounded-circle"
+            src="/IMG/tristezaLlorando.jpg"
+            width="300"
+            alt="Logo"
+          />
+        </div>
 
-    <body class="d-flex flex-column" >
+        <div class="position-relative top-20 start-50 text-sm-start-20">
+          <h1>
+            <a class="h1 display-4" th:text="'Error ' + ${codigo}"
+              >Soluciones Activas</a
+            >
+          </h1>
+          <p class="ParrafoIndex h3" th:text="${mensaje}"></p>
+        </div>
 
-        <header th:replace="~{/fragments/header :: header}"></header>
-        <!-- <div class="container container-fluid d-flex">  -->
+        <button
+          class="btn btn-primary mt-2"
+          id="botonVolver"
+          onclick="goBack()"
+        >
+          Volver
+        </button>
 
-        <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-        <style>
-            h4,h5{
-                color: white;
-                font-family: 'Caprasimo', sans-serif;
-            }
-            p{
-                color: white;
-                font-family: 'Open Sans', sans-serif;
-            }
-            h2{
-                color: peru;
-                font-family: 'Cinzel', sans-serif;
-            }
-            h1{
-                color: background;
-                font-family: 'Cinzel', sans-serif;
-            }
-            h3{
-                color:chocolate ;
-                font-family: 'Cinzel', sans-serif;
-                text-align: center
-            }
-        </style>
-        <main class="flex-grow-1 container-fluid d-flex justify-content-center align-items-center footer-alpiso">
-
-            <div class="contenedor w-75">
-
-
-                <div class="logo ">
-                    <img class="rounded-circle" src="/IMG/tristezaLlorando.jpg"  width="300"  alt="Logo">
-
-                </div>
-
-
-                <div class="position-relative top-20 start-50 text-sm-start-20" >
-                    <h1>  <a class="h1 display-4 " th:text="'Error ' + ${codigo}">Soluciones Activas</a></h1>
-                    <p class="ParrafoIndex h3 " th:text="${mensaje}"></p>
-                </div>        
-
-                <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
-
-                <script>
-                    function goBack() {
-                        window.history.back();
-                    }
-                </script>
-
-
-        </main>  
-    </div>
+        <script>
+          function goBack() {
+            window.history.back();
+          }
+        </script>
+      </div>
+    </main>
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
-    
-</body>
+  </body>
 </html>
-
