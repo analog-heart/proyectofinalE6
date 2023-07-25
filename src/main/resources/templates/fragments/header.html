@@ -35,7 +35,8 @@
     <div class="text-end">
         <form th:action="@{/buscar}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ml-auto " role="search">
             <input th:value="${palabraClave}" class=" form me-2 searcherinput" id="palabraClave" name="palabraClave"
-                   type="text" placeholder="Search" aria-label="Search">
+                type="text" placeholder="Buscar..." aria-label="Search">
+
         </form>
     </div>
 
@@ -44,7 +45,7 @@
         <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle dropdown-toggle"
            data-bs-toggle="dropdown" aria-expanded="false">
             <img id="fotoPerfil" th:if="${session.usuariosession != null and session.usuariosession.fotoPerfil !=null }"
-                 th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle"
+                 th:src="@{/imagen/perfil/_${session.usuariosession.id}_}" alt="imegen perfil" class="rounded-circle"
                  width="50" height="50" />
             <img th:if="${session.usuariosession != null and session.usuariosession.fotoPerfil ==null }"
                  src='/IMG/USER.GIF' alt="alt" class="rounded-circle" width="50" height="50" />
@@ -62,13 +63,12 @@
         </ul>
 
         <ul sec:authorize="hasAnyRole('PROVEEDOR','ADMIN')" class=" dropdown-menu dropdown-menu-end">
-
-
-            <li><a  href="/proveedor/mi_perfil_proveedor"class="dropdown-item" > Mi Perfil</a></li>
-            <li><a  href="/proveedor/mis_contratos_proveedor" class="dropdown-item">Mis Contratos</a></li>     
-            <li> <hr class="dropdown-divider"></li>
-            <li><a  href="/logout" class="dropdown-item">Cerrar Sesion</a></li>
-
+            <li><a href="/proveedor/mis_contratos_proveedor" class="dropdown-item">Mis Contratos</a></li>
+            <li><a href="/proveedor/mi_perfil_proveedor" class="dropdown-item"> Mi Perfil</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a href="/logout" class="dropdown-item">Cerrar Sesion</a></li>
         </ul>
     </div>
 
