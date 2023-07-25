@@ -45,7 +45,7 @@
         <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle dropdown-toggle"
            data-bs-toggle="dropdown" aria-expanded="false">
             <img id="fotoPerfil" th:if="${session.usuariosession != null and session.usuariosession.fotoPerfil !=null }"
-                 th:src="@{/imagen/perfil/_${session.usuariosession.id}_}" alt="imegen perfil" class="rounded-circle"
+                 th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="imegen perfil" class="rounded-circle"
                  width="50" height="50" />
             <img th:if="${session.usuariosession != null and session.usuariosession.fotoPerfil ==null }"
                  src='/IMG/USER.GIF' alt="alt" class="rounded-circle" width="50" height="50" />
