@@ -1,216 +1,157 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="~{/fragments/head :: head}"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-  <body class="d-flex flex-column">
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="footer-alpiso d-flex flex-column">
     <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main
-      class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso"
-    >
-      <!---Mis Contratos--->
+    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
 
-      <div class="container py-5 h-200">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-4">
-              <a
-                th:href="@{/usuario/mis_contratos_usuario}"
-                class="btn btn-dark btn-block"
-                >Volver</a
-              >
-            </div>
-          </div>
-        </div>
-        <hr style="color: azure" />
+        <!---Mis Contratos--->
 
-        <div
-          class="card"
-          style="width: 24rem; height: auto"
-          th:each="contrato : ${contratosTerminados}"
-        >
-          <div class="card-header" style="text-align: center">
-            <h5
-              class="card-title"
-              id="nombreCard"
-              th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"
-            ></h5>
-          </div>
-          <div class="card-body">
-            <table class="table table-bordered vertical-align: middle">
-              <tr>
-                <td style="text-align: left"><strong>SERVICIO</strong></td>
-                <td>
-                  <h6
-                    th:text="${contrato.proveedor.servicios[0].serv_descripcion}"
-                  ></h6>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align: left"><strong>N° CONTRATO</strong></td>
-                <td>
-                  <h6
-                    th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}"
-                  ></h6>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align: left"><strong>ESTADO</strong></td>
-                <td>
-                  <h6 th:text="${contrato.estado}"></h6>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align: left">
-                  <strong>FECHA CONTRATO</strong>
-                </td>
-                <td>
-                  <h6 th:text="${contrato.fechaContrato}"></h6>
-                </td>
-              </tr>
-            </table>
+        <div class="container py-5 h-200">
 
-            <div>
-              <!--Boton que abre el modal-->
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#modalPuntuacion"
-              >
-                Calificar Proveedor
-              </button>
-
-              <!--modal-->
-              <div
-                class="modal fade"
-                id="modalPuntuacion"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
-                        Calificar proveedor
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
+            <div class="container">
+                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
+                    th:if="${contratosTerminados.size() == 0}">
+                    <div class="card-header">
+                        <h4 class="card-title">De momento no tenes contratos en curso</h4>
                     </div>
-                    <div class="modal-body">
-                      <!-- Puntuación y comentario dentro del modal -->
-                      <label>¿Cómo calificarías el servicio?</label>
-                      <form
-                        style="position: fixed"
-                        id="formu"
-                        method="POST"
-                        th:action="@{/contrato/calificar_contrato}"
-                      >
-                        <input
-                          hidden
-                          th:value="${contrato.id}"
-                          name="idContrato"
-                        />
-                        <p class="clasificacion">
-                          <input
-                            id="radio1"
-                            type="radio"
-                            name="calificacion"
-                            th:value="5"
-                          />
-                          <label for="radio1">★</label>
-                          <input
-                            id="radio2"
-                            type="radio"
-                            name="calificacion"
-                            th:value="4"
-                          />
-                          <label for="radio2">★</label>
-                          <input
-                            id="radio3"
-                            type="radio"
-                            name="calificacion"
-                            th:value="3"
-                          />
-                          <label for="radio3">★</label>
-                          <input
-                            id="radio4"
-                            type="radio"
-                            name="calificacion"
-                            th:value="2"
-                          />
-                          <label for="radio4">★</label>
-                          <input
-                            id="radio5"
-                            type="radio"
-                            name="calificacion"
-                            th:value="1"
-                          />
-                          <label for="radio5">★</label>
-                        </p>
-                      </form>
-
-                      <br /><br /><br />
-
-                      <div>
-                        <textarea
-                          style="font-size: larger"
-                          rows="6"
-                          cols="35"
-                          maxlength="250"
-                          name="comentarioFinal"
-                          placeholder="Dejá tu comentario"
-                        ></textarea>
-                        <br />
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        onclick="enviarFormulario()"
-                      >
-                        Enviar
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario}" class="btn btn-dark btn-block">Volver</a>
+                    </div>
+                </div>
+            </div>
+            <hr style="color: azure;">
+
+
+            <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosTerminados}">
+                <div class="card-header" style="text-align: center">
+                    <h5 class="card-title" id="nombreCard"
+                        th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered vertical-align: middle">
+                        <tr>
+                            <td style="text-align: left"><strong>SERVICIO</strong></td>
+                            <td>
+                                <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
+                                </h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><strong>N° CONTRATO</strong></td>
+                            <td>
+                                <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
+                                </h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><strong>ESTADO</strong></td>
+                            <td>
+                                <h6 th:text="${contrato.estado}"></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
+                            <td>
+                                <h6 th:text="${contrato.fechaContrato}"></h6>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div>
+
+                        <!--Boton que abre el modal-->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalPuntuacion">
+                            Calificar Proveedor </button>
+
+                        <!--modal-->
+                        <div class="modal fade" id="modalPuntuacion" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Calificar proveedor</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Puntuación y comentario dentro del modal -->
+                                        <label>¿Cómo calificarías el servicio?</label>
+                                        <form style="position: fixed;" id="formu" method="POST"
+                                            th:action="@{/contrato/calificar_contrato}">
+                                            <input hidden th:value="${contrato.id}" name="idContrato">
+                                            <p class="clasificacion">
+                                                <input id="radio1" type="radio" name="calificacion" th:value="5">
+                                                <label for="radio1">★</label>
+                                                <input id="radio2" type="radio" name="calificacion" th:value="4">
+                                                <label for="radio2">★</label>
+                                                <input id="radio3" type="radio" name="calificacion" th:value="3">
+                                                <label for="radio3">★</label>
+                                                <input id="radio4" type="radio" name="calificacion" th:value="2">
+                                                <label for="radio4">★</label>
+                                                <input id="radio5" type="radio" name="calificacion" th:value="1">
+                                                <label for="radio5">★</label>
+                                            </p>
+
+                                        </form>
+
+                                        <br><br><br>
+
+                                        <div>
+                                            <textarea style="font-size:larger" rows="6" cols="35" maxlength="250"
+                                                name="comentarioFinal" placeholder="Dejá tu comentario"></textarea>
+                                            <br>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="enviarFormulario()">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </main>
 
+
+
     <script>
-      function enviarFormulario() {
-        // Obtener el valor del campo comentarioFinal
-        var comentarioFinal = document.querySelector(
-          "#modalPuntuacion textarea[name='comentarioFinal']"
-        ).value;
+        function enviarFormulario() {
+            // Obtener el valor del campo comentarioFinal
+            var comentarioFinal = document.querySelector("#modalPuntuacion textarea[name='comentarioFinal']").value;
 
-        // Crear un input oculto para enviar el campo comentarioFinal
-        var inputComentarioFinal = document.createElement("input");
-        inputComentarioFinal.type = "hidden";
-        inputComentarioFinal.name = "comentarioFinal";
-        inputComentarioFinal.value = comentarioFinal;
+            // Crear un input oculto para enviar el campo comentarioFinal
+            var inputComentarioFinal = document.createElement("input");
+            inputComentarioFinal.type = "hidden";
+            inputComentarioFinal.name = "comentarioFinal";
+            inputComentarioFinal.value = comentarioFinal;
 
-        // Agregar el input oculto al formulario
-        var formulario = document.getElementById("formu");
-        formulario.appendChild(inputComentarioFinal);
+            // Agregar el input oculto al formulario
+            var formulario = document.getElementById("formu");
+            formulario.appendChild(inputComentarioFinal);
 
-        // Enviar el formulario
-        formulario.submit();
-      }
+            // Enviar el formulario
+            formulario.submit();
+        }
     </script>
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
-  </body>
+
+</body>
+
 </html>

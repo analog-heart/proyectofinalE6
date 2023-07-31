@@ -13,15 +13,26 @@
     >
       <!---Mis Contratos--->
 
-      <div class="container py-5 h-200">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-4">
-              <a
-                th:href="@{/usuario/mis_contratos_usuario}"
-                class="btn btn-dark btn-block"
-                >Volver</a
-              >
+        <!---Mis Contratos--->
+
+        <div class="container py-5 h-200">
+
+
+            <div class="container">
+                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
+                    th:if="${contratosEncurso.size() == 0}">
+                    <div class="card-header">
+                        <h4 class="card-title">De momento no tenes contratos en curso</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario}" class="btn btn-dark btn-block">Volver</a>
+                    </div>
+                </div>
             </div>
           </div>
         </div>

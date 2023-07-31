@@ -38,9 +38,9 @@ public class Contrato {
     @Enumerated(EnumType.STRING)
     private EnumEstadoContrato estado;
 
-    private Boolean comentarioDenunciado;
+    private Boolean comentarioDenunciado = false;
 
-    private Boolean comentarioEliminado;
+    private Boolean comentarioEliminado = false;
 
     private Integer calificacion;
 
