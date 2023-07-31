@@ -73,11 +73,11 @@
 
     <div class="d-flex justify-content-end">
         <div>
-            <a type="button" class="btn btn-secondary" th:if="${session.usuariosession == null}" href="/login">Login</a>
+            <a type="button" class="btn btn-secondary boton-login" th:if="${session.usuariosession == null}" href="/login">Login</a>
         </div>
         <div class="dropdown ml-2">
-            <a type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown"
-               th:if="${session.usuariosession == null}">Registrarse</a>
+            <a type="button" class="btn btn-warning dropdown-toggle boton-registro" data-bs-toggle="dropdown"
+                th:if="${session.usuariosession == null}">Registrarse</a>
             <ul class="dropdown-menu text-small dropdown-menu-end">
                 <li><a class="dropdown-item" href="/registrar">Soy Cliente</a></li>
                 <li><a class="dropdown-item" href="/registrarproveedor">Soy Proveedor</a></li>
