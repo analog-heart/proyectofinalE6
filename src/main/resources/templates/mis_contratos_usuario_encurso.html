@@ -1,164 +1,202 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-<head th:replace="~{/fragments/head :: head}"></head>
-
-<body class="footer-alpiso d-flex flex-column">
+  <body class="d-flex flex-column">
     <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+    <main
+      class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso"
+    >
+      <!---Mis Contratos--->
 
-        <!---Mis Contratos--->
-
-        <div class="container py-5 h-200">
-
-
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <a th:href="@{/usuario/mis_contratos_usuario}" class="btn btn-dark btn-block">Volver</a>
-                    </div>
-                </div>
+      <div class="container py-5 h-200">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <a
+                th:href="@{/usuario/mis_contratos_usuario}"
+                class="btn btn-dark btn-block"
+                >Volver</a
+              >
             </div>
-            <hr style="color: azure;">
+          </div>
+        </div>
+        <hr style="color: azure" />
 
+        <div
+          class="card"
+          style="width: 24rem; height: auto"
+          th:each="contrato : ${contratosEncurso}"
+        >
+          <div class="card-header" style="text-align: center">
+            <h5
+              class="card-title"
+              id="nombreCard"
+              th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"
+            ></h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered vertical-align: middle">
+              <tr>
+                <td style="text-align: left"><strong>SERVICIO</strong></td>
+                <td>
+                  <h6
+                    th:text="${contrato.proveedor.servicios[0].serv_descripcion}"
+                  ></h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left"><strong>N° CONTRATO</strong></td>
+                <td>
+                  <h6
+                    th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}"
+                  ></h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left"><strong>ESTADO</strong></td>
+                <td>
+                  <h6 th:text="${contrato.estado}"></h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left">
+                  <strong>FECHA CONTRATO</strong>
+                </td>
+                <td>
+                  <h6 th:text="${contrato.fechaContrato}"></h6>
+                </td>
+              </tr>
+            </table>
 
+            <div>
+              <!--Boton que abre el modal CANCELAR-->
+              <div
+                th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}"
+              >
+                <a
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalCancelar"
+                >
+                  Cancelar contrato</a
+                >
+              </div>
+              <!-- modal -->
 
-            <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosEncurso}">
-                <div class="card-header" style="text-align: center">
-                    <h5 class="card-title" id="nombreCard"
-                        th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
-                </div>
-                <div class="card-body">
-
-                    <table class="table table-bordered vertical-align: middle">
-                        <tr>
-                            <td style="text-align: left"><strong>SERVICIO</strong></td>
-                            <td>
-                                <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
-                                </h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left"><strong>N° CONTRATO</strong></td>
-                            <td>
-                                <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
-                                </h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left"><strong>ESTADO</strong></td>
-                            <td>
-                                <h6 th:text="${contrato.estado}"></h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
-                            <td>
-                                <h6 th:text="${contrato.fechaContrato}"></h6>
-                            </td>
-                        </tr>
-                    </table>
-
-
-                    <div>
-
-
-
-                        <!--Boton que abre el modal CANCELAR-->
-                        <div
-                            th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}">
-
-                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCancelar">
-                                Cancelar contrato</a>
-                        </div>
-                        <!-- modal -->
-
-                        <div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cancelar contrato
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <label>!Que lastima! Esperamos ser de mas utilidad la proxima
-                                        </label>
-                                        <hr>
-                                        <div>
-                                            <form style="position: fixed;" method="POST" id="formu2"
-                                                th:action="@{/contrato/finalizar_contrato_usuario}">
-                                                <input hidden th:value="${contrato.id}" name="idContrato">
-                                                <textarea style="font-size:medium" rows="3" cols="47" maxlength="250"
-                                                    placeholder="Dejá tu comentario" name="comentarioFinal"></textarea>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <br><br><br><br>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="enviarFormulario2()">Aceptar</button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
+              <div
+                class="modal fade"
+                id="modalCancelar"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Cancelar contrato
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
+                    <div class="modal-body">
+                      <label
+                        >!Que lastima! Esperamos ser de mas utilidad la proxima
+                      </label>
+                      <hr />
+                      <div>
+                        <form
+                          style="position: fixed"
+                          method="POST"
+                          id="formu2"
+                          th:action="@{/contrato/finalizar_contrato_usuario}"
+                        >
+                          <input
+                            hidden
+                            th:value="${contrato.id}"
+                            name="idContrato"
+                          />
+                          <textarea
+                            style="font-size: medium"
+                            rows="3"
+                            cols="47"
+                            maxlength="250"
+                            placeholder="Dejá tu comentario"
+                            name="comentarioFinal"
+                          ></textarea>
+                        </form>
+                      </div>
+                    </div>
+                    <br /><br /><br /><br />
+                    <div class="modal-footer">
+                      <button
+                        type="submit"
+                        class="btn btn-danger"
+                        onclick="enviarFormulario2()"
+                      >
+                        Aceptar
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
     <script>
-        function enviarFormulario() {
-            // Obtener el valor del campo comentarioFinal
-            var comentarioFinal = document.querySelector("#modalPuntuacion textarea[name='comentarioFinal']").value;
+      function enviarFormulario() {
+        // Obtener el valor del campo comentarioFinal
+        var comentarioFinal = document.querySelector(
+          "#modalPuntuacion textarea[name='comentarioFinal']"
+        ).value;
 
-            // Crear un input oculto para enviar el campo comentarioFinal
-            var inputComentarioFinal = document.createElement("input");
-            inputComentarioFinal.type = "hidden";
-            inputComentarioFinal.name = "comentarioFinal";
-            inputComentarioFinal.value = comentarioFinal;
+        // Crear un input oculto para enviar el campo comentarioFinal
+        var inputComentarioFinal = document.createElement("input");
+        inputComentarioFinal.type = "hidden";
+        inputComentarioFinal.name = "comentarioFinal";
+        inputComentarioFinal.value = comentarioFinal;
 
-            // Agregar el input oculto al formulario
-            var formulario = document.getElementById("formu");
-            formulario.appendChild(inputComentarioFinal);
+        // Agregar el input oculto al formulario
+        var formulario = document.getElementById("formu");
+        formulario.appendChild(inputComentarioFinal);
 
-            // Enviar el formulario
-            formulario.submit();
-        }
+        // Enviar el formulario
+        formulario.submit();
+      }
     </script>
 
     <script>
-        function enviarFormulario2() {
-            // Obtener el valor del campo comentarioFinal
-            //var comentarioFinal = document.querySelector("#modalCancelar textarea[name='comentarioFinal']").value;
+      function enviarFormulario2() {
+        // Obtener el valor del campo comentarioFinal
+        //var comentarioFinal = document.querySelector("#modalCancelar textarea[name='comentarioFinal']").value;
 
-            // Crear un input oculto para enviar el campo comentarioFinal
-            //var inputComentarioFinal = document.createElement("input");
-            //inputComentarioFinal.type = "hidden";
-            //inputComentarioFinal.name = "comentarioFinal";
-            //inputComentarioFinal.value = comentarioFinal;
+        // Crear un input oculto para enviar el campo comentarioFinal
+        //var inputComentarioFinal = document.createElement("input");
+        //inputComentarioFinal.type = "hidden";
+        //inputComentarioFinal.name = "comentarioFinal";
+        //inputComentarioFinal.value = comentarioFinal;
 
-            // Agregar el input oculto al formulario
-            var formulario = document.getElementById("formu2");
-            //formulario.appendChild(inputComentarioFinal);
+        // Agregar el input oculto al formulario
+        var formulario = document.getElementById("formu2");
+        //formulario.appendChild(inputComentarioFinal);
 
-            // Enviar el formulario
-            formulario.submit();
-        }
+        // Enviar el formulario
+        formulario.submit();
+      }
     </script>
-
-
-</body>
-
+  </body>
 </html>
