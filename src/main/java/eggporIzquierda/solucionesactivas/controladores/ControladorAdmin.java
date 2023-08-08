@@ -107,7 +107,7 @@ public class ControladorAdmin {
         List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
 
-        return "contratos_denunciados.html";
+        return "dashboard_contratos_denunciados.html";
     }
 
     @PostMapping("/dashboard/comentario_eliminado")
@@ -117,7 +117,7 @@ public class ControladorAdmin {
         List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
 
-        return "contratos_denunciados.html";
+        return "dashboard_contratos_denunciados.html";
     }
 
     // ----------------------

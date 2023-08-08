@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{/fragments/head :: head}"> </head>
 
-    <head th:replace="~{/fragments/head :: head}">    </head>
+  <body>
+    <header th:replace="~{/fragments/header :: header}"></header>
 
-    <body>
-        <header th:replace="~{/fragments/header :: header}"">    </header>
-
-    <head>
-    <body>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <!-- Otros campos -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="usuario : ${resultados}">
-                    <td th:text="${usuario.nombre}"></td>
-                    <td th:text="${usuario.email}"></td>
-                    <!-- Otros campos -->
-                </tr>
-            </tbody>
-        </table>
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
-    </body>
-
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <!-- Otros campos -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="usuario : ${resultados}">
+          <td th:text="${usuario.nombre}"></td>
+          <td th:text="${usuario.email}"></td>
+          <!-- Otros campos -->
+        </tr>
+      </tbody>
+    </table>
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+  </body>
 </html>

@@ -272,10 +272,6 @@ footer{
 
   /* FORMULARIO */
 
-  /*@import '~mdb-ui-kit/css/mdb.min.css';*/
-
-
-
 
 .elementos{
     margin-right: 50px;
@@ -406,6 +402,12 @@ footer{
     text-decoration: underline;
 }
 
+/* ---------- NavBar -------------- */
+
+.boton-login{
+    margin-right: 10px;
+}
+
 
   
 /* ----------- Modal error/exito ---------------*/
@@ -423,4 +425,8 @@ footer{
 }
 
 /* ----------- Fin error/exito ---------------*/
+
+/* --------botones navbar --------- */
+
+
 
