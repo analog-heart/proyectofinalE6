@@ -1,44 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{/fragments/head :: head}"></head>
 
-    <head th:replace="~{/fragments/head :: head}"></head>
+  <body class="d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
 
+    <main
+      class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso"
+    >
+      <form
+        class="formulario form-control"
+        th:action="@{/servicioOfrecido/modificar_servicio_ofrecido/__${serv_id}__}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="texto">
+          <div class="form-input">
+            <h3>Modificacion de Servicio Ofrecio</h3>
+            <input hidden th:value="${serv_id}" name="serv_id" />
+            <input
+              type="text"
+              class="form-control"
+              name="serv_descripcion"
+              placeholder="Descripcion"
+              th:value="${servicio.serv_descripcion}"
+            />
+            <input type="file" class="form-control mb-3" name="serv_imagen" />
 
-    <body class="footer-alpiso d-flex flex-column" >
+            <div th:replace="fragments/error :: errores1"></div>
 
-        <header th:replace="~{/fragments/header :: header}"></header>
+            <div class="form-button">
+              <button
+                type="submit"
+                class="btn btn-primary mt-3 form-control mb-3 botones"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
 
-        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
-
-            <form class="formulario form-control" th:action="@{/servicioOfrecido/modificar_servicio_ofrecido/__${serv_id}__}" method="POST" enctype="multipart/form-data">
-                <div class ="texto">
-
-                    <div class=" form-input" >
-                        <h3>Modificacion de Servicio Ofrecio</h3>
-                        <input hidden th:value="${serv_id}" name="serv_id">
-                        <input type="text" class="form-control"  name="serv_descripcion" placeholder="Descripcion" th:value="${servicio.serv_descripcion}" >
-                        <input type="file" class="form-control mb-3" name="serv_imagen"> 
-
-
-                        <div th:replace="fragments/error :: errores1"></div>
-
-                        <div class="form-button">
-                            <button type="submit" class="btn btn-primary mt-3 form-control mb-3 botones">Guardar</button>
-                        </div>
-
-                    </div>
-                </div>   
-            </form>
-
-
-
-
-
-        </main>
-
-        <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
-    </body>
-
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+  </body>
 </html>
-

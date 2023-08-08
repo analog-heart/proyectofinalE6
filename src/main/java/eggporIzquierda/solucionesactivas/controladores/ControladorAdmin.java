@@ -1,6 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
-import eggporIzquierda.solucionesactivas.entity.ContratoProveedor;
+import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
@@ -27,13 +27,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class ControladorAdmin {
 
     @Autowired
-    private ServicioUsuario usuarioservicio;
+    private ServicioUsuario usuarioServicio;
 
     @Autowired
-    private ServicioProveedor proveedorservicio;
+    private ServicioProveedor proveedorServicio;
 
     @Autowired
-    private RepositorioProveedor proveedorRepo;
+    private RepositorioProveedor proveedorRepositorio;
 
     @Autowired
     private RepositorioContrato contratoRepositorio;
@@ -43,21 +43,21 @@ public class ControladorAdmin {
 
     @GetMapping("/dashboard")
     public String panelAdministrativo(ModelMap modelo) {
-        List<Proveedor> proveedoresinactivos = proveedorRepo.listarSolicitudesProvedoresNuevos();
+        List<Proveedor> proveedoresinactivos = proveedorRepositorio.listarSolicitudesProvedoresNuevos();
         modelo.addAttribute("cantSolict", proveedoresinactivos.size());
         return "dashboardadmin.html";
     }
 
     @GetMapping("/usuarios")
     public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list";
     }
 
     @GetMapping("/modificarRol/{id}")
     public String cambiarRol(@PathVariable String id) {
-        usuarioservicio.cambiarRol(id);
+        usuarioServicio.cambiarRol(id);
         return "redirect:/admin/usuarios";
     }
 
@@ -65,21 +65,21 @@ public class ControladorAdmin {
     // ---------usuarios
     @GetMapping("/listarusuarios_all")
     public String listarUsuarios(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioservicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list.html";
     }
 
     @GetMapping("/listarusuarios_activos")
     public String listarUsuariosActivos(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioservicio.listarUsuariosActivos();
+        List<Usuario> usuarios = usuarioServicio.listarUsuariosActivos();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list.html";
     }
 
     @GetMapping("/listarusuarios_inactivos")
     public String listarUsuariosInactivos(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioservicio.listarUsuariosInactivos();
+        List<Usuario> usuarios = usuarioServicio.listarUsuariosInactivos();
         modelo.addAttribute("usuarios", usuarios);
         return "usuario_list.html";
     }
@@ -88,14 +88,14 @@ public class ControladorAdmin {
 
     @GetMapping("/listarProvedores_activos")
     public String listarProvedoresActivos(ModelMap modelo) {
-        List<Proveedor> proveedoresinactivos = proveedorRepo.listarProveedoresActivos();
+        List<Proveedor> proveedoresinactivos = proveedorRepositorio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", proveedoresinactivos);
         return "proveedor_list.html";
     }
 
     @GetMapping("/listarProvedores_inactivos")
     public String listarProvedoresInactivos(ModelMap modelo) {
-        List<Proveedor> proveedoresinactivos = proveedorRepo.listarProveedoresInactivos();
+        List<Proveedor> proveedoresinactivos = proveedorRepositorio.listarProveedoresInactivos();
         modelo.addAttribute("proveedores", proveedoresinactivos);
         return "proveedor_list.html";
     }
@@ -103,20 +103,20 @@ public class ControladorAdmin {
     @GetMapping("/dashboard/contratos_denunciados")
     public String listarContratosDenunciados(ModelMap modelo) {
 
-        List<ContratoProveedor> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
+        List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
 
-        return "contratos_denunciados.html";
+        return "dashboard_contratos_denunciados.html";
     }
 
     @PostMapping("/dashboard/comentario_eliminado")
     public String eliminarComentarioDenunciado(ModelMap modelo, String idContrato) throws MiException {
 
         contratoServicio.eliminarComentarioDenunciado(idContrato);
-        List<ContratoProveedor> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
+        List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
         modelo.addAttribute("contratosDenunciados", contratosDenunciados);
 
-        return "contratos_denunciados.html";
+        return "dashboard_contratos_denunciados.html";
     }
 
     // ----------------------
@@ -124,7 +124,7 @@ public class ControladorAdmin {
     @GetMapping("/autorizar_solicitudes_nuevo")
     public String autorizarSolicitudesNuevosProveedores(ModelMap modelo) {
 
-        List<Proveedor> proveedoresinactivos = proveedorRepo.listarSolicitudesProvedoresNuevos();
+        List<Proveedor> proveedoresinactivos = proveedorRepositorio.listarSolicitudesProvedoresNuevos();
         modelo.addAttribute("proveedoresInactivos", proveedoresinactivos);
         return "autorizar_nuevoproveedor.html";
     }
@@ -132,7 +132,7 @@ public class ControladorAdmin {
     @PostMapping("/autorizar_proveedor/{id}")
     public String autorizarnuevoproveedor(ModelMap modelo, @PathVariable String id) {
 
-        proveedorservicio.autorizarnuevoproveedor(id);
+        proveedorServicio.autorizarnuevoproveedor(id);
 
         return "redirect:../autorizar_solicitudes_nuevo";
 

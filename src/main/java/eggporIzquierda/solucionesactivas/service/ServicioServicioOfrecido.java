@@ -72,8 +72,7 @@ public class ServicioServicioOfrecido {
     
     @Transactional(readOnly = true)
     public List<ServicioOfrecido> listarServicios() {
-        List<ServicioOfrecido> serviciosList = new ArrayList();
-        serviciosList = servOfrecidoRepositorio.findAll();
+        List<ServicioOfrecido> serviciosList = servOfrecidoRepositorio.findAll();
         return serviciosList;
     }
 
