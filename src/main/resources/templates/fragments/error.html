@@ -1,18 +1,68 @@
-<div th:fragment="errores1">
+<div th:fragment="errores1" >
 
-    <div th:if="${error != null}" class="alert alert-danger" role="alert" style="max-width: 300px;" >
-        <div class="card-body">
-
-            <h5 class="card-title">Error:</h5>
-            <p class="card-text" th:text="${error}"></p>
-
+    <div id="errorModal" th:if="${error != null}" class="modal " tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-error ">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                </div>
+                <div class="modal-body">
+                    <p th:text="${error}"></p>
+                </div>
+            </div>
         </div>
     </div>
-    <div th:if="${exito != null}" class="alert alert-success" role="alert" style="max-width: 300px;" >
-        <div class="card-body">
-            <h5 class="card-title">Exito!</h5>
-            <p class="card-text" th:text="${exito}"></p>
+
+    <div id="succesModal" th:if="${exito != null}" class="modal " tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+            <div class="modal-content modal-success">
+                <div class="modal-header">
+                    <h5 class="modal-title">Exito</h5>
+                </div>
+                <div class="modal-body">
+                    <p th:text="${exito}"></p>
+                </div>
+            </div>
         </div>
-    </div>
+    </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+
+            setTimeout(function () {
+                $('#errorModal').modal('hide');
+            }, 2500);
+        });
+
+        $(document).ready(function () {
+            $('#succesModal').modal('show');
+
+            setTimeout(function () {
+                $('#succesModal').modal('hide');
+            }, 2500);
+        });
+    </script>
+
 </div>
 
+
+
+<!-- comment 
+<div id="errorDiv" th:if="${error != null}" class="alert alert-danger" role="alert"  >
+    <div class="card-body">
+
+        <h5 class="card-title">Error:</h5>
+        <p class="card-text" th:text="${error}"></p>
+
+    </div>
+</div>
+<div th:if="${exito != null}" class="alert alert-success" role="alert" >
+    <div class="card-body">
+        <h5 class="card-title">Exito!</h5>
+        <p class="card-text" th:text="${exito}"></p>
+    </div>
+</div>
+-->

@@ -26,8 +26,8 @@
                             <div class="col-lg-4">
                                 <div class="card mb-4">
                                     <div class="card-body text-center">
-                                        <!--                                        <p th:if="${usuario.fotoPerfil != null}"> <img  th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
-                                                                                     class="" style="width: 150px;" ></p>-->
+                                         <p th:if="${usuario.fotoPerfil != null}"> <img  th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar"
+                                       class="" style="width: 150px;" ></p>
                                         <h5 class="my-3" th:value="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                         <p class="text-muted mb-1" th:value="'DNI: '+${usuario.dni}"> </p>
                                         <p class="text-muted mb-4" th:value="'Tel: '+${usuario.telefono}"></p>
@@ -49,7 +49,7 @@
 
                                         <form class="form-control" th:action="@{/admin/modificado_usuario/__${id}__}" method="POST" enctype="multipart/form-data" >
 
-                                            <input hidden th:value="${id}" name ="id">
+                                            <input hidden th:value="${id}" name ="id"/>
 
                                             <h4 class="form text-center" style="color: #2a363b"> Modificar Usuario </h4>
 

@@ -258,8 +258,8 @@ public class ServicioContrato {
 
     public List<Contrato> listarContratos() {
 
-        List<Contrato> contratos = new ArrayList();
-        contratos = repositorioContrato.findAll();
+        List<Contrato> contratos = repositorioContrato.findAll();
+        
         return contratos;
     }
 
