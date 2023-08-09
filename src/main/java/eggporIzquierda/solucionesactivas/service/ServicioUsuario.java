@@ -379,8 +379,18 @@ public class ServicioUsuario implements UserDetailsService {
     }
 
     
-    public void updatePassword(Usuario usuario, String newPassword){
-    
+    public void updatePassword(Usuario usuario, String newPassword) throws MiException{
+        
+         if (newPassword.isEmpty() ) {
+            throw new MiException("La contraseña no puede estar vacía");
+        }
+
+        if (newPassword.length() < 6) {
+            throw new MiException("La contraseña debe tener al menos 6 caracteres");
+
+        }
+
+        
         usuario.setPassword(new BCryptPasswordEncoder().encode(newPassword));
         usuario.setResetPasswordToken(null);
         usuarioRepositorio.save(usuario);

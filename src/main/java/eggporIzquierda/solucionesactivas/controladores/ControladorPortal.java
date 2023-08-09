@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import javax.mail.MessagingException;
 //import javax.mail.internet.MimeMessage;
 
@@ -183,7 +185,7 @@ public class ControladorPortal {
     @GetMapping("/forgot_password")
     public String recuperarContraseñaForm(Model modelo) {
 
-        return "forgot_password_form.html";
+        return "password_forgot_form.html";
 
     }
 
@@ -204,7 +206,7 @@ public class ControladorPortal {
             model.put("error", e.getMessage());
         }
 
-        return "forgot_password_form.html";
+         return "password_forgot_form.html";
     }
 
     private void sendEmail(String email, String resetPasswordLink) throws MessagingException,   jakarta.mail.MessagingException,    UnsupportedEncodingException {
@@ -245,7 +247,7 @@ public class ControladorPortal {
         
         modelo.addAttribute("token", token);
         
-        return "reset_password_form.html";
+        return "password_reset_form.html";
         
     }
 
@@ -256,7 +258,7 @@ public class ControladorPortal {
         System.out.println("Token recibido" + token);
         
         String password = request.getParameter("password");
-        
+       
         Usuario usuario = usuarioServicio.obtenrUsuarioPorToken(token);
         
         model.addAttribute("titulo", "Restablecer contraseña");
@@ -264,13 +266,18 @@ public class ControladorPortal {
         if (usuario == null) {
             model.put("error", "Token inválido");
             
-            return "mensaje.html";
+            return "password_mensaje.html";
         } else {
-            usuarioServicio.updatePassword(usuario, password);
-            model.put("exito", "¡Tu contraseña fue cambiada exitosamente!");
+            try {
+                usuarioServicio.updatePassword(usuario, password );
+                model.put("exito", "¡Tu contraseña fue cambiada exitosamente!");
+            } catch (MiException ex) {
+                 model.put("error", ex.getMessage());
+            }
+           
             
         }
-        return "mensaje.html";
+        return "password_mensaje.html";
     }
 
 }
