@@ -37,6 +37,8 @@ public class ServicioUsuario implements UserDetailsService {
 
     @Autowired
     private ServicioImagen imagenServicio;
+    
+    
 
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido,
@@ -95,7 +97,7 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+            
             if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
                 String idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
@@ -106,6 +108,9 @@ public class ServicioUsuario implements UserDetailsService {
                 Imagen imagen = imagenServicio.guardar(archivo);
                 usuario.setFotoPerfil(imagen);
             }
+            
+            usuario.setEstado(true);
+
 
             usuarioRepositorio.save(usuario);
         }
@@ -335,5 +340,105 @@ public class ServicioUsuario implements UserDetailsService {
             } */
         }
     }
+   
+        public void suspenderMiCuenta(String id) {
+       
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(false);
+            usuarioRepositorio.save(usuario);
+        }
+    }
 
+    public void reactivarMiCuenta(String id) {
+         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(true);
+            usuarioRepositorio.save(usuario);
+        }
+
+     }
+    
+     public void updateResetPasswordToken(String token, String email) throws Exception {
+
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+
+        if (usuario != null) {
+            usuario.setResetPasswordToken(token);
+            usuarioRepositorio.save(usuario);
+        } else {
+
+            throw new Exception("No se encuentra ningun usuario con el email: " + email);
+        }
+    }
+
+    public Usuario obtenrUsuarioPorToken(String resetPasswordToken) {
+        return usuarioRepositorio.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    
+    public void updatePassword(Usuario usuario, String newPassword) throws MiException{
+        
+         if (newPassword.isEmpty() ) {
+            throw new MiException("La contraseña no puede estar vacía");
+        }
+
+        if (newPassword.length() < 6) {
+            throw new MiException("La contraseña debe tener al menos 6 caracteres");
+
+        }
+
+        
+        usuario.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        usuario.setResetPasswordToken(null);
+        usuarioRepositorio.save(usuario);
+    
+    }
+
+    
+    @Transactional
+    public void modifcar_por_Admin(MultipartFile archivo, String id, String nombre, String email, String password,
+            String password2, String nombreUsuario, String apellido, String fechaNacimiento, String dni, String telefono)
+            throws MiException {
+
+        validar(nombre, apellido, email, password, password2, dni, telefono);
+        System.out.println("Paso el validar");
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombreUsuario);
+            usuario.setApellido(apellido);
+            usuario.setDni(dni);
+            usuario.setTelefono(telefono);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+
+            if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
+                String idImagen = usuario.getFotoPerfil().getId();
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                usuario.setFotoPerfil(imagen);
+
+            } else if (usuario.getFotoPerfil() == null && !archivo.isEmpty()) {
+
+                Imagen imagen = imagenServicio.guardar(archivo);
+                usuario.setFotoPerfil(imagen);
+            }
+            
+             try {
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaNac = formato.parse(fechaNacimiento);
+            usuario.setFechaNacimiento(fechaNac);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+                
+            usuarioRepositorio.save(usuario);
+        }
+
+    }
 }

@@ -14,35 +14,28 @@
             <div class="container py-5">
 
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card mb-4">
-                            <div class="card-body text-center">
 
-                                <h5 class="mb-2" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h5>
-                                <img th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="avatar" class="mb-2"
-                                    style="width: 170px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card mb-4">
+                                <div class="card-body text-center">
 
-                                <p class="text-muted mb-1" th:text="'Rol: '+${proveedor.rol}"></p>
-                                <p class="text-muted mb-1"
-                                    th:text="'Servicio Ofrecido: ' +${proveedor.servicios[0].serv_descripcion}"></p>
-                                <p class="text-muted mb-1" th:if="${proveedor.fechaAlta != null}"
-                                    th:text="'Fecha Alta: '+${proveedor.fechaAlta}"> </p>
-                                <hr>
-                                <p class="text-muted mb-1"
-                                    th:text="'Cant. Contratacions '+${proveedor.cantidadTrabajos}"></p>
-                                <p class="text-muted mb-2" th:text="'Reputacion: '+${proveedor.reputacion}"></p>
-                                <p class="text-muted mb-4">Tel: XXXXXXXXXXXXXXX</p>
-                                <a type="button" class="btn btn-warning" href=/login>Contratar </a>
-                            </div>
-                        </div>
-                    </div>
+                                    <h5 class="mb-2" th:text="${proveedor.nombre} + ' '+ ${proveedor.apellido}"></h5>
+                                    <img th:src="@{/imagen/perfil/__${proveedor.id}__}" alt="avatar"
+                                         class="mb-2" style="width: 170px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
 
-                    <div class="col-lg-8">
-                        <div class="card mb-2 py-2">
-                            <div class="card-body">
-                                <div class="row text-center">
-                                    <p class="mb-2">RESEÑAS DE OTROS USUARIOS</p>
+                                    <p class="text-muted mb-1"          th:text="'Rol: '+${proveedor.rol}"></p>
+                                    <p class="text-muted mb-1"           th:text="${proveedor.servicios[0].serv_descripcion}" ></p>
+                                    <p class="text-muted mb-1" th:if="${proveedor.fechaAlta != null}"
+                                       th:text="'Fecha Alta: '+${proveedor.fechaAlta}"> </p>
+                                    <hr>
+                                    <p class="text-muted mb-1"          th:text="'Trabajos Realizados '+${proveedor.cantidadTrabajos}"></p>
+                                    <p class="text-muted mb-2"          th:text="'Reputacion: '+${proveedor.reputacion}"></p>     
+                                    <p class="text-muted mb-4"          >Tel: XXXXXXX</p>
+                                    <a type="button" class="btn btn-warning"
+                                       href=/login
+                                       >Contratar </a>
+
                                 </div>
                             </div>
                         </div>
@@ -50,8 +43,44 @@
                             <div class="card-body text-center">
                                 <div class="row">
 
-                                    <div class="col-sm-3">
-                                        <p class="text-muted mb-0">Usuario:</p>
+
+                        <div class="col-lg-8">
+                            <div class="card mb-2 py-2">
+                                <div class="card-body">
+                                    <div class="row text-center"><p class="mb-2">RESEÑAS DE OTROS USUARIOS</p>
+                                    </div>   
+                                </div>  
+                            </div>   
+                            <div class="card mb-1" th:each="cont : ${contratosCalificados}">
+                                <div class="card-body text-center">
+                                    <div class="row">
+
+                                        <div class="col-sm-3">
+                                            <p class="text-muted mb-0">Usuario:</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class=" mb-0" th:text="${cont.usuario.nombre}"></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class="text-muted mb-0">|   Calificación:</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class=" mb-0 text-left" th:text="${cont.calificacion}"></p>
+                                        </div>
+
+
+                                        <hr>
+
+                                        <div class="col-sm-3">
+                                            <p class="text-muted mb-0">Comentario:</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class=" mb-0" th:text="${cont.comentarioFinal}"></p>
+                                        </div>
+
+
+
+
                                     </div>
                                     <div class="col-sm-9">
                                         <p class=" mb-0" th:text="${cont.usuario.nombre}"></p>
@@ -89,12 +118,13 @@
 
 
 
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
-    <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
-    <script> function goBack() {
-            window.history.back();
-        }</script>
-</body>
+
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+        <script src="https://kit.fontawesome.com/183f2a4aef.js"crossorigin="anonymous"></script>        
+        <script> function goBack() {
+                                window.history.back();
+                            }</script>
+    </body>
 
 </html>
 

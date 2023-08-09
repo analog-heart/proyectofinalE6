@@ -9,7 +9,7 @@ import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,5 +182,22 @@ public class ControladorUsuario {
 
         }
 
+    }
+    
+       //--------------SUSPENDER PERFIL PROVEEDOR------------
+   @PostMapping ("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
+        
+        usuarioServicio.suspenderMiCuenta(id);
+        
+         return "redirect:../mi_perfil_usuario";
+    }
+    
+     @PostMapping ("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
+        
+        usuarioServicio.reactivarMiCuenta(id);
+        
+         return "redirect:../mi_perfil_usuario";
     }
 }

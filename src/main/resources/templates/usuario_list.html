@@ -1,59 +1,130 @@
 <!DOCTYPE html>
 
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
-  <head th:replace="~{/fragments/head :: head}"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{/fragments/head :: head}"></head>
+    <body class="footer-alpiso d-flex flex-column">
+        <header th:replace="~{/fragments/header :: header}"></header>
 
-  <body class="d-flex flex-column">
-    <header th:replace="~{/fragments/header :: header}"></header>
 
-    <main class="flex-grow-1 container-fluid footer-alpiso">
-      <div>
-        <h1 style="color: azure">Lista de Usuarios</h1>
-      </div>
+        <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center">
+            <div class=" container" >
 
-      <div class="container py-4">
-        <div
-          class="card"
-          style="max-width: 540px"
-          th:each="usuario : ${usuarios}"
-        >
-          <div class="row g-0">
-            <div class="col">
-              <img
-                id="fotoPerfil"
-                th:src="@{/imagen/perfil/__${usuario.id}__}"
-                alt="imegen perfil"
-                class="w-100 rounded-start img-fluid"
-              />
+
+                <h3> Lista de Usuario </h3>
+                <table class="table table-dark" >
+
+                    <thead class="align-items-center" >
+                        <tr >
+                            <th scope="col">archivo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Dni</th>
+                            <th scope="col">email</th>
+                            <th scope="col">telefono</th>
+                            <th scope="col">Fecha Alta </th>
+                            <th scope="col">Estado </th>
+                            <th scope="col">Editar</th>
+
+
+
+                        </tr>
+
+                    </thead>
+                    <tbody th:each="usuario : ${usuarios}"> 
+                        <tr>
+                            <td th:if="${usuario.fotoPerfil != null}"> <img  th:src="@{/imagen/perfil/__${usuario.id}__}" width="50" height="50" alt="foto_serv"> </td>
+                            <td scope="row" th:text="${usuario.nombre}"></td>
+                            <td th:text="${usuario.apellido}"></td>
+                            <td th:text="${usuario.dni}"></td>
+                            <td th:text="${usuario.email}"></td>
+                            <td th:text="${usuario.telefono}"></td>
+                            <td th:text="${usuario.fechaAlta}"></td>
+                            <td th:text="${usuario.estado}"></td>
+
+
+                            <td>
+                                 
+                                    <a th:href= "@{/admin/modificar_usuario/__${usuario.id}__}"><i class="fas fa-feather-alt"></i>Editar</a>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+
+
+
+                    <!--                    --MODAL DE SUSPERNDER CUENTA --
+
+                    <form th:action="@{/admin/modificar_usuario/__${usuario.id}__}" class="formulario form-control "  method="POST">
+                        <div class ="texto">
+                            <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cambiar Rol</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-bg-dark">
+
+
+                                            <thead class="align-items-center">
+                                                <tr >
+                                                    <th scope="col">archivo</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Apellido</th>
+                                                    <th scope="col">Dni</th>
+                                                    <th scope="col">email</th>
+                                                    <th scope="col">telefono</th>
+                                                    <th scope="col">Fecha Alta </th>
+                                                    <th scope="col">Estado </th>
+                                                    <th scope="col">Cambiar Estado </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody > 
+                                                <tr>
+                                                    <td > <img th:if="${usuario.fotoPerfil != null}" th:src="@{/imagen/perfil/__${usuario.id}__}" width="50" height="50" alt="foto_serv"> </td>
+                                                    <td scope="row" th:text="${usuario.nombre}"></td>
+                                                    <td th:text="${usuario.apellido}"></td>
+                                                    <td th:text="${usuario.dni}"></td>
+                                                    <td th:text="${usuario.email}"></td>
+                                                    <td th:text="${usuario.telefono}"></td>
+                                                    <td th:text="${usuario.fechaAlta}"></td>
+                                                    <td th:text="${usuario.estado}"></td>
+
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario" ></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </div>
+                                    </div>   
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    --FIN MODAL DE SUSPERNDER CUENTA ---->
+                </table>
+
+
+                <a type="button" th:href="@{/admin/dashboard}">
+                    <button type="button" class="btn btn-secondary btn-lg">
+                        Volver
+                    </button>
+                </a>
+
             </div>
-            <div class="col">
-              <div class="card-body">
-                <h5
-                  class="card-title"
-                  th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"
-                ></h5>
-                <h6>DNI</h6>
-                <h6
-                  class="card-subtitle mb-2 text-muted"
-                  th:text="${usuario.dni}"
-                ></h6>
-                <h6>Telefono</h6>
-                <p class="card-text" th:text="${usuario.telefono}"></p>
-                <a
-                  th:href="@{/usuario/modificar/__${usuario.id}__}"
-                  class="btn btn-outline-primary"
-                  >Modificar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
 
-    <footer th:replace="~{/fragments/footer :: footer}"></footer>
-  </body>
+
+        </main>
+
+        <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+
+        <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
+
+    </body>
+
 </html>

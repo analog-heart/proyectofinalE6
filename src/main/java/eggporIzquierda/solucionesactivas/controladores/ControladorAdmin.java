@@ -1,18 +1,20 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+
 import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
-import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
+
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
-import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
+
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -137,5 +139,43 @@ public class ControladorAdmin {
         return "redirect:../autorizar_solicitudes_nuevo";
 
     }
+
+    
+    @GetMapping("/modificar_usuario/{id}")
+     public String modificarUsuario_admin(ModelMap modelo, @PathVariable String id) {
+
+         Usuario usuario = usuarioServicio.getOne(id);
+        modelo.addAttribute("usuario",usuario );
+        
+        return "usuario_modificar_admin.html";
+    }
+    
+     @PostMapping("/modificado_usuario/{id}")
+   public String modificadoUsuario_admin(MultipartFile archivo, @RequestParam String id, @RequestParam String nombre,
+            @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario,
+            String apellido, String fechaNacimiento, String dni, String telefono) {
+        
+       
+        try {
+            usuarioServicio.modifcar_por_Admin(archivo, id, nombre, email, password, password2, nombreUsuario, apellido,
+                    fechaNacimiento, dni, telefono);
+            System.out.println("entro al try");
+            modelo.put("exito", "Usuario actualizado correctamente!");
+
+           return "redirect:/admin/dashboard";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            
+
+              return "usuario_modificar_admin.html";
+        }
+
+    }
+      
+        
+        
+    
+    
 
 }
