@@ -73,7 +73,6 @@ public class ControladorProveedor {
         return "resultado_busqueda.html";
     }
 
-
     @GetMapping("/{id}")
     public String contacto(@PathVariable String id, ModelMap modelo, HttpSession session) {
 

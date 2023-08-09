@@ -1,19 +1,20 @@
-    package eggporIzquierda.solucionesactivas.controladores;
+package eggporIzquierda.solucionesactivas.controladores;
+
 
 import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
-import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
+
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioContrato;
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
-import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
+
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
