@@ -146,7 +146,7 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public Proveedor getOne(String id) {
-        return proveedorRepositorio.getOne(id);
+        return proveedorRepositorio.getById(id);
     }
 
     @Transactional

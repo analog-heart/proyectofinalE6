@@ -121,7 +121,7 @@ public class ServicioUsuario implements UserDetailsService {
     //-----------metodos de busqueda de usuarios
     
     public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
+        return usuarioRepositorio.getById(id);
     }
 
     @Transactional(readOnly = true)

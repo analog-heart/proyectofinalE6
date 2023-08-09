@@ -77,7 +77,7 @@ public class ServicioServicioOfrecido {
     }
 
     public ServicioOfrecido getOne(String serv_id) {
-        return servOfrecidoRepositorio.getOne(serv_id);
+        return servOfrecidoRepositorio.getById(serv_id);
     }
 
     public ServicioOfrecido getOneByDescripcion(String serv_descripcion) {
