@@ -1,6 +1,7 @@
 package eggporIzquierda.solucionesactivas.entity;
 
 import eggporIzquierda.solucionesactivas.enumation.Rol;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,7 +29,7 @@ public class Usuario {
     protected String nombreUsuario;
     protected String email;
     protected String password;
-
+    
     protected String nombre;
     protected String apellido;
     @Temporal(TemporalType.DATE)
@@ -49,12 +50,15 @@ public class Usuario {
 
     @OneToOne
     protected Imagen fotoPerfil;
+    
+    @Column(name = "reset_password_token")
+    protected String resetPasswordToken;
 
     //-----------Constructores 
     public Usuario() {
     }
 
-    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+    public Usuario(String id, String nombreUsuario, String email, String password, String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio, boolean estado, Date fechaAlta, Rol rol, Imagen fotoPerfil, String resetPasswordToken) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -66,11 +70,21 @@ public class Usuario {
         this.telefono = telefono;
         this.domicilio = domicilio;
         this.estado = estado;
-        this.fechaAlta = fecha;
+        this.fechaAlta = fechaAlta;
         this.rol = rol;
         this.fotoPerfil = fotoPerfil;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }

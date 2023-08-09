@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -76,9 +77,11 @@
                         th:if="${session.usuariosession != null}"
                         >Modificar
                       </a>
+
                     </div>
                   </div>
                 </div>
+
               </div>
 
               <div class="col-lg-8">
@@ -179,3 +182,4 @@
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
   </body>
 </html>
+

@@ -29,9 +29,9 @@ public class Proveedor extends Usuario {
 
     public Proveedor(List<ServicioOfrecido> servicios, String id, String nombreUsuario, String email, String password,
             String nombre, String apellido, Date fechaNacimiento, String dni, String telefono, Domicilio domicilio,
-            boolean estado, Date fecha, Rol rol, Imagen fotoPerfil) {
+            boolean estado, Date fecha, Rol rol, Imagen fotoPerfil, String resetPasswordToken) {
         super(id, nombreUsuario, email, password, nombre, apellido, fechaNacimiento, dni, telefono, domicilio, estado,
-                fecha, rol, fotoPerfil);
+                fecha, rol, fotoPerfil, resetPasswordToken);
         this.servicios = servicios;
     }
 

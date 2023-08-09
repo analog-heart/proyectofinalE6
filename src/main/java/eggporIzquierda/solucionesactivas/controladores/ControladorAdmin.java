@@ -1,5 +1,6 @@
 package eggporIzquierda.solucionesactivas.controladores;
 
+
 import eggporIzquierda.solucionesactivas.entity.Contrato;
 import eggporIzquierda.solucionesactivas.entity.Proveedor;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -134,5 +137,43 @@ public class ControladorAdmin {
         return "redirect:../autorizar_solicitudes_nuevo";
 
     }
+
+    
+    @GetMapping("/modificar_usuario/{id}")
+     public String modificarUsuario_admin(ModelMap modelo, @PathVariable String id) {
+
+         Usuario usuario = usuarioServicio.getOne(id);
+        modelo.addAttribute("usuario",usuario );
+        
+        return "usuario_modificar_admin.html";
+    }
+    
+     @PostMapping("/modificado_usuario/{id}")
+   public String modificadoUsuario_admin(MultipartFile archivo, @RequestParam String id, @RequestParam String nombre,
+            @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario,
+            String apellido, String fechaNacimiento, String dni, String telefono) {
+        
+       
+        try {
+            usuarioServicio.modifcar_por_Admin(archivo, id, nombre, email, password, password2, nombreUsuario, apellido,
+                    fechaNacimiento, dni, telefono);
+            System.out.println("entro al try");
+            modelo.put("exito", "Usuario actualizado correctamente!");
+
+           return "redirect:/admin/dashboard";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            
+
+              return "usuario_modificar_admin.html";
+        }
+
+    }
+      
+        
+        
+    
+    
 
 }

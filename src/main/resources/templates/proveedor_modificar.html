@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -29,7 +30,7 @@
                         <div class="col-lg-4">
                             <div class="card mb-4">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="avatar" class=""
+                                    <img th:src="@{/imagen/perfil/_${usuario.id}_}" alt="avatar" class=""
                                         style="width: 150px;" onerror="this.onerror = null; this.src='/IMG/USER.GIF'">
                                     <h5 class="my-3" th:text="${usuario.nombre} + ' '+ ${usuario.apellido}"></h5>
                                     <p class="text-muted mb-1" th:text="'DNI: '+${usuario.dni}"> </p>
@@ -51,7 +52,7 @@
 
 
                                     <form class="form-control"
-                                        th:action="@{/proveedor/perfil_proveedor/__${usuario.id}__}" method="POST"
+                                        th:action="@{/proveedor/perfil_proveedor/_${usuario.id}_}" method="POST"
                                         enctype="multipart/form-data">
 
                                         <input hidden th:value="${usuario.id}" name="id">
@@ -223,7 +224,73 @@
 
 </body>
 
+<div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
+
+<!----MODAL DE SUSPERNDER CUENTA ---->
+<form th:action="@{suspender_mi_cuenta/_${usuario.id}_}" class="formulario form-control " method="POST">
+    <div class="texto">
+
+        <div class="modal fade" id="modalSuspenderCuenta" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">No
+                            mostrar mi Perfil temporalmente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
 
 
+
+                        <div th:replace="~{/fragments/error :: errores1}"></div>
+
+                        <p class="mb-4" style="color: #FF0000" id="campo"></p>
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+
+                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!----FIN MODAL DE SUSPERNDER CUENTA ---->
+
+
+
+<!---- MODAL DE REACTIVAR CUENTA ---->
+<form th:action="@{/proveedor/reactivar_mi_cuenta/_${usuario.id}_}" class="formulario form-control " method="POST">
+    <div class="texto">
+
+        <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Reactivar Perfil</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div th:replace="~{/fragments/error :: errores1}"></div>
+                        <p class="mb-4" style="color: #FF0000" id="campo"></p>
+                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+
+                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!----FIN MODAL DE REACTIVAR CUENTA ---->
 
 </html>

@@ -182,4 +182,21 @@ public class ControladorUsuario {
         }
 
     }
+    
+       //--------------SUSPENDER PERFIL PROVEEDOR------------
+   @PostMapping ("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
+        
+        usuarioServicio.suspenderMiCuenta(id);
+        
+         return "redirect:../mi_perfil_usuario";
+    }
+    
+     @PostMapping ("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
+        
+        usuarioServicio.reactivarMiCuenta(id);
+        
+         return "redirect:../mi_perfil_usuario";
+    }
 }
