@@ -37,6 +37,8 @@ public class ServicioUsuario implements UserDetailsService {
 
     @Autowired
     private ServicioImagen imagenServicio;
+    
+    
 
     @Transactional
     public void registrar(MultipartFile archivo, String nombreUsuario, String nombre, String apellido,
@@ -95,7 +97,7 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+            
             if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
                 String idImagen = usuario.getFotoPerfil().getId();
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
@@ -106,6 +108,9 @@ public class ServicioUsuario implements UserDetailsService {
                 Imagen imagen = imagenServicio.guardar(archivo);
                 usuario.setFotoPerfil(imagen);
             }
+            
+            usuario.setEstado(true);
+
 
             usuarioRepositorio.save(usuario);
         }
@@ -334,6 +339,52 @@ public class ServicioUsuario implements UserDetailsService {
                 usuarioRepositorio.save(proveedor);
             } */
         }
+    }
+   
+        public void suspenderMiCuenta(String id) {
+       
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(false);
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    public void reactivarMiCuenta(String id) {
+         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEstado(true);
+            usuarioRepositorio.save(usuario);
+        }
+
+     }
+    
+     public void updateResetPasswordToken(String token, String email) throws Exception {
+
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+
+        if (usuario != null) {
+            usuario.setResetPasswordToken(token);
+            usuarioRepositorio.save(usuario);
+        } else {
+
+            throw new Exception("No se encuentra ningun usuario con el email: " + email);
+        }
+    }
+
+    public Usuario obtenrUsuarioPorToken(String resetPasswordToken) {
+        return usuarioRepositorio.findByResetPasswordToken(resetPasswordToken);
+    }
+
+    
+    public void updatePassword(Usuario usuario, String newPassword){
+    
+        usuario.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        usuario.setResetPasswordToken(null);
+        usuarioRepositorio.save(usuario);
+    
     }
 
     

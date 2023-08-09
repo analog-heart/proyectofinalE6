@@ -26,5 +26,7 @@ public interface RepositorioUsuario extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.rol='USUARIO' AND  u.estado =false")
     public List<Usuario> listarUsuariosInactivos();
     
+    public Usuario findByResetPasswordToken(String token);
+    
 
 }
