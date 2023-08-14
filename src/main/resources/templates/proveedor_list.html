@@ -16,14 +16,15 @@
           Lista de Proveedores
         </h1>
       </div>
-
-      <div class="container-fluid">
-        <div th:each="proveedor : ${proveedores}">
-          <div
-            th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"
-          ></div>
+      
+        <div class="container-fluid tarjeta-proveedor">
+          <div th:each="proveedor : ${proveedores}">
+            <div
+              th:replace="~{/fragments/tarjetaproveedor :: tarjetaproveedor}"
+            ></div>
+          </div>
         </div>
-      </div>
+      
     </main>
 
     <footer th:replace="~{/fragments/footer :: footer}"></footer>

@@ -27,7 +27,7 @@
             >
               <div class="link">
                 <textarea
-                  class="form-control comentarioInicial"
+                  class="form-control comentarioInicial mb-2"
                   placeholder="Comentario del trabajo..."
                   id="floatingTextarea"
                   name="comentarioInicial"
@@ -39,7 +39,7 @@
                   name="idProveedor"
                   th:value="${proveedor.id}"
                 >
-                  Solicitar trabajo
+                  Enviar
                 </button>
               </div>
             </form>
@@ -50,7 +50,7 @@
 
         <div
           style="max-width: 540px"
-          class="card mb-1"
+          class="card mb-2 mt-2"
           th:each="cont : ${contratosCalificados}"
         >
           <div class="card-body text-center">
