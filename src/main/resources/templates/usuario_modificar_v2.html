@@ -47,6 +47,7 @@
                                     <div class="card-body">
 
 
+
                                         <form class="form-control" th:action="@{/usuario/usuario_modificar/__${usuario.id}__}" method="POST" enctype="multipart/form-data" >
 
                                             <input hidden th:value="${usuario.id}" name ="id">
@@ -84,104 +85,45 @@
                                             </div>
 
 
+   
+                                            
+                                        <div>
+                                            <p class=" mb-3 text-center" style="color: #2a363b"> Recuerde Cerrar Sesion
+                                                y volver a entrar para visualizar los cambios </p>
+                                            <button type="submit" class="btn btn-primary form-control mb-3">Guardar
+                                                cambios</button>
+                                        </div>
 
+                                        <hr>
 
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
+                                         
+                                            
+                   
 
-                                            <br>
+                                        </form>
+                                        
+                                          <!--CAMBIAR CLAVES---->
 
+                                            <button type="button" class="btn btn-primary form-control mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Cambiar contraseña</button>
 
-                                            <div>
-                                                <br>
+                                          
 
-                                                <button type="submit" class="btn btn-primary form-control mb-3">Guardar cambios</button>
+                                       
+                                                
 
-                                                <span class="badge text-bg-info rounded-pill form-control mb-3 ">Recuerde Cerrar Sesion e ingresar nuevamente para visualizar los cambios</span>
-
-                                                <br>
-
-                                                <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
-                                                <div th:if="${usuario.estado==true}">
-                                                    <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  >No mostrar Mi Perfil </button>
-                                                </div>
-
-                                                <div th:if="${usuario.estado==false}">
-                                                    <button type="button" class="btn btn-success form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"  > Reactivar Mi Cuenta  </a>
-                                                </div>
-                                                <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
-
-                                                <a  class="btn btn-primary form-control mb-3" th:href="@{/}"> Volver  </a>
-
-
-
-                                                <div th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
-
-
-
-
-                                                <!----MODAL DE SUSPERNDER CUENTA ---->
-                                                <form th:action="@{suspender_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
-                                                    <div class ="texto">
-
-                                                        <div class="modal fade" id="modalSuspenderCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">No mostrar mi Perfil temporalmente</h1>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-
-
-
-                                                                        <div th:replace="~{/fragments/error :: errores1}"></div>
-
-                                                                        <p class="mb-4" style="color: #FF0000" id = "campo"></p>
-                                                                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-
-
-
-                                                                    </div>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                <!----FIN MODAL DE SUSPERNDER CUENTA ---->
-
-
-
-                                                <!---- MODAL DE REACTIVAR CUENTA ---->
-                                                <form th:action="@{/usuario/reactivar_mi_cuenta/__${usuario.id}__}" class="formulario form-control "  method="POST">
-                                                    <div class ="texto">
-
-                                                        <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Reactivar Perfil</h1>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-
-                                                                        <div th:replace="~{/fragments/error :: errores1}"></div>
-                                                                        <p class="mb-4" style="color: #FF0000" id = "campo"></p>
-                                                                        <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
-
-                                                                        <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
-
-                                                                    </div>
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                <!----FIN MODAL DE REACTIVAR CUENTA ---->
+                                            <!--BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
+                                            <div th:if="${usuario.estado==true}">
+                                                <button type="button" class="btn btn-danger form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalSuspenderCuenta"  data-bs-whatever="@mdo" >No mostrar Mi Perfil </button>
                                             </div>
+
+                                            <div th:if="${usuario.estado==false}">
+                                                <button type="button" class="btn btn-success form-control mb-3" data-bs-toggle="modal" data-bs-target="#modalReactivarCuenta"  > Reactivar Mi Cuenta  </a>
+                                            </div>
+                                            <!--FIN BOTONES PARA SUSPENDER Y REACTIVAR CUENTA---->
+
+                                            <a  class="btn btn-primary form-control mb-3" onclick="goBack()"> Volver  </a>
+                                        
+                                        
                                     </div>
                                 </div>   
                             </div>
@@ -190,7 +132,7 @@
                     </div>
 
                 </section>
-
+                <div th:replace="~{/fragments/error :: errores1}"></div>
             </main>  
         </div>
 
@@ -199,15 +141,68 @@
 
 
         <script>
-              function goBack() {
-                 window.history.back();
-                    }
+            function goBack() {
+                window.history.back();
+            }
         </script>
 
 
 
-       
+
     </body>
 
 
+    <div hidden th:replace="~{/fragments/actualizarclave :: modal-clave}"></div>
+    <!----MODAL DE SUSPERNDER CUENTA ---->
+
+    <form  th:action="@{suspender_mi_cuenta/__${usuario.id}__}"  method="POST">
+        <div class ="texto">
+
+            <div class="modal fade" id="modalSuspenderCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">No mostrar mi Perfil temporalmente</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                            <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!----FIN MODAL DE SUSPERNDER CUENTA ---->
+
+
+    <!---- MODAL DE REACTIVAR CUENTA ---->
+    <form  th:action="@{/usuario/reactivar_mi_cuenta/__${usuario.id}__}"   method="POST">
+        <div class ="texto">
+
+            <div class="modal fade" id="modalReactivarCuenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reactivar Perfil</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <button type="submit" class="btn btn-primary mt-2">Confirmar</button>
+                            <button class="btn btn-primary mt-2" id="botonVolver" onclick="goBack()">Volver</button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!----FIN MODAL DE REACTIVAR CUENTA ---->
 </html>
