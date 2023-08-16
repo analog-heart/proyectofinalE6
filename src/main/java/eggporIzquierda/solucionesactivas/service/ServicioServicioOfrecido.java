@@ -5,7 +5,6 @@ import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import jakarta.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +76,7 @@ public class ServicioServicioOfrecido {
     }
 
     public ServicioOfrecido getOne(String serv_id) {
-        return servOfrecidoRepositorio.getOne(serv_id);
+        return servOfrecidoRepositorio.getById(serv_id);
     }
 
     public ServicioOfrecido getOneByDescripcion(String serv_descripcion) {

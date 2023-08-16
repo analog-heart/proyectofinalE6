@@ -9,7 +9,6 @@ import eggporIzquierda.solucionesactivas.enumation.EnumNivel;
 import eggporIzquierda.solucionesactivas.enumation.Rol;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
-import eggporIzquierda.solucionesactivas.repository.RepositorioDomicilio;
 import eggporIzquierda.solucionesactivas.repository.RepositorioProveedor;
 import eggporIzquierda.solucionesactivas.repository.RepositorioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.repository.RepositorioUsuario;
@@ -146,7 +145,7 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public Proveedor getOne(String id) {
-        return proveedorRepositorio.getOne(id);
+        return proveedorRepositorio.getById(id);
     }
 
     @Transactional
