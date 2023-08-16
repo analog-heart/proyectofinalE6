@@ -72,12 +72,11 @@ public class ControladorUsuario {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
-            @RequestParam String email,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo, String nombreUsuario,
-            String apellido, Date fechaNacimiento, String dni, String telefono) {
+            @RequestParam String email,String nombreUsuario,
+            String apellido, Date fechaNacimiento, String dni, String telefono, ModelMap modelo) {
         // Falta validar por separdo las claves pssw
         try {
-            usuarioServicio.actualizar(archivo, id, nombre, email, password, password2, nombreUsuario, apellido,
+            usuarioServicio.actualizar(archivo, id, nombre, email, nombreUsuario, apellido,
                     fechaNacimiento, dni, telefono);
             modelo.put("exito", "Usuario actualizado correctamente!");
 
@@ -88,7 +87,7 @@ public class ControladorUsuario {
             modelo.put("nombre", nombre);
             modelo.put("email", email);
 
-            return "usuario_modificar.html";
+            return "usuario_modificar_v2.html";
         }
 
     }
@@ -186,10 +185,8 @@ public class ControladorUsuario {
        //--------------SUSPENDER PERFIL PROVEEDOR------------
    @PostMapping ("/suspender_mi_cuenta/{id}")
     public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
-        
         usuarioServicio.suspenderMiCuenta(id);
-        
-         return "redirect:../mi_perfil_usuario";
+        return "redirect:../mi_perfil_usuario";
     }
     
      @PostMapping ("/reactivar_mi_cuenta/{id}")

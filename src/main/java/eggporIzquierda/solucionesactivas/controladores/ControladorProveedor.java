@@ -143,7 +143,7 @@ public class ControladorProveedor {
 
     //------------MODIFICAR PERFIL PROVEEDOR POST
     @PreAuthorize("hasAnyRole('ROLE_PROVEEDOR', 'ROLE_ADMIN')")
-    @PostMapping("/perfil_proveedor/{id}")
+    @PostMapping("/modificar_perfil_proveedor/{id}")
     public String actualizarProveedor(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
             @RequestParam String email, ModelMap modelo, String apellido, String dni,
             String telefono) {

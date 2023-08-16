@@ -87,16 +87,25 @@
               >
                 <div class="accordion-body">
                   <div class="list-group">
-                    <a
-                      th:href="@{/admin/listarProvedores_activos}"
-                      class="list-group-item list-group-item-action list-group-item-dark"
-                      >Activos</a
-                    >
-                    <a
+                      
+                      <a
                       th:href="@{/admin/autorizar_solicitudes_nuevo}"
                       class="list-group-item list-group-item-action list-group-item-dark"
                       >Solicitudes Nuevas</a
                     >
+                      
+                      <a
+                      th:href="@{/admin/listarProvedores_activos}"
+                      class="list-group-item list-group-item-action list-group-item-dark"
+                      >Activos</a
+                    >
+                    
+                    <a
+                      th:href="@{/admin/listarProvedores_inactivos}"
+                      class="list-group-item list-group-item-action list-group-item-dark"
+                      >Inactivos</a
+                    >
+                    
                   </div>
                 </div>
               </div>

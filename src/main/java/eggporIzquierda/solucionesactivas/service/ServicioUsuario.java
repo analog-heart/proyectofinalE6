@@ -80,8 +80,8 @@ public class ServicioUsuario implements UserDetailsService {
     }
 
     @Transactional
-    public void actualizar(MultipartFile archivo, String id, String nombre, String email, String password,
-            String password2, String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
+    public void actualizar(MultipartFile archivo, String id, String nombre, String email, 
+            String nombreUsuario, String apellido, Date fechaNacimiento, String dni, String telefono)
             throws MiException {
 
         //validar(email, password, password2);
@@ -96,7 +96,7 @@ public class ServicioUsuario implements UserDetailsService {
             usuario.setApellido(apellido);
             usuario.setDni(dni);
             usuario.setTelefono(telefono);
-            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+           
             
             if (usuario.getFotoPerfil() != null && !archivo.isEmpty()) {
                 String idImagen = usuario.getFotoPerfil().getId();
@@ -109,7 +109,7 @@ public class ServicioUsuario implements UserDetailsService {
                 usuario.setFotoPerfil(imagen);
             }
             
-            usuario.setEstado(true);
+            
 
 
             usuarioRepositorio.save(usuario);
