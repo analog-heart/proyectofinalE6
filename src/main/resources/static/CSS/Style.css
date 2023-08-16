@@ -25,6 +25,10 @@ footer{
     background-color: #393053;
 }
 
+#header-fixed{
+    
+    justify-content: space-between;
+}
 .footer-alpiso {
     min-height: 80vh;
 }
