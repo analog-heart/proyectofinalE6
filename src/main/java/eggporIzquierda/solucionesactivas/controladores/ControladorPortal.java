@@ -7,20 +7,15 @@ import eggporIzquierda.solucionesactivas.entity.ServicioOfrecido;
 import eggporIzquierda.solucionesactivas.entity.Usuario;
 import eggporIzquierda.solucionesactivas.exception.MiException;
 import eggporIzquierda.solucionesactivas.repository.RepositorioContrato;
-
 import eggporIzquierda.solucionesactivas.service.ServicioProveedor;
 import eggporIzquierda.solucionesactivas.service.ServicioServicioOfrecido;
 import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.mail.MessagingException;
-
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-
-import java.util.List;
-
-    
+import java.util.List; 
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -31,7 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -238,7 +232,7 @@ public class ControladorPortal {
     @GetMapping("/reset_password")
     public String resetPasswordForm(@Param(value = "token") String token, Model modelo) {
 
-        Usuario usuario = usuarioServicio.obtenrUsuarioPorToken(token);
+        /* Usuario usuario = usuarioServicio.obtenrUsuarioPorToken(token); */
         
         modelo.addAttribute("token", token);
         

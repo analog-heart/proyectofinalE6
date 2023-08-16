@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true)
 public class SeguridadWeb {
 
     @Autowired
@@ -26,28 +26,30 @@ public class SeguridadWeb {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  http
+    .authorizeHttpRequests((authorize) ->
+      authorize
+        .requestMatchers("/admin/*", "/servicioOfrecido/*").hasRole("ADMIN")
+        .requestMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()  
+    )
+    .formLogin((form) ->  
+      form
+        .loginPage("/login")
+        .loginProcessingUrl("/logincheck")
+        .usernameParameter("email")
+        .passwordParameter("password") 
+        .defaultSuccessUrl("/inicio")
+        .permitAll()
+    )
+    .logout((logout) ->
+      logout
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/login")
+        .permitAll()
+    )
+    .csrf((csrf) -> csrf.disable());
 
-                .requestMatchers("/admin/*" , "/servicioOfrecido/*").hasRole("ADMIN")
-
-                .requestMatchers("/css/*", "/js/*", "/img/*", "/**")
-                .permitAll()
-                .and().formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/logincheck")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/inicio")
-                .permitAll()
-                .and().logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll()
-                .and().csrf()
-                .disable();
-
-        return http.build();
-    }
+  return http.build();
+}
 }
