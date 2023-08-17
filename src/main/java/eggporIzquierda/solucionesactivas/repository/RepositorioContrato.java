@@ -28,6 +28,9 @@ public interface RepositorioContrato extends JpaRepository<Contrato, String> {
     @Query("SELECT c FROM Contrato c WHERE c.estado = 'ENCURSO' OR c.estado = 'SOLICITADO' AND c.usuario.id =:idUsuario")
     public List<Contrato> listarPorEstadoEncursoCliente(@Param("idUsuario") String idUsuario);
 
+    @Query("SELECT c FROM Contrato c WHERE c.estado = 'PRESUPUESTADO' AND c.usuario.id =:idUsuario")
+    public List<Contrato> listarPorEstadoPresupuestadoCliente(@Param("idUsuario") String idUsuario);
+
     // @Query("SELECT c FROM Contrato c WHERE c.estado = 'CALIFICADO' AND c.usuario.id =:idUsuario")
     // public List<Contrato> listarPorEstadoCalificadoCliente(@Param("idUsuario") String idUsuario);
 

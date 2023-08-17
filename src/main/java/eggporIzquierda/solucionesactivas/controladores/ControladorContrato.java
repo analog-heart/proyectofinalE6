@@ -40,8 +40,7 @@ public class ControladorContrato {
     @Autowired
     private ServicioContrato contratoServicio;
 
-    
-    @PostMapping("/contratar")
+    @PostMapping("/solicitar_presupuesto")
     public String contratar(@RequestParam String idProveedor, @RequestParam String comentarioInicial, ModelMap modelo,
             HttpSession session) {
 
@@ -61,10 +60,45 @@ public class ControladorContrato {
         return "proveedor_list.html";
     }
 
-    // este post viene de una vista del proveedor, el cual acepta o rechaza la
-    // solicitud de contratacion
+    // este post viene de una vista del proveedor, el cual presupuesta el trabajo o lo rechaza
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
-    @PostMapping("/aceptar_contrato")
+    @PostMapping("/presupuestar_contrato")
+    public String presupuestarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
+            ModelMap modelo, BigDecimal precio) {
+
+        String exito = "";
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
+        try {
+            if (decision.equalsIgnoreCase("aceptar")) {
+                exito = "El contrato fue presupuestado con exito";
+            }
+            if (decision.equalsIgnoreCase("rechazar")) {
+                exito = "El contrato fue rechazado con exito";
+            }
+            contratoServicio.actualizarContrato(idContrato, decision, precio);
+
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+            // modelo.put("usuario", usuario);
+            modelo.put("exito", exito);
+
+            return "redirect:../inicio";
+
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
+            List<Contrato> cantidadContratosSolicitados = repositorioContrato
+                    .listarPorEstadoSolicitado(usuario.getId());
+            modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
+            return "contratos_solicitados.html";
+        }
+
+    }
+
+    // este post viene de una vista del usuario, el cual acepta o rechaza el presupuesto
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @PostMapping("/aceptar_presupuesto_contrato")
     public String aceptarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
             ModelMap modelo) {
 
@@ -78,7 +112,7 @@ public class ControladorContrato {
             if (decision.equalsIgnoreCase("rechazar")) {
                 exito = "El contrato fue rechazado con exito";
             }
-            contratoServicio.actualizarContrato(idContrato, decision);
+            contratoServicio.actualizarContrato(idContrato, decision, repositorioContrato.findById(idContrato).get().getPrecio());
 
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
@@ -104,7 +138,7 @@ public class ControladorContrato {
     public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato,
             @RequestParam BigDecimal precio, ModelMap modelo) {
 
-                System.out.println("log 1");
+        System.out.println("log 1");
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
@@ -152,10 +186,10 @@ public class ControladorContrato {
             contratoServicio.cancelarContratoUsuario(idContrato, null, comentarioFinal);
 
             List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
-            //modelo.add("contratosUsuario", contratosSesion);
-            modelo.addAttribute("contratosUsuario",contratosSesion);
+            // modelo.add("contratosUsuario", contratosSesion);
+            modelo.addAttribute("contratosUsuario", contratosSesion);
             modelo.put("exito", "El contrato fue cancelado con exito");
-            
+
             return "mis_contratos_usuario.html";
 
         } catch (MiException ex) {
@@ -184,7 +218,8 @@ public class ControladorContrato {
 
             // proveedorServicio.cantidadDeTrabajos(repositorioContrato.getOne(idContrato).getProveedor().getId());
             contratoServicio.calificarContrato(idContrato, comentarioFinal, calificacion);
-            proveedorServicio.cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
+            proveedorServicio
+                    .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
             List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
             modelo.put("contratosUsuario", contratosSesion);

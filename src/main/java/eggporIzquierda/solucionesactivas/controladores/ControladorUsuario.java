@@ -72,7 +72,7 @@ public class ControladorUsuario {
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
     @PostMapping("/usuario_modificar/{id}")
     public String actualizar(MultipartFile archivo, @PathVariable String id, @RequestParam String nombre,
-            @RequestParam String email,String nombreUsuario,
+            @RequestParam String email, String nombreUsuario,
             String apellido, Date fechaNacimiento, String dni, String telefono, ModelMap modelo) {
         // Falta validar por separdo las claves pssw
         try {
@@ -128,14 +128,28 @@ public class ControladorUsuario {
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         List<Contrato> contratosSesion = contratoServicio.listarContratosSesion(usuario);
-        
+
         modelo.put("contratosUsuario", contratosSesion);
-        //agregado por lucho y juan
+        // agregado por lucho y juan
         List<Proveedor> proveedores = proveedorServicio.listarProveedoresActivos();
         modelo.addAttribute("proveedores", proveedores);
         modelo.put("proveedores", proveedores);
 
         return "mis_contratos_usuario.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/mis_contratos_usuario_presupuestado")
+    public String misContratosUsuarioPresupuestado(ModelMap modelo, HttpSession session) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        List<Contrato> contratosPresupuestados = repositorioContrato
+                .listarPorEstadoPresupuestadoCliente(usuario.getId());
+        modelo.put("contratosPresupuestados", contratosPresupuestados);
+
+        return "mis_contratos_usuario_presupuestado.html";
     }
 
     @PreAuthorize("hasRole('ROLE_USUARIO')")
@@ -181,19 +195,19 @@ public class ControladorUsuario {
         }
 
     }
-    
-       //--------------SUSPENDER PERFIL PROVEEDOR------------
-   @PostMapping ("/suspender_mi_cuenta/{id}")
-    public String suspenderCuenta(@PathVariable String id, ModelMap modelo){
+
+    // --------------SUSPENDER PERFIL PROVEEDOR------------
+    @PostMapping("/suspender_mi_cuenta/{id}")
+    public String suspenderCuenta(@PathVariable String id, ModelMap modelo) {
         usuarioServicio.suspenderMiCuenta(id);
         return "redirect:../mi_perfil_usuario";
     }
-    
-     @PostMapping ("/reactivar_mi_cuenta/{id}")
-    public String reactivarCuenta(@PathVariable String id, ModelMap modelo){
-        
+
+    @PostMapping("/reactivar_mi_cuenta/{id}")
+    public String reactivarCuenta(@PathVariable String id, ModelMap modelo) {
+
         usuarioServicio.reactivarMiCuenta(id);
-        
-         return "redirect:../mi_perfil_usuario";
+
+        return "redirect:../mi_perfil_usuario";
     }
 }
