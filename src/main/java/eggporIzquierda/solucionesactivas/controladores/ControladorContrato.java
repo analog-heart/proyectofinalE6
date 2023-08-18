@@ -135,8 +135,7 @@ public class ControladorContrato {
     // este post viene de una vista del proveedor, el cual finaliza el trabajo
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/finalizar_contrato_proveedor")
-    public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato,
-            @RequestParam BigDecimal precio, ModelMap modelo) {
+    public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
 
         System.out.println("log 1");
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -146,7 +145,7 @@ public class ControladorContrato {
 
             System.out.println("log 2");
 
-            contratoServicio.finalizarContratoProveedor(idContrato, precio);
+            contratoServicio.finalizarContratoProveedor(idContrato, repositorioContrato.findById(idContrato).get().getPrecio());
             proveedorServicio
                     .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 

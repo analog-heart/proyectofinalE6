@@ -75,11 +75,6 @@
 
             <form class="row g-3" type="form" method="POST" th:action="@{/contrato/finalizar_contrato_proveedor}">
               <input hidden th:value="${contrato.id}" name="idContrato">
-              <div class="col-md-4">
-                <label for="validationServer01" class="form-label" value="">Precio del trabajo:</label>
-                <input type="number" class="form-control is-valid" id="validationServer01" name="precio" required>
-
-              </div>
 
               <div class="col-12">
                 <button class="btn btn-primary" type="submit">Finalizar contrato</button>
