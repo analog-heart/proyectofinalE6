@@ -30,16 +30,15 @@ public class ControladorContrato {
 
     @Autowired
     private RepositorioContrato repositorioContrato;
-
     @Autowired
     private ServicioUsuario usuarioServicio;
-
     @Autowired
     private ServicioProveedor proveedorServicio;
-
     @Autowired
     private ServicioContrato contratoServicio;
 
+    // este post viene de una vista del usuario, el cual solicita un trabajo y
+    // presupuesto
     @PostMapping("/solicitar_presupuesto")
     public String contratar(@RequestParam String idProveedor, @RequestParam String comentarioInicial, ModelMap modelo,
             HttpSession session) {
@@ -60,10 +59,12 @@ public class ControladorContrato {
         return "proveedor_list.html";
     }
 
-    // este post viene de una vista del proveedor, el cual presupuesta el trabajo o lo rechaza
+    // este post viene de una vista del proveedor, el cual presupuesta el trabajo
+    // solicitado o lo rechaza
     @PreAuthorize("hasRole('ROLE_PROVEEDOR')")
     @PostMapping("/presupuestar_contrato")
-    public String presupuestarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
+    public String presupuestarContrato(HttpSession session, @RequestParam String idContrato,
+            @RequestParam String decision,
             ModelMap modelo, BigDecimal precio) {
 
         String exito = "";
@@ -96,7 +97,8 @@ public class ControladorContrato {
 
     }
 
-    // este post viene de una vista del usuario, el cual acepta o rechaza el presupuesto
+    // este post viene de una vista del usuario, el cual acepta o rechaza el
+    // presupuesto
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @PostMapping("/aceptar_presupuesto_contrato")
     public String aceptarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
@@ -112,7 +114,8 @@ public class ControladorContrato {
             if (decision.equalsIgnoreCase("rechazar")) {
                 exito = "El contrato fue rechazado con exito";
             }
-            contratoServicio.actualizarContrato(idContrato, decision, repositorioContrato.findById(idContrato).get().getPrecio());
+            contratoServicio.actualizarContrato(idContrato, decision,
+                    repositorioContrato.findById(idContrato).get().getPrecio());
 
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
@@ -137,15 +140,12 @@ public class ControladorContrato {
     @PostMapping("/finalizar_contrato_proveedor")
     public String finalizarContratoProveedor(HttpSession session, @RequestParam String idContrato, ModelMap modelo) {
 
-        System.out.println("log 1");
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
-
-            System.out.println("log 2");
-
-            contratoServicio.finalizarContratoProveedor(idContrato, repositorioContrato.findById(idContrato).get().getPrecio());
+            contratoServicio.finalizarContratoProveedor(idContrato,
+                    repositorioContrato.findById(idContrato).get().getPrecio());
             proveedorServicio
                     .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
 
@@ -204,7 +204,7 @@ public class ControladorContrato {
         }
     }
 
-    // este post viene de una vista del cliente, el cual califica la contratacion
+    // este post viene de una vista del cliente, el cual califica la contratación
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @PostMapping("/calificar_contrato")
     public String calificarContrato(HttpSession session, @RequestParam String idContrato, ModelMap modelo,
@@ -214,8 +214,6 @@ public class ControladorContrato {
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
-
-            // proveedorServicio.cantidadDeTrabajos(repositorioContrato.getOne(idContrato).getProveedor().getId());
             contratoServicio.calificarContrato(idContrato, comentarioFinal, calificacion);
             proveedorServicio
                     .cantidadDeTrabajos(repositorioContrato.getReferenceById(idContrato).getProveedor().getId());
@@ -246,7 +244,6 @@ public class ControladorContrato {
         modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
 
         try {
-
             contratoServicio.denunciarComentario(idContrato);
 
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
@@ -260,7 +257,6 @@ public class ControladorContrato {
             return "mis_contratos_proveedor.html";
 
         } catch (MiException ex) {
-
             System.out.println("ENTRANDO A CONTROLADOR CAAAATHCH..");
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
