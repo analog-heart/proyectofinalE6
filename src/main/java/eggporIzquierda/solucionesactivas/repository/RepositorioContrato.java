@@ -13,7 +13,7 @@ public interface RepositorioContrato extends JpaRepository<Contrato, String> {
     @Query("SELECT c FROM Contrato c WHERE c.estado = 'ENCURSO' AND c.proveedor.id =:idProveedor")
     public List<Contrato> listarPorEstadoEncurso(@Param("idProveedor") String idProveedor);
 
-    @Query("SELECT c FROM Contrato c WHERE c.estado = 'CALIFICADO' AND c.proveedor.id =:idProveedor")
+    @Query("SELECT c FROM Contrato c WHERE c.calificado = true AND c.proveedor.id =:idProveedor")
     public List<Contrato> listarPorEstadoCalificado(@Param("idProveedor") String idProveedor);
 
     @Query("SELECT c FROM Contrato c WHERE c.estado = 'SOLICITADO' AND c.proveedor.id =:idProveedor")
@@ -23,7 +23,7 @@ public interface RepositorioContrato extends JpaRepository<Contrato, String> {
     public List<Contrato> listarPorEstadoTerminado(@Param("idProveedor") String idProveedor);
 
     @Query("SELECT c FROM Contrato c WHERE c.comentarioDenunciado = true")
-    public List<Contrato> listarPorEstadoDenunciado();
+    public List<Contrato> listarPorComentarioDenunciado();
 
     @Query("SELECT c FROM Contrato c WHERE c.estado = 'ENCURSO' OR c.estado = 'SOLICITADO' AND c.usuario.id =:idUsuario")
     public List<Contrato> listarPorEstadoEncursoCliente(@Param("idUsuario") String idUsuario);

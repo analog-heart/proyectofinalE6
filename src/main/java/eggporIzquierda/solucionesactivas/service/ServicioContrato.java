@@ -171,13 +171,9 @@ public class ServicioContrato {
             newCP.setEstado(EnumEstadoContrato.TERMINADO);
             newCP.setPrecio(precio);
 
-            System.out.println(newCP.getPrecio());
-
             newCP.setFechaFinalizacion(new Date());
 
-            System.out.println(newCP);
             repositorioContrato.save(newCP);
-
         }
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
@@ -230,7 +226,7 @@ public class ServicioContrato {
 
             newCP = respuestaCP.get();
             newCP.setComentarioFinal(comentarioFinal);
-            newCP.setEstado(EnumEstadoContrato.CALIFICADO);
+            newCP.setCalificado(true);
             newCP.setCalificacion(calificacion);
 
             // grabando la reputacion sobre el proveedor de este contrato calificado:

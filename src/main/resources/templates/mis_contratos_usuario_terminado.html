@@ -73,13 +73,26 @@
                                 <h6 th:text="${contrato.precio}"></h6>
                             </td>
                         </tr>
+                        <tr th:if="${contrato.calificado == true}">
+                            <td style="text-align: left">
+                                <strong>CALIFCACIÓN</strong>
+                            </td>
+                            <td>
+                                <h6 th:text="${contrato.calificacion}"></h6>
+                            </td>
+                        </tr>
+                        <tr th:if="${contrato.calificado == false}">
+                            <td style="text-align: left">
+                                <strong>AUN SIN CALIFICAR</strong>
+                            </td>
+                        </tr>
                     </table>
 
                     <div>
 
                         <!--Boton que abre el modal-->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modalPuntuacion">
+                        <button th:if="${contrato.calificado == false}" type="button" class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#modalPuntuacion">
                             Calificar Proveedor </button>
 
                         <!--modal-->
