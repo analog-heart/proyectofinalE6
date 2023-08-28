@@ -58,7 +58,7 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void actualizarContrato(String idContrato, String decision) throws MiException {
+    public void actualizarContrato(String idContrato, String decision, BigDecimal precio) throws MiException {
 
         Optional<Contrato> respuestaCP = repositorioContrato.findById(idContrato);
 
@@ -71,6 +71,14 @@ public class ServicioContrato {
             if (decision.equalsIgnoreCase("aceptar")) {
 
                 newCP.setEstado(EnumEstadoContrato.ENCURSO);
+
+                repositorioContrato.save(newCP);
+            }
+
+            if (decision.equalsIgnoreCase("presupuestar")) {
+
+                newCP.setEstado(EnumEstadoContrato.PRESUPUESTADO);
+                newCP.setPrecio(precio);
 
                 repositorioContrato.save(newCP);
             }
@@ -123,6 +131,31 @@ public class ServicioContrato {
     }
 
     @Transactional
+    public void presupuestarContratoProveedor(String idContrato, BigDecimal precio) throws MiException {
+
+        Optional<Contrato> respuestaCP = repositorioContrato.findById(idContrato);
+
+        Contrato newCP = new Contrato();
+
+        if (respuestaCP.isPresent()) {
+
+            newCP = respuestaCP.get();
+
+            newCP.setEstado(EnumEstadoContrato.PRESUPUESTADO);
+            newCP.setPrecio(precio);
+
+            //newCP.setFechaFinalizacion(new Date());
+
+            repositorioContrato.save(newCP);
+        }
+
+        if (respuestaCP.isEmpty() || respuestaCP == null) {
+            throw new MiException("El contrato no existe");
+        }
+
+    }
+
+    @Transactional
     public void finalizarContratoProveedor(String idContrato, BigDecimal precio) throws MiException {
 
         Optional<Contrato> respuestaCP = repositorioContrato.findById(idContrato);
@@ -134,17 +167,13 @@ public class ServicioContrato {
         if (respuestaCP.isPresent()) {
 
             newCP = respuestaCP.get();
-            
+
             newCP.setEstado(EnumEstadoContrato.TERMINADO);
             newCP.setPrecio(precio);
 
-            System.out.println(newCP.getPrecio());
-   
             newCP.setFechaFinalizacion(new Date());
- 
-            System.out.println(newCP);
-            repositorioContrato.save(newCP);
 
+            repositorioContrato.save(newCP);
         }
 
         if (respuestaCP.isEmpty() || respuestaCP == null) {
@@ -192,12 +221,12 @@ public class ServicioContrato {
         if (comentarioFinal.equalsIgnoreCase("")) {
             comentarioFinal = "Sin comentarios del cliente";
         }
-        
+
         if (respuestaCP.isPresent()) {
 
             newCP = respuestaCP.get();
             newCP.setComentarioFinal(comentarioFinal);
-            newCP.setEstado(EnumEstadoContrato.CALIFICADO);
+            newCP.setCalificado(true);
             newCP.setCalificacion(calificacion);
 
             // grabando la reputacion sobre el proveedor de este contrato calificado:
@@ -259,7 +288,7 @@ public class ServicioContrato {
     public List<Contrato> listarContratos() {
 
         List<Contrato> contratos = repositorioContrato.findAll();
-        
+
         return contratos;
     }
 

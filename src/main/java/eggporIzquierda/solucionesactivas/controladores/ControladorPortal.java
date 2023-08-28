@@ -57,7 +57,6 @@ public class ControladorPortal {
         modelo.put("servicios", listaServ);
      
      return "index.html";
-
     }
 
     //-------------------------BUSCADOR--------------------

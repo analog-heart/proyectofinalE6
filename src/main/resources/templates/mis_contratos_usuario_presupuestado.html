@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{/fragments/head :: head}"></head>
+
+<body class="d-flex flex-column">
+    <header th:replace="~{/fragments/header :: header}"></header>
+
+    <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso">
+
+        <!---Mis Contratos--->
+
+        <div class="container py-5 h-200">
+
+            <div class="container">
+                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
+                    th:if="${contratosPresupuestados.size() == 0}">
+                    <div class="card-header">
+                        <h4 class="card-title">De momento no tenes contratos presupuestados</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <a th:href="@{/usuario/mis_contratos_usuario}" class="btn btn-dark btn-block">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <hr style="color: azure" />
+
+        <div class="card" style="width: 24rem; height: auto" th:each="contrato : ${contratosPresupuestados}">
+            <div class="card-header" style="text-align: center">
+                <h5 class="card-title" id="nombreCard"
+                    th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered vertical-align: middle">
+                    <tr>
+                        <td style="text-align: left"><strong>SERVICIO</strong></td>
+                        <td>
+                            <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}"></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left"><strong>N° CONTRATO</strong></td>
+                        <td>
+                            <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}"></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left"><strong>ESTADO</strong></td>
+                        <td>
+                            <h6 th:text="${contrato.estado}"></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <strong>FECHA CONTRATO</strong>
+                        </td>
+                        <td>
+                            <h6 th:text="${contrato.fechaContrato}"></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <strong>PRECIO</strong>
+                        </td>
+                        <td>
+                            <h6 th:text="${contrato.precio}"></h6>
+                        </td>
+                    </tr>
+                </table>
+
+
+                <div class="d-flex justify-content-between ">
+                    <form style="width:800px; margin:0 auto;" type="form"
+                        th:action="@{/contrato/aceptar_presupuesto_contrato}" method="POST">
+                        <div th:replace="~{/fragments/error:: errores1}"></div>
+                        <input hidden th:value="${contrato.id}" name="idContrato">
+                        <button type="submit" name="decision" th:value="aceptar"
+                            class="btn btn-success btn-rounded">Aceptar presupuesto</button>
+                        <button type="submit" name="decision" th:value="rechazar"
+                            class="btn btn-danger btn-rounded">Rechazar
+                            presupuesto</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{/fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

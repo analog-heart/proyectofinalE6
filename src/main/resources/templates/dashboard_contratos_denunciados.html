@@ -16,7 +16,8 @@
                 </button>
             </a>
 
-            <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosDenunciados}">
+            <div class="card" style="width: 24rem; height: auto;"
+                th:each="contrato : ${contratosComentariosDenunciados}">
                 <div class="card-body">
                     <h4 class="card-title">N° de contrato:</h4>
                     <h3 class="card-title" th:text="${contrato.id}"></h3>
@@ -25,6 +26,8 @@
                     <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.estado}"></h4>
                     <h4>Precio:</h4>
                     <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.precio}"></h4>
+                    <h4>Calificación:</h4>
+                    <h4 class="card-subtitle mb-2 text-muted" th:text="${contrato.Calificacion}"></h4>
                     <h4>Comentario:</h4>
                     <div th:if="${contrato.comentarioEliminado == true}" class="card-subtitle mb-2 text-muted">
                         <h5>Este comentario fue denunciado por el proveedor y eliminado por el ADMIN:</h5>
@@ -47,9 +50,7 @@
 
     </main>
 
-
     <footer th:replace="~{/fragments/footer :: footer}"></footer>
-
 
     <script src="https://kit.fontawesome.com/183f2a4aef.js" crossorigin="anonymous"></script>
 

@@ -8,97 +8,117 @@
 
   <main class="flex-grow-1 container-fluid d-flex flex-column align-items-center footer-alpiso">
 
-      <!---Mis Contratos--->
+    <!---Mis Contratos--->
 
-      <div class="container py-5 h-200">
+    <div class="container py-5 h-200">
 
-        <div th:if="${contratosUsuario.size() != 0}" class="container">
-          <div class="row justify-content-center">
-            <div class="col-4">
-              <a th:href="@{/usuario/mis_contratos_usuario_encurso}" class="btn btn-dark btn-block">Contratos
-                en curso</a>
-            </div>
-            <div class="col-4">
-              <a th:href="@{/usuario/mis_contratos_usuario_terminado}" class="btn btn-dark btn-block">Contratos
-                terminados</a>
-            </div>
+      <div th:if="${contratosUsuario.size() != 0}" class="container">
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <a th:href="@{/usuario/mis_contratos_usuario_presupuestado}" class="btn btn-dark btn-block">Contratos
+              presupuestados</a>
+          </div>
+          <div class="col-4">
+            <a th:href="@{/usuario/mis_contratos_usuario_encurso}" class="btn btn-dark btn-block">Contratos
+              en curso</a>
+          </div>
+          <div class="col-4">
+            <a th:href="@{/usuario/mis_contratos_usuario_terminado}" class="btn btn-dark btn-block">Contratos
+              terminados</a>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="container">
-        <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
-          th:if="${contratosUsuario.size() == 0}">
-          <div class="card-header">
-            <h4 class="card-title">De momento no tenes contratos</h4>
-          </div>
+    <div class="container">
+      <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
+        th:if="${contratosUsuario.size() == 0}">
+        <div class="card-header">
+          <h4 class="card-title">De momento no tenes contratos</h4>
         </div>
       </div>
+    </div>
 
-      <!---Mis Contratos--->
+    <!---Mis Contratos--->
 
-      <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap">
 
-        <div class="input-group mb-3" th:if="${contratosUsuario.size() != 0}">
-          <h2 style="color: azure;">Tus contratos:</h2>
-        </div>
+      <div class="input-group mb-3" th:if="${contratosUsuario.size() != 0}">
+        <h2 style="color: azure;">Tus contratos:</h2>
+      </div>
 
-        <div class="black bg-white form-border"
-          style="border: solid 1px; border-radius: 5px; width: 50%; height: auto; padding: 5px; margin: 5px; color: cornflowerblue;"
-          th:each="contrato : ${contratosUsuario}">
+      <div class="black bg-white form-border"
+        style="border: solid 1px; border-radius: 5px; width: 50%; height: auto; padding: 5px; margin: 5px; color: cornflowerblue;"
+        th:each="contrato : ${contratosUsuario}">
 
-          <div class="card">
-            <div class="card-header" style="text-align: center">
-              <h5 class="card-title" id="nombreCard"
-                th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
-            </div>
+        <div class="card">
+          <div class="card-header" style="text-align: center">
+            <h5 class="card-title" id="nombreCard"
+              th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
+          </div>
 
 
-            <div class="card-body">
-              <!-- Empieza tabla -->
+          <div class="card-body">
+            <!-- Empieza tabla -->
 
-              <table class="table table-bordered vertical-align: middle">
-                <tr>
-                  <td style="text-align: left"><strong>SERVICIO</strong></td>
-                  <td>
-                    <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
-                    </h6>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align: left"><strong>N° CONTRATO</strong></td>
-                  <td>
-                    <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
-                    </h6>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align: left"><strong>ESTADO</strong></td>
-                  <td>
-                    <h6 th:text="${contrato.estado}"></h6>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
-                  <td>
-                    <h6 th:text="${contrato.fechaContrato}"></h6>
-                  </td>
-                </tr>
-              </table>
-
-            </div>
-
-            <!-- Termina tabla -->
+            <table class="table table-bordered vertical-align: middle">
+              <tr>
+                <td style="text-align: left"><strong>SERVICIO</strong></td>
+                <td>
+                  <h6 th:text="${contrato.proveedor.servicios[0].serv_descripcion}">
+                  </h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left"><strong>N° CONTRATO</strong></td>
+                <td>
+                  <h6 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}">
+                  </h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left"><strong>ESTADO</strong></td>
+                <td>
+                  <h6 th:text="${contrato.estado}"></h6>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left"><strong>FECHA CONTRATO</strong></td>
+                <td>
+                  <h6 th:text="${contrato.fechaContrato}"></h6>
+                </td>
+              </tr>
+              <tr th:if="${contrato.precio == null}">
+                <td style="text-align: left">
+                  <strong>PRECIO</strong>
+                </td>
+                <td>
+                  <h6>Sin definir</h6>
+                </td>
+              </tr>
+              <tr th:if="${contrato.precio != null}">
+                <td style="text-align: left">
+                  <strong>PRECIO</strong>
+                </td>
+                <td>
+                  <h6 th:text="${contrato.precio}"></h6>
+                </td>
+              </tr>
+            </table>
 
           </div>
 
+          <!-- Termina tabla -->
+
         </div>
 
-        <!-- fin modales -->
-
-        <!-- termina aca -->
-
       </div>
+
+      <!-- fin modales -->
+
+      <!-- termina aca -->
+
+    </div>
 
   </main>
 

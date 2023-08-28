@@ -101,10 +101,10 @@ public class ControladorAdmin {
     }
 
     @GetMapping("/dashboard/contratos_denunciados")
-    public String listarContratosDenunciados(ModelMap modelo) {
+    public String contratosComentariosDenunciados(ModelMap modelo) {
 
-        List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
-        modelo.addAttribute("contratosDenunciados", contratosDenunciados);
+        List<Contrato> contratosComentariosDenunciados = contratoRepositorio.listarPorComentarioDenunciado();
+        modelo.addAttribute("contratosComentariosDenunciados", contratosComentariosDenunciados);
 
         return "dashboard_contratos_denunciados.html";
     }
@@ -113,8 +113,8 @@ public class ControladorAdmin {
     public String eliminarComentarioDenunciado(ModelMap modelo, String idContrato) throws MiException {
 
         contratoServicio.eliminarComentarioDenunciado(idContrato);
-        List<Contrato> contratosDenunciados = contratoRepositorio.listarPorEstadoDenunciado();
-        modelo.addAttribute("contratosDenunciados", contratosDenunciados);
+        List<Contrato> contratosComentariosDenunciados = contratoRepositorio.listarPorComentarioDenunciado();
+        modelo.addAttribute("contratosComentariosDenunciados", contratosComentariosDenunciados);
 
         return "dashboard_contratos_denunciados.html";
     }

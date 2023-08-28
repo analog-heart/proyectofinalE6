@@ -40,6 +40,8 @@ public class Contrato {
 
     private Boolean comentarioEliminado = false;
 
+    private Boolean calificado = false;
+
     private Integer calificacion;
 
     private String comentarioFinal;
@@ -173,6 +175,14 @@ public class Contrato {
         this.comentarioOfensivoEliminado = comentarioOfensivoEliminado;
     }
 
+    public Boolean getCalificado() {
+        return calificado;
+    }
+
+    public void setCalificado(Boolean calificado) {
+        this.calificado = calificado;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -185,6 +195,7 @@ public class Contrato {
         sb.append(", estado=").append(estado);
         sb.append(", comentarioDenunciado=").append(comentarioDenunciado);
         sb.append(", comentarioEliminado=").append(comentarioEliminado);
+        sb.append(", calificado=").append(calificado);
         sb.append(", calificacion=").append(calificacion);
         sb.append(", comentarioFinal=").append(comentarioFinal);
         sb.append(", comentarioInicial=").append(comentarioInicial);

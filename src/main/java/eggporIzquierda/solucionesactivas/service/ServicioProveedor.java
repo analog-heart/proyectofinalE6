@@ -176,10 +176,7 @@ public class ServicioProveedor implements UserDetailsService {
                 acumulador = acumulador + contratos.get(i).getCalificacion();
             }
         }
-
         Double reputacion = acumulador / contratos.size();
-        System.out.println("La reputacion actual es: " + reputacion);
-
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
 
         if (respuesta.isPresent()) {
@@ -268,8 +265,6 @@ public class ServicioProveedor implements UserDetailsService {
     }
 
     public void cantidadDeTrabajos(String id) throws MiException {
-
-        System.out.println("log 4");
 
         List<Contrato> contratosCalif = contratoRepositorio.listarPorEstadoCalificado(id);
         List<Contrato> contratosTerminados = contratoRepositorio.listarPorEstadoTerminado(id);
