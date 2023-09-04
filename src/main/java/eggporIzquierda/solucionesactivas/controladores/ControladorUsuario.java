@@ -11,6 +11,8 @@ import eggporIzquierda.solucionesactivas.service.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -177,6 +179,20 @@ public class ControladorUsuario {
         modelo.put("contratosTerminados", contratosTerminados);
 
         return "mis_contratos_usuario_terminado.html";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USUARIO')")
+    @GetMapping("/usuario_calificar_contrato/{id}")
+    public String usuarioCalificarContrato(ModelMap modelo, HttpSession session, @PathVariable String id) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.addAttribute("usuario", usuarioServicio.getOne(usuario.getId()));
+
+        Contrato contrato = repositorioContrato.getReferenceById(id);
+        
+        modelo.put("contrato", contrato);
+
+        return "usuario_calificar_contrato.html";
     }
 
     @PostMapping("/actualizarclave/{id}")
