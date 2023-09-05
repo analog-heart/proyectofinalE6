@@ -85,17 +85,13 @@
                             <td style="text-align: left">
                                 <strong>AUN SIN CALIFICAR</strong>
                             </td>
+                            <td>
+                                <a th:href="@{usuario_calificar_contrato/__${contrato.id}__}"
+                                    class="btn btn-success btn-primary">Calificar</a>
+                            </td>
                         </tr>
                     </table>
 
-                    <div th:if="${contrato.calificado != true}">
-
-                        <div>
-                            <a th:href="@{usuario_calificar_contrato/__${contrato.id}__}"
-                                class="btn btn-success btn-primary">Calificar</a>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>

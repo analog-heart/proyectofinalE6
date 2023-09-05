@@ -81,16 +81,18 @@
 
             <!-- th:if="${contrato.calificado != true}" -->
             <!-- Puntuación y comentario -->
-            <div>
+            <div class="card-body col-lg-8" style="width:900px; margin:0 auto; background-color: rgba(208, 211, 216, 0.459); padding: 1rem; align-items: center; border-radius: 1rem;">
 
                 <label>¿Cómo calificarías el servicio?</label>
                 <h4><strong>N° CONTRATO</strong></h4>
-                <h5 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}" style="text-align: left"><strong>N° CONTRATO</strong></h5 >
-                <form method="POST" th:action="@{/contrato/calificar_contrato}">
+                <h5 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}" style="text-align: left">
+                    <strong>N° CONTRATO</strong>
+                </h5>
+                <form method="POST" th:action="@{/contrato/calificar_contrato}" style="align-items: center;">
                     <input hidden th:value="${contrato.id}" name="idContrato">
-                    <p class="clasificacion">
+                    <p class="clasificacion" style="align-items: center;">
                         <input id="radio1" type="radio" name="calificacion" th:value="5" required>
-                        <label for="radio1">★</label>
+                        <label style="size: 2rem;" for="radio1">★</label>
                         <input id="radio2" type="radio" name="calificacion" th:value="4" required>
                         <label for="radio2">★</label>
                         <input id="radio3" type="radio" name="calificacion" th:value="3" required>
