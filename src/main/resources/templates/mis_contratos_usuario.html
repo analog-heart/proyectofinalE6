@@ -104,19 +104,43 @@
                   <h6 th:text="${contrato.precio}"></h6>
                 </td>
               </tr>
+              <tr th:if="${contrato.calificado == true}">
+                <td style="text-align: left">
+                  <strong>CALIFCACIÓN</strong>
+                </td>
+                <td>
+                  <h6 th:text="${contrato.calificacion}"></h6>
+                </td>
+              </tr>
+              <tr th:if="${contrato.estado.toString() == 'TERMINADO' and contrato.calificado != true}">
+                <td style="text-align: left">
+                  <strong>AUN SIN CALIFICAR</strong>
+                </td>
+                <td>
+                  <a th:href="@{usuario_calificar_contrato/__${contrato.id}__}"
+                    class="btn btn-success btn-primary">Calificar</a>
+                </td>
+              </tr>
             </table>
 
+            <div th:if="${contrato.estado.toString() == 'PRESUPUESTADO'}" class="d-flex justify-content-between ">
+              <form style="width:800px; margin:0 auto;" type="form"
+                th:action="@{/contrato/aceptar_presupuesto_contrato}" method="POST">
+                <div th:replace="~{/fragments/error:: errores1}"></div>
+                <input hidden th:value="${contrato.id}" name="idContrato">
+                <button type="submit" name="decision" th:value="aceptar" class="btn btn-success btn-rounded">Aceptar
+                  presupuesto</button>
+                <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar
+                  presupuesto</button>
+              </form>
+
+            </div>
+
           </div>
-
           <!-- Termina tabla -->
-
         </div>
 
       </div>
-
-      <!-- fin modales -->
-
-      <!-- termina aca -->
 
     </div>
 

@@ -13,15 +13,6 @@
         <div class="container py-5 h-200">
 
             <div class="container">
-                <div class="card mb-3 row justify-content-center" style="width: 32rem; height: auto;"
-                    th:if="${contratosTerminados.size() == 0}">
-                    <div class="card-header">
-                        <h4 class="card-title">De momento no tenes contratos terminados</h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-4">
                         <a th:href="@{/usuario/mis_contratos_usuario}" class="btn btn-dark btn-block">Volver</a>
@@ -31,7 +22,7 @@
             <hr style="color: azure;">
 
 
-            <div class="card" style="width: 24rem; height: auto;" th:each="contrato : ${contratosTerminados}">
+            <!-- <div class="card" style="width: 24rem; height: auto;">
                 <div class="card-header" style="text-align: center">
                     <h5 class="card-title" id="nombreCard"
                         th:text="${contrato.proveedor.nombre} + ' ' + ${contrato.proveedor.apellido}"></h5>
@@ -85,15 +76,47 @@
                             <td style="text-align: left">
                                 <strong>AUN SIN CALIFICAR</strong>
                             </td>
-                            <td>
-                                <a th:href="@{usuario_calificar_contrato/__${contrato.id}__}"
-                                    class="btn btn-success btn-primary">Calificar</a>
-                            </td>
                         </tr>
-                    </table>
+                    </table> -->
 
-                </div>
+            <!-- th:if="${contrato.calificado != true}" -->
+            <!-- Puntuación y comentario -->
+            <div class="card-body col-lg-8" style="width:900px; margin:0 auto; background-color: rgba(208, 211, 216, 0.459); padding: 1rem; align-items: center; border-radius: 1rem;">
+
+                <label>¿Cómo calificarías el servicio?</label>
+                <h4><strong>N° CONTRATO</strong></h4>
+                <h5 th:text="${#strings.substring(#strings.toUpperCase(contrato.id), 0, 6)}" style="text-align: left">
+                    <strong>N° CONTRATO</strong>
+                </h5>
+                <form method="POST" th:action="@{/contrato/calificar_contrato}" style="align-items: center;">
+                    <input hidden th:value="${contrato.id}" name="idContrato">
+                    <p class="clasificacion" style="align-items: center;">
+                        <input id="radio1" type="radio" name="calificacion" th:value="5" required>
+                        <label style="size: 2rem;" for="radio1">★</label>
+                        <input id="radio2" type="radio" name="calificacion" th:value="4" required>
+                        <label for="radio2">★</label>
+                        <input id="radio3" type="radio" name="calificacion" th:value="3" required>
+                        <label for="radio3">★</label>
+                        <input id="radio4" type="radio" name="calificacion" th:value="2" required>
+                        <label for="radio4">★</label>
+                        <input id="radio5" type="radio" name="calificacion" th:value="1" required>
+                        <label for="radio5">★</label>
+                    </p>
+                    <div>
+                        <textarea style="font-size:larger" rows="5" cols="30" maxlength="250" name="comentarioFinal"
+                            placeholder="Dejá tu comentario"></textarea>
+                        <br>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success btn-primary">Enviar</button>
+                    </div>
+
+                </form>
+
             </div>
+            <!-- </div>
+            </div> -->
         </div>
     </main>
 
