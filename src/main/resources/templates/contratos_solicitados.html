@@ -41,6 +41,9 @@
               method="POST">
               <div th:replace="~{/fragments/error:: errores1}"></div>
               <input hidden th:value="${contrato.id}" name="idContrato">
+              <label for="validationServer01" class="form-label">¿Rechazar solicitud?</label>
+              <input placeholder="Indicar motivo por favor" type="text" class="form-control" id="validationServer01"
+                name="comentarioFinal" required>
               <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar
                 contrato</button>
             </form>

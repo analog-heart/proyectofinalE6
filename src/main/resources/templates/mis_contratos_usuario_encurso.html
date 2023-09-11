@@ -67,102 +67,44 @@
           </tr>
           <tr>
             <td style="text-align: left">
-                <strong>PRECIO</strong>
+              <strong>PRECIO</strong>
             </td>
             <td>
-                <h6 th:text="${contrato.precio}"></h6>
+              <h6 th:text="${contrato.precio}"></h6>
             </td>
-        </tr>
+          </tr>
         </table>
 
-        <div>
-          <!--Boton que abre el modal CANCELAR-->
-          <div th:if="${contrato.estado.toString() == 'ENCURSO'} or ${contrato.estado.toString() == 'SOLICITADO'}">
-            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCancelar">
-              Cancelar contrato</a>
-          </div>
-          <!-- modal -->
-
-          <div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Cancelar contrato
-                  </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <label>!Que lastima! Esperamos ser de mas utilidad la proxima
-                  </label>
-                  <hr />
-                  <div>
-                    <form style="position: fixed" method="POST" id="formu2"
-                      th:action="@{/contrato/finalizar_contrato_usuario}">
-                      <input hidden th:value="${contrato.id}" name="idContrato" />
-                      <textarea style="font-size: medium" rows="3" cols="47" maxlength="250"
-                        placeholder="Dejá tu comentario" name="comentarioFinal"></textarea>
-                    </form>
-                  </div>
-                </div>
-                <br /><br /><br /><br />
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-danger" onclick="enviarFormulario2()">
-                    Aceptar
-                  </button>
-                </div>
-              </div>
+        <form class="row g-3" th:action="@{/contrato/finalizar_contrato_usuario}" method="POST">
+          <div class="col-md-4">
+            <input hidden th:value="${contrato.id}" name="idContrato">
+            <label for="validationServer01" class="form-label">¿Cancelar contrato?</label>
+            <input placeholder="Indicar motivo por favor" type="text" class="form-control" id="validationServer01"
+              name="comentarioFinal" required>
+            <div class="valid-feedback">
+              Cancelado
             </div>
           </div>
-        </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3"
+                aria-describedby="invalidCheck3Feedback" required>
+              <label class="form-check-label" for="invalidCheck3">
+                ¡Confirmar!
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Cancelar</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </main>
 
   <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
-  <script>
-    function enviarFormulario() {
-      // Obtener el valor del campo comentarioFinal
-      var comentarioFinal = document.querySelector(
-        "#modalPuntuacion textarea[name='comentarioFinal']"
-      ).value;
-
-      // Crear un input oculto para enviar el campo comentarioFinal
-      var inputComentarioFinal = document.createElement("input");
-      inputComentarioFinal.type = "hidden";
-      inputComentarioFinal.name = "comentarioFinal";
-      inputComentarioFinal.value = comentarioFinal;
-
-      // Agregar el input oculto al formulario
-      var formulario = document.getElementById("formu");
-      formulario.appendChild(inputComentarioFinal);
-
-      // Enviar el formulario
-      formulario.submit();
-    }
-  </script>
-
-  <script>
-    function enviarFormulario2() {
-      // Obtener el valor del campo comentarioFinal
-      //var comentarioFinal = document.querySelector("#modalCancelar textarea[name='comentarioFinal']").value;
-
-      // Crear un input oculto para enviar el campo comentarioFinal
-      //var inputComentarioFinal = document.createElement("input");
-      //inputComentarioFinal.type = "hidden";
-      //inputComentarioFinal.name = "comentarioFinal";
-      //inputComentarioFinal.value = comentarioFinal;
-
-      // Agregar el input oculto al formulario
-      var formulario = document.getElementById("formu2");
-      //formulario.appendChild(inputComentarioFinal);
-
-      // Enviar el formulario
-      formulario.submit();
-    }
-  </script>
 </body>
 
 </html>

@@ -133,7 +133,34 @@
                 <button type="submit" name="decision" th:value="rechazar" class="btn btn-danger btn-rounded">Rechazar
                   presupuesto</button>
               </form>
+            </div>
 
+            <div th:if="${contrato.estado.toString() == 'SOLICITADO' or contrato.estado.toString() == 'ENCURSO'}"
+              class="d-flex justify-content-between ">
+
+              <form class="row g-3" th:action="@{/contrato/finalizar_contrato_usuario}" method="POST">
+                <div class="col-md-4">
+                  <input hidden th:value="${contrato.id}" name="idContrato">
+                  <label for="validationServer01" class="form-label">¿Cancelar contrato?</label>
+                  <input placeholder="Indicar motivo por favor" type="text" class="form-control" id="validationServer01"
+                    name="comentarioFinal" required>
+                  <div class="valid-feedback">
+                    Cancelado
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3"
+                      aria-describedby="invalidCheck3Feedback" required>
+                    <label class="form-check-label" for="invalidCheck3">
+                      ¡Confirmar!
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Cancelar</button>
+                </div>
+              </form>
             </div>
 
           </div>
