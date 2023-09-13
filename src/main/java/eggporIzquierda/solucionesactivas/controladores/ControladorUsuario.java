@@ -154,6 +154,7 @@ public class ControladorUsuario {
         return "mis_contratos_usuario_presupuestado.html";
     }
 
+    //esta vista mostrara contratos SOLICITADOS y/o ENCURSO
     @PreAuthorize("hasRole('ROLE_USUARIO')")
     @GetMapping("/mis_contratos_usuario_encurso")
     public String misContratosUsuarioEncurso(ModelMap modelo, HttpSession session) {

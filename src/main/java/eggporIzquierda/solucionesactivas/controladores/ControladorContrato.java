@@ -65,7 +65,7 @@ public class ControladorContrato {
     @PostMapping("/presupuestar_contrato")
     public String presupuestarContrato(HttpSession session, @RequestParam String idContrato,
             @RequestParam String decision,
-            ModelMap modelo, BigDecimal precio) {
+            ModelMap modelo, BigDecimal precio, String comentarioFinal) {
 
         String exito = "";
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
@@ -77,12 +77,12 @@ public class ControladorContrato {
             if (decision.equalsIgnoreCase("rechazar")) {
                 exito = "El contrato fue rechazado con exito";
             }
-            contratoServicio.actualizarContrato(idContrato, decision, precio);
+            contratoServicio.actualizarContrato(idContrato, decision, precio, comentarioFinal);
 
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());
             modelo.put("cantidadContratosSolicitados", cantidadContratosSolicitados.size());
-            // modelo.put("usuario", usuario);
+
             modelo.put("exito", exito);
 
             return "redirect:../inicio";
@@ -104,6 +104,7 @@ public class ControladorContrato {
     public String aceptarContrato(HttpSession session, @RequestParam String idContrato, @RequestParam String decision,
             ModelMap modelo) {
 
+        String comentarioFinal = null;
         String exito = "";
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
@@ -115,7 +116,7 @@ public class ControladorContrato {
                 exito = "El contrato fue rechazado con exito";
             }
             contratoServicio.actualizarContrato(idContrato, decision,
-                    repositorioContrato.findById(idContrato).get().getPrecio());
+                    repositorioContrato.findById(idContrato).get().getPrecio(), comentarioFinal);
 
             List<Contrato> cantidadContratosSolicitados = repositorioContrato
                     .listarPorEstadoSolicitado(usuario.getId());

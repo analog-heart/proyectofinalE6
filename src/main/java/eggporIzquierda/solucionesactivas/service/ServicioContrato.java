@@ -58,7 +58,7 @@ public class ServicioContrato {
     }
 
     @Transactional
-    public void actualizarContrato(String idContrato, String decision, BigDecimal precio) throws MiException {
+    public void actualizarContrato(String idContrato, String decision, BigDecimal precio, String comentarioFinal) throws MiException {
 
         Optional<Contrato> respuestaCP = repositorioContrato.findById(idContrato);
 
@@ -86,6 +86,7 @@ public class ServicioContrato {
             if (decision.equalsIgnoreCase("rechazar")) {
 
                 newCP.setEstado(EnumEstadoContrato.RECHAZADO);
+                newCP.setComentarioFinal("RECHAZADO POR EL PROVEEDOR: " + comentarioFinal);
 
                 repositorioContrato.save(newCP);
             }
